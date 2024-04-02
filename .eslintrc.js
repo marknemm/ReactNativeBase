@@ -35,6 +35,8 @@ module.exports = {
   rules: {                                                      // Add specific rules for your React project
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
     'comma-dangle': 'off',                                      // Disable the rule that requires trailing commas
+    'eol-last': 'warn',                                         // Enable the warning about end of line characters
+    'function-paren-newline': 'warn',                           // Enable the warning about function paren newlines
     'indent': 'warn',                                           // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
@@ -91,9 +93,16 @@ module.exports = {
     'no-await-in-loop': 'off',                                  // Disable the rule that disallows using await inside of loops
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
+    'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
     'no-unused-vars': 'warn',                                   // Enable the warning about unused variables
-    'no-use-before-define': 'warn',                             // Enable the warning about using variables before they are defined
+    'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
+      allowTernary: true,                                       // Allow ternary expressions
+    }],
+    'no-use-before-define': ['warn', {                          // Enable the warning about using variables before they are defined
+      functions: false,                                         // Allow functions to be used before they are defined
+      classes: false,                                           // Allow classes to be used before they are defined
+    }],
     'object-curly-newline': ['warn', {                          // Enable the warning about object curly newlines
       consistent: true,                                         // Require consistent newlines in object literals
     }],
@@ -113,9 +122,20 @@ module.exports = {
       allowNamedFunctions: true,                                // Allow named functions
     }],
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
+    'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
+    'react/jsx-curly-spacing': 'warn',                          // Enable the warning about curly spacing in JSX
+    'react/jsx-first-prop-new-line': 'warn',                    // Enable the warning about the first prop new line in JSX
+    'react/jsx-indent': 'warn',                                 // Enable the warning about indentation in JSX
+    'react/jsx-indent-props': 'warn',                           // Enable the warning about prop indentation in JSX
+    'react/jsx-max-props-per-line': 'warn',                     // Enable the warning about the maximum number of props per line in JSX
     'react/jsx-one-expression-per-line': 'off',                 // Disable the rule that enforces one expression per line in JSX
-    'react/prop-types': 'warn',                                 // Enable the warning about using prop types
+    'react/jsx-tag-spacing': 'warn',                            // Enable the warning about tag spacing in JSX
+    'react/prop-types': ['warn', {                              // Enable the warning about using prop types
+      ignore: ['children', 'className', 'style'],               // Ignore the children, className, and style props
+    }],
     'react/react-in-jsx-scope': 'off',                          // Disable the requirement to import React when using JSX
-    'react-refresh/only-export-components': 'warn'              // Enable the warning about only exporting components from JSX files
+    'react/require-default-props': 'off',                       // Disable the rule that requires default props
+    'react-refresh/only-export-components': 'warn',             // Enable the warning about only exporting components from JSX files
+    'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
   }
 };

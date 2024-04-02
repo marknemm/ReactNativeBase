@@ -1,27 +1,49 @@
-import { useBleDevice } from '@hooks/ble-hooks';
+import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
+import { useBleDevices } from '@hooks/ble-hooks';
 import { Device } from '@util/ble-manager';
+import { log } from '@util/log';
 import PropTypes from 'prop-types';
+import { useContext, useMemo, useState } from 'react';
 import { BleDeviceContext } from './BleDeviceContext';
 
 /**
- * The BleProvider component.
+ * The BleDevice component.
  *
  * @param {Object} param0 The component props.
  * @param {React.ReactNode} param0.children The children components.
  * @param {(device: Device) => boolean} [param0.deviceMatchCb] The device match callback.
- * @returns {React.JSX.Element} The BleProvider component.
+ * @returns {React.JSX.Element} The BleDeviceProvider component.
  */
-export default function BleManagerProvider({ children, deviceMatchCb }) {
-  const device = useBleDevice(deviceMatchCb);
+export default function BleDeviceProvider({ children, deviceMatchCb }) {
+  const [bleDevice, setBleDevice] = useState(null);
+  const { bleManager } = useContext(BleManagerContext);
+  const bleDevices = useBleDevices();
+
+  const foundDevice = bleDevices.find((d) => deviceMatchCb(d));
+  if (foundDevice) {
+    bleManager?.stopDeviceScan();
+    setBleDevice(foundDevice);
+    log('Found Bluetooth device: ', foundDevice.id, foundDevice.localName, foundDevice.name);
+  } else if (bleDevice) {
+    bleDevice.cancelConnection();
+    setBleDevice(null);
+  }
+
+  const bleDeviceCtx = useMemo(() => ({
+    bleDevice,
+    resetBleDevice: async () => {
+      await bleDevice.cancelConnection();
+      await bleDevice.connect();
+    },
+  }), [bleDevice]);
 
   return (
-    <BleDeviceContext.Provider value={device}>
+    <BleDeviceContext.Provider value={bleDeviceCtx}>
       { children }
     </BleDeviceContext.Provider>
   );
 }
 
-BleManagerProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+BleDeviceProvider.propTypes = {
   deviceMatchCb: PropTypes.func.isRequired,
 };

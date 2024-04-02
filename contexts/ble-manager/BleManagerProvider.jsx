@@ -1,6 +1,5 @@
 import { BleManager } from '@util/ble-manager';
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BleManagerContext } from './BleManagerContext';
 
 /**
@@ -11,17 +10,23 @@ import { BleManagerContext } from './BleManagerContext';
  * @returns {React.JSX.Element} The BleProvider component.
  */
 export default function BleManagerProvider({ children }) {
-  const [bleManager] = useState(() => new BleManager());
+  const [bleManager, setBleManager] = useState(() => new BleManager());
 
-  useEffect(() => () => bleManager.destroy(), [bleManager]);
+  // Destroy the BleManager instance when the component is unmounted.
+  // Will call destroy on initial instance, but that will affect the current instance.
+  useEffect(() => () => bleManager.destroy(), []);
+
+  const bleManagerCtx = useMemo(() => ({
+    bleManager,
+    resetBleManager: () => {
+      bleManager.destroy();
+      setBleManager(new BleManager());
+    },
+  }), [bleManager]);
 
   return (
-    <BleManagerContext.Provider value={bleManager}>
+    <BleManagerContext.Provider value={bleManagerCtx}>
       { children }
     </BleManagerContext.Provider>
   );
 }
-
-BleManagerProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};

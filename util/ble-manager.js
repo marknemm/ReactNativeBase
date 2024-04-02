@@ -56,7 +56,7 @@ export class BleManager {
    * @param {import('react-native-ble-plx').ScanOptions?} options Optional configuration for scanning operation.
    */
   startDeviceScan(listener, UUIDs = null, options = { allowDuplicates: false }) {
-    this.#bleManager.startDeviceScan(UUIDs, options, async (err, device) => {
+    this.#bleManager.startDeviceScan(UUIDs, options, (err, device) => {
       if (err) {
         logErr(err);
         this.#bleManager.stopDeviceScan();

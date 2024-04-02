@@ -1,4 +1,7 @@
+import StatusDot from '@components/status-dot/StatusDot';
+import Tooltip from '@components/tooltip/Tooltip';
 import { useBleState } from '@hooks/ble-hooks';
+import { State } from '@util/ble-manager';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
 
@@ -9,10 +12,18 @@ import { styles } from './styles';
  */
 export default function BleState() {
   const bleState = useBleState();
+  const bleStatusColor = bleState === State.PoweredOn
+    ? 'green'
+    : 'red';
 
   return (
     <View style={styles.container}>
-      <Text>Bluetooth State: {bleState}</Text>
+      <Tooltip popover={<Text style={styles.tooltipText}>{ bleState }</Text>}>
+        <View style={styles.container}>
+          <StatusDot color={bleStatusColor} />
+          <Text>BLE Status</Text>
+        </View>
+      </Tooltip>
     </View>
   );
 }
