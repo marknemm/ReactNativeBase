@@ -1,11 +1,11 @@
+import { ExpansionPanel } from '@components/expansion-panel/ExpansionPanel';
 import { BleDeviceContext } from '@contexts/ble-device/BleDeviceContext';
+import { Text } from '@rneui/themed';
 import { excludePrivateFields } from '@util/json';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Device } from 'react-native-ble-plx';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from './styles';
 
 /**
  * The Bluetooth device component.
@@ -20,9 +20,15 @@ export default function BleDevice({ bleDevice }) {
   const bleDeviceJSON = JSON.stringify(bleDevice, excludePrivateFields, 3);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Bluetooth Device: {bleDeviceJSON}</Text>
-    </SafeAreaView>
+    <ScrollView>
+      <Text>ID: {bleDevice.id}</Text>
+      <Text>Name: {bleDevice.name ?? ''}</Text>
+      <Text>Local Name: {bleDevice.localName ?? ''}</Text>
+
+      <ExpansionPanel title="More Info">
+        <Text>Bluetooth Device: {bleDeviceJSON}</Text>
+      </ExpansionPanel>
+    </ScrollView>
   );
 }
 

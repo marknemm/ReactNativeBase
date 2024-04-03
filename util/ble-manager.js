@@ -32,11 +32,11 @@ export class BleManager {
    * Notifies about {@link State} changes of a {@link BleManager}.
    *
    * @param {(state: State) => void} listener Callback which emits {@link State} changes of BLE Manager.
-   * @param {boolean} emitCurrentState If `true`, current state will be emitted as well. Defaults to `false`.
+   * Also emits current state when registered.
    * @returns {import('react-native-ble-plx').Subscription} Subscription on which remove() function can be called to unsubscribe.
    */
-  onStateChange(listener, emitCurrentState = false) {
-    return this.#bleManager.onStateChange(listener, emitCurrentState);
+  onStateChange(listener) {
+    return this.#bleManager.onStateChange(listener, true);
   }
 
   /**

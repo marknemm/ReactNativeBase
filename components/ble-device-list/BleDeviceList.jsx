@@ -4,13 +4,12 @@ import InfoButton from '@components/info-button/InfoButton';
 import RefreshButton from '@components/refresh-button/RefreshButton';
 import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
 import { useBleDevices } from '@hooks/ble-hooks';
-import { Dialog } from '@rneui/base';
 import { Button, Text } from '@rneui/themed';
 import { Device } from '@util/ble-manager';
 import { logErr } from '@util/log';
 import PropTypes from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 
@@ -42,6 +41,13 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
   );
 }
 
+/**
+ * The Bluetooth device list header component.
+ *
+ * @param {Object} param0 The component properties.
+ * @param {string} param0.title The title of the device list.
+ * @returns {React.JSX.Element} The Bluetooth device list header component.
+ */
 function BleDeviceListHeader({ title }) {
   const { resetBleManager } = useContext(BleManagerContext);
 
@@ -63,9 +69,8 @@ function BleDeviceListHeader({ title }) {
  */
 function BleDeviceListItem({ bleDevice }) {
   const [bleDeviceConnected, setBleDeviceConnected] = useState(null);
-  const [infoDialogVisible, setInfoDialogVisible] = useState(false);
   const connectToggleTitle = bleDeviceConnected ? 'Disconnect' : 'Connect';
-  const connectToggleDisabled = bleDeviceConnected === null;
+  const connectToggleLoading = bleDeviceConnected === null;
 
   useEffect(() => {
     (async () => {
@@ -75,12 +80,15 @@ function BleDeviceListItem({ bleDevice }) {
 
   async function toggleBleDeviceConnection() {
     try {
-      setBleDeviceConnected(null); // Trigger button disabled state.
+      setBleDeviceConnected(null); // Trigger button loading state.
       await (bleDeviceConnected
         ? bleDevice.cancelConnection()
         : bleDevice.connect());
-    } catch (error) {
-      logErr('Failed to toggle connection:', error);
+      if (await bleDevice.isConnected()) {
+        await bleDevice.discoverAllServicesAndCharacteristics();
+      }
+    } catch (err) {
+      logErr('Failed to toggle connection:', err);
     } finally {
       setBleDeviceConnected(await bleDevice.isConnected());
     }
@@ -90,25 +98,14 @@ function BleDeviceListItem({ bleDevice }) {
     <View style={styles.bleDeviceListItem}>
       <View style={styles.bleDeviceNameInfoContainer}>
         <Text style={styles.bleDeviceName}>{ bleDevice.localName ?? bleDevice.name }</Text>
-        <InfoButton onPress={() => setInfoDialogVisible(true)} />
-
-        <Dialog
-          isVisible={infoDialogVisible}
-          onBackdropPress={() => setInfoDialogVisible(false)}
-          style={{ backgroundColor: 'white' }}
-        >
-          <ScrollView style={{ backgroundColor: 'white' }}>
-            <BleDevice bleDevice={bleDevice} />
-          </ScrollView>
-          <Dialog.Actions>
-            <Button onPress={() => setInfoDialogVisible(false)}>Close</Button>
-          </Dialog.Actions>
-        </Dialog>
+        <InfoButton>
+          <BleDevice bleDevice={bleDevice} />
+        </InfoButton>
       </View>
 
       <Button
         title={connectToggleTitle}
-        disabled={connectToggleDisabled}
+        loading={connectToggleLoading}
         onPress={() => toggleBleDeviceConnection()}
       />
     </View>
