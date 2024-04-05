@@ -1,19 +1,13 @@
-import BleDeviceList from '@components/ble-device-list/BleDeviceList';
+import { SETTINGS_THEME_APPEARANCE_KEY } from '@constants/storage-keys';
 import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
+import { usePersistentState } from '@hooks/storage-hooks';
+import MainTabs from '@navigation/MainTabs';
 import { ThemeProvider } from '@rneui/themed';
-import { genTheme } from '@styles/theme';
+import { genRneTheme } from '@styles/theme';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
-// const styles = StyleSheet.create({
-//   correctionLevelBody: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//   },
-// });
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /**
  * The main application component.
@@ -21,33 +15,16 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
  * @returns {React.JSX.Element} The main application component.
  */
 export default function App() {
-  const colorScheme = useColorScheme();
-  const theme = useMemo(() => genTheme(colorScheme), [colorScheme]);
+  const [colorScheme] = usePersistentState(SETTINGS_THEME_APPEARANCE_KEY, { defaultValue: useColorScheme() });
+  const rneTheme = useMemo(() => genRneTheme(colorScheme), [colorScheme]);
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        <StatusBar />
-
-        <SafeAreaView>
-
-          {/* <Card>
-            <Card.Title>Correction Level</Card.Title>
-            <Card.Divider />
-            <View style={styles.correctionLevelBody}>
-              <Button title="Low" onPress={() => alert('Button Clicked')} />
-              <Button title="Medium" onPress={() => alert('Button Clicked')} />
-              <Button title="High" onPress={() => alert('Button Clicked')} />
-            </View>
-          </Card> */}
-
-          <BleManagerProvider>
-            <BleDeviceList />
-            {/* <BleDeviceProvider deviceMatchCb={(device) => device.name === 'One Collar'}>
-              <BleDevice />
-            </BleDeviceProvider> */}
-          </BleManagerProvider>
-        </SafeAreaView>
+      <ThemeProvider theme={rneTheme}>
+        <BleManagerProvider>
+          <StatusBar />
+          <MainTabs />
+        </BleManagerProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

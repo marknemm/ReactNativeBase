@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native';
  * The styles for the Bluetooth device component.
  */
 export const styles = StyleSheet.create({
-  container: {},
   deviceListHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     columnGap: 15,
     marginBottom: 10,
+    paddingStart: 10,
   },
   deviceListTitle: {
     fontSize: 20,

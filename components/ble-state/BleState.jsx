@@ -1,8 +1,9 @@
 import StatusDot from '@components/status-dot/StatusDot';
 import Tooltip from '@components/tooltip/Tooltip';
 import { useBleState } from '@hooks/ble-hooks';
+import { Text } from '@rneui/themed';
 import { State } from '@util/ble-manager';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { styles } from './styles';
 
 /**

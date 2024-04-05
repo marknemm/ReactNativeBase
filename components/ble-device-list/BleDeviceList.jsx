@@ -10,7 +10,6 @@ import { logErr } from '@util/log';
 import PropTypes from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 
 /**
@@ -29,7 +28,7 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View>
       <FlatList
         ListHeaderComponent={<BleDeviceListHeader title={title} />}
         ListEmptyComponent={<Text>No devices found</Text>}
@@ -37,7 +36,7 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
         renderItem={({ item }) => <BleDeviceListItem bleDevice={item} />}
         keyExtractor={(item) => item.id}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -68,6 +67,7 @@ function BleDeviceListHeader({ title }) {
  * @returns {React.JSX.Element} The Bluetooth device list item component.
  */
 function BleDeviceListItem({ bleDevice }) {
+  const { bleManager } = useContext(BleManagerContext);
   const [bleDeviceConnected, setBleDeviceConnected] = useState(null);
   const connectToggleTitle = bleDeviceConnected ? 'Disconnect' : 'Connect';
   const connectToggleLoading = bleDeviceConnected === null;
@@ -82,11 +82,8 @@ function BleDeviceListItem({ bleDevice }) {
     try {
       setBleDeviceConnected(null); // Trigger button loading state.
       await (bleDeviceConnected
-        ? bleDevice.cancelConnection()
-        : bleDevice.connect());
-      if (await bleDevice.isConnected()) {
-        await bleDevice.discoverAllServicesAndCharacteristics();
-      }
+        ? bleManager.disconnectFromDevice(bleDevice.id)
+        : bleManager.connectToDevice(bleDevice.id));
     } catch (err) {
       logErr('Failed to toggle connection:', err);
     } finally {

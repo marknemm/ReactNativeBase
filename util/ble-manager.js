@@ -1,5 +1,6 @@
 import { BleManager as _BleManager, Device, State } from 'react-native-ble-plx';
 import { logErr } from './log';
+import { getPairedDeviceIds, isDevicePaired, pushPairedDeviceId, removePairedDeviceId } from './paired-device-store';
 
 export { Device, State };
 
@@ -9,13 +10,53 @@ export { Device, State };
 export class BleManager {
 
   #bleManager = new _BleManager();
+  /** @type {Map<string, Device>} */
+  #connectedDevices = new Map();
+  /** @type {Promise<Map<string, Device>>} */
+  #connectedDevicesPromise = this.#reconnectDevices().catch((err) => {
+    logErr(err);
+    return this.#connectedDevices;
+  });
+
+  // Private setup methods //
+
+  /**
+   * Reconnects to all paired devices.
+   *
+   * @returns {Promise<Map<string, Device>>} Promise which emits when all paired devices are reconnected.
+   */
+  async #reconnectDevices() {
+    const pairedDeviceIds = await getPairedDeviceIds();
+    await this.waitForPoweredOnState();
+
+    for (const deviceId of pairedDeviceIds) {
+      try {
+        await this.connectToDevice(deviceId);
+      } catch (err) {
+        logErr(err);
+      }
+    }
+
+    return this.#connectedDevices;
+  }
+
+  // Public methods //
+
+  /**
+   * Gets the connected devices.
+   *
+   * @returns {Promise<Map<string, Device>>} Promise which emits a map of connected devices.
+   */
+  async getConnectedDevices() {
+    return this.#connectedDevicesPromise;
+  }
 
   /**
    * Waits for the {@link State.PoweredOn PoweredOn} Bluetooth state to be reached.
    *
    * @returns {Promise<void>} Promise which emits when Bluetooth is powered on.
    */
-  waitForPoweredOnState() {
+  async waitForPoweredOnState() {
     return new Promise((resolve) => {
       const subscription = this.onStateChange((state) => {
         if (state === State.PoweredOn) {
@@ -44,7 +85,7 @@ export class BleManager {
    *
    * @returns {Promise<State>} Promise which emits current state of BleManager.
    */
-  state() {
+  async state() {
     return this.#bleManager.state();
   }
 
@@ -56,12 +97,15 @@ export class BleManager {
    * @param {import('react-native-ble-plx').ScanOptions?} options Optional configuration for scanning operation.
    */
   startDeviceScan(listener, UUIDs = null, options = { allowDuplicates: false }) {
-    this.#bleManager.startDeviceScan(UUIDs, options, (err, device) => {
+    this.#bleManager.startDeviceScan(UUIDs, options, async (err, device) => {
       if (err) {
         logErr(err);
-        this.#bleManager.stopDeviceScan();
-        this.startDeviceScan(listener, UUIDs, options);
+        this.startDeviceScan(listener, UUIDs, options); // Must restart on error, will stop any previous scan
       } else if (device) {
+        const isPaired = await isDevicePaired(device.id);
+        if (isPaired && !(await device.isConnected())) {
+          await this.getConnectedDevices(); // Ensure connected devices are up-to-date
+        }
         listener(device);
       }
     });
@@ -76,13 +120,20 @@ export class BleManager {
 
   /**
    * Connects to {@link Device Device} with provided ID.
+   * Also, discovers all services and characteristics of the {@link Device Device}.
    *
    * @param {string} deviceIdentifier {@link Device Device} identifier.
    * @param {import('react-native-ble-plx').ConnectionOptions | undefined} options Platform specific options for connection establishment.
    * @returns {Promise<Device>} Connected {@link Device Device} object if successful.
    */
-  connectToDevice(deviceIdentifier, options = undefined) {
-    return this.#bleManager.connectToDevice(deviceIdentifier, options);
+  async connectToDevice(deviceIdentifier, options = undefined) {
+    const device = await this.#bleManager.connectToDevice(deviceIdentifier, options);
+    if (device) {
+      this.#connectedDevices.set(deviceIdentifier, device);
+      await pushPairedDeviceId(deviceIdentifier);
+      await device.discoverAllServicesAndCharacteristics();
+    }
+    return device;
   }
 
   /**
@@ -91,7 +142,9 @@ export class BleManager {
    * @param {string} deviceIdentifier {@link Device Device} identifier to be closed.
    * @returns {Promise<Device>} Closed {@link Device Device} when operation is successful.
    */
-  disconnectFromDevice(deviceIdentifier) {
+  async disconnectFromDevice(deviceIdentifier) {
+    this.#connectedDevices.delete(deviceIdentifier);
+    await removePairedDeviceId(deviceIdentifier);
     return this.#bleManager.cancelDeviceConnection(deviceIdentifier);
   }
 
@@ -101,6 +154,7 @@ export class BleManager {
    */
   destroy() {
     this.#bleManager.destroy();
+    this.#connectedDevices.clear();
   }
 
 }

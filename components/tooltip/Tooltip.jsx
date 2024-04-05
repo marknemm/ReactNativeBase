@@ -11,7 +11,7 @@ import { useState } from 'react';
  * @param {React.ReactElement} param0.popover The content of the tooltip.
  * @returns {React.JSX.Element} The status dot component.
  */
-export default function Tooltip({ backgroundColor = 'gray', children, popover}) {
+export default function Tooltip({ backgroundColor = 'gray', children, popover }) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   return (

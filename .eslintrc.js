@@ -34,6 +34,7 @@ module.exports = {
   ],
   rules: {                                                      // Add specific rules for your React project
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
+    'block-spacing': 'warn',                                    // Enable the warning about block spacing
     'comma-dangle': 'off',                                      // Disable the rule that requires trailing commas
     'eol-last': 'warn',                                         // Enable the warning about end of line characters
     'function-paren-newline': 'warn',                           // Enable the warning about function paren newlines
@@ -83,6 +84,7 @@ module.exports = {
       startLines: 1                                             // Require tags to be on the same line as the comment
     }],
     'jsx-a11y/anchor-is-valid': 'off',                          // Disable the rule that enforces valid <a> tag usage
+    'jsx-quotes': ['warn', 'prefer-double'],                    // Enable the warning about using double quotes in JSX
     'lines-between-class-members': ['warn', 'always', {         // Enable the warning about lines between class members
       exceptAfterSingleLine: true                               // Allow single-line class members to be grouped together
     }],
@@ -91,14 +93,19 @@ module.exports = {
       ignoreComments: true,                                     // Ignore comments when checking line length
     }],
     'no-await-in-loop': 'off',                                  // Disable the rule that disallows using await inside of loops
+    'no-empty-function': 'warn',                                // Enable the warning about empty functions
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
+    'no-restricted-syntax': 'off',                              // Disable the rule that disallows specific syntax
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
+    'no-underscore-dangle': 'off',                              // Disable the rule that disallows dangling underscores
     'no-unused-vars': 'warn',                                   // Enable the warning about unused variables
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
+    'no-useless-constructor': 'off',                            // Enable the warning about useless constructors
+    'no-useless-return': 'warn',                                // Enable the warning about useless return statements
     'no-use-before-define': ['warn', {                          // Enable the warning about using variables before they are defined
       functions: false,                                         // Allow functions to be used before they are defined
       classes: false,                                           // Allow classes to be used before they are defined
@@ -107,6 +114,7 @@ module.exports = {
       consistent: true,                                         // Require consistent newlines in object literals
     }],
     'object-curly-spacing': ['warn', 'always'],                 // Enable the warning about object curly spacing
+    'operator-linebreak': ['warn', 'before'],                   // Enable the warning about operator line breaks
     'padded-blocks': ['warn', {                                 // Enable the warning about padding within blocks
       blocks: 'never',                                          // Do not require padding within blocks
       classes: 'always',                                        // Require padding within classes
@@ -128,13 +136,25 @@ module.exports = {
     'react/jsx-indent': 'warn',                                 // Enable the warning about indentation in JSX
     'react/jsx-indent-props': 'warn',                           // Enable the warning about prop indentation in JSX
     'react/jsx-max-props-per-line': 'warn',                     // Enable the warning about the maximum number of props per line in JSX
+    'react/jsx-no-useless-fragment': 'warn',                    // Enable the warning about using useless fragments in JSX
     'react/jsx-one-expression-per-line': 'off',                 // Disable the rule that enforces one expression per line in JSX
     'react/jsx-tag-spacing': 'warn',                            // Enable the warning about tag spacing in JSX
+    'react/jsx-wrap-multilines': 'warn',                        // Enable the warning about wrapping multiline JSX
+    'react/no-unstable-nested-components': ['warn', {           // Enable the warning about using unstable nested components
+      allowAsProps: true,                                       // Allow using unstable nested components as props
+    }],
     'react/prop-types': ['warn', {                              // Enable the warning about using prop types
-      ignore: ['children', 'className', 'style'],               // Ignore the children, className, and style props
+      ignore: [                                                 // Ignore the following props
+        'children',
+        'className',
+        'navigation',
+        'routes',
+        'style'
+      ],
     }],
     'react/react-in-jsx-scope': 'off',                          // Disable the requirement to import React when using JSX
     'react/require-default-props': 'off',                       // Disable the rule that requires default props
+    'react/self-closing-comp': 'warn',                          // Enable the warning about self-closing components
     'react-refresh/only-export-components': 'warn',             // Enable the warning about only exporting components from JSX files
     'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
   }
