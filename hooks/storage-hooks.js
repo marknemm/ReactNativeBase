@@ -16,7 +16,7 @@ export function usePersistentState(key, options = {
   persistOnSetState: false,
   placeholderValue: null
 }) {
-  const [state, setState] = useState(options?.placeholderValue);
+  const [state, setState] = useState(options?.placeholderValue ?? null);
   const setStateWrapper = async (value) => {
     setState(value);
     return options?.persistOnSetState
@@ -27,7 +27,7 @@ export function usePersistentState(key, options = {
   useEffect(() => {
     (async () => {
       const value = await getItem(key);
-      setState(value ?? options?.defaultValue);
+      setState(value ?? options?.defaultValue ?? null);
     })();
   }, [key, options?.defaultValue]);
 

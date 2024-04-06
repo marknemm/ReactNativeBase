@@ -1,8 +1,8 @@
+import Appearance from '@components/appearance/Appearance';
 import { SETTINGS_THEME_APPEARANCE_KEY } from '@constants/storage-keys';
 import { usePersistentState } from '@hooks/storage-hooks';
-import { CheckBox, Text, useTheme } from '@rneui/themed';
-import { generalStyles } from '@styles/general';
-import { screenStyles } from '@styles/screens';
+import { useTheme } from '@rneui/themed';
+import { generalStyles } from '@styles/general-styles';
 import { View, useColorScheme } from 'react-native';
 
 /**
@@ -21,40 +21,16 @@ export default function ThemeScreen({ navigation }) {
   const { updateTheme } = useTheme();
 
   return (
-    <View style={screenStyles.container}>
-      <Text>Appearance</Text>
-      <View style={generalStyles.row}>
-        <CheckBox
-          title="Auto"
-          checked={appearance === 'auto'}
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          onPress={() => {
-            setPersistAppearance('auto');
-            updateTheme({ mode: autoColorScheme });
-          }}
-        />
-        <CheckBox
-          title="Light"
-          checked={appearance === 'light'}
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          onPress={() => {
-            setPersistAppearance('light');
-            updateTheme({ mode: 'light' });
-          }}
-        />
-        <CheckBox
-          title="Dark"
-          checked={appearance === 'dark'}
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          onPress={() => {
-            setPersistAppearance('dark');
-            updateTheme({ mode: 'dark' });
-          }}
-        />
-      </View>
+    <View style={generalStyles.gutter}>
+      <Appearance
+        appearance={appearance}
+        disabled={!appearance}
+        onAppearanceChange={(newAppearance) => {
+          setPersistAppearance(newAppearance);
+          const newThemeMode = newAppearance === 'auto' ? autoColorScheme : newAppearance;
+          updateTheme({ mode: newThemeMode });
+        }}
+      />
     </View>
   );
 }

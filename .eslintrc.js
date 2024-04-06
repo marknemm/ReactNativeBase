@@ -37,7 +37,7 @@ module.exports = {
     'block-spacing': 'warn',                                    // Enable the warning about block spacing
     'comma-dangle': 'off',                                      // Disable the rule that requires trailing commas
     'eol-last': 'warn',                                         // Enable the warning about end of line characters
-    'function-paren-newline': 'warn',                           // Enable the warning about function paren newlines
+    'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
     'indent': 'warn',                                           // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
@@ -93,6 +93,7 @@ module.exports = {
       ignoreComments: true,                                     // Ignore comments when checking line length
     }],
     'no-await-in-loop': 'off',                                  // Disable the rule that disallows using await inside of loops
+    'no-empty': 'warn',                                         // Enable the warning about empty blocks
     'no-empty-function': 'warn',                                // Enable the warning about empty functions
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
@@ -120,16 +121,20 @@ module.exports = {
       classes: 'always',                                        // Require padding within classes
       switches: 'never',                                        // Do not require padding within switch statements
     }],
+    'prefer-arrow-callback': ['warn', {                         // Enable the warning about using arrow functions for callbacks
+      allowNamedFunctions: true,                                // Allow named functions
+    }],
     'prefer-arrow-functions/prefer-arrow-functions': ['warn', { // Enable the warning about using arrow functions
       allowNamedFunctions: true,                                // Allow named functions
       classPropertiesAllowed: true,                             // Allow arrow functions for class properties
       disallowPrototype: true,                                  // Disallow arrow functions for prototype methods
       returnStyle: 'unchanged',                                 // Do not enforce a specific return style
     }],
-    'prefer-arrow-callback': ['warn', {                         // Enable the warning about using arrow functions for callbacks
-      allowNamedFunctions: true,                                // Allow named functions
-    }],
+    'prefer-const': 'warn',                                     // Enable the warning about using const
+    'prefer-destructuring': 'warn',                             // Enable the warning about using destructuring
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
+    'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
+    'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
     'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
     'react/jsx-curly-spacing': 'warn',                          // Enable the warning about curly spacing in JSX
     'react/jsx-first-prop-new-line': 'warn',                    // Enable the warning about the first prop new line in JSX
@@ -138,6 +143,7 @@ module.exports = {
     'react/jsx-max-props-per-line': 'warn',                     // Enable the warning about the maximum number of props per line in JSX
     'react/jsx-no-useless-fragment': 'warn',                    // Enable the warning about using useless fragments in JSX
     'react/jsx-one-expression-per-line': 'off',                 // Disable the rule that enforces one expression per line in JSX
+    'react/jsx-props-no-spreading': 'warn',                     // Enable the warning about spreading props in JSX
     'react/jsx-tag-spacing': 'warn',                            // Enable the warning about tag spacing in JSX
     'react/jsx-wrap-multilines': 'warn',                        // Enable the warning about wrapping multiline JSX
     'react/no-unstable-nested-components': ['warn', {           // Enable the warning about using unstable nested components
@@ -157,5 +163,7 @@ module.exports = {
     'react/self-closing-comp': 'warn',                          // Enable the warning about self-closing components
     'react-refresh/only-export-components': 'warn',             // Enable the warning about only exporting components from JSX files
     'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
+    'space-infix-ops': 'warn',                                  // Enable the warning about spacing in infix operators
+    'spaced-comment': 'warn',                                   // Enable the warning about spacing in comments
   }
 };

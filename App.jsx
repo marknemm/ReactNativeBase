@@ -7,6 +7,7 @@ import { genRneTheme } from '@styles/theme';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
+import KeyboardManager from 'react-native-keyboard-manager';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /**
@@ -15,6 +16,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
  * @returns {React.JSX.Element} The main application component.
  */
 export default function App() {
+  KeyboardManager.setEnable(true);
   const [colorScheme] = usePersistentState(SETTINGS_THEME_APPEARANCE_KEY, { defaultValue: useColorScheme() });
   const rneTheme = useMemo(() => genRneTheme(colorScheme), [colorScheme]);
 
