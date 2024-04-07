@@ -22,8 +22,7 @@ ios
 .metro-health-check*
 
 # debug
-npm-debug.*
-yarn-debug.*
+*-debug.*
 yarn-error.*
 
 # macOS
