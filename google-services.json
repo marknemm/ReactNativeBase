@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617917155930",
+    "project_id": "onecollar-6ba1b",
+    "storage_bucket": "onecollar-6ba1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617917155930:android:ed2a9b32091c44dd83a663",
+        "android_client_info": {
+          "package_name": "com.onecollar.onecollar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrxKDUA_6LFoJ15OhCQg3hI61G4dzEy-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

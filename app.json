@@ -14,11 +14,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.Blucifier"
-    },
     "android": {
+      "package": "com.onecollar.onecollar",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -27,13 +25,28 @@
         "android.permission.BLUETOOTH",
         "android.permission.BLUETOOTH_ADMIN",
         "android.permission.BLUETOOTH_CONNECT"
-      ],
-      "package": "com.anonymous.Blucifier"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.onecollar.onecollar",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "supportsTablet": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
       [
         "react-native-ble-plx",
         {
