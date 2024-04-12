@@ -1,4 +1,5 @@
 import { Control, FieldError, FieldErrors, FieldErrorsImpl, Merge, RegisterOptions } from 'react-hook-form';
+import { StyleSheet, TextStyle } from 'react-native';
 
 /**
  * Properties for form field components.
@@ -36,6 +37,18 @@ export interface FormFieldProps<F = any> {
    * The rules to error message map for the form field. Maps rules (error types) to error messages.
    */
   rulesErrorMessageMap?: Record<string, string>;
+}
+
+/**
+ * Properties for form field error components.
+ *
+ * @param F The type of the form data.
+ */
+export interface FormFieldErrorProps<F = any> extends FormFieldProps<F> {
+  /**
+   * The style for the error message.
+   */
+  style?: TextStyle;
 }
 
 export type FormFieldError = FieldError | Merge<FieldError, FieldErrorsImpl<any>>

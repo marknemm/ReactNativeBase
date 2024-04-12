@@ -6,7 +6,7 @@ import { View } from 'react-native';
  * Devices screen.
  *
  * @param {Object} param0 The component properties.
- * @param {import('@typedefs/navigation').Navigation} param0.navigation The navigation object.
+ * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The devices screen.
  */
 export default function DogsScreen({ navigation }) {

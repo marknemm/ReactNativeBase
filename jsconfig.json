@@ -10,16 +10,20 @@
       "@components/*": ["./components/*"],
       "@constants/*": ["./constants/*"],
       "@contexts/*": ["./contexts/*"],
+      "@env": ["./util/env"],
       "@hooks/*": ["./hooks/*"],
       "@navigation/*": ["./navigation/*"],
       "@screens/*": ["./screens/*"],
       "@styles/*": ["./styles/*"],
-      "@typedefs/*": ["./typedefs/*"],
-      "@util/*": ["./util/*"],
+      "@util/*": ["./util/*"]
     },
     "resolveJsonModule": true,
     "strictNullChecks": false,
     "target": "ESNext",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
   },
   "exclude": [
     "node_modules",

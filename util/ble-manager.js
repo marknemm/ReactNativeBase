@@ -1,6 +1,6 @@
 import { BleManager as _BleManager, Device, State } from 'react-native-ble-plx';
 import { logErr } from './log';
-import { getPairedDeviceIds, isDevicePaired, pushPairedDeviceId, removePairedDeviceId } from './paired-device-store';
+import { getPairedDeviceIds, isDevicePaired, pushPairedDevice, removePairedDevice } from './paired-device-storage';
 
 export { Device, State };
 
@@ -26,7 +26,7 @@ export class BleManager {
    * @returns {Promise<Map<string, Device>>} Promise which emits when all paired devices are reconnected.
    */
   async #reconnectDevices() {
-    const pairedDeviceIds = await getPairedDeviceIds();
+    const pairedDeviceIds = getPairedDeviceIds();
     await this.waitForPoweredOnState();
 
     for (const deviceId of pairedDeviceIds) {
@@ -102,7 +102,7 @@ export class BleManager {
         logErr(err);
         this.startDeviceScan(listener, UUIDs, options); // Must restart on error, will stop any previous scan
       } else if (device) {
-        const isPaired = await isDevicePaired(device.id);
+        const isPaired = isDevicePaired(device.id);
         if (isPaired && !(await device.isConnected())) {
           await this.getConnectedDevices(); // Ensure connected devices are up-to-date
         }
@@ -130,7 +130,7 @@ export class BleManager {
     const device = await this.#bleManager.connectToDevice(deviceIdentifier, options);
     if (device) {
       this.#connectedDevices.set(deviceIdentifier, device);
-      await pushPairedDeviceId(deviceIdentifier);
+      pushPairedDevice(deviceIdentifier);
       await device.discoverAllServicesAndCharacteristics();
     }
     return device;
@@ -144,7 +144,7 @@ export class BleManager {
    */
   async disconnectFromDevice(deviceIdentifier) {
     this.#connectedDevices.delete(deviceIdentifier);
-    await removePairedDeviceId(deviceIdentifier);
+    removePairedDevice(deviceIdentifier);
     return this.#bleManager.cancelDeviceConnection(deviceIdentifier);
   }
 

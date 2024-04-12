@@ -17,15 +17,16 @@ module.exports = (api) => {
             '@components': './components',
             '@constants': './constants',
             '@contexts': './contexts',
+            '@env': './util/env',
             '@hooks': './hooks',
             '@navigation': './navigation',
             '@screens': './screens',
             '@styles': './styles',
-            '@typedefs': './typedefs',
             '@util': './util',
           },
         },
-      ]
+      ],
+      '@babel/plugin-transform-class-static-block',
     ],
   };
 };

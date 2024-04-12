@@ -6,8 +6,8 @@ module.exports = {
     ecmaVersion: 2021,    // Use the latest ECMAScript syntax
     sourceType: 'module', // Allow the use of imports
     ecmaFeatures: {
-      jsx: true // Enable JSX parsing
-    }
+      jsx: true,          // Enable JSX parsing
+    },
   },
   env: {
     browser: true,  // Enable browser global variables
@@ -16,6 +16,8 @@ module.exports = {
   },
   globals: {
     'React': 'readonly', // Define the React as a read-only global for cleaner typedef in jsdoc
+    'Types': 'readonly', // Define the Types as a read-only global for cleaner typedef in jsdoc
+    '__DEV__': 'readonly', // Define the __DEV__ global for conditional development code
   },
   extends: [
     'eslint:recommended',             // Use ESLint's recommended rules
@@ -34,12 +36,24 @@ module.exports = {
   ],
   rules: {                                                      // Add specific rules for your React project
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
+    'array-bracket-spacing': ['warn', 'never'],                 // Enable the warning about array bracket spacing
     'block-spacing': 'warn',                                    // Enable the warning about block spacing
-    'comma-dangle': 'off',                                      // Disable the rule that requires trailing commas
+    'class-methods-use-this': 'warn',                           // Enable the warning about using this in class methods
+    'comma-dangle': ['warn', {                                  // Require trailing commas in object and array literals
+      arrays: 'always-multiline',                               // Require trailing commas in arrays
+      exports: 'never',                                         // Disallow trailing commas in exports
+      functions: 'never',                                       // Require trailing commas in functions
+      imports: 'never',                                         // Disallow trailing commas in imports
+      objects: 'always-multiline',                              // Require trailing commas in objects
+    }],
+    'comma-style': 'warn',                                      // Enable the warning about comma style
+    'consistent-return': 'warn',                                // Enable the warning about consistent return statements
     'eol-last': 'warn',                                         // Enable the warning about end of line characters
+    'eqeqeq': 'warn',                                           // Enable the warning about using strict equality
     'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
     'indent': 'warn',                                           // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
+    'import/extensions': 'warn',                                // Enable the warning about import extensions
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
     'import/order': 'warn',                                     // Enable the warning about import order
     'import/prefer-default-export': 'off',                      // Disable the rule that prefers default exports
@@ -47,15 +61,15 @@ module.exports = {
     'jsdoc/check-syntax': 'warn',                               // Enable the warning about JSDoc syntax
     'jsdoc/check-param-names': 'warn',                          // Enable the warning about JSDoc param names
     'jsdoc/no-blank-blocks': 'warn',                            // Enable the warning about blank JSDoc blocks
-    'jsdoc/no-undefined-types': 'warn',                         // Enable the warning about undefined JSDoc types
+    'jsdoc/no-undefined-types': 'off',                          // Enable the warning about undefined JSDoc types
     'jsdoc/require-asterisk-prefix': 'warn',                    // Enable the warning about JSDoc asterisk prefixes
     'jsdoc/require-description': 'warn',                        // Enable the warning about JSDoc descriptions
     'jsdoc/require-hyphen-before-param-description': 'off',     // Disable the rule that requires a hyphen before JSDoc param descriptions
     'jsdoc/require-jsdoc': ['warn', {                           // Enable the warning about requiring JSDoc comments
       contexts: [
-        'VariableDeclaration',    // Encourage documenting variables
-        'TSTypeAliasDeclaration', // Encourage documenting TypeScript type aliases
-        'TSPropertySignature',    // Encourage documenting React prop types
+        'VariableDeclaration',                                  // Encourage documenting variables
+        'TSTypeAliasDeclaration',                               // Encourage documenting TypeScript type aliases
+        'TSPropertySignature',                                  // Encourage documenting React prop types
       ],
       enableFixer: true,
       publicOnly: true,
@@ -69,42 +83,52 @@ module.exports = {
       },
     }],
     'jsdoc/require-param': ['warn', {                           // Enable the warning about requiring JSDoc param tags
-      checkDestructuredRoots: false                             // Do not check destructured roots
+      checkDestructuredRoots: false,                            // Do not check destructured roots
     }],
     'jsdoc/require-param-description': 'warn',                  // Enable the warning about requiring JSDoc param descriptions,
     'jsdoc/require-param-name': 'warn',                         // Enable the warning about requiring JSDoc param names
     'jsdoc/require-param-type': 'warn',                         // Enable the warning about requiring JSDoc param types
-    'jsdoc/require-returns': 'warn',                            // Enable the warning about requiring JSDoc return tags
+    'jsdoc/require-returns': ['warn', {                         // Enable the warning about requiring JSDoc return tags
+      checkGetters: false,                                      // Do not check getters
+    }],
     'jsdoc/require-returns-check': 'warn',                      // Enable the warning about requiring JSDoc return checks
     'jsdoc/require-returns-description': 'warn',                // Enable the warning about requiring JSDoc return descriptions
     'jsdoc/require-returns-type': 'warn',                       // Enable the warning about requiring JSDoc return types
     'jsdoc/require-throws': 'warn',                             // Enable the warning about requiring JSDoc throw tags
     'jsdoc/sort-tags': 'warn',                                  // Enable the warning about sorting JSDoc tags
     'jsdoc/tag-lines': ['warn', 'never', {                      // Enable the warning about JSDoc tag lines
-      startLines: 1                                             // Require tags to be on the same line as the comment
+      startLines: 1,                                            // Require tags to be on the same line as the comment
     }],
     'jsx-a11y/anchor-is-valid': 'off',                          // Disable the rule that enforces valid <a> tag usage
     'jsx-quotes': ['warn', 'prefer-double'],                    // Enable the warning about using double quotes in JSX
     'lines-between-class-members': ['warn', 'always', {         // Enable the warning about lines between class members
-      exceptAfterSingleLine: true                               // Allow single-line class members to be grouped together
+      exceptAfterSingleLine: true,                              // Allow single-line class members to be grouped together
     }],
     'max-len': ['warn', {                                       // Enable the warning about line length
-      code: 120,                                                // Set the maximum line length to 80 characters
+      code: 120,                                                // Set the maximum line length to 120 characters
+      comments: 160,                                            // Set the maximum line length for comments to 160 characters
       ignoreComments: true,                                     // Ignore comments when checking line length
+      ignorePattern: '^import\\s.+\\sfrom\\s.+;$',              // Ignore import statements when checking line length
+      ignoreRegExpLiterals: true,                               // Ignore regular expressions when checking line length
+      ignoreUrls: true,                                         // Ignore URLs when checking line length
     }],
     'no-await-in-loop': 'off',                                  // Disable the rule that disallows using await inside of loops
+    'no-else-return': 'warn',                                   // Enable the warning about using else return
     'no-empty': 'warn',                                         // Enable the warning about empty blocks
     'no-empty-function': 'warn',                                // Enable the warning about empty functions
+    'no-extra-parens': 'warn',                                  // Enable the warning about extra parentheses
+    'no-extra-semi': 'warn',                                    // Enable the warning about extra semicolons
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
+    'no-promise-executor-return': 'warn',                       // Enable the warning about returning values from promise executors
     'no-restricted-syntax': 'off',                              // Disable the rule that disallows specific syntax
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
     'no-underscore-dangle': 'off',                              // Disable the rule that disallows dangling underscores
-    'no-unused-vars': 'warn',                                   // Enable the warning about unused variables
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
+    'no-unused-vars': 'warn',                                   // Enable the warning about unused variables
     'no-useless-constructor': 'off',                            // Enable the warning about useless constructors
     'no-useless-return': 'warn',                                // Enable the warning about useless return statements
     'no-use-before-define': ['warn', {                          // Enable the warning about using variables before they are defined
@@ -126,16 +150,18 @@ module.exports = {
     }],
     'prefer-arrow-functions/prefer-arrow-functions': ['warn', { // Enable the warning about using arrow functions
       allowNamedFunctions: true,                                // Allow named functions
-      classPropertiesAllowed: true,                             // Allow arrow functions for class properties
+      classPropertiesAllowed: false,                            // Allow arrow functions for class properties
       disallowPrototype: true,                                  // Disallow arrow functions for prototype methods
       returnStyle: 'unchanged',                                 // Do not enforce a specific return style
     }],
     'prefer-const': 'warn',                                     // Enable the warning about using const
     'prefer-destructuring': 'warn',                             // Enable the warning about using destructuring
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
+    'radix': 'warn',                                            // Enable the warning about using radix
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
     'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
     'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
+    'react/jsx-curly-newline': 'warn',                          // Enable the warning about curly newlines in JSX
     'react/jsx-curly-spacing': 'warn',                          // Enable the warning about curly spacing in JSX
     'react/jsx-first-prop-new-line': 'warn',                    // Enable the warning about the first prop new line in JSX
     'react/jsx-indent': 'warn',                                 // Enable the warning about indentation in JSX
@@ -153,9 +179,10 @@ module.exports = {
       ignore: [                                                 // Ignore the following props
         'children',
         'className',
+        'forwardRef',
         'navigation',
         'routes',
-        'style'
+        'style',
       ],
     }],
     'react/react-in-jsx-scope': 'off',                          // Disable the requirement to import React when using JSX
@@ -165,5 +192,5 @@ module.exports = {
     'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
     'space-infix-ops': 'warn',                                  // Enable the warning about spacing in infix operators
     'spaced-comment': 'warn',                                   // Enable the warning about spacing in comments
-  }
+  },
 };

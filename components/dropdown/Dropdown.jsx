@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import FormFieldError from '@components/form-field-error/FormFieldError';
+import FormError from '@components/form-error/FormError';
 import { useFormControl } from '@hooks/form-field-hooks';
 import { useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import { styles } from './styles';
 /**
  * The dropdown component.
  *
- * @param {import('@typedefs/dropdown').DropdownProps} props The component properties.
+ * @param {Types.Dropdown.DropdownProps} props The component {@link Types.Dropdown.DropdownProps properties}.
  * @returns {React.JSX.Element} The dropdown component.
  * @throws {Error} The name property is required when using form controls.
  */
@@ -42,11 +42,11 @@ export default function Dropdown(props) {
               data={data}
               itemContainerStyle={[
                 { backgroundColor: theme.colors.background },
-                props.itemContainerStyle
+                props.itemContainerStyle,
               ]}
               itemTextStyle={[
                 { color: theme.colors.black },
-                props.itemTextStyle
+                props.itemTextStyle,
               ]}
               labelField={labelField}
               onBlur={() => {
@@ -59,7 +59,7 @@ export default function Dropdown(props) {
               }}
               selectedTextStyle={[
                 { color: theme.colors.black },
-                props.selectedTextStyle
+                props.selectedTextStyle,
               ]}
               style={[styles.dropdown, props.style]}
               value={value}
@@ -68,7 +68,7 @@ export default function Dropdown(props) {
           )}
           rules={props.rules}
         />
-        <FormFieldError {...props} />
+        <FormError {...props} style={null} />
       </>
     )
     : (

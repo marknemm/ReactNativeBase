@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-let dev = true;
+let showDebugLogs = __DEV__;
 
 /**
  * Logs a debug message to the console.
@@ -8,8 +8,21 @@ let dev = true;
  * @param {...any} message The debug message(s) to log.
  */
 export function log(...message) {
-  if (!dev) return;
+  if (!showDebugLogs) return;
   console.debug(message);
+}
+
+/**
+ * Logs the environment variables to the console.
+ */
+export function logEnv() {
+  // eslint-disable-next-line global-require
+  const env = require('@env');
+  for (const envVar in env) {
+    if (typeof env[envVar] !== 'function') {
+      log(envVar, env[envVar]);
+    }
+  }
 }
 
 /**
@@ -22,10 +35,10 @@ export function logErr(...message) {
 }
 
 /**
- * Sets the dev mode for the log.
+ * Sets the `showDebugLogs` flag.
  *
- * @param {boolean} isDev `true` if dev mode, `false` if not.
+ * @param {boolean} visible `true` if debug log messages shall be shown, `false` if not.
  */
-export function setDev(isDev) {
-  dev = isDev;
+export function setShowDebugLogs(visible) {
+  showDebugLogs = visible;
 }

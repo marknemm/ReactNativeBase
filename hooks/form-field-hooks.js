@@ -27,7 +27,7 @@ export function useFormControl({ control, name = '' }) {
 /**
  * Custom hook to derive form error messages.
  *
- * @param {import('@typedefs/form-field').FormFieldProps} props The component properties.
+ * @param {Types.FormField.FormFieldProps} props The component {@link Types.FormField.FormFieldProps properties}.
  * @returns {string} The error message.
  */
 export function useFormErrorMessage({ errorMessage = '', rulesErrorMessageMap, errors, name = '', rules }) {
@@ -55,6 +55,16 @@ export function useFormErrorMessage({ errorMessage = '', rulesErrorMessageMap, e
           errorMessage = rules?.max != null
             ? `The value must be at most ${rules.max}`
             : 'The value is too large';
+          break;
+        case 'minLength':
+          errorMessage = rules?.minLength != null
+            ? `Must be at least ${rules.minLength} characters`
+            : 'The character count is too small';
+          break;
+        case 'maxLength':
+          errorMessage = rules?.maxLength != null
+            ? `Must be at most ${rules.maxLength} characters`
+            : 'The character count is too large';
           break;
         case 'pattern':
         default:

@@ -13,7 +13,7 @@ import { styles } from './styles';
  * The screen for adding dogs.
  *
  * @param {Object} param0 The component properties.
- * @param {import('@typedefs/navigation').Navigation} param0.navigation The navigation object.
+ * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The screen for adding dogs.
  */
 export default function AddDogScreen({ navigation }) {

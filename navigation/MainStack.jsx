@@ -7,13 +7,13 @@ import DogsScreen from '@screens/dogs/DogsScreen';
 const Stack = createNativeStackNavigator();
 
 /**
- * The stack for the dogs screens.
+ * The {@link MainStack} navigation.
  *
  * @param {Object} param0 The component properties.
- * @param {import('@typedefs/navigation').Navigation} param0.navigation The navigation object.
- * @returns {React.JSX.Element} The stack for the dogs screens.
+ * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @returns {React.JSX.Element} The {@link MainStack} navigation.
  */
-export default function DogsStack({ navigation }) {
+export default function MainStack({ navigation }) {
   return (
     <Stack.Navigator screenOptions={useScreenOptions()}>
       <Stack.Screen
@@ -22,7 +22,7 @@ export default function DogsStack({ navigation }) {
         options={{
           headerRight: () => (
             <AddButton
-              onPress={() => navigation.navigate('AddDog')}
+              onPress={() => navigation.navigate('Add Dog')}
               backgroundColor="transparent"
               size={28}
             />
@@ -30,11 +30,8 @@ export default function DogsStack({ navigation }) {
         }}
       />
       <Stack.Screen
-        name="AddDog"
+        name="Add Dog"
         component={AddDogScreen}
-        options={{
-          title: 'Add Dog',
-        }}
       />
     </Stack.Navigator>
   );

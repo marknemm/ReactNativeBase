@@ -1,19 +1,22 @@
+/* eslint-disable react/destructuring-assignment */
 import { useFormErrorMessage } from '@hooks/form-field-hooks';
 import { Text } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
+import { useStyles } from './styles';
 
 /**
  * The form field error component.
  *
- * @param {import('@typedefs/form-field').FormFieldProps} props The component properties.
+ * @param {Types.FormField.FormFieldErrorProps} props The component {@link Types.FormField.FormFieldErrorProps properties}.
  * @returns {React.JSX.Element} The form field error component.
  */
-export default function FormFieldError(props) {
+export default function FormError(props) {
   const errorMessage = useFormErrorMessage(props);
+  const styles = useStyles();
 
   return errorMessage
     ? (
-      <Text style={[generalStyles.errorText, generalStyles.horizontalGutter]}>
+      <Text style={[styles.formError, generalStyles.horizontalGutter, props.style]}>
         {`${errorMessage}`}
       </Text>
     )

@@ -21,7 +21,18 @@ export const generalStyles = StyleSheet.create({
     fontWeight: '700',
   },
   boldest: {
-    fontWeight: '900'
+    fontWeight: '900',
+  },
+  bottomGutter: {
+    marginBottom: verticalGutter,
+  },
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centerText: {
+    textAlign: 'center',
   },
   column: {
     flexDirection: 'column',
@@ -45,11 +56,15 @@ export const generalStyles = StyleSheet.create({
     textDecorationStyle: 'double',
     fontWeight: '900',
   },
-  errorText: {
-    color: 'red',
+  fill: {
+    width: '100%',
   },
   flexItem: {
     flex: 1,
+  },
+  flexEndItem: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   gutter: {
     paddingHorizontal: horizontalGutter,
@@ -58,11 +73,29 @@ export const generalStyles = StyleSheet.create({
   horizontalGutter: {
     paddingHorizontal: horizontalGutter,
   },
+  leftGutter: {
+    marginLeft: horizontalGutter,
+  },
+  leftText: {
+    textAlign: 'left',
+  },
   lineThrough: {
     textDecorationLine: 'line-through',
   },
+  rightGutter: {
+    marginRight: horizontalGutter,
+  },
+  rightText: {
+    textAlign: 'right',
+  },
   row: {
     flexDirection: 'row',
+  },
+  screenContainer: {
+    flexGrow: 1,
+  },
+  topGutter: {
+    marginTop: verticalGutter,
   },
   underline: {
     textDecorationLine: 'underline',
