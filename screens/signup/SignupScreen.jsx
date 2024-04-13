@@ -19,9 +19,9 @@ import { styles } from './styles';
 export default function SignupScreen({ navigation }) {
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
+      email: 'marknemmer@gmail.com',
+      password: 'nemmer',
+      confirmPassword: 'nemmer',
     },
   });
   const [submitErr, setSubmitErr] = useState('');

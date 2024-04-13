@@ -28,6 +28,7 @@
     "@react-native-firebase/functions": "^19.1.2",
     "@react-native-firebase/remote-config": "^19.1.2",
     "@react-native-firebase/storage": "^19.1.2",
+    "@react-native-google-signin/google-signin": "^11.0.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",

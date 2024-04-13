@@ -1,15 +1,17 @@
 import FormError from '@components/form-error/FormError';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
+import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
-import { login, loginAnonymously } from '@util/auth';
+import { login, loginAnonymously, loginWithGoogle } from '@util/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * Login screen.
@@ -19,7 +21,7 @@ import { styles } from './styles';
  * @returns {React.JSX.Element} The login screen.
  */
 export default function LoginScreen({ navigation }) {
-  const [lastLoginEmail, setLSLastLoginEmail] = useLSState('auth.login.lastLoginEmail', { defaultValue: '' });
+  const [lastLoginEmail, setLSLastLoginEmail] = useLSState(AUTH_LOGIN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
       email: lastLoginEmail,
@@ -28,6 +30,7 @@ export default function LoginScreen({ navigation }) {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitErr, setSubmitErr] = useState('');
+  const styles = useStyles();
 
   return (
     <FormProvider
@@ -35,6 +38,26 @@ export default function LoginScreen({ navigation }) {
       safeArea
       style={generalStyles.screenContainer}
     >
+      <View style={styles.oauthProvidersView}>
+        <GoogleSigninButton
+          color={GoogleSigninButton.Color.Dark}
+          disabled={submitting}
+          onPress={async () => {
+            setSubmitErr('');
+            setSubmitting(true);
+
+            try {
+              await loginWithGoogle();
+            } catch (error) {
+              setSubmitErr(error.message);
+              setSubmitting(false);
+            }
+          }}
+          size={GoogleSigninButton.Size.Wide}
+          style={styles.oauthProviderButton}
+        />
+      </View>
+
       <Input
         autoCapitalize="none"
         autoComplete="email"

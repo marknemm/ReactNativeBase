@@ -12,7 +12,20 @@
           "package_name": "com.onecollar.onecollar"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "617917155930-l4621ka1oi5aoeaqii6980os8s0cd289.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onecollar.onecollar",
+            "certificate_hash": "3aed93acb41e0989c47d049d81bc925f3db9b145"
+          }
+        },
+        {
+          "client_id": "617917155930-qclpruf77gdq1gplg14csqn19ego6ddc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBrxKDUA_6LFoJ15OhCQg3hI61G4dzEy-M"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617917155930-qclpruf77gdq1gplg14csqn19ego6ddc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "617917155930-roppjtulcrjatvqapjrahebive9chogg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.onecollar.onecollar"
+              }
+            }
+          ]
         }
       }
     }

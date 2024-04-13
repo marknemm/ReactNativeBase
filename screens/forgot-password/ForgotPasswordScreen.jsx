@@ -1,6 +1,7 @@
 import FormError from '@components/form-error/FormError';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
+import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { Button, Text } from '@rneui/themed';
@@ -18,7 +19,7 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link ForgotPasswordScreen} component.
  */
 export default function ForgotPasswordScreen({ navigation }) {
-  const [lastLoginEmail] = useLSState('auth.login.lastLoginEmail', { defaultValue: '' });
+  const [lastLoginEmail] = useLSState(AUTH_LOGIN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
       email: lastLoginEmail,
