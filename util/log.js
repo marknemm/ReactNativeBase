@@ -35,6 +35,17 @@ export function logErr(...message) {
 }
 
 /**
+ * Logs an error message to the console and throws the given error.
+ *
+ * @param {any} error The error to log and throw.
+ * @throws {Error} The given error.
+ */
+export function logThrowErr(error) {
+  console.error(error);
+  throw error;
+}
+
+/**
  * Sets the `showDebugLogs` flag.
  *
  * @param {boolean} visible `true` if debug log messages shall be shown, `false` if not.

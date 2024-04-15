@@ -30,7 +30,8 @@
     "ios": {
       "bundleIdentifier": "com.onecollar.onecollar",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "usesAppleSignIn": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -40,6 +41,8 @@
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       "@react-native-firebase/crashlytics",
+      "@react-native-firebase/messaging",
+      "expo-apple-authentication",
       [
         "expo-build-properties",
         {
@@ -56,6 +59,15 @@
             "central"
           ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to Bluetooth devices"
+        }
+      ],
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "956888982618930",
+          "clientToken": "cdb29f12520b4bdba00e34c887ddce60",
+          "displayName": "One Collar",
+          "scheme": "fb956888982618930"
         }
       ]
     ],

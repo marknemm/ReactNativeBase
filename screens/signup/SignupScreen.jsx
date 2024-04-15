@@ -19,13 +19,17 @@ import { styles } from './styles';
 export default function SignupScreen({ navigation }) {
   const form = useForm({
     defaultValues: {
-      email: 'marknemmer@gmail.com',
-      password: 'nemmer',
-      confirmPassword: 'nemmer',
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
   const [submitErr, setSubmitErr] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  function setLSLastLoginEmail(email) {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <FormProvider
@@ -37,7 +41,7 @@ export default function SignupScreen({ navigation }) {
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         keyboardType="email-address"
         label="Email"
         name="email"
@@ -50,7 +54,7 @@ export default function SignupScreen({ navigation }) {
         autoCapitalize="none"
         autoComplete="new-password"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         label="Password"
         name="password"
         rules={{ minLength: 6, required: 'Password is required' }}
@@ -63,7 +67,7 @@ export default function SignupScreen({ navigation }) {
         autoCapitalize="none"
         autoComplete="new-password"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         label="Confirm Password"
         name="confirmPassword"
         rules={{
@@ -75,18 +79,19 @@ export default function SignupScreen({ navigation }) {
       />
 
       <Button
-        onPress={form.handleSubmit(async (formData) => {
+        onPress={form.handleSubmit(async ({ email, password }) => {
           setSubmitErr('');
           setSubmitting(true);
 
           try {
-            await signup(formData);
+            await signup(email, password);
+            setLSLastLoginEmail(email);
           } catch (error) {
             setSubmitErr(error.message);
             setSubmitting(false);
           }
         })}
-        style={[generalStyles.horizontalGutter, generalStyles.bottomGutter]}
+        style={styles.submitButton}
         title="Signup"
       />
 

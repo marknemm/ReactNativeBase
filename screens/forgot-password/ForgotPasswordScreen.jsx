@@ -40,7 +40,7 @@ export default function ForgotPasswordScreen({ navigation }) {
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         keyboardType="email-address"
         label="Email"
         name="email"

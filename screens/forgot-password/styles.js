@@ -8,6 +8,9 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     textAlign: 'center',
   },
+  formField: {
+    marginBottom: 5,
+  },
   submitSuccessText: {
     color: theme.colors.success,
     fontSize: 18,

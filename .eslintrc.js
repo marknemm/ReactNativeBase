@@ -29,6 +29,7 @@ module.exports = {
     'import',                         // Linting for ES2015+ (ES6+) import/export syntax and resolution
     'jsdoc',                          // Linting for JSDoc comments
     'jsx-a11y',                       // Static AST checker for accessibility rules on JSX elements
+    'no-floating-promise',            // Linting for floating promises
     'prefer-arrow-functions',         // Linting for arrow function expressions
     'react',                          // Linting for React
     'react-hooks',                    // Linting for React hooks
@@ -54,6 +55,8 @@ module.exports = {
     'indent': 'warn',                                           // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
     'import/extensions': 'warn',                                // Enable the warning about import extensions
+    'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports
+    'import/no-extraneous-dependencies': 'off',                 // Disable the rule that prevents extraneous dependencies and rely on checkJs instead
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
     'import/order': 'warn',                                     // Enable the warning about import order
     'import/prefer-default-export': 'off',                      // Disable the rule that prefers default exports
@@ -116,8 +119,15 @@ module.exports = {
     'no-else-return': 'warn',                                   // Enable the warning about using else return
     'no-empty': 'warn',                                         // Enable the warning about empty blocks
     'no-empty-function': 'warn',                                // Enable the warning about empty functions
-    'no-extra-parens': 'warn',                                  // Enable the warning about extra parentheses
+    'no-extra-parens': ['warn', 'all', {                        // Enable the warning about extra parentheses
+      conditionalAssign: false,                                 // Allow extra parentheses in conditional assignments
+      ignoreJSX: 'multi-line',                                  // Ignore JSX expressions that span multiple lines
+      nestedBinaryExpressions: false,                           // Allow extra parentheses in nested binary expressions
+      returnAssign: false,                                      // Allow extra parentheses in return assignments
+      ternaryOperandBinaryExpressions: false,                   // Allow extra parentheses in ternary operand binary expressions
+    }],
     'no-extra-semi': 'warn',                                    // Enable the warning about extra semicolons
+    'no-floating-promise/no-floating-promise': 'warn',          // Enable the warning about floating promises
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
@@ -139,6 +149,11 @@ module.exports = {
       consistent: true,                                         // Require consistent newlines in object literals
     }],
     'object-curly-spacing': ['warn', 'always'],                 // Enable the warning about object curly spacing
+    'one-var': ['warn', {                                       // Enable the warning about variable declarations
+      initialized: 'never',                                     // Do not require variables to be initialized
+      uninitialized: 'consecutive',                             // Require consecutive uninitialized variables
+    }],
+    'one-var-declaration-per-line': 'off',                      // Disable the rule that requires one variable declaration per line
     'operator-linebreak': ['warn', 'before'],                   // Enable the warning about operator line breaks
     'padded-blocks': ['warn', {                                 // Enable the warning about padding within blocks
       blocks: 'never',                                          // Do not require padding within blocks
@@ -190,6 +205,7 @@ module.exports = {
     'react/self-closing-comp': 'warn',                          // Enable the warning about self-closing components
     'react-refresh/only-export-components': 'warn',             // Enable the warning about only exporting components from JSX files
     'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
+    'space-in-parens': 'warn',                                  // Enable the warning about spacing in parentheses
     'space-infix-ops': 'warn',                                  // Enable the warning about spacing in infix operators
     'spaced-comment': 'warn',                                   // Enable the warning about spacing in comments
   },

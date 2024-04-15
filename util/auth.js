@@ -1,8 +1,13 @@
+import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { CodedError } from '@util/coded-error';
-import { log, logErr } from '@util/log';
+import { log, logErr, logThrowErr } from '@util/log';
+import { AppleAuthenticationScope, signInAsync } from 'expo-apple-authentication';
 import { Alert } from 'react-native';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { getFBEmail } from './facebook';
+import { getLSItem } from './local-storage';
 
 GoogleSignin.configure();
 
@@ -15,14 +20,13 @@ GoogleSignin.configure();
  * @throws {Error} An error is thrown when the login request fails.
  */
 export async function login(email, password) {
-  log('Logging in with email:', email, password);
+  log('Logging in with email:', email);
 
   try {
     await auth().signInWithEmailAndPassword(email, password);
     log(`${email} logged in`);
   } catch (error) {
-    log(`${email} failed to log in:`, error);
-    throw new Error('Login failed: Invalid email or password');
+    await handleAuthError(error, email, auth.EmailAuthProvider.credential(email, password));
   }
 
   return auth().currentUser;
@@ -49,33 +53,105 @@ export async function loginAnonymously() {
 }
 
 /**
+ * Performs an Apple login request.
+ *
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ */
+export async function loginWithApple() {
+  let authCredential, email;
+  log('Logging in with Apple');
+
+  try {
+    // Present modal to sign into Apple account with email and full name permissions
+    const appleCredential = await signInAsync({
+      requestedScopes: [
+        AppleAuthenticationScope.EMAIL,
+        AppleAuthenticationScope.FULL_NAME,
+      ],
+    });
+
+    // Create Apple credential with Apple identity token
+    authCredential = auth.AppleAuthProvider.credential(appleCredential.identityToken);
+    email = appleCredential.email; // Will be null if not first time signing in with Apple
+
+    // Sign-in the user with the Apple auth credential
+    await loginWithCredential(authCredential, email);
+  } catch (error) {
+    switch (error.code) {
+      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled login, do not present visible error
+      default:                      await handleAuthError(error, email, authCredential);
+    }
+  }
+
+  return auth().currentUser;
+}
+
+/**
+ * Performs a Facebook login request.
+ *
+ * @param {Record<string, unknown>} [loginError] The error that occurred during the login request. Only expected with `loginResult`.
+ * @param {import('react-native-fbsdk-next').LoginResult} [loginResult] The Facebook login result. If not given, will prompt user to login.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ */
+export async function loginWithFacebook(loginError, loginResult) {
+  let authCredential, email;
+  log('Logging in with Facebook');
+
+  try {
+    if (loginError) logThrowErr(loginError); // If external login button produced error, throw it
+
+    // Present modal to sign into Facebook account with public profile and email permissions
+    loginResult ??= await LoginManager.logInWithPermissions(['public_profile', 'email']);
+    if (loginResult.isCancelled) {
+      throw new CodedError('Sign in request cancelled', { code: 'ERR_REQUEST_CANCELLED' });
+    }
+
+    // Get Facebook access token upon successful login and create a Facebook credential with it
+    const data = await AccessToken.getCurrentAccessToken();
+    if (!data) {
+      throw new Error('Something went wrong obtaining access token');
+    }
+    authCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+    email = await getFBEmail(); // Have to use custom instead of Profile.getCurrentProfile() due to Android SDK limitations
+
+    // Sign-in the user with the Facebook credential
+    await loginWithCredential(authCredential, email);
+  } catch (error) {
+    LoginManager.logOut();
+    switch (error.code) {
+      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled login, do not present visible error
+      default:                      await handleAuthError(error, email, authCredential);
+    }
+  }
+
+  return auth().currentUser;
+}
+
+/**
  * Performs a Google login request.
  *
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
  */
 export async function loginWithGoogle() {
+  let authCredential, email;
   log('Logging in with Google');
 
   try {
+    // Show Play services update dialog on Android since must be up-to-date to show sign-in modal
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    const { idToken, user: { email } } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    const signInMethods = await auth().fetchSignInMethodsForEmail(email);
-    if (signInMethods.length && !signInMethods.includes(auth.GoogleAuthProvider.PROVIDER_ID)) {
-      await attemptLinkAccounts(email, googleCredential);
-    } else {
-      await auth().signInWithCredential(googleCredential);
-    }
-  } catch (error) {
-    log('Google login failed:', error);
 
+    // Present modal to sign into Gmail account and create Google credential with Gmail ID token
+    const { idToken, user } = await GoogleSignin.signIn();
+    authCredential = auth.GoogleAuthProvider.credential(idToken);
+    email = user.email;
+
+    await loginWithCredential(authCredential, email);
+  } catch (error) {
     switch (error.code) {
-      case statusCodes.SIGN_IN_CANCELLED:           throw new Error('');
+      case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled login, do not present visible error
       case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
-      case 'auth/link-failed':                      throw new Error('Failed to link accounts, please try again');
-      default:
-        throw new Error('Google sign in unexpectedly failed, please try again');
+      default:                                      await handleAuthError(error, email, authCredential);
     }
   }
 
@@ -119,31 +195,22 @@ export async function resetPassword(email) {
 /**
  * Performs a user signup request.
  *
- * @param {Object} param0 The signup parameters.
- * @param {string} param0.email The user email address.
- * @param {string} param0.password The user password.
+ * @param {string} email The user email address.
+ * @param {string} password The user password.
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed up {@link FirebaseAuthTypes.User} when the signup request is successful.
  * @throws {Error} An error is thrown when the signup request fails.
  */
-export async function signup({ email, password }) {
+export async function signup(email, password) {
   log('Signing up with email:', email);
 
   try {
     await auth().createUserWithEmailAndPassword(email, password);
     log(`${email} signed up`);
   } catch (error) {
-    log(`${email} failed to sign up:`, error);
-
-    switch (error.code) {
-      case 'auth/email-already-in-use':
-        return attemptLinkAccounts(email, auth.EmailAuthProvider.credential(email, password));
-      case 'auth/invalid-email':  throw new Error('Invalid email address');
-      case 'auth/weak-password':  throw new Error('Password is too weak, please enter a stronger password');
-      default:                    throw new Error('Signup failed, please try again');
-    }
+    await handleAuthError(error, email, auth.EmailAuthProvider.credential(email, password), 'Signup');
   }
 
-  if (!auth().currentUser.emailVerified) { // Check if email verification is required, may have linked to existing Oauth account.
+  if (!auth().currentUser.emailVerified) { // Check if email verification is required, may have linked to verified Oauth account (e.g. Gmail).
     try {
       await auth().currentUser.sendEmailVerification();
       log('Email verification sent');
@@ -153,6 +220,57 @@ export async function signup({ email, password }) {
   }
 
   return auth().currentUser;
+}
+
+// --- PRIVATE HELPER FUNCTIONS --- //
+
+/**
+ * Handles 3rd party Oauth credential login.
+ * Handles case where account already exists with email by linking accounts.
+ *
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for login.
+ * @param {string} email The email address of the account.
+ * @returns {Promise<void>} A promise that resolves when the login request is successful.
+ */
+async function loginWithCredential(authCredential, email) {
+  email ??= getLSItem(AUTH_LOGIN_LAST_EMAIL_KEY);
+  const signInMethods = email
+    ? await auth().fetchSignInMethodsForEmail(email)
+    : [];
+
+  // Check if account already exists with email - have to do before attempting login to prevent email/password account clobbering bug
+  (signInMethods.length === 1 && signInMethods.includes(auth.EmailAuthProvider.PROVIDER_ID))
+    // Account already registered with email, link current account with 3rd party Oauth account
+    ? await attemptLinkAccounts(email, authCredential)
+    // Sign in with 3rd party credential and implicitly create account based on 3rd party Oauth data
+    : await auth().signInWithCredential(authCredential);
+
+  log('Logged in with:', authCredential.providerId);
+}
+
+/**
+ * Handles an authentication error based on the error code.
+ *
+ * @param {CodedError} error The authentication {@link CodedError error}.
+ * @param {string} email The email address of the account.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for the failed authentication.
+ * @param {string} [authAction='Login'] The authentication action that failed (e.g. 'Login', 'Signup').
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that typically rejects with an error message based on the error code.
+ * If the error code is equivalent to `auth/email-already-in-use`, if account link is successful, the promise resolves to the linked {@link FirebaseAuthTypes.User}.
+ */
+async function handleAuthError(error, email, authCredential, authAction = 'Login') {
+  log(`(${authAction} - ${email}) auth error:`, error);
+
+  switch (error.code) {
+    case 'auth/email-already-in-use':    return attemptLinkAccounts(email, authCredential);
+    case 'auth/invalid-email':           throw new Error('Invalid email address');
+    case 'auth/link-failed':             throw new Error('Failed to link accounts, please try again');
+    case 'auth/provider-already-linked': throw new Error('Account already exists, please login instead');
+    case 'auth/user-disabled':           throw new Error('Account is disabled, please contact support');
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    default:                             throw new Error(`${authAction} failed, please try again`);
+  }
 }
 
 /**
@@ -165,11 +283,13 @@ export async function signup({ email, password }) {
 async function attemptLinkAccounts(email, authCredential) {
   log('Attempting to link accounts');
 
+  // Get current account(s) / sign-in method(s) and check if account already exists
   const signInMethods = await auth().fetchSignInMethodsForEmail(email);
   if (signInMethods.includes(authCredential.providerId)) {
     throw new CodedError('Account already exists, please login instead', { code: 'auth/provider-already-linked' });
   }
 
+  // Login with the first available provider of existing account to link with new account
   try {
     await loginWithProvider(signInMethods[0], email);
   } catch (error) {
@@ -178,13 +298,11 @@ async function attemptLinkAccounts(email, authCredential) {
   }
 
   try {
-    if (authCredential.providerId === auth.EmailAuthProvider.PROVIDER_ID) {
-      // Linking new email/password account to 3rd party oauth account requires updatePassword.
-      await auth().currentUser.updatePassword(authCredential.secret);
-    } else {
-      // Linking 3rd party oauth account to another 3rd party oauth account or email/password account requires linkWithCredential.
-      await auth().currentUser.linkWithCredential(authCredential);
-    }
+    (authCredential.providerId === auth.EmailAuthProvider.PROVIDER_ID)
+      // Linking new email/password account to 3rd party oauth account requires updatePassword
+      ? await auth().currentUser.updatePassword(authCredential.secret)
+      // Linking 3rd party oauth account to another 3rd party oauth account or email/password account requires linkWithCredential
+      : await auth().currentUser.linkWithCredential(authCredential);
     log('Accounts linked');
   } catch (error) {
     logErr('Failed to link accounts:', error);
@@ -203,12 +321,14 @@ async function attemptLinkAccounts(email, authCredential) {
  */
 async function loginWithProvider(providerId, email) {
   switch (providerId) {
-    case auth.EmailAuthProvider.PROVIDER_ID:
-      return login(email, await promptForPassword(email));
-    case auth.GoogleAuthProvider.PROVIDER_ID:
-      return loginWithGoogle();
-    default:
-      throw new Error('Unknown login provider');
+    case auth.AppleAuthProvider.PROVIDER_ID:    return loginWithApple();
+    case auth.EmailAuthProvider.PROVIDER_ID:    return login(email, await promptForPassword(email));
+    case auth.FacebookAuthProvider.PROVIDER_ID: return loginWithFacebook();
+    case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub login not supported');
+    case auth.GoogleAuthProvider.PROVIDER_ID:   return loginWithGoogle();
+    case auth.PhoneAuthProvider.PROVIDER_ID:    throw new Error('Phone login not supported');
+    case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter login not supported');
+    default:                                    throw new Error('Unknown login provider');
   }
 }
 

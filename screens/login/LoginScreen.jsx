@@ -4,10 +4,12 @@ import { EMAIL_REGEX } from '@constants/regex';
 import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import { Button } from '@rneui/themed';
+import { Button, useThemeMode } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
-import { login, loginAnonymously, loginWithGoogle } from '@util/auth';
+import { login, loginAnonymously, loginWithApple, loginWithGoogle } from '@util/auth';
+import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -30,7 +32,31 @@ export default function LoginScreen({ navigation }) {
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitErr, setSubmitErr] = useState('');
+
+  const { mode: themeMode } = useThemeMode();
+  const appleButtonStyle = themeMode === 'dark'
+    ? AppleAuthenticationButtonStyle.WHITE
+    : AppleAuthenticationButtonStyle.BLACK;
   const styles = useStyles();
+
+  /**
+   * Handles a login button click by invoking the given `loginMethodCb` function.
+   *
+   * @param {() => Promise<FirebaseAuthTypes.User>} loginMethodCb The login method callback function.
+   * @returns {Promise<void>} A promise that resolves when the login method callback function completes.
+   */
+  async function handleLogin(loginMethodCb) {
+    if (submitting) return;
+    setSubmitErr('');
+    setSubmitting(true);
+
+    try {
+      await loginMethodCb();
+    } catch (error) {
+      setSubmitErr(error.message);
+      setSubmitting(false);
+    }
+  }
 
   return (
     <FormProvider
@@ -41,28 +67,28 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.oauthProvidersView}>
         <GoogleSigninButton
           color={GoogleSigninButton.Color.Dark}
-          disabled={submitting}
-          onPress={async () => {
-            setSubmitErr('');
-            setSubmitting(true);
-
-            try {
-              await loginWithGoogle();
-            } catch (error) {
-              setSubmitErr(error.message);
-              setSubmitting(false);
-            }
-          }}
+          onPress={() => handleLogin(loginWithGoogle)}
           size={GoogleSigninButton.Size.Wide}
+          style={styles.googleProviderButton}
+        />
+        <AppleAuthenticationButton
+          buttonType={AppleAuthenticationButtonType.SIGN_IN}
+          buttonStyle={appleButtonStyle}
+          cornerRadius={2}
+          onPress={() => handleLogin(loginWithApple)}
           style={styles.oauthProviderButton}
         />
+        {/* <FacebookLoginButton
+          style={styles.oauthProviderButton}
+          onLoginFinished={(error, result) => handleLogin(() => loginWithFacebook(error, result))}
+        /> */}
       </View>
 
       <Input
         autoCapitalize="none"
         autoComplete="email"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         keyboardType="email-address"
         label="Email"
         name="email"
@@ -76,10 +102,9 @@ export default function LoginScreen({ navigation }) {
         autoCapitalize="none"
         autoComplete="current-password"
         autoCorrect={false}
-        containerStyle={generalStyles.bottomGutter}
+        containerStyle={styles.formField}
         label="Password"
         name="password"
-        placeholder=""
         rules={{ minLength: 6, required: 'Password is required' }}
         rulesErrorMessageMap={{ minLength: 'Password must be at least 6 characters' }}
         secureTextEntry
@@ -88,19 +113,14 @@ export default function LoginScreen({ navigation }) {
 
       <Button
         loading={submitting}
-        onPress={form.handleSubmit(async ({ email, password }) => {
-          setSubmitErr('');
-          setSubmitting(true);
-
-          try {
-            await login(email, password);
+        onPress={form.handleSubmit(({ email, password }) =>
+          handleLogin(async () => {
+            const authUser = await login(email, password);
             setLSLastLoginEmail(email);
-          } catch (error) {
-            setSubmitErr(error.message);
-            setSubmitting(false);
-          }
-        })}
-        style={[generalStyles.horizontalGutter, generalStyles.bottomGutter]}
+            return authUser;
+          })
+        )}
+        style={styles.submitButton}
         title="Login"
       />
 
@@ -125,18 +145,9 @@ export default function LoginScreen({ navigation }) {
       <View style={generalStyles.flexEndItem}>
         <Button
           disabled={submitting}
-          onPress={async () => {
-            setSubmitErr('');
-            setSubmitting(true);
-
-            try {
-              await loginAnonymously();
-            } catch (error) {
-              setSubmitErr(error.message);
-              setSubmitting(false);
-            }
-          }}
-          style={[styles.skipLogin, generalStyles.horizontalGutter]}
+          onPress={() => handleLogin(loginAnonymously)}
+          style={styles.skipLoginButton}
+          titleStyle={styles.skipLoginText}
           title="Skip Login"
           type="clear"
         />
