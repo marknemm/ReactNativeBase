@@ -1,3 +1,4 @@
+import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
@@ -31,6 +32,17 @@ export class User {
   constructor(docData, authUser) {
     this.#docData = docData;
     this.#authUser = authUser;
+  }
+
+  /**
+   * The user background color.
+   *
+   * @readonly
+   */
+  get backgroundColor() {
+    return this.isAnonymous
+      ? 'grey'
+      : USER_BACKGROUND_COLORS[this.uid.charCodeAt(0) % USER_BACKGROUND_COLORS.length];
   }
 
   /**
@@ -125,7 +137,7 @@ export class User {
   get displayName() {
     return this.isAnonymous
       ? 'Anonymous'
-      : this.#docData?.displayName || this.#docData?.email?.split('@')[0] || '';
+      : this.#docData?.displayName || '';
   }
 
   /**
@@ -153,6 +165,15 @@ export class User {
    */
   get uid() {
     return this.#docData?.documentId || ''; // documentId and uid should be equivalent.
+  }
+
+  /**
+   * The username. Either the display (full) name, or the email address without the domain.
+   *
+   * @readonly
+   */
+  get username() {
+    return this.displayName || this.email?.split('@')[0] || '';
   }
 
   /**

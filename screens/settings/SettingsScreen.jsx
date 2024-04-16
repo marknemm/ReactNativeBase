@@ -15,7 +15,10 @@ export default function SettingsScreen({ navigation }) {
   const user = useUser();
   return (
     <View>
-      <UserCard user={user} />
+      <UserCard
+        onPress={() => navigation.navigate('Profile')}
+        user={user}
+      />
 
       <ListItem onPress={() => navigation.navigate('Theme')} bottomDivider>
         <Icon name="palette" type="material" color="grey" />

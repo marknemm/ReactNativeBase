@@ -176,6 +176,7 @@ module.exports = {
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
     'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
     'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
+    'react/jsx-closing-tag-location': 'warn',                   // Enable the warning about the location of closing tags in JSX
     'react/jsx-curly-newline': 'warn',                          // Enable the warning about curly newlines in JSX
     'react/jsx-curly-spacing': 'warn',                          // Enable the warning about curly spacing in JSX
     'react/jsx-first-prop-new-line': 'warn',                    // Enable the warning about the first prop new line in JSX

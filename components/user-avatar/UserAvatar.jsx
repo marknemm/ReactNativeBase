@@ -2,6 +2,7 @@
 import { Avatar } from '@rneui/themed';
 import { User } from '@util/user';
 import PropTypes from 'prop-types';
+import { useStyles } from './styles';
 
 /**
  * The UserAvatar component.
@@ -10,7 +11,8 @@ import PropTypes from 'prop-types';
  * @returns {React.JSX.Element} The UserAvatar component.
  */
 export default function UserAvatar(props)  {
-  const { user } = props;
+  const styles = useStyles(props);
+  const { containerStyle, user } = props;
   const icon = !(user?.photoURL || user?.initials)
     ? { name: 'user', type: 'font-awesome' }
     : null;
@@ -21,17 +23,17 @@ export default function UserAvatar(props)  {
 
   return (
     <Avatar
-      containerStyle={{ backgroundColor: 'green' }}
       icon={icon}
       rounded
-      size="medium"
       source={source}
       title={user?.initials}
       {...props}
+      containerStyle={[styles.container, containerStyle]}
     />
   );
 }
 
 UserAvatar.propTypes = {
+  containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   user: PropTypes.instanceOf(User),
 };
