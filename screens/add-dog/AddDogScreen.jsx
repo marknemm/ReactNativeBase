@@ -7,7 +7,7 @@ import { generalStyles } from '@styles/general-styles';
 import { log } from '@util/log';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * The screen for adding dogs.
@@ -17,6 +17,7 @@ import { styles } from './styles';
  * @returns {React.JSX.Element} The screen for adding dogs.
  */
 export default function AddDogScreen({ navigation }) {
+  const styles = useStyles();
   const form = useForm({
     defaultValues: {
       name: '',

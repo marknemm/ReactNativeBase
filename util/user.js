@@ -69,16 +69,18 @@ export class User {
   get initials() {
     let initials = '';
 
-    if (this.firstName) {
-      initials = this.firstName.charAt(0);
-    }
+    if (!this.isAnonymous) {
+      if (this.firstName) {
+        initials = this.firstName.charAt(0).toUpperCase();
+      }
 
-    if (this.lastName) {
-      initials += this.lastName.charAt(0);
-    }
+      if (this.lastName) {
+        initials += this.lastName.charAt(0).toUpperCase();
+      }
 
-    if (!initials && this.email) {
-      initials = this.email.charAt(0);
+      if (!initials && this.email) {
+        initials = this.email.charAt(0).toUpperCase();
+      }
     }
 
     return initials;
@@ -123,7 +125,7 @@ export class User {
   get displayName() {
     return this.isAnonymous
       ? 'Anonymous'
-      : this.#docData?.displayName || this.#authUser?.displayName || '';
+      : this.#docData?.displayName || this.#docData?.email?.split('@')[0] || '';
   }
 
   /**
@@ -132,7 +134,7 @@ export class User {
    * @readonly
    */
   get phoneNumber() {
-    return this.#docData?.phoneNumber || this.#authUser?.phoneNumber || '';
+    return this.#docData?.phoneNumber || '';
   }
 
   /**
@@ -141,7 +143,7 @@ export class User {
    * @readonly
    */
   get photoURL() {
-    return this.#docData?.photoURL || this.#authUser?.photoURL || '';
+    return this.#docData?.photoURL || '';
   }
 
   /**
@@ -150,7 +152,7 @@ export class User {
    * @readonly
    */
   get uid() {
-    return this.#docData?.documentId || this.#authUser?.uid || ''; // documentId and uid should be equivalent.
+    return this.#docData?.documentId || ''; // documentId and uid should be equivalent.
   }
 
   /**

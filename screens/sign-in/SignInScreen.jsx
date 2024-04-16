@@ -23,6 +23,7 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The sign in screen.
  */
 export default function SignInScreen({ navigation }) {
+  const styles = useStyles();
   const [lastSignInEmail, setLSLastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
@@ -36,7 +37,6 @@ export default function SignInScreen({ navigation }) {
   const appleButtonStyle = themeMode === 'dark'
     ? AppleAuthenticationButtonStyle.WHITE
     : AppleAuthenticationButtonStyle.BLACK;
-  const styles = useStyles();
 
   /**
    * Handles a sign in button click by invoking the given `signInMethodCb` function.

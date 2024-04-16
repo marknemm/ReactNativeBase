@@ -10,7 +10,7 @@ import { logErr } from '@util/log';
 import PropTypes from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * The Bluetooth device list component.
@@ -48,6 +48,7 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
  * @returns {React.JSX.Element} The Bluetooth device list header component.
  */
 function BleDeviceListHeader({ title }) {
+  const styles = useStyles();
   const { resetBleManager } = useContext(BleManagerContext);
 
   return (
@@ -67,12 +68,14 @@ function BleDeviceListHeader({ title }) {
  * @returns {React.JSX.Element} The Bluetooth device list item component.
  */
 function BleDeviceListItem({ bleDevice }) {
+  const styles = useStyles();
   const { bleManager } = useContext(BleManagerContext);
   const [bleDeviceConnected, setBleDeviceConnected] = useState(null);
   const connectToggleTitle = bleDeviceConnected ? 'Disconnect' : 'Connect';
   const connectToggleLoading = bleDeviceConnected === null;
 
   useEffect(() => {
+    // eslint-disable-next-line no-floating-promise/no-floating-promise
     (async () => {
       setBleDeviceConnected(await bleDevice.isConnected());
     })();

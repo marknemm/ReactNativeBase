@@ -4,7 +4,7 @@ import { useBleState } from '@hooks/ble-hooks';
 import { Text } from '@rneui/themed';
 import { State } from '@util/ble-manager';
 import { View } from 'react-native';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * The Bluetooth state component.
@@ -12,6 +12,7 @@ import { styles } from './styles';
  * @returns {React.JSX.Element} The Bluetooth state component.
  */
 export default function BleState() {
+  const styles = useStyles();
   const bleState = useBleState();
   const bleStatusColor = bleState === State.PoweredOn
     ? 'green'

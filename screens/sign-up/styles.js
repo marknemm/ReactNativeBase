@@ -1,10 +1,10 @@
+import { makeStyles } from '@rneui/themed';
 import { horizontalGutter } from '@styles/general-styles';
-import { StyleSheet } from 'react-native';
 
 /**
- * The `Sign Up` screen styles.
+ * Gets the styles for the `SignUpScreen`.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles((theme) => ({
   formError: {
     marginTop: 10,
     textAlign: 'center',
@@ -16,4 +16,4 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: horizontalGutter,
   },
-});
+}));

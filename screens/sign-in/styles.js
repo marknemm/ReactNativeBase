@@ -2,7 +2,7 @@ import { makeStyles } from '@rneui/themed';
 import { horizontalGutter } from '@styles/general-styles';
 
 /**
- * The `SignInScreen` `useStyles` hook.
+ * Gets the styles for the `SignInScreen`.
  */
 export const useStyles = makeStyles((theme) => ({
   formError: {

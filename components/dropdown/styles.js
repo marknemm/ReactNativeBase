@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
 /**
- * The styles for the dropdown component.
+ * Gets the styles for the `Dropdown` component.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles(() => ({
   dropdown: {
     borderBottomColor: 'gray',
     borderBottomWidth: 1,
@@ -13,4 +13,4 @@ export const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 18,
   }
-});
+}));

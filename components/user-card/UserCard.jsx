@@ -2,6 +2,7 @@ import { User } from '@util/user';
 import PropTypes from 'prop-types';
 import { Card } from '@rneui/themed';
 import UserAvatar from '@components/user-avatar/UserAvatar';
+import { useStyles } from './styles';
 
 /**
  * The UserCard component.
@@ -11,6 +12,7 @@ import UserAvatar from '@components/user-avatar/UserAvatar';
  * @returns {React.JSX.Element} The UserCard component.
  */
 export default function UserCard({ user }) {
+  const styles = useStyles();
   if (!user) return null;
 
   return (

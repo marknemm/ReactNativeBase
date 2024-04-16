@@ -11,8 +11,8 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The form field error component.
  */
 export default function FormError(props) {
-  const errorMessage = useFormErrorMessage(props);
   const styles = useStyles();
+  const errorMessage = useFormErrorMessage(props);
 
   return errorMessage
     ? (

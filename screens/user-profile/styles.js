@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
 /**
- * The `UserProfile` screen styles.
+ * Gets the styles for the `UserProfileScreen`.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles((theme) => ({
   formError: {
     marginTop: 10,
     textAlign: 'center',
   },
-});
+}));

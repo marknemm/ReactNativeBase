@@ -9,7 +9,7 @@ import { signUp } from '@util/auth';
 import { setLSItem } from '@util/local-storage';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * Sign up screen.
@@ -19,6 +19,7 @@ import { styles } from './styles';
  * @returns {React.JSX.Element} The sign up screen.
  */
 export default function SignUpScreen({ navigation }) {
+  const styles = useStyles();
   const form = useForm({
     defaultValues: {
       email: '',

@@ -1,7 +1,7 @@
 import { makeStyles } from '@rneui/themed';
 
 /**
- * The `FormError` component `useStyles` hook.
+ * Gets the styles for the `FormError` component.
  */
 export const useStyles = makeStyles((theme) => ({
   formError: {

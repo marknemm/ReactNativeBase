@@ -19,6 +19,7 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link ForgotPasswordScreen} component.
  */
 export default function ForgotPasswordScreen({ navigation }) {
+  const styles = useStyles();
   const [lastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
@@ -28,7 +29,6 @@ export default function ForgotPasswordScreen({ navigation }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitErr, setSubmitErr] = useState('');
   const [submitSuccessful, setSubmitSuccessful] = useState(false);
-  const styles = useStyles();
 
   return (
     <FormProvider

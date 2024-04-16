@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
 /**
- * The styles for the Bluetooth device component.
+ * Gets the styles for the `BleDeviceList` component.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles(() => ({
   deviceListHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -31,4 +31,4 @@ export const styles = StyleSheet.create({
   bleDeviceName: {
     fontSize: 16,
   },
-});
+}));

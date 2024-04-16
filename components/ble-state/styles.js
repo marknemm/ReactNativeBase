@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
 /**
- * The styles for the Bluetooth state component.
+ * Gets the styles for the `BleState` component.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles(() => ({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -13,4 +13,4 @@ export const styles = StyleSheet.create({
   tooltipText: {
     color: 'white',
   },
-});
+}));

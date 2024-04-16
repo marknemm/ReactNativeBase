@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 import { Dropdown as RneDropdown } from 'react-native-element-dropdown';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * The dropdown component.
@@ -17,6 +17,7 @@ import { styles } from './styles';
  * @throws {Error} The name property is required when using form controls.
  */
 export default function Dropdown(props) {
+  const styles = useStyles();
   const { theme } = useTheme();
   const control = useFormControl(props);
   const labelField = props.labelField || 'label';

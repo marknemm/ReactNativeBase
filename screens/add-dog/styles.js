@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { makeStyles } from '@rneui/themed';
 
 /**
- * The styles for the add dog screen.
+ * Gets the styles for the `AddDogScreen`.
  */
-export const styles = StyleSheet.create({
+export const useStyles = makeStyles(() => ({
   weightInputContainer: {
     flex: 2,
   },
@@ -11,4 +11,4 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingEnd: 10,
   },
-});
+}));

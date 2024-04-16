@@ -7,7 +7,7 @@ import { Avatar, Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { styles } from './styles';
+import { useStyles } from './styles';
 
 /**
  * The user profile screen.
@@ -17,6 +17,7 @@ import { styles } from './styles';
  * @returns {React.JSX.Element} The user profile screen.
  */
 export default function UserProfileScreen({ navigation }) {
+  const styles = useStyles();
   const user = useUser();
   const form = useForm({
     defaultValues: {
