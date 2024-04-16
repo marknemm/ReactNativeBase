@@ -2,7 +2,7 @@ import { makeStyles } from '@rneui/themed';
 import { horizontalGutter } from '@styles/general-styles';
 
 /**
- * The `LoginScreen` `useStyles` hook.
+ * The `SignInScreen` `useStyles` hook.
  */
 export const useStyles = makeStyles((theme) => ({
   formError: {
@@ -29,13 +29,13 @@ export const useStyles = makeStyles((theme) => ({
     marginHorizontal: horizontalGutter,
     marginTop: -20,
   },
-  skipLoginButton: {
+  skipSignInButton: {
     borderTopWidth: 0.25,
     borderTopColor: theme.colors.primary,
     marginHorizontal: horizontalGutter,
     marginTop: 'auto',
   },
-  skipLoginText: {
+  skipSignInText: {
     fontSize: 16,
     fontWeight: '300',
   },

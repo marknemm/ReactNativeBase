@@ -2,7 +2,7 @@ import { horizontalGutter } from '@styles/general-styles';
 import { StyleSheet } from 'react-native';
 
 /**
- * The signup screen styles.
+ * The `Sign Up` screen styles.
  */
 export const styles = StyleSheet.create({
   formError: {

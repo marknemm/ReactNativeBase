@@ -1,9 +1,9 @@
 import { Device } from 'react-native-ble-plx';
 
 /**
- * The key for the last login email in persistent local storage.
+ * The key for the last sign in email in persistent local storage.
  */
-export const AUTH_LOGIN_LAST_EMAIL_KEY = 'auth.login.last-email';
+export const AUTH_SIGN_IN_LAST_EMAIL_KEY = 'auth.sign-in.last-email';
 
 /**
  * The key for the list of paired Bluetooth {@link Device} IDs in persistent local storage.

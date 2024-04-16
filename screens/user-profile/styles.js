@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 /**
- * The signup screen styles.
+ * The `UserProfile` screen styles.
  */
 export const styles = StyleSheet.create({
   formError: {

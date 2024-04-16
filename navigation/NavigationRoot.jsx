@@ -5,8 +5,8 @@ import { DarkTheme, DefaultTheme, NavigationContainer, createNavigationContainer
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '@rneui/themed';
 import ForgotPasswordScreen from '@screens/forgot-password/ForgotPasswordScreen';
-import LoginScreen from '@screens/login/LoginScreen';
-import SignupScreen from '@screens/signup/SignupScreen';
+import SignInScreen from '@screens/sign-in/SignInScreen';
+import SignUpScreen from '@screens/sign-up/SignUpScreen';
 import { useMemo } from 'react';
 import BottomTabs from './BottomTabs';
 
@@ -35,12 +35,12 @@ export default function NavigationRoot() {
           ) : (
             <>
               <Stack.Screen
-                name="Login"
-                component={LoginScreen}
+                name="Sign In"
+                component={SignInScreen}
               />
               <Stack.Screen
-                name="Signup"
-                component={SignupScreen}
+                name="Sign Up"
+                component={SignUpScreen}
               />
               <Stack.Screen
                 name="Forgot Password"

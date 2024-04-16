@@ -1,4 +1,4 @@
-import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { CodedError } from '@util/coded-error';
@@ -12,40 +12,37 @@ import { getLSItem } from './local-storage';
 GoogleSignin.configure();
 
 /**
- * Performs a user login request.
+ * Sends a password reset email.
  *
  * @param {string} email The user email address.
- * @param {string} password The user password.
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
- * @throws {Error} An error is thrown when the login request fails.
+ * @returns {Promise<void>} A promise that resolves when the password reset email is sent.
  */
-export async function login(email, password) {
-  log('Logging in with email:', email);
+export async function sendPasswordResetEmail(email) {
+  log('Resetting password for email:', email);
 
   try {
-    await auth().signInWithEmailAndPassword(email, password);
-    log(`${email} logged in`);
+    await auth().sendPasswordResetEmail(email);
+    log('Password reset email sent');
   } catch (error) {
-    await handleAuthError(error, email, auth.EmailAuthProvider.credential(email, password));
+    log('Failed to reset password:', error);
+    throw new Error('Failed to send password reset email, please double check your email and try again');
   }
-
-  return auth().currentUser;
 }
 
 /**
- * Performs an anonymous login request.
+ * Performs an anonymous sign in request.
  *
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in anonymous {@link FirebaseAuthTypes.User} when the login request is successful.
- * @throws {Error} An error is thrown when the anonymous login request unexpectedly fails.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in anonymous {@link FirebaseAuthTypes.User} when the sign in request is successful.
+ * @throws {Error} An error is thrown when the anonymous sign in request unexpectedly fails.
  */
-export async function loginAnonymously() {
-  log('Logging in anonymously');
+export async function signInAnonymously() {
+  log('Signing in anonymously');
 
   try {
     await auth().signInAnonymously();
-    log('Logged in anonymously');
+    log('Signed in anonymously');
   } catch (error) {
-    log('Anonymous login failed:', error);
+    log('Anonymous sign in failed:', error);
     throw new Error('Something went wrong, try again...');
   }
 
@@ -53,13 +50,13 @@ export async function loginAnonymously() {
 }
 
 /**
- * Performs an Apple login request.
+ * Performs an Apple sign in request.
  *
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
-export async function loginWithApple() {
+export async function signInWithApple() {
   let authCredential, email;
-  log('Logging in with Apple');
+  log('Signing in with Apple');
 
   try {
     // Present modal to sign into Apple account with email and full name permissions
@@ -75,10 +72,10 @@ export async function loginWithApple() {
     email = appleCredential.email; // Will be null if not first time signing in with Apple
 
     // Sign-in the user with the Apple auth credential
-    await loginWithCredential(authCredential, email);
+    await signInWithCredential(authCredential, email);
   } catch (error) {
     switch (error.code) {
-      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled login, do not present visible error
+      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
       default:                      await handleAuthError(error, email, authCredential);
     }
   }
@@ -87,18 +84,40 @@ export async function loginWithApple() {
 }
 
 /**
- * Performs a Facebook login request.
+ * Performs a user sign in request.
  *
- * @param {Record<string, unknown>} [loginError] The error that occurred during the login request. Only expected with `loginResult`.
- * @param {import('react-native-fbsdk-next').LoginResult} [loginResult] The Facebook login result. If not given, will prompt user to login.
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ * @param {string} email The user email address.
+ * @param {string} [password] The user password. If not given, then prompts the user for a password via alert dialog.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
+ * @throws {Error} An error is thrown when the sign in request fails.
  */
-export async function loginWithFacebook(loginError, loginResult) {
-  let authCredential, email;
-  log('Logging in with Facebook');
+export async function signInWithEmailAndPassword(email, password) {
+  log('Signing in with email and password:', email);
+  password ??= await promptForPassword(email);
 
   try {
-    if (loginError) logThrowErr(loginError); // If external login button produced error, throw it
+    await auth().signInWithEmailAndPassword(email, password);
+    log(`${email} signed in`);
+  } catch (error) {
+    await handleAuthError(error, email, auth.EmailAuthProvider.credential(email, password));
+  }
+
+  return auth().currentUser;
+}
+
+/**
+ * Performs a Facebook sign in request.
+ *
+ * @param {Record<string, unknown>} [loginError] The error that occurred during the sign in request. Only expected with `loginResult`.
+ * @param {import('react-native-fbsdk-next').LoginResult} [loginResult] The Facebook sign in result. If not given, will prompt user to sign in.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
+ */
+export async function signInWithFacebook(loginError, loginResult) {
+  let authCredential, email;
+  log('Signing in with Facebook');
+
+  try {
+    if (loginError) logThrowErr(loginError); // If external sign in button produced error, throw it
 
     // Present modal to sign into Facebook account with public profile and email permissions
     loginResult ??= await LoginManager.logInWithPermissions(['public_profile', 'email']);
@@ -106,7 +125,7 @@ export async function loginWithFacebook(loginError, loginResult) {
       throw new CodedError('Sign in request cancelled', { code: 'ERR_REQUEST_CANCELLED' });
     }
 
-    // Get Facebook access token upon successful login and create a Facebook credential with it
+    // Get Facebook access token upon successful sign in and create a Facebook credential with it
     const data = await AccessToken.getCurrentAccessToken();
     if (!data) {
       throw new Error('Something went wrong obtaining access token');
@@ -115,11 +134,11 @@ export async function loginWithFacebook(loginError, loginResult) {
     email = await getFBEmail(); // Have to use custom instead of Profile.getCurrentProfile() due to Android SDK limitations
 
     // Sign-in the user with the Facebook credential
-    await loginWithCredential(authCredential, email);
+    await signInWithCredential(authCredential, email);
   } catch (error) {
     LoginManager.logOut();
     switch (error.code) {
-      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled login, do not present visible error
+      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
       default:                      await handleAuthError(error, email, authCredential);
     }
   }
@@ -128,13 +147,13 @@ export async function loginWithFacebook(loginError, loginResult) {
 }
 
 /**
- * Performs a Google login request.
+ * Performs a Google sign in request.
  *
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
-export async function loginWithGoogle() {
+export async function signInWithGoogle() {
   let authCredential, email;
-  log('Logging in with Google');
+  log('Signing in with Google');
 
   try {
     // Show Play services update dialog on Android since must be up-to-date to show sign-in modal
@@ -145,10 +164,10 @@ export async function loginWithGoogle() {
     authCredential = auth.GoogleAuthProvider.credential(idToken);
     email = user.email;
 
-    await loginWithCredential(authCredential, email);
+    await signInWithCredential(authCredential, email);
   } catch (error) {
     switch (error.code) {
-      case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled login, do not present visible error
+      case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled sign in, do not present visible error
       case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
       default:                                      await handleAuthError(error, email, authCredential);
@@ -159,48 +178,49 @@ export async function loginWithGoogle() {
 }
 
 /**
- * Performs a user logout request.
+ * Performs a user sign in request with a phone number.
  *
- * @returns {Promise<void>} A promise that resolves when the logout request is complete.
+ * @param {string} phoneNumber The user phone number.
+ * @returns {Promise<FirebaseAuthTypes.ConfirmationResult>} A promise that resolves to the {@link FirebaseAuthTypes.ConfirmationResult}
+ * when the confirmation code is texted to the given `phoneNumber`.
  */
-export async function logout() {
-  log('Logging out');
+export async function signInWithPhoneNumber(phoneNumber) {
+  log('Signing in with phone:', phoneNumber);
+
+  try {
+    return await auth().signInWithPhoneNumber(phoneNumber, true); // true - force message to resend if sent already
+  } catch (error) {
+    await handleAuthError(error, phoneNumber, auth.PhoneAuthProvider.credential(phoneNumber));
+  }
+
+  return null;
+}
+
+/**
+ * Performs a user sign out request.
+ *
+ * @returns {Promise<void>} A promise that resolves when the sign out request is complete.
+ */
+export async function signOut() {
+  log('Signing out');
 
   try {
     await auth().signOut();
-    log('Logged out');
+    log('signed out');
   } catch (error) {
-    logErr('Failed to log out:', error);
+    logErr('Failed to sign out:', error);
   }
 }
 
 /**
- * Performs a user password reset request.
- *
- * @param {string} email The user email address.
- * @returns {Promise<void>} A promise that resolves when the password reset request is complete.
- */
-export async function resetPassword(email) {
-  log('Resetting password for email:', email);
-
-  try {
-    await auth().sendPasswordResetEmail(email);
-    log('Password reset email sent');
-  } catch (error) {
-    log('Failed to reset password:', error);
-    throw new Error('Failed to send password reset email, please double check your email and try again');
-  }
-}
-
-/**
- * Performs a user signup request.
+ * Performs a user sign up request.
  *
  * @param {string} email The user email address.
  * @param {string} password The user password.
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed up {@link FirebaseAuthTypes.User} when the signup request is successful.
- * @throws {Error} An error is thrown when the signup request fails.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed up {@link FirebaseAuthTypes.User} when the sign up request is successful.
+ * @throws {Error} An error is thrown when the sign up request fails.
  */
-export async function signup(email, password) {
+export async function signUp(email, password) {
   log('Signing up with email:', email);
 
   try {
@@ -225,27 +245,29 @@ export async function signup(email, password) {
 // --- PRIVATE HELPER FUNCTIONS --- //
 
 /**
- * Handles 3rd party Oauth credential login.
- * Handles case where account already exists with email by linking accounts.
+ * Handles authentication credential sign in.
+ * Handles case where account already exists with email/password by linking accounts.
  *
- * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for login.
- * @param {string} email The email address of the account.
- * @returns {Promise<void>} A promise that resolves when the login request is successful.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for sign in.
+ * @param {string} [email] The email address of the account.
+ * @returns {Promise<void>} A promise that resolves when the sign in request is successful.
  */
-async function loginWithCredential(authCredential, email) {
-  email ??= getLSItem(AUTH_LOGIN_LAST_EMAIL_KEY);
+async function signInWithCredential(authCredential, email) {
+  email ??= getLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY);
   const signInMethods = email
     ? await auth().fetchSignInMethodsForEmail(email)
     : [];
 
-  // Check if account already exists with email - have to do before attempting login to prevent email/password account clobbering bug
-  (signInMethods.length === 1 && signInMethods.includes(auth.EmailAuthProvider.PROVIDER_ID))
+  // Check if account already exists with email - have to do before attempting sign in to prevent email/password account clobbering bug
+  (authCredential.providerId !== auth.EmailAuthProvider.PROVIDER_ID
+  && signInMethods.length === 1
+  && signInMethods.includes(auth.EmailAuthProvider.PROVIDER_ID))
     // Account already registered with email, link current account with 3rd party Oauth account
-    ? await attemptLinkAccounts(email, authCredential)
+    ? await linkWithCredential(authCredential, email)
     // Sign in with 3rd party credential and implicitly create account based on 3rd party Oauth data
     : await auth().signInWithCredential(authCredential);
 
-  log('Logged in with:', authCredential.providerId);
+  log('Signed in with:', authCredential.providerId);
 }
 
 /**
@@ -254,18 +276,18 @@ async function loginWithCredential(authCredential, email) {
  * @param {CodedError} error The authentication {@link CodedError error}.
  * @param {string} email The email address of the account.
  * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for the failed authentication.
- * @param {string} [authAction='Login'] The authentication action that failed (e.g. 'Login', 'Signup').
+ * @param {string} [authAction='Sign in'] The authentication action that failed (e.g. 'Sign in', 'Signup').
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that typically rejects with an error message based on the error code.
  * If the error code is equivalent to `auth/email-already-in-use`, if account link is successful, the promise resolves to the linked {@link FirebaseAuthTypes.User}.
  */
-async function handleAuthError(error, email, authCredential, authAction = 'Login') {
+async function handleAuthError(error, email, authCredential, authAction = 'Sign in') {
   log(`(${authAction} - ${email}) auth error:`, error);
 
   switch (error.code) {
-    case 'auth/email-already-in-use':    return attemptLinkAccounts(email, authCredential);
+    case 'auth/email-already-in-use':    return linkWithCredential(authCredential, email);
     case 'auth/invalid-email':           throw new Error('Invalid email address');
     case 'auth/link-failed':             throw new Error('Failed to link accounts, please try again');
-    case 'auth/provider-already-linked': throw new Error('Account already exists, please login instead');
+    case 'auth/provider-already-linked': throw new Error('Account already exists, please sign in instead');
     case 'auth/user-disabled':           throw new Error('Account is disabled, please contact support');
     case 'auth/user-not-found':
     case 'auth/wrong-password':
@@ -276,24 +298,24 @@ async function handleAuthError(error, email, authCredential, authAction = 'Login
 /**
  * Attempts to link an existing account with the provided auth credential based on a common email.
  *
- * @param {string} email The email address of the accounts.
  * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential to link with the existing account.
+ * @param {string} email The email address of the accounts.
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the linked {@link FirebaseAuthTypes.User} when the accounts are successfully linked.
  */
-async function attemptLinkAccounts(email, authCredential) {
+async function linkWithCredential(authCredential, email) {
   log('Attempting to link accounts');
 
   // Get current account(s) / sign-in method(s) and check if account already exists
   const signInMethods = await auth().fetchSignInMethodsForEmail(email);
   if (signInMethods.includes(authCredential.providerId)) {
-    throw new CodedError('Account already exists, please login instead', { code: 'auth/provider-already-linked' });
+    throw new CodedError('Account already exists, please sign in instead', { code: 'auth/provider-already-linked' });
   }
 
-  // Login with the first available provider of existing account to link with new account
+  // Sign in with the first available provider of existing account to link with new account
   try {
-    await loginWithProvider(signInMethods[0], email);
+    await signInWithProvider(signInMethods[0], email);
   } catch (error) {
-    logErr('Failed to login with existing account:', error);
+    logErr('Failed to sign in with existing account:', error);
     throw new CodedError('Failed to link accounts, please try again', { code: 'auth/link-failed' });
   }
 
@@ -313,22 +335,24 @@ async function attemptLinkAccounts(email, authCredential) {
 }
 
 /**
- * Prompts the user to login with a specific login provider.
+ * Prompts the user to sign in with a specific sign in provider.
  *
- * @param {string} providerId The login provider ID (e.g. {@link auth.EmailAuthProvider.PROVIDER_ID}).
- * @param {string} email The email address of the login account.
- * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the logged in {@link FirebaseAuthTypes.User} when the login request is successful.
+ * @param {string} providerId The sign in provider ID (e.g. {@link auth.EmailAuthProvider.PROVIDER_ID}).
+ * @param {string} emailPhone The email address or phone number of the sign in account.
+ * @returns {Promise<FirebaseAuthTypes.User | FirebaseAuthTypes.ConfirmationResult>} A promise that resolves to the
+ * signed in {@link FirebaseAuthTypes.User} when the sign in request is successful
+ * or {@link FirebaseAuthTypes.ConfirmationResult} when the sign in request also requires a confirmation code.
  */
-async function loginWithProvider(providerId, email) {
+async function signInWithProvider(providerId, emailPhone) {
   switch (providerId) {
-    case auth.AppleAuthProvider.PROVIDER_ID:    return loginWithApple();
-    case auth.EmailAuthProvider.PROVIDER_ID:    return login(email, await promptForPassword(email));
-    case auth.FacebookAuthProvider.PROVIDER_ID: return loginWithFacebook();
-    case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub login not supported');
-    case auth.GoogleAuthProvider.PROVIDER_ID:   return loginWithGoogle();
-    case auth.PhoneAuthProvider.PROVIDER_ID:    throw new Error('Phone login not supported');
-    case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter login not supported');
-    default:                                    throw new Error('Unknown login provider');
+    case auth.AppleAuthProvider.PROVIDER_ID:    return signInWithApple();
+    case auth.EmailAuthProvider.PROVIDER_ID:    return signInWithEmailAndPassword(emailPhone);
+    case auth.FacebookAuthProvider.PROVIDER_ID: return signInWithFacebook();
+    case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub sign in not supported');
+    case auth.GoogleAuthProvider.PROVIDER_ID:   return signInWithGoogle();
+    case auth.PhoneAuthProvider.PROVIDER_ID:    return signInWithPhoneNumber(emailPhone);
+    case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter sign in not supported');
+    default:                                    throw new Error('Unknown sign in provider');
   }
 }
 

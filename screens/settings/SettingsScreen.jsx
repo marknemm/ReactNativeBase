@@ -1,7 +1,7 @@
 import UserCard from '@components/user-card/UserCard';
 import { useUser } from '@hooks/user-hooks';
 import { Icon, ListItem } from '@rneui/themed';
-import { logout } from '@util/auth';
+import { signOut } from '@util/auth';
 import { View } from 'react-native';
 
 /**
@@ -38,10 +38,10 @@ export default function SettingsScreen({ navigation }) {
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
-      <ListItem onPress={() => logout()} bottomDivider>
+      <ListItem onPress={() => signOut()} bottomDivider>
         <Icon name="logout" type="material" color="grey" />
         <ListItem.Content>
-          <ListItem.Title>Logout</ListItem.Title>
+          <ListItem.Title>Sign Out</ListItem.Title>
         </ListItem.Content>
       </ListItem>
     </View>

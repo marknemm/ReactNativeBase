@@ -1,14 +1,14 @@
 import FormError from '@components/form-error/FormError';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
-import { AUTH_LOGIN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button, useThemeMode } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
-import { login, loginAnonymously, loginWithApple, loginWithGoogle } from '@util/auth';
+import { signInAnonymously, signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
 import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,18 +16,17 @@ import { View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
- * Login screen.
+ * Sign in screen.
  *
  * @param {Object} param0 The component properties.
  * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
- * @returns {React.JSX.Element} The login screen.
+ * @returns {React.JSX.Element} The sign in screen.
  */
-export default function LoginScreen({ navigation }) {
-  const [lastLoginEmail, setLSLastLoginEmail] = useLSState(AUTH_LOGIN_LAST_EMAIL_KEY, { defaultValue: '' });
+export default function SignInScreen({ navigation }) {
+  const [lastSignInEmail, setLSLastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
-      email: lastLoginEmail,
-      password: '',
+      email: lastSignInEmail,
     },
   });
   const [submitting, setSubmitting] = useState(false);
@@ -40,18 +39,18 @@ export default function LoginScreen({ navigation }) {
   const styles = useStyles();
 
   /**
-   * Handles a login button click by invoking the given `loginMethodCb` function.
+   * Handles a sign in button click by invoking the given `signInMethodCb` function.
    *
-   * @param {() => Promise<FirebaseAuthTypes.User>} loginMethodCb The login method callback function.
-   * @returns {Promise<void>} A promise that resolves when the login method callback function completes.
+   * @param {() => Promise<FirebaseAuthTypes.User>} signInMethodCb The sign in method callback function.
+   * @returns {Promise<void>} A promise that resolves when the sign in method callback function completes.
    */
-  async function handleLogin(loginMethodCb) {
+  async function handleSignIn(signInMethodCb) {
     if (submitting) return;
     setSubmitErr('');
     setSubmitting(true);
 
     try {
-      await loginMethodCb();
+      await signInMethodCb();
     } catch (error) {
       setSubmitErr(error.message);
       setSubmitting(false);
@@ -67,7 +66,7 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.oauthProvidersView}>
         <GoogleSigninButton
           color={GoogleSigninButton.Color.Dark}
-          onPress={() => handleLogin(loginWithGoogle)}
+          onPress={() => handleSignIn(signInWithGoogle)}
           size={GoogleSigninButton.Size.Wide}
           style={styles.googleProviderButton}
         />
@@ -75,12 +74,12 @@ export default function LoginScreen({ navigation }) {
           buttonType={AppleAuthenticationButtonType.SIGN_IN}
           buttonStyle={appleButtonStyle}
           cornerRadius={2}
-          onPress={() => handleLogin(loginWithApple)}
+          onPress={() => handleSignIn(signInWithApple)}
           style={styles.oauthProviderButton}
         />
         {/* <FacebookLoginButton
           style={styles.oauthProviderButton}
-          onLoginFinished={(error, result) => handleLogin(() => loginWithFacebook(error, result))}
+          onLoginFinished={(error, result) => handleSignIn(() => signInWithFacebook(error, result))}
         /> */}
       </View>
 
@@ -113,20 +112,20 @@ export default function LoginScreen({ navigation }) {
 
       <Button
         loading={submitting}
-        onPress={form.handleSubmit(({ email, password }) =>
-          handleLogin(async () => {
-            const authUser = await login(email, password);
-            setLSLastLoginEmail(email);
+        onPress={form.handleSubmit(({ email }) =>
+          handleSignIn(async () => {
+            const authUser = await signInWithEmailAndPassword(email);
+            setLSLastSignInEmail(email);
             return authUser;
           })
         )}
         style={styles.submitButton}
-        title="Login"
+        title="Sign In"
       />
 
       <Button
         disabled={submitting}
-        onPress={() => navigation.navigate('Signup')}
+        onPress={() => navigation.navigate('Sign Up')}
         style={generalStyles.horizontalGutter}
         title="Don&apos;t have an account?"
         type="clear"
@@ -145,10 +144,10 @@ export default function LoginScreen({ navigation }) {
       <View style={generalStyles.flexEndItem}>
         <Button
           disabled={submitting}
-          onPress={() => handleLogin(loginAnonymously)}
-          style={styles.skipLoginButton}
-          titleStyle={styles.skipLoginText}
-          title="Skip Login"
+          onPress={() => handleSignIn(signInAnonymously)}
+          style={styles.skipSignInButton}
+          titleStyle={styles.skipSignInText}
+          title="Skip"
           type="clear"
         />
       </View>

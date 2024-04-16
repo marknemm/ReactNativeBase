@@ -5,7 +5,6 @@ import FormProvider from '@contexts/form/FormProvider';
 import { useUser } from '@hooks/user-hooks';
 import { Avatar, Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
-import { signup } from '@util/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { styles } from './styles';
@@ -29,8 +28,8 @@ export default function UserProfileScreen({ navigation }) {
       confirmPassword: '',
     },
   });
-  const [signupErr, setSignupErr] = useState('');
-  const [signupSubmitting, setSignupSubmitting] = useState(false);
+  const [submitErr, setSubmitErr] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <FormProvider
@@ -100,15 +99,15 @@ export default function UserProfileScreen({ navigation }) {
 
       <Button
         onPress={form.handleSubmit(async (formData) => {
-          setSignupErr('');
-          setSignupSubmitting(true);
+          setSubmitErr('');
+          setSubmitting(true);
 
           try {
-            await signup(formData);
+            // await signUp(email, password);
           } catch (error) {
-            setSignupErr(error.message);
+            setSubmitErr(error.message);
           } finally {
-            setSignupSubmitting(false);
+            setSubmitting(false);
           }
         })}
         style={generalStyles.horizontalGutter}
@@ -116,14 +115,14 @@ export default function UserProfileScreen({ navigation }) {
       />
 
       <Button
-        disabled={signupSubmitting}
-        onPress={() => navigation.navigate('Login')}
+        disabled={submitting}
+        onPress={() => navigation.navigate('Sign In')}
         style={generalStyles.horizontalGutter}
         title="Have an account?"
         type="clear"
       />
 
-      <FormError errorMessage={signupErr} style={styles.formError} />
+      <FormError errorMessage={submitErr} style={styles.formError} />
     </FormProvider>
   );
 }
