@@ -1,3 +1,4 @@
+import { REFRESH_ICON } from '@constants/icons';
 import { Button, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 
@@ -24,8 +25,7 @@ export default function RefreshButton({
   return (
     <Button
       icon={{
-        name: 'refresh',
-        type: 'material',
+        ...REFRESH_ICON,
         color: color ?? theme.colors.black,
         size,
       }}

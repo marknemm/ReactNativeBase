@@ -1,9 +1,10 @@
+import Avatar from '@components/avatar/Avatar';
 import FormError from '@components/form-error/FormError';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX, PHONE_REGEX } from '@constants/regex';
 import FormProvider from '@contexts/form/FormProvider';
 import { useUser } from '@hooks/user-hooks';
-import { Avatar, Button } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -33,15 +34,15 @@ export default function UserProfileScreen({ navigation }) {
   const [submitting, setSubmitting] = useState(false);
 
   return (
-    <FormProvider
-      form={form}
-      safeArea
-      style={generalStyles.screenContainer}
-    >
+    <FormProvider form={form} safeArea>
       <Avatar
-        size="large"
-        rounded
-        title={user.initials}
+        backgroundColor={user?.backgroundColor}
+        containerStyle={styles.avatar}
+        description="Profile Picture"
+        editable
+        name="photoURL"
+        size="xlarge"
+        title={user?.initials}
       />
 
       <Input

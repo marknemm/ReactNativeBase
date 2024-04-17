@@ -1,5 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
 import { useFormControl, useFormErrorMessage } from '@hooks/form-field-hooks';
 import { Input as RneInput, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';

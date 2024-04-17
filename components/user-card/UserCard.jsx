@@ -1,4 +1,4 @@
-import UserAvatar from '@components/user-avatar/UserAvatar';
+import Avatar from '@components/avatar/Avatar';
 import { Button, Card, Text } from '@rneui/themed';
 import { User } from '@util/user';
 import PropTypes from 'prop-types';
@@ -29,9 +29,10 @@ export default function UserCard({ onPress, style, user }) {
         containerStyle={[styles.cardContainer, style]}
         wrapperStyle={styles.cardInner}
       >
-        <UserAvatar
+        <Avatar
+          backgroundColor={user.backgroundColor}
           size="medium"
-          user={user}
+          title={user.initials}
         />
 
         <View style={styles.content}>

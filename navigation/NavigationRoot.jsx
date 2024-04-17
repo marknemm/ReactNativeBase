@@ -4,6 +4,7 @@ import { useUser } from '@hooks/user-hooks';
 import { DarkTheme, DefaultTheme, NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '@rneui/themed';
+import CameraScreen from '@screens/camera/CameraScreen';
 import ForgotPasswordScreen from '@screens/forgot-password/ForgotPasswordScreen';
 import SignInScreen from '@screens/sign-in/SignInScreen';
 import SignUpScreen from '@screens/sign-up/SignUpScreen';
@@ -11,7 +12,7 @@ import { useMemo } from 'react';
 import BottomTabs from './BottomTabs';
 
 const Stack = createNativeStackNavigator();
-const bottomTabsOpts = { headerShown: false };
+const noHeaderOpts = { headerShown: false };
 
 /**
  * The {@link NavigationRoot}.
@@ -27,11 +28,18 @@ export default function NavigationRoot() {
       <RootNavigationContext.Provider value={navigationRef}>
         <Stack.Navigator screenOptions={useScreenOptions()}>
           { user?.isAuthenticated ? (
-            <Stack.Screen
-              name="Bottom Tabs"
-              component={BottomTabs}
-              options={bottomTabsOpts}
-            />
+            <>
+              <Stack.Screen
+                name="Bottom Tabs"
+                component={BottomTabs}
+                options={noHeaderOpts}
+              />
+              <Stack.Screen
+                name="Camera"
+                component={CameraScreen}
+                options={noHeaderOpts}
+              />
+            </>
           ) : (
             <>
               <Stack.Screen

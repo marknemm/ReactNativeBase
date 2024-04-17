@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
 import FormError from '@components/form-error/FormError';
 import { useFormControl } from '@hooks/form-field-hooks';

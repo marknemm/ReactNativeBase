@@ -1,3 +1,4 @@
+import { PETS_ICON, SETTINGS_ICON } from '@constants/icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@rneui/themed';
 import MainStack from './MainStack';
@@ -18,7 +19,7 @@ export default function BottomTabs() {
         component={MainStack}
         options={{
           tabBarLabel: 'Dogs',
-          tabBarIcon: ({ color, size }) => <Icon name="pets" type="material" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon {...PETS_ICON} color={color} size={size} />,
         }}
       />
       <Tab.Screen
@@ -26,7 +27,7 @@ export default function BottomTabs() {
         component={SettingsStack}
         options={{
           tabBarLabel: 'Settings',
-          tabBarIcon: ({ color, size }) => <Icon name="settings" type="material" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon {...SETTINGS_ICON} color={color} size={size} />,
         }}
       />
     </Tab.Navigator>

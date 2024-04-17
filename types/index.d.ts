@@ -1,4 +1,9 @@
+import Avatar from '@components/avatar/Avatar';
+
 export * as Auth from './auth';
+export * as Avatar from './avatar';
+export * as BottomSheet from './bottom-sheet';
+export * as Camera from './camera';
 export * as Dropdown from './dropdown';
 export * as FormField from './form-field';
 export * as Input from './input';

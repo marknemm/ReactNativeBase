@@ -1,3 +1,4 @@
+import { ADD_ICON } from '@constants/icons';
 import { Button } from '@rneui/themed';
 import PropTypes from 'prop-types';
 
@@ -27,8 +28,7 @@ export default function AddButton({
       color={backgroundColor}
       disabled={disabled}
       icon={{
-        name: 'add',
-        type: 'material',
+        ...ADD_ICON,
         color,
         size,
       }}

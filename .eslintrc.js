@@ -175,6 +175,7 @@ module.exports = {
     'radix': 'warn',                                            // Enable the warning about using radix
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
     'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
+    'react/jsx-boolean-value': 'warn',                          // Enable the warning about boolean values in JSX
     'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
     'react/jsx-closing-tag-location': 'warn',                   // Enable the warning about the location of closing tags in JSX
     'react/jsx-curly-newline': 'warn',                          // Enable the warning about curly newlines in JSX
@@ -185,7 +186,7 @@ module.exports = {
     'react/jsx-max-props-per-line': 'warn',                     // Enable the warning about the maximum number of props per line in JSX
     'react/jsx-no-useless-fragment': 'warn',                    // Enable the warning about using useless fragments in JSX
     'react/jsx-one-expression-per-line': 'off',                 // Disable the rule that enforces one expression per line in JSX
-    'react/jsx-props-no-spreading': 'warn',                     // Enable the warning about spreading props in JSX
+    'react/jsx-props-no-spreading': 'off',                      // Disable the rule that prevents spreading props
     'react/jsx-tag-spacing': 'warn',                            // Enable the warning about tag spacing in JSX
     'react/jsx-wrap-multilines': 'warn',                        // Enable the warning about wrapping multiline JSX
     'react/no-unstable-nested-components': ['warn', {           // Enable the warning about using unstable nested components

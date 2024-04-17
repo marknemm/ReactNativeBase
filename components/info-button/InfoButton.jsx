@@ -1,4 +1,5 @@
 import InfoDialog from '@components/info-dialog/InfoDialog';
+import { INFO_ICON } from '@constants/icons';
 import { Button, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
@@ -47,8 +48,7 @@ export default function InfoButton({
         color={backgroundColor}
         disabled={disabled}
         icon={{
-          name: 'info',
-          type: 'material',
+          ...INFO_ICON,
           color: color ?? theme.colors.black,
           size,
         }}
