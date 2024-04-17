@@ -3,13 +3,13 @@ import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 /**
- * The status dot component.
+ * The {@link StatusDot} component.
  *
  * @param {Object} param0 The component properties.
- * @param {string} [param0.color='gray'] The color of the status dot.
- * @param {number} [param0.size=10] The size of the status dot.
- * @param {Object} [param0.style={}] The additional style of the status dot.
- * @returns {React.JSX.Element} The status dot component.
+ * @param {string} [param0.color='gray'] The color of the {@link StatusDot}.
+ * @param {number} [param0.size=10] The size of the {@link StatusDot}.
+ * @param {Object} [param0.style={}] The additional style of the {@link StatusDot}.
+ * @returns {React.JSX.Element} The {@link StatusDot} component.
  */
 export default function StatusDot({ color = 'gray', size = 10, style = {} }) {
   const styles = useMemo(() => StyleSheet.create({

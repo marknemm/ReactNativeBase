@@ -5,10 +5,10 @@ import { generalStyles } from '@styles/general-styles';
 import { useStyles } from './styles';
 
 /**
- * The form field error component.
+ * The {@link FormError} component.
  *
- * @param {Types.FormField.FormFieldErrorProps} props The component {@link Types.FormField.FormFieldErrorProps properties}.
- * @returns {React.JSX.Element} The form field error component.
+ * @param {Types.FormField.FormErrorProps} props The component {@link Types.FormField.FormErrorProps properties}.
+ * @returns {React.JSX.Element} The {@link FormError} component.
  */
 export default function FormError(props) {
   const styles = useStyles();

@@ -6,13 +6,13 @@ import { View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
- * The UserCard component.
+ * The {@link UserCard} component.
  *
- * @param {Object} props The component props.
+ * @param {Object} props The component properties.
  * @param {import('react-native').ViewStyle} [props.style] The style for the card container.
  * @param {(event: import('react-native').GestureResponderEvent) => void} [props.onPress] The function to call when the card is pressed.
  * @param {User} props.user The user profile instance.
- * @returns {React.JSX.Element} The UserCard component.
+ * @returns {React.JSX.Element} The {@link UserCard} component.
  */
 export default function UserCard({ onPress, style, user }) {
   const styles = useStyles();

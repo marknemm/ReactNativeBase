@@ -8,11 +8,11 @@ import { ScrollView } from 'react-native';
 import { Device } from 'react-native-ble-plx';
 
 /**
- * The Bluetooth device component.
+ * The {@link BleDevice} component.
  *
  * @param {Object} param0 The component properties.
- * @param {Device} [param0.bleDevice] The Bluetooth device. If not given, the device is derived from `BleDeviceContext`.
- * @returns {React.JSX.Element} The Bluetooth device component.
+ * @param {Device} [param0.bleDevice] The Bluetooth {@link Device}. If not given, the {@link Device} is derived from {@link BleDeviceContext}.
+ * @returns {React.JSX.Element} The {@link BleDevice} component.
  */
 export default function BleDevice({ bleDevice }) {
   const bleDeviceCtx = useContext(BleDeviceContext);

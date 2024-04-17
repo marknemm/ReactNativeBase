@@ -3,13 +3,13 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * The expansion panel component.
+ * The {@link ExpansionPanel} component.
  *
  * @param {Object} param0 The component properties.
  * @param {React.ReactNode} param0.children The children components inside the expansion panel.
  * @param {boolean} [param0.initExpanded=false] The initial expanded state.
  * @param {string} param0.title The title of the expansion panel toggle button.
- * @returns {React.JSX.Element} The expansion panel component.
+ * @returns {React.JSX.Element} The {@link ExpansionPanel} component.
  */
 export function ExpansionPanel({ children, initExpanded = false, title }) {
   const [expanded, setExpanded] = useState(initExpanded);

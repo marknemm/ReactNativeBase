@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 /**
- * The info button component.
+ * The {@link InfoButton} component.
  *
  * @param {Object} param0 The component properties.
  * @param {string} [param0.backgroundColor='transparent'] The background color of the info button.
@@ -16,7 +16,7 @@ import { useState } from 'react';
  * @param {(event: import('react-native').GestureResponderEvent) => void} [param0.onPress=() => {}] The function to call when the info button is pressed.
  * @param {number} [param0.size=24] The size of the info button.
  * @param {Object} [param0.style={}] The additional style of the info button.
- * @returns {React.JSX.Element} The info button component.
+ * @returns {React.JSX.Element} The {@link InfoButton} component.
  */
 export default function InfoButton({
   backgroundColor = 'transparent',

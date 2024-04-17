@@ -1,8 +1,8 @@
 import FormError from '@components/form-error/FormError';
+import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
-import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
@@ -28,6 +28,7 @@ export default function SignInScreen({ navigation }) {
   const form = useForm({
     defaultValues: {
       email: lastSignInEmail,
+      password: '',
     },
   });
   const [submitting, setSubmitting] = useState(false);
@@ -58,7 +59,7 @@ export default function SignInScreen({ navigation }) {
   }
 
   return (
-    <FormProvider
+    <Form
       form={form}
       safeArea
       style={generalStyles.screenContainer}
@@ -112,9 +113,9 @@ export default function SignInScreen({ navigation }) {
 
       <Button
         loading={submitting}
-        onPress={form.handleSubmit(({ email }) =>
+        onPress={form.handleSubmit(({ email, password }) =>
           handleSignIn(async () => {
-            const authUser = await signInWithEmailAndPassword(email);
+            const authUser = await signInWithEmailAndPassword(email, password);
             setLSLastSignInEmail(email);
             return authUser;
           })
@@ -151,6 +152,6 @@ export default function SignInScreen({ navigation }) {
           type="clear"
         />
       </View>
-    </FormProvider>
+    </Form>
   );
 }

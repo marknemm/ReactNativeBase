@@ -1,5 +1,4 @@
-import { FormContext } from '@contexts/form/FormContext';
-import { useContext } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 /**
  * Custom hook to derive the form control.
@@ -12,7 +11,7 @@ import { useContext } from 'react';
  * @throws {Error} The name property is required when using form controls.
  */
 export function useFormControl({ control, editable = true, name = '' }) {
-  const form = useContext(FormContext);
+  const form = useFormContext();
 
   if (!control && form && editable) {
     control = form.control;
@@ -32,7 +31,7 @@ export function useFormControl({ control, editable = true, name = '' }) {
  * @returns {string} The error message.
  */
 export function useFormErrorMessage({ errorMessage = '', rulesErrorMessageMap, errors, name = '', rules }) {
-  const form = useContext(FormContext);
+  const form = useFormContext();
   const error = errors ? errors[name] : form?.formState.errors[name];
 
   if (!errorMessage && error) {

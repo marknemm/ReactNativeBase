@@ -7,9 +7,9 @@ import { View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
- * The Bluetooth state component.
+ * The {@link BleState} component.
  *
- * @returns {React.JSX.Element} The Bluetooth state component.
+ * @returns {React.JSX.Element} The {@link BleState} component.
  */
 export default function BleState() {
   const styles = useStyles();

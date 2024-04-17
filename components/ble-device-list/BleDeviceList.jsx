@@ -13,11 +13,11 @@ import { FlatList, View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
- * The Bluetooth device list component.
+ * The {@link BleDeviceList} component.
  *
  * @param {Object} param0 The component properties.
  * @param {string} [param0.title='Detected Devices'] The title of the device list.
- * @returns {React.JSX.Element} The Bluetooth device list component.
+ * @returns {React.JSX.Element} The {@link BleDeviceList} component.
  */
 export default function BleDeviceList({ title = 'Detected Devices' }) {
   const bleDevices = useBleDevices();
@@ -41,11 +41,11 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
 }
 
 /**
- * The Bluetooth device list header component.
+ * The {@link BleDeviceListHeader} component.
  *
  * @param {Object} param0 The component properties.
  * @param {string} param0.title The title of the device list.
- * @returns {React.JSX.Element} The Bluetooth device list header component.
+ * @returns {React.JSX.Element} The {@link BleDeviceListHeader} component.
  */
 function BleDeviceListHeader({ title }) {
   const styles = useStyles();
@@ -61,11 +61,11 @@ function BleDeviceListHeader({ title }) {
 }
 
 /**
- * The Bluetooth device list item component.
+ * The {@link BleDeviceListItem} component.
  *
  * @param {Object} param0 The component properties.
  * @param {Device} param0.bleDevice The Bluetooth {@link Device}.
- * @returns {React.JSX.Element} The Bluetooth device list item component.
+ * @returns {React.JSX.Element} The {@link BleDeviceListItem} component.
  */
 function BleDeviceListItem({ bleDevice }) {
   const styles = useStyles();

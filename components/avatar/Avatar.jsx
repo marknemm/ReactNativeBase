@@ -8,13 +8,14 @@ import { Controller } from 'react-hook-form';
 import { useStyles } from './styles';
 
 /**
- * The `Avatar` component.
+ * The {@link Avatar} component.
  *
- * @param {Types.Avatar.AvatarProps} props The component props.
- * @returns {React.JSX.Element} The `Avatar` component.
+ * @param {Types.Avatar.AvatarProps} props The component {@link Types.Avatar.AvatarProps properties}.
+ * @returns {React.JSX.Element} The {@link Avatar} component.
+ * @throws {Error} The `name` property is required when using form controls.
  */
 export default function Avatar(props)  {
-  const { editable, name } = props;
+  const { editable, name, onChange } = props;
   const control = useFormControl(props);
 
   return (control && editable)
@@ -22,10 +23,13 @@ export default function Avatar(props)  {
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange: onChangeForm, value } }) => (
           <AvatarControlled
             {...props}
-            onChange={onChange}
+            onChange={(uri) => {
+              onChange?.(uri);
+              onChangeForm(uri);
+            }}
             value={value}
           />
         )}
@@ -35,10 +39,10 @@ export default function Avatar(props)  {
 }
 
 /**
- * The controlled Avatar component.
+ * The {@link AvatarControlled} component.
  *
- * @param {Types.Avatar.AvatarProps} props The component props.
- * @returns {React.JSX.Element} The controlled Avatar component.
+ * @param {Types.Avatar.AvatarProps} props The component {@link Types.Avatar.AvatarProps properties}.
+ * @returns {React.JSX.Element} The {@link AvatarControlled} component.
  */
 function AvatarControlled(props) {
   const styles = useStyles(props);
@@ -46,11 +50,9 @@ function AvatarControlled(props) {
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
   const onPressWrapper = useCallback(() => {
-    if (editable) {
-      setBottomSheetVisible(true);
-    }
+    setBottomSheetVisible(true);
     onPress?.();
-  }, [editable, onPress]);
+  }, [onPress]);
 
   return (
     <>
@@ -87,6 +89,7 @@ Avatar.propTypes = {
   control: PropTypes.object,
   editable: PropTypes.bool,
   name: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 AvatarControlled.propTypes = {

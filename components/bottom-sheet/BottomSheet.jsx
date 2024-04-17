@@ -6,10 +6,10 @@ import { View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
- * The `BottomSheet` component.
+ * The {@link BottomSheet} component.
  *
- * @param {Types.BottomSheet.BottomSheetProps} props The component props.
- * @returns {React.JSX.Element} The bottom sheet.
+ * @param {Types.BottomSheet.BottomSheetProps} props The component {@link Types.BottomSheet.BottomSheetProps properties}.
+ * @returns {React.JSX.Element} The {@link BottomSheet} component.
  */
 export default function BottomSheet(props) {
   const { children, onBackdropPress, onClose, title } = props;

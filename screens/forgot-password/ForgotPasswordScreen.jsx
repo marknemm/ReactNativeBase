@@ -1,8 +1,8 @@
 import FormError from '@components/form-error/FormError';
+import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
-import FormProvider from '@contexts/form/FormProvider';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { Button, Text } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
@@ -31,7 +31,7 @@ export default function ForgotPasswordScreen({ navigation }) {
   const [submitSuccessful, setSubmitSuccessful] = useState(false);
 
   return (
-    <FormProvider
+    <Form
       form={form}
       safeArea
       style={generalStyles.screenContainer}
@@ -85,6 +85,6 @@ export default function ForgotPasswordScreen({ navigation }) {
       )}
 
       <FormError errorMessage={submitErr} style={styles.formError} />
-    </FormProvider>
+    </Form>
   );
 }

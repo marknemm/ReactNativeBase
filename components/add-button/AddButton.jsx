@@ -3,7 +3,7 @@ import { Button } from '@rneui/themed';
 import PropTypes from 'prop-types';
 
 /**
- * The add button component.
+ * The {@link AddButton} component.
  *
  * @param {Object} param0 The component properties.
  * @param {string} [param0.backgroundColor='white'] The background color of the add button.
@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  * @param {(event: import('react-native').GestureResponderEvent) => void} [param0.onPress=() => {}] The function to call when the add button is pressed.
  * @param {number} [param0.size=24] The size of the add button.
  * @param {Object} [param0.style={}] The additional style of the add button.
- * @returns {React.JSX.Element} The add button component.
+ * @returns {React.JSX.Element} The {@link AddButton} component.
  */
 export default function AddButton({
   backgroundColor = 'green',

@@ -3,7 +3,7 @@ import { Button, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 
 /**
- * The refresh button component.
+ * The {@link RefreshButton} component.
  *
  * @param {Object} param0 The component properties.
  * @param {string} [param0.backgroundColor='transparent'] The background color of the refresh button.
@@ -11,14 +11,14 @@ import PropTypes from 'prop-types';
  * @param {(event: import('react-native').GestureResponderEvent) => void} [param0.onPress=() => {}] The function to call when the refresh button is pressed.
  * @param {number} [param0.size=24] The size of the refresh button.
  * @param {Object} [param0.style={}] The additional style of the refresh button.
- * @returns {React.JSX.Element} The refresh button component.
+ * @returns {React.JSX.Element} The {@link RefreshButton} component.
  */
 export default function RefreshButton({
   backgroundColor = 'transparent',
   color,
   onPress = () => {},
   size = 24,
-  style = {}
+  style = {},
 }) {
   const { theme } = useTheme();
 

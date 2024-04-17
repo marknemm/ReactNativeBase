@@ -360,12 +360,13 @@ async function signInWithProvider(providerId, emailPhone) {
  * Prompts the user to enter their password.
  *
  * @param {string} email The email address of the account.
+ * @param {string} [title='Link to Existing Account'] The title of the alert dialog.
  * @returns {Promise<string>} A promise that resolves to the user's password when they acknowledge the prompt.
  */
-async function promptForPassword(email) {
+async function promptForPassword(email, title = 'Link to Existing Account') {
   return new Promise((resolve) => {
     Alert.prompt(
-      'Link to Existing Account',
+      title,
       `Please enter your password for your existing account:\n\n${email}`,
       [{ text: 'OK', onPress: resolve }],
       'secure-text',

@@ -40,11 +40,11 @@ export interface FormFieldProps<F = any> {
 }
 
 /**
- * Properties for form field error components.
+ * Properties for `FormError` components.
  *
  * @param F The type of the form data.
  */
-export interface FormFieldErrorProps<F = any> extends FormFieldProps<F> {
+export interface FormErrorProps<F = any> extends FormFieldProps<F> {
   /**
    * The style for the error message.
    */

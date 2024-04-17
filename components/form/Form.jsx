@@ -1,24 +1,41 @@
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { FormProvider } from 'react-hook-form';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FormContext } from './FormContext';
 
 /**
- * A provider for the form context.
+ * The {@link Form} component.
  *
  * @param {Object} param0 The component properties.
  * @param {React.ReactNode} [param0.children] The children components.
  * @param {import('react-hook-form').UseFormReturn<any>} param0.form The form instance.
  * @param {boolean} [param0.safeArea=false] Whether to apply safe area styling.
+ * @param {boolean} [param0.scrollable=false] Whether the form is scrollable.
  * @param {import('react-native').ViewStyle | import('react-native').ViewStyle[]} [param0.style={}] The style to apply.
- * @returns {React.JSX.Element} The form provider component.
+ * @returns {React.JSX.Element} The {@link Form} component.
  */
-export default function FormProvider({ children, form, safeArea = false, style = {} }) {
+export default function Form({ children, form, safeArea = false, scrollable = false, style = {} }) {
   const formProvider = (
-    <FormContext.Provider value={form}>
+    <FormProvider {...form}>
       {children}
-    </FormContext.Provider>
+    </FormProvider>
   );
+
+  if (scrollable) {
+    return safeArea
+      ? (
+        <ScrollView>
+          <SafeAreaView style={style}>
+            { formProvider }
+          </SafeAreaView>
+        </ScrollView>
+      )
+      : (
+        <ScrollView style={style}>
+          { formProvider }
+        </ScrollView>
+      );
+  }
 
   return safeArea
     ? (
@@ -32,7 +49,8 @@ export default function FormProvider({ children, form, safeArea = false, style =
     );
 }
 
-FormProvider.propTypes = {
+Form.propTypes = {
   form: PropTypes.any.isRequired,
   safeArea: PropTypes.bool,
+  scrollable: PropTypes.bool,
 };

@@ -1,7 +1,7 @@
 import Dropdown from '@components/dropdown/Dropdown';
+import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { WEIGHT_UNITS } from '@constants/units';
-import FormProvider from '@contexts/form/FormProvider';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { log } from '@util/log';
@@ -29,7 +29,7 @@ export default function AddDogScreen({ navigation }) {
   });
 
   return (
-    <FormProvider form={form} style={generalStyles.verticalGutter}>
+    <Form form={form} style={generalStyles.verticalGutter}>
       <Input
         name="name"
         placeholder="Name"
@@ -76,6 +76,6 @@ export default function AddDogScreen({ navigation }) {
         style={generalStyles.horizontalGutter}
         title="Save Dog"
       />
-    </FormProvider>
+    </Form>
   );
 }

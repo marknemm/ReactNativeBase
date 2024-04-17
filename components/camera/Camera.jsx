@@ -7,10 +7,10 @@ import { Camera as VisionCamera, useCameraDevice } from 'react-native-vision-cam
 import { useStyles } from './styles';
 
 /**
- * The Camera component.
+ * The {@link Camera} component.
  *
- * @param {Types.Camera.CameraProps} props The component props.
- * @returns {React.JSX.Element} The Camera component.
+ * @param {Types.Camera.CameraProps} props The component {@link Types.Camera.CameraProps properties}.
+ * @returns {React.JSX.Element} The {@link Camera} component.
  */
 export default function Camera(props) {
   const styles = useStyles(props);
