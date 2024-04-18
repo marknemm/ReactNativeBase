@@ -1,6 +1,8 @@
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { setDBDoc } from '@util/db';
+import { uploadFile } from './remote-fs';
 
 /**
  * Represents a user.
@@ -177,13 +179,45 @@ export class User {
   }
 
   /**
+   * Saves the user data to the remote database by merging in any updated field values.
+   *
+   * @param {FirebaseFirestoreTypes.DocumentData} userData The user data to save.
+   * @return {Promise<void>} A promise that resolves when the user data is saved.
+   * @throws {Error} An error is thrown if the user is not authenticated or anonymous.
+   */
+  async save(userData) {
+    if (!userData) return;
+
+    if (this.isAuthenticated && !this.isAnonymous) {
+      if (userData.photoURL !== this.photoURL) {
+        const remotePath = `users/${this.uid}/photo`;
+        const { ref } = await uploadFile(userData.photoURL, remotePath);
+        userData.photoURL = await ref.getDownloadURL();
+      }
+
+      await setDBDoc('users', this.uid, {
+        displayName: userData.displayName,
+        email: userData.email,
+        phoneNumber: userData.phoneNumber,
+        photoURL: userData.photoURL,
+      }, { merge: true });
+    } else {
+      throw new Error('Cannot save unauthenticated or anonymous user data');
+    }
+  }
+
+  /**
    * Sends a user email verification request.
-   * If this {@link User} object was constructed without authentication data, then skips send.
    *
    * @returns {Promise<void>} A promise that resolves when the email verification request is complete.
+   * @throws {Error} An error is thrown if the user is not authenticated or anonymous.
    */
   async sendEmailVerification() {
-    await this.#authUser?.sendEmailVerification();
+    if (this.isAuthenticated && !this.isAnonymous) {
+      await this.#authUser.sendEmailVerification();
+    } else {
+      throw new Error('Cannot send email verification for unauthenticated or anonymous user');
+    }
   }
 
 }

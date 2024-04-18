@@ -43,3 +43,17 @@ export function listenDBDoc(collectionPath, documentPath, onSuccess, onError) {
     }
   );
 }
+
+/**
+ * Sets a document in a remote DB collection.
+ * If the document does not yet exist, it will be created.
+ *
+ * @param {string} collectionPath A slash-separated path to a collection.
+ * @param {string} documentPath A slash-separated path to a document.
+ * @param {any} docData The document data to set.
+ * @param {FirebaseFirestoreTypes.SetOptions} [options] The set options that specify merge strategies.
+ * @returns {Promise<void>} A promise that resolves when the operation is complete.
+ */
+export function setDBDoc(collectionPath, documentPath, docData, options) {
+  return firestore().collection(collectionPath).doc(documentPath).set(docData, options);
+}

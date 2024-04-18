@@ -51,6 +51,7 @@ module.exports = {
     'consistent-return': 'warn',                                // Enable the warning about consistent return statements
     'eol-last': 'warn',                                         // Enable the warning about end of line characters
     'eqeqeq': 'warn',                                           // Enable the warning about using strict equality
+    'function-call-argument-newline': 'off',                    // Disable the rule about function call argument newlines
     'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
     'indent': 'warn',                                           // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions

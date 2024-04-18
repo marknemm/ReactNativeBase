@@ -14,11 +14,11 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link Avatar} component.
  * @throws {Error} The `name` property is required when using form controls.
  */
-export default function Avatar(props)  {
-  const { editable, name, onChange } = props;
+export default function Avatar(props) {
+  const { name, onChange } = props;
   const control = useFormControl(props);
 
-  return (control && editable)
+  return control
     ? (
       <Controller
         control={control}
@@ -87,7 +87,6 @@ function AvatarControlled(props) {
 
 Avatar.propTypes = {
   control: PropTypes.object,
-  editable: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
 };

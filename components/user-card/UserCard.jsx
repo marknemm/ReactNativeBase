@@ -33,6 +33,7 @@ export default function UserCard({ onPress, style, user }) {
           backgroundColor={user.backgroundColor}
           size="medium"
           title={user.initials}
+          value={user.photoURL}
         />
 
         <View style={styles.content}>
