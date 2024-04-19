@@ -6,14 +6,15 @@ import { horizontalGutter, verticalGutter } from '@styles/general-styles';
  */
 export const useStyles = makeStyles((theme, props) => ({
   backdrop: {
-    backgroundColor: theme.colors.grey0,
-    opacity: 0.33,
-    ...props.backdropStyle,
+    backgroundColor: 'transparent', // Use custom backdrop and hide the one in the RNE BottomSheet to prevent awkward slide animation.
   },
   closeButtonContainer: {
     position: 'absolute',
     right: 5,
     top: -5,
+  },
+  container: {
+    backgroundColor: 'transparent',
   },
   header: {
     flex: 1,
@@ -25,8 +26,10 @@ export const useStyles = makeStyles((theme, props) => ({
   inner: {
     backgroundColor: theme.colors.background,
     opacity: 1,
-    paddingBottom: verticalGutter * 2,
+    paddingBottom: verticalGutter * 3,
     paddingTop: verticalGutter,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     ...props.innerStyle,
   },
   title: {

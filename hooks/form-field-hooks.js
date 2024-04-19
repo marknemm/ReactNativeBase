@@ -5,19 +5,18 @@ import { useFormContext } from 'react-hook-form';
  *
  * @param {Object} props The component properties.
  * @param {import('react-hook-form').Control} [props.control] The form control.
- * @param {boolean} [props.editable=true] Whether the form control is editable.
  * @param {string} [props.name=''] The name of the form control.
  * @returns {import('react-hook-form').Control} The form control.
  * @throws {Error} The name property is required when using form controls.
  */
-export function useFormControl({ control, editable = true, name = '' }) {
+export function useFormControl({ control, name = '' }) {
   const form = useFormContext();
 
-  if (!control && form && editable) {
+  if (!control && form) {
     control = form.control;
   }
 
-  if (control && !name && editable) {
+  if (control && !name) {
     throw new Error('The name property is required when using form controls.');
   }
 

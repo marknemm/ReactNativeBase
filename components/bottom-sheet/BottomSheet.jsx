@@ -1,7 +1,8 @@
 import { CLOSE_ICON } from '@constants/icons';
+import { useBackdrop } from '@hooks/backdrop-hooks';
+import { useCallbacks } from '@hooks/callbacks';
 import { Button, BottomSheet as RneBottomSheet, Text } from '@rneui/themed';
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
 import { View } from 'react-native';
 import { useStyles } from './styles';
 
@@ -12,19 +13,16 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link BottomSheet} component.
  */
 export default function BottomSheet(props) {
-  const { children, onBackdropPress, onClose, title } = props;
+  const { backdropStyle, children, isVisible, onBackdropPress, onClose, title } = props;
   const styles = useStyles(props);
-
-  const onBackdropPressWrapper = useCallback(() => {
-    onBackdropPress?.();
-    onClose?.();
-  }, [onBackdropPress, onClose]);
+  useBackdrop({ isVisible, style: backdropStyle });
 
   return (
     <RneBottomSheet
       {...props}
       backdropStyle={styles.backdrop}
-      onBackdropPress={onBackdropPressWrapper}
+      containerStyle={styles.container}
+      onBackdropPress={useCallbacks(onBackdropPress, onClose)}
     >
       <View style={styles.inner}>
         <View style={styles.header}>
@@ -48,6 +46,8 @@ export default function BottomSheet(props) {
 }
 
 BottomSheet.propTypes = {
+  backdropStyle: PropTypes.object,
+  isVisible: PropTypes.bool,
   onBackdropPress: PropTypes.func,
   onClose: PropTypes.func,
   title: PropTypes.string,

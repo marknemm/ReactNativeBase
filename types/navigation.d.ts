@@ -1,9 +1,11 @@
-import { NavigationContainerProps, NavigationContainerRefWithCurrent, ParamListBase } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationContainerProps, NavigationContainerRef, NavigationContainerRefWithCurrent, ParamListBase } from '@react-navigation/native';
+import { NativeStackNavigationOptions, NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export type RootNavigationRef = NavigationContainerRefWithCurrent<ReactNavigation.RootParamList>;
-export type StackNavigation = NativeStackScreenProps<ParamListBase>['navigation'];
+export type NativeStackNavigationOptions = NativeStackNavigationOptions;
+export type NavigationContainerRef = NavigationContainerRef<ParamListBase>;
+export type RootNavigationContainerRef = NavigationContainerRefWithCurrent<ReactNavigation.RootParamList>;
 export type Route = NativeStackScreenProps<ParamListBase>['route'];
+export type StackNavigation = NativeStackScreenProps<ParamListBase>['navigation'];
 export type ThemedNavigationContainerProps = NavigationContainerProps & {
   theme?: Theme | undefined;
   linking?: LinkingOptions<RootParamList>;

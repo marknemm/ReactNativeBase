@@ -1,14 +1,66 @@
-import { useNavigation } from '@react-navigation/native';
-import { Button, useTheme } from '@rneui/themed';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { RootNavigationContainerRefContext } from '@contexts/root-navigation-container-ref/RootNavigationContainerRefContext';
+import { NavigationContainerRefContext, useNavigation } from '@react-navigation/native';
+import { useTheme } from '@rneui/themed';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-/** @typedef {import('@react-navigation/native-stack').NativeStackNavigationOptions} NativeStackNavigationOptions */
+/**
+ * Gets the {@link Types.Navigation.NavigationContainerRef NavigationContainerRef}.
+ *
+ * @returns {Types.Navigation.NavigationContainerRef} The {@link Types.Navigation.NavigationContainerRef NavigationContainerRef}.
+ */
+export function useNavigationContainerRef() {
+  return useContext(NavigationContainerRefContext);
+}
+
+/**
+ * Sets the navigation header options.
+ *
+ * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
+ * @param {boolean | (() => boolean)} [predicate=true] Determines whether to set the navigation {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
+ * If changed from `true` to `false`, the original options are restored.
+ */
+export function useNavigationOptions(options, predicate = true) {
+  const navigation = useNavigation();
+  const navigationContainerRef = useNavigationContainerRef();
+  const originalOptionsRef = useRef(navigationContainerRef?.getCurrentOptions() ?? {});
+  const [optionsChanged, setOptionsChanged] = useState(false);
+
+  useEffect(() => {
+    const predicateValue = (typeof predicate === 'function')
+      ? predicate()
+      : predicate;
+
+    if (predicateValue && !optionsChanged) {
+      originalOptionsRef.current = navigationContainerRef.getCurrentOptions();
+      navigation.setOptions(options);
+      setOptionsChanged(true);
+    } else if (!predicateValue && optionsChanged) {
+      // Remove options that originally were not there; needs to be explicit since given options are merged in with current set.
+      for (const key in options) {
+        if (originalOptionsRef.current[key] === undefined) {
+          originalOptionsRef.current[key] = null;
+        }
+      }
+      navigation.setOptions(originalOptionsRef.current);
+      setOptionsChanged(false);
+    }
+  }, [optionsChanged, navigation, navigationContainerRef, options, originalOptionsRef, predicate]);
+}
+
+/**
+ * Gets the {@link Types.Navigation.RootNavigationContainerRef RootNavigationContainerRef}.
+ *
+ * @returns {Types.Navigation.RootNavigationContainerRef} The {@link Types.Navigation.RootNavigationContainerRef RootNavigationContainerRef}.
+ */
+export function useRootNavigationContainerRef() {
+  return useContext(RootNavigationContainerRefContext);
+}
 
 /**
  * Gets the screen options.
  *
- * @param {NativeStackNavigationOptions} [customOptions] The custom screen options.
- * @returns {NativeStackNavigationOptions} The screen options.
+ * @param {Types.Navigation.NativeStackNavigationOptions} [customOptions] The custom screen {@link Types.Navigation.NativeStackNavigationOptions options}.
+ * @returns {Types.Navigation.NativeStackNavigationOptions} The screen {@link Types.Navigation.NativeStackNavigationOptions options}.
  */
 export function useScreenOptions(customOptions = {}) {
   const { theme } = useTheme();
@@ -21,32 +73,4 @@ export function useScreenOptions(customOptions = {}) {
     headerTintColor: theme.mode === 'dark' ? theme.colors.black : theme.colors.white,
     ...customOptions,
   }), [customOptions, theme]);
-}
-
-/**
- * Sets the navigation header buttons based on a given `predicate`.
- *
- * @param {string} [headerBackTitle='Back'] The navigation header back (left) button title. Defaults to `Back`.
- * @param {string} [headerRightTitle] The navigation header right button title. If not given, then no right button is set.
- * @param {boolean | (() => boolean)} [predicate=true] The predicate. Defaults to `true`.
- * @param {() => React.JSX.Element} [headerRight] The header right element. This function will be memoized.
- */
-export function useNavHeaderButtons(headerBackTitle, headerRightTitle, predicate, headerRight) {
-  const navigation = useNavigation();
-
-  const headerRightCb = useCallback(headerRight ?? (() => {}), []);
-
-  if (typeof predicate === 'function') {
-    predicate = predicate();
-  }
-
-  useEffect(() => {
-    if (predicate || predicate == null) {
-      navigation.setOptions({
-        headerBackTitle: headerBackTitle || 'Back',
-        headerRightTitle: headerRightTitle || undefined,
-        headerRight: headerRightCb,
-      });
-    }
-  }, [navigation, headerBackTitle, headerRightTitle, predicate, headerRightCb]);
 }

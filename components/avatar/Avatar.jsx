@@ -3,7 +3,7 @@ import { useFormControl } from '@hooks/form-field-hooks';
 import { Avatar as RneAvatar } from '@rneui/themed';
 import { MediaTypeOptions, launchCamera, launchMediaLibrary } from '@util/camera';
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -50,9 +50,15 @@ function AvatarControlled(props) {
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
   const onPressWrapper = useCallback(() => {
-    setBottomSheetVisible(true);
-    onPress?.();
-  }, [onPress]);
+    if (editable) {
+      setBottomSheetVisible(true);
+      onPress?.();
+    }
+  }, [editable, onPress]);
+
+  const sourceMemo = useMemo(() =>
+    source ?? (value ? { uri: value } : undefined),
+  [source, value]);
 
   return (
     <>
@@ -60,8 +66,8 @@ function AvatarControlled(props) {
         rounded
         {...props}
         containerStyle={styles.container}
-        onPress={editable ? onPressWrapper : undefined}
-        source={source ?? (value ? { uri: value } : undefined)}
+        onPress={onPressWrapper}
+        source={sourceMemo}
       />
 
       <CameraBottomSheet

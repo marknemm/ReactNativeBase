@@ -9,7 +9,7 @@ let showDebugLogs = __DEV__;
  */
 export function log(...message) {
   if (!showDebugLogs) return;
-  console.debug(message);
+  console.debug(...beautify(message));
 }
 
 /**
@@ -31,7 +31,7 @@ export function logEnv() {
  * @param  {...any} message The error message(s) to log.
  */
 export function logErr(...message) {
-  console.error(message);
+  console.error(...beautify(message));
 }
 
 /**
@@ -41,7 +41,7 @@ export function logErr(...message) {
  * @throws {Error} The given error.
  */
 export function logThrowErr(error) {
-  console.error(error);
+  logErr(error);
   throw error;
 }
 
@@ -52,4 +52,20 @@ export function logThrowErr(error) {
  */
 export function setShowDebugLogs(visible) {
   showDebugLogs = visible;
+}
+
+/**
+ * Beautifies the given message(s) for logging.
+ *
+ * @param  {...any} message The message(s) to beautify.
+ * @returns {string[]} A list containing the beautified message(s).
+ */
+function beautify(...message) {
+  return message.map((msg) => (
+    (typeof msg === 'object')
+      ? JSON.stringify(msg, undefined, 2)
+        .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
+        .replace(/^\[|\]$/g, '')       // Remove square brackets surrounding object
+      : msg
+  ));
 }

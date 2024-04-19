@@ -1,5 +1,6 @@
 export * as Auth from './auth';
 export * as Avatar from './avatar';
+export * as Backdrop from './backdrop';
 export * as BottomSheet from './bottom-sheet';
 export * as Camera from './camera';
 export * as Dropdown from './dropdown';

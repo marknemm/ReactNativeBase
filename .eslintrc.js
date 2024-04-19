@@ -122,6 +122,7 @@ module.exports = {
     'no-empty-function': 'warn',                                // Enable the warning about empty functions
     'no-extra-parens': ['warn', 'all', {                        // Enable the warning about extra parentheses
       conditionalAssign: false,                                 // Allow extra parentheses in conditional assignments
+      enforceForArrowConditionals: false,                       // Allow extra parentheses in arrow function conditionals
       ignoreJSX: 'multi-line',                                  // Ignore JSX expressions that span multiple lines
       nestedBinaryExpressions: false,                           // Allow extra parentheses in nested binary expressions
       returnAssign: false,                                      // Allow extra parentheses in return assignments
@@ -172,6 +173,7 @@ module.exports = {
     }],
     'prefer-const': 'warn',                                     // Enable the warning about using const
     'prefer-destructuring': 'warn',                             // Enable the warning about using destructuring
+    'prefer-template': 'warn',                                  // Enable the warning about using template literals
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
     'radix': 'warn',                                            // Enable the warning about using radix
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment

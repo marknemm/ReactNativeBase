@@ -1,3 +1,5 @@
+import Backdrop from '@components/backdrop/Backdrop';
+import BackdropProvider from '@contexts/backdrop/BackdropProvider';
 import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
 import UserProvider from '@contexts/user/UserProvider';
 import { useAuthState } from '@hooks/auth-hooks';
@@ -37,8 +39,11 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <BleManagerProvider>
           <UserProvider user={user}>
-            <StatusBar />
-            <NavigationRoot />
+            <BackdropProvider>
+              <StatusBar />
+              <NavigationRoot />
+              <Backdrop />
+            </BackdropProvider>
           </UserProvider>
         </BleManagerProvider>
       </ThemeProvider>

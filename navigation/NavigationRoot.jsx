@@ -1,4 +1,4 @@
-import { RootNavigationContext } from '@contexts/root-navigation/RootNavigationContext';
+import { RootNavigationContainerRefContext } from '@contexts/root-navigation-container-ref/RootNavigationContainerRefContext';
 import { useScreenOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { DarkTheme, DefaultTheme, NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
@@ -25,7 +25,7 @@ export default function NavigationRoot() {
 
   return (
     <NavigationContainer theme={useNavTheme()} ref={navigationRef}>
-      <RootNavigationContext.Provider value={navigationRef}>
+      <RootNavigationContainerRefContext.Provider value={navigationRef}>
         <Stack.Navigator screenOptions={useScreenOptions()}>
           { user?.isAuthenticated ? (
             <>
@@ -57,7 +57,7 @@ export default function NavigationRoot() {
             </>
           )}
         </Stack.Navigator>
-      </RootNavigationContext.Provider>
+      </RootNavigationContainerRefContext.Provider>
     </NavigationContainer>
   );
 }

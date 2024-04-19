@@ -3,7 +3,7 @@ import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX, PHONE_REGEX } from '@constants/regex';
-import { useNavHeaderButtons } from '@hooks/navigation-hooks';
+import { useNavigationOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Button } from '@rneui/themed';
 import { useState } from 'react';
@@ -36,11 +36,10 @@ export default function UserProfileScreen({ navigation }) {
   const onSave = form.handleSubmit(async (formData) => {
     setSubmitErr('');
     setSubmitting(true);
-    navigation.setOptions({ headerBackButtonMenuEnabled: false });
+    navigation.setOptions({ headerBackVisible: false });
 
     try {
       await user.save(formData);
-      navigation.setOptions({ headerBackButtonMenuEnabled: true });
       navigation.goBack();
     } catch (error) {
       setSubmitErr(error.message);
@@ -49,13 +48,16 @@ export default function UserProfileScreen({ navigation }) {
     }
   });
 
-  useNavHeaderButtons('Cancel', 'Save', form.formState.isDirty, () => (
-    <Button
-      loading={submitting}
-      onPress={onSave}
-      title="Save"
-    />
-  ));
+  useNavigationOptions({
+    headerBackTitle: 'Cancel',
+    headerRight: () => (
+      <Button
+        loading={submitting}
+        onPress={onSave}
+        title="Save"
+      />
+    ),
+  }, form.formState.isDirty); // Only set the navigation options when the form is dirty
 
   return (
     <Form form={form} safeArea scrollable>
