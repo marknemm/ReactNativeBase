@@ -3,7 +3,7 @@ import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX, PHONE_REGEX } from '@constants/regex';
-import { useNavigationOptions } from '@hooks/navigation-hooks';
+import { useNavigationConfirm, useNavigationOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Button } from '@rneui/themed';
 import { useState } from 'react';
@@ -40,6 +40,7 @@ export default function UserProfileScreen({ navigation }) {
 
     try {
       await user.save(formData);
+      form.reset(form.getValues()); // Reset form state to newly saved value - makes it pristine
       navigation.goBack();
     } catch (error) {
       setSubmitErr(error.message);
@@ -58,6 +59,8 @@ export default function UserProfileScreen({ navigation }) {
       />
     ),
   }, form.formState.isDirty); // Only set the navigation options when the form is dirty
+
+  useNavigationConfirm(form.formState.isDirty); // Confirm navigation when the form is dirty
 
   return (
     <Form form={form} safeArea scrollable>
