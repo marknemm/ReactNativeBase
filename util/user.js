@@ -201,6 +201,10 @@ export class User {
         phoneNumber: userData.phoneNumber,
         photoURL: userData.photoURL,
       }, { merge: true });
+
+      if (userData.email !== this.email) {
+        await this.sendEmailVerification();
+      }
     } else {
       throw new Error('Cannot save unauthenticated or anonymous user data');
     }
