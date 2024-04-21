@@ -10,6 +10,8 @@ export * as LocalStorage from './local-storage';
 export * as Navigation from './navigation';
 export * as RemoteFS from './remote-fs';
 
+export { DeepReadonly } from 'utility-types';
+
 /**
  * Types namespace for easy access to types in jsdocs.
  */

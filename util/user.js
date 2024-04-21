@@ -193,6 +193,19 @@ export class User {
   }
 
   /**
+   * The raw user data.
+   *
+   * @type {Types.DeepReadonly<{ authUser: FirebaseAuthTypes.User?, docData: FirebaseFirestoreTypes.DocumentData? }>}
+   * @readonly
+   */
+  get rawData() {
+    return {
+      authUser: this.#authUser,
+      docData: this.#docData,
+    };
+  }
+
+  /**
    * The user unique identifier.
    *
    * @readonly
@@ -208,6 +221,17 @@ export class User {
    */
   get username() {
     return this.displayName || this.email?.split('@')[0] || '';
+  }
+
+  /**
+   * Triggers a reload of the user data from the authentication server and remote database.
+   *
+   * @returns {Promise<void>} A promise that resolves when the user data reload is triggered.
+   */
+  async reload() {
+    if (this.isAuthenticated) {
+      await this.#authUser.reload();
+    }
   }
 
   /**

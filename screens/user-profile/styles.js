@@ -9,6 +9,9 @@ export const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
     marginBottom: verticalGutter + 20,
   },
+  emailVerification: {
+    marginBottom: verticalGutter,
+  },
   formError: {
     marginTop: 10,
     textAlign: 'center',

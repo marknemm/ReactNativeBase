@@ -30,7 +30,8 @@ export default function SignInScreen({ navigation }) {
       password: '',
     },
   });
-  const { handleSubmit, handleSubmitState, submitError, submitting } = useSubmitState(form);
+  const { handleSubmit, handleSubmitState, submitError, submitSuccessful, submitting } = useSubmitState(form);
+  const loading = submitting || submitSuccessful;
 
   const { mode: themeMode } = useThemeMode();
   const appleButtonStyle = themeMode === 'dark'
@@ -80,7 +81,7 @@ export default function SignInScreen({ navigation }) {
       />
 
       <Button
-        loading={submitting}
+        loading={loading}
         onPress={handleSubmit(async ({ email, password }) => {
           const authUser = await signInWithEmailAndPassword(email, password);
           setLSLastSignInEmail(email);
@@ -91,7 +92,7 @@ export default function SignInScreen({ navigation }) {
       />
 
       <Button
-        disabled={submitting}
+        disabled={loading}
         onPress={() => navigation.navigate('Sign Up')}
         style={generalStyles.horizontalGutter}
         title="Don&apos;t have an account?"
@@ -99,7 +100,7 @@ export default function SignInScreen({ navigation }) {
       />
 
       <Button
-        disabled={submitting}
+        disabled={loading}
         onPress={() => navigation.navigate('Forgot Password')}
         style={generalStyles.horizontalGutter}
         title="Forgot password?"

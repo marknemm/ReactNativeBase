@@ -48,6 +48,8 @@ export async function sendPasswordResetEmail(email) {
  * @throws {Error} An error is thrown when the anonymous sign in request unexpectedly fails.
  */
 export async function signInAnonymously() {
+  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
+
   log('Signing in anonymously');
 
   try {
@@ -67,6 +69,8 @@ export async function signInAnonymously() {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithApple() {
+  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
+
   let authCredential, email;
   log('Signing in with Apple');
 
@@ -104,6 +108,8 @@ export async function signInWithApple() {
  * @throws {Error} An error is thrown when the sign in request fails.
  */
 export async function signInWithEmailAndPassword(email, password) {
+  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
+
   log('Signing in with email and password:', email);
   password ??= await promptForPassword(email);
 
@@ -125,6 +131,8 @@ export async function signInWithEmailAndPassword(email, password) {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithFacebook(loginError, loginResult) {
+  if (auth().currentUser) return auth().currentUser; // Prevent multiple sign in attempts
+
   let authCredential, email;
   log('Signing in with Facebook');
 
@@ -164,6 +172,8 @@ export async function signInWithFacebook(loginError, loginResult) {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithGoogle() {
+  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
+
   let authCredential, email;
   log('Signing in with Google');
 
@@ -197,6 +207,8 @@ export async function signInWithGoogle() {
  * when the confirmation code is texted to the given `phoneNumber`.
  */
 export async function signInWithPhoneNumber(phoneNumber) {
+  if (!auth().currentUser) return null; // Prevent sign in if already signed in
+
   log('Signing in with phone:', phoneNumber);
 
   try {
@@ -214,6 +226,8 @@ export async function signInWithPhoneNumber(phoneNumber) {
  * @returns {Promise<void>} A promise that resolves when the sign out request is complete.
  */
 export async function signOut() {
+  if (!auth().currentUser) return; // Prevent sign out if not signed in
+
   log('Signing out');
 
   try {
@@ -233,6 +247,8 @@ export async function signOut() {
  * @throws {Error} An error is thrown when the sign up request fails.
  */
 export async function signUp(email, password) {
+  if (auth().currentUser) return auth().currentUser; // Prevent sign up if already signed in
+
   log('Signing up with email:', email);
 
   try {
@@ -272,6 +288,9 @@ export async function updatePassword(currentPassword, newPassword) {
     log('Password updated');
   } catch (error) {
     log('Failed to update password:', error);
+    if (!auth().currentUser) {
+      throw new Error('Must be signed in to update password');
+    }
     throw new Error('Failed to update password, please try again');
   }
 }

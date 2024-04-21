@@ -15,9 +15,9 @@ module.exports = {
     node: true,     // Enable Node.js global variables and Node.js scoping
   },
   globals: {
-    'React': 'readonly', // Define the React as a read-only global for cleaner typedef in jsdoc
-    'Types': 'readonly', // Define the Types as a read-only global for cleaner typedef in jsdoc
-    '__DEV__': 'readonly', // Define the __DEV__ global for conditional development code
+    'React': 'readonly',    // Define the React as a read-only global for cleaner typedef in jsdoc
+    'Types': 'readonly',    // Define the Types as a read-only global for cleaner typedef in jsdoc
+    '__DEV__': 'readonly',  // Define the __DEV__ global for conditional development code
   },
   extends: [
     'eslint:recommended',             // Use ESLint's recommended rules

@@ -1,10 +1,12 @@
 import Avatar from '@components/avatar/Avatar';
 import EmailInput from '@components/email-input/EmailInput';
+import EmailVerification from '@components/email-verification/EmailVerification';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import PhoneInput from '@components/phone-input/PhoneInput';
 import { PASSWORD_ICON } from '@constants/icons';
+import { useAuthRefresh } from '@hooks/auth-hooks';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
@@ -34,6 +36,9 @@ export default function UserProfileScreen({ navigation }) {
   });
   const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
+  // Refresh the user at a regular 3 sec. interval if the email is not verified
+  useAuthRefresh(!user.emailVerified);
+
   // Setup form submit handler
   const onSave = handleSubmit(async (formData) => {
     await user.save(formData);
@@ -45,7 +50,7 @@ export default function UserProfileScreen({ navigation }) {
   useNavigationOptions({
     gestureEnabled: false,
     headerBackVisible: false,
-  }, submitting, []);
+  }, submitting, []); // Only set navigation options when the form is submitting
 
   // Change navigation header buttons when form is dirty to Cancel and Save
   useNavigationOptions({
@@ -89,6 +94,11 @@ export default function UserProfileScreen({ navigation }) {
         label="Email"
         name="email"
         required
+      />
+
+      <EmailVerification
+        containerStyle={styles.emailVerification}
+        user={user}
       />
 
       <PhoneInput

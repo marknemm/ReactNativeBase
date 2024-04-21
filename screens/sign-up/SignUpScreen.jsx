@@ -27,7 +27,8 @@ export default function SignUpScreen({ navigation }) {
       confirmPassword: '',
     },
   });
-  const { handleSubmit, submitError, submitting } = useSubmitState(form);
+  const { handleSubmit, submitError, submitSuccessful, submitting } = useSubmitState(form);
+  const loading = submitting || submitSuccessful;
 
   return (
     <Form
@@ -63,6 +64,7 @@ export default function SignUpScreen({ navigation }) {
       />
 
       <Button
+        loading={loading}
         onPress={handleSubmit(async ({ email, password }) => {
           await signUp(email, password);
           setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, email);
@@ -72,7 +74,7 @@ export default function SignUpScreen({ navigation }) {
       />
 
       <Button
-        disabled={submitting}
+        disabled={loading}
         onPress={() => navigation.navigate('Sign In')}
         style={generalStyles.horizontalGutter}
         title="Have an account?"

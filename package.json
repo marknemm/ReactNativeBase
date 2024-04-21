@@ -56,11 +56,11 @@
     "react-native-gesture-handler": "~2.14.0",
     "react-native-keyboard-manager": "^6.5.11-2",
     "react-native-mmkv": "^2.12.2",
+    "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-vision-camera": "^3.9.2",
-    "react-native-web": "~0.19.6",
-    "react-native-reanimated": "~3.6.2"
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -77,7 +77,8 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "expo-dev-client": "~3.3.11"
+    "expo-dev-client": "~3.3.11",
+    "utility-types": "^3.11.0"
   },
   "private": true
 }
