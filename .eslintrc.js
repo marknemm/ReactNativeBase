@@ -39,6 +39,7 @@ module.exports = {
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
     'array-bracket-spacing': ['warn', 'never'],                 // Enable the warning about array bracket spacing
     'block-spacing': 'warn',                                    // Enable the warning about block spacing
+    'brace-style': 'warn',                                      // Enable the warning about brace style
     'class-methods-use-this': 'warn',                           // Enable the warning about using this in class methods
     'comma-dangle': ['warn', {                                  // Require trailing commas in object and array literals
       arrays: 'always-multiline',                               // Require trailing commas in arrays
@@ -57,6 +58,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
     'import/extensions': 'warn',                                // Enable the warning about import extensions
     'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports
+    'import/no-duplicates': 'warn',                             // Enable the warning about duplicate imports
     'import/no-extraneous-dependencies': 'off',                 // Disable the rule that prevents extraneous dependencies and rely on checkJs instead
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
     'import/order': 'warn',                                     // Enable the warning about import order
@@ -105,6 +107,7 @@ module.exports = {
     }],
     'jsx-a11y/anchor-is-valid': 'off',                          // Disable the rule that enforces valid <a> tag usage
     'jsx-quotes': ['warn', 'prefer-double'],                    // Enable the warning about using double quotes in JSX
+    'keyword-spacing': 'warn',                                  // Enable the warning about keyword spacing
     'lines-between-class-members': ['warn', 'always', {         // Enable the warning about lines between class members
       exceptAfterSingleLine: true,                              // Allow single-line class members to be grouped together
     }],
@@ -116,6 +119,7 @@ module.exports = {
       ignoreRegExpLiterals: true,                               // Ignore regular expressions when checking line length
       ignoreUrls: true,                                         // Ignore URLs when checking line length
     }],
+    'multiline-ternary': ['warn', 'always-multiline'],          // Enable the warning about multiline ternary expressions
     'no-await-in-loop': 'off',                                  // Disable the rule that disallows using await inside of loops
     'no-else-return': 'warn',                                   // Enable the warning about using else return
     'no-empty': 'warn',                                         // Enable the warning about empty blocks
@@ -132,11 +136,13 @@ module.exports = {
     'no-floating-promise/no-floating-promise': 'warn',          // Enable the warning about floating promises
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
+    'no-nested-ternary': 'off',                                 // Disable the rule that disallows nested ternary expressions
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
     'no-promise-executor-return': 'warn',                       // Enable the warning about returning values from promise executors
     'no-restricted-syntax': 'off',                              // Disable the rule that disallows specific syntax
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
     'no-underscore-dangle': 'off',                              // Disable the rule that disallows dangling underscores
+    'no-unneeded-ternary': 'warn',                              // Enable the warning about unneeded ternary expressions
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
@@ -151,6 +157,7 @@ module.exports = {
       consistent: true,                                         // Require consistent newlines in object literals
     }],
     'object-curly-spacing': ['warn', 'always'],                 // Enable the warning about object curly spacing
+    'object-shorthand': 'warn',                                 // Enable the warning about object shorthand
     'one-var': ['warn', {                                       // Enable the warning about variable declarations
       initialized: 'never',                                     // Do not require variables to be initialized
       uninitialized: 'consecutive',                             // Require consecutive uninitialized variables
@@ -210,6 +217,7 @@ module.exports = {
     'react/self-closing-comp': 'warn',                          // Enable the warning about self-closing components
     'react-refresh/only-export-components': 'warn',             // Enable the warning about only exporting components from JSX files
     'semi': ['warn', 'always'],                                 // Enable the warning about using semicolons
+    'space-before-blocks': 'warn',                              // Enable the warning about spacing before blocks
     'space-in-parens': 'warn',                                  // Enable the warning about spacing in parentheses
     'space-infix-ops': 'warn',                                  // Enable the warning about spacing in infix operators
     'spaced-comment': 'warn',                                   // Enable the warning about spacing in comments

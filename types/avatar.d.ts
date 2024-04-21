@@ -1,7 +1,5 @@
 import { AvatarProps as RneAvatarProps } from '@rneui/base';
-import { User } from '@util/user';
-import { ImagePickerAsset } from 'expo-image-picker';
-import { FormFieldProps } from './form-field';
+import { FieldValues, FormFieldProps } from './form';
 
 /**
  * Properties for the `Avatar` component.

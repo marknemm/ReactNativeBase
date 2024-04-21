@@ -12,6 +12,18 @@ import { getLSItem } from './local-storage';
 GoogleSignin.configure();
 
 /**
+ * Determines if a given sign-in provider is linked to the current {@link FirebaseAuthTypes.User user}.
+ *
+ * @param {string} providerId The sign in provider ID (e.g. {@link auth.EmailAuthProvider.PROVIDER_ID}).
+ * @returns {boolean} `true` if the user has the specified sign-in provider, otherwise `false`.
+ */
+export function hasSignInProvider(providerId) {
+  return auth().currentUser?.providerData.some(
+    (provider) => provider.providerId === providerId
+  ) ?? false;
+}
+
+/**
  * Sends a password reset email.
  *
  * @param {string} email The user email address.
@@ -240,6 +252,28 @@ export async function signUp(email, password) {
   }
 
   return auth().currentUser;
+}
+
+/**
+ * Updates the user password.
+ *
+ * @param {string} currentPassword The user's current password.
+ * @param {string} newPassword The user's new password.
+ * @returns {Promise<void>} A promise that resolves when the password update request is successful.
+ * @throws {Error} An error is thrown when the password update request fails.
+ */
+export async function updatePassword(currentPassword, newPassword) {
+  log('Updating password');
+
+  try {
+    const authCredential = auth.EmailAuthProvider.credential(auth().currentUser.email, currentPassword);
+    await auth().currentUser.reauthenticateWithCredential(authCredential);
+    await auth().currentUser.updatePassword(newPassword);
+    log('Password updated');
+  } catch (error) {
+    log('Failed to update password:', error);
+    throw new Error('Failed to update password, please try again');
+  }
 }
 
 // --- PRIVATE HELPER FUNCTIONS --- //

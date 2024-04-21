@@ -1,6 +1,8 @@
+import { OPTIONS_HEADER_SAVE_CANCEL } from '@constants/navigation';
 import { useScreenOptions } from '@hooks/navigation-hooks';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AboutScreen from '@screens/about/About';
+import UpdatePasswordScreen from '@screens/update-password/UpdatePasswordScreen';
 import DevicesScreen from '@screens/devices/DevicesScreen';
 import SettingsScreen from '@screens/settings/SettingsScreen';
 import ThemeScreen from '@screens/theme/ThemeScreen';
@@ -23,6 +25,11 @@ export default function SettingsStack() {
       <Stack.Screen
         name="Profile"
         component={UserProfileScreen}
+      />
+      <Stack.Screen
+        name="Update Password"
+        component={UpdatePasswordScreen}
+        options={OPTIONS_HEADER_SAVE_CANCEL}
       />
       <Stack.Screen
         name="Theme"

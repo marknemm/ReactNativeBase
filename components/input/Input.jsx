@@ -1,7 +1,7 @@
-import { useFormControl, useFormErrorMessage } from '@hooks/form-field-hooks';
+import { useFormControl, useFormErrorMessage } from '@hooks/form-hooks';
 import { Input as RneInput, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 /**
@@ -12,8 +12,33 @@ import { Controller } from 'react-hook-form';
  * @throws {Error} The `name` property is required when using form controls.
  */
 export default function Input(props) {
-  const { name, onBlur, onChangeText, rules } = props;
+  const { label, minLength, name, onBlur, onChangeText, required, rules, rulesErrorMessageMap } = props;
   const control = useFormControl(props);
+
+  const derivedRules = useMemo(
+    () => rules ?? {
+      minLength,
+      required: (typeof required === 'string')
+        ? required
+        : required
+          ? `${label || 'Field'} is required`
+          : undefined,
+    },
+    [label, minLength, required, rules]
+  );
+
+  const derivedRulesErrorMessageMap = useMemo(
+    () => (rules
+      ? rulesErrorMessageMap
+      : {
+        minLength: minLength
+          ? `${label ?? 'Field'} must be at least ${minLength} characters`
+          : undefined,
+        ...rulesErrorMessageMap,
+      }
+    ),
+    [label, minLength, rules, rulesErrorMessageMap]
+  );
 
   return control
     ? (
@@ -31,10 +56,11 @@ export default function Input(props) {
               onChangeForm(text);
               onChangeText?.(text);
             }}
+            rulesErrorMessageMap={derivedRulesErrorMessageMap}
             value={value}
           />
         )}
-        rules={rules}
+        rules={derivedRules}
       />
     )
     : <InputControlled {...props} />;
@@ -77,10 +103,14 @@ function InputControlled(props) {
 
 Input.propTypes = {
   control: PropTypes.object,
+  label: PropTypes.string,
+  minLength: PropTypes.number,
   name: PropTypes.string,
   onBlur: PropTypes.func,
   onChangeText: PropTypes.func,
+  required: PropTypes.bool,
   rules: PropTypes.object,
+  rulesErrorMessageMap: PropTypes.object,
 };
 
 InputControlled.propTypes = {

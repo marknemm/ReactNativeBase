@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
  *
  * @param {Object} param0 The component properties.
  * @param {React.ReactNode} [param0.children] The children components.
- * @param {import('react-hook-form').UseFormReturn<any>} param0.form The form instance.
+ * @param {Types.Form.UseFormReturn<any>} param0.form The {@link Types.Form.UseFormReturn Form} instance.
  * @param {boolean} [param0.safeArea=false] Whether to apply safe area styling.
  * @param {boolean} [param0.scrollable=false] Whether the form is scrollable.
  * @param {import('react-native').ViewStyle | import('react-native').ViewStyle[]} [param0.style={}] The style to apply.

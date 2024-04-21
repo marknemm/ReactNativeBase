@@ -1,8 +1,10 @@
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { setDBDoc } from '@util/db';
+import { log, logErr } from './log';
 import { uploadFile } from './remote-fs';
+import { hasSignInProvider } from './auth';
 
 /**
  * Represents a user.
@@ -53,17 +55,17 @@ export class User {
    * @readonly
    */
   get email() {
-    return this.#docData?.email || this.#authUser?.email || '';
+    return this.#docData?.email || '';
   }
 
   /**
    * Indicates if the user email address has been verified.
-   * If this {@link User} object was constructed without authentication data, then `null`.
+   * If this {@link User} object was constructed without authentication data, then `false`.
    *
    * @readonly
    */
   get emailVerified() {
-    return this.#authUser?.emailVerified;
+    return this.#authUser?.emailVerified ?? false;
   }
 
   /**
@@ -73,6 +75,16 @@ export class User {
    */
   get firstName() {
     return this.displayName.split(' ')[0];
+  }
+
+  /**
+   * Indicates if the user has a password.
+   * If this {@link User} object was constructed without authentication data, then `false`.
+   *
+   * @readonly
+   */
+  get hasPassword() {
+    return this.isAuthenticated && hasSignInProvider(auth.EmailAuthProvider.PROVIDER_ID);
   }
 
   /**
@@ -116,6 +128,26 @@ export class User {
    */
   get isAuthenticated() {
     return this.#authUser != null;
+  }
+
+  /**
+   * Indicates if the user is linked with an Apple account.
+   * If this {@link User} object was constructed without authentication data, then `false`.
+   *
+   * @readonly
+   */
+  get isLinkedWithApple() {
+    return this.isAuthenticated && hasSignInProvider(auth.AppleAuthProvider.PROVIDER_ID);
+  }
+
+  /**
+   * Indicates if the user is linked with a Google account.
+   * If this {@link User} object was constructed without authentication data, then `false`.
+   *
+   * @readonly
+   */
+  get isLinkedWithGoogle() {
+    return this.isAuthenticated && hasSignInProvider(auth.GoogleAuthProvider.PROVIDER_ID);
   }
 
   /**
@@ -189,21 +221,32 @@ export class User {
     if (!userData) return;
 
     if (this.isAuthenticated && !this.isAnonymous) {
-      if (userData.photoURL !== this.photoURL) {
-        const remotePath = `users/${this.uid}/photo`;
-        const { ref } = await uploadFile(userData.photoURL, remotePath);
-        userData.photoURL = await ref.getDownloadURL();
-      }
+      try {
+        if (userData.photoURL !== this.photoURL) {
+          log('Uploading user photo:', userData.photoURL);
+          const remotePath = `users/${this.uid}/photo`;
+          const { ref } = await uploadFile(userData.photoURL, remotePath);
+          userData.photoURL = await ref.getDownloadURL();
+          log('User photo uploaded:', userData.photoURL);
+        }
 
-      await setDBDoc('users', this.uid, {
-        displayName: userData.displayName,
-        email: userData.email,
-        phoneNumber: userData.phoneNumber,
-        photoURL: userData.photoURL,
-      }, { merge: true });
+        log('Saving user data:', userData);
+        await setDBDoc('users', this.uid, {
+          displayName: userData.displayName,
+          email: userData.email,
+          phoneNumber: userData.phoneNumber,
+          photoURL: userData.photoURL,
+        }, { merge: true });
+        log('User data saved:', userData);
 
-      if (userData.email !== this.email) {
-        await this.sendEmailVerification();
+        if (userData.email !== this.email) {
+          log('Sending email verification message');
+          await this.sendEmailVerification();
+          log('Email verification message sent');
+        }
+      } catch (error) {
+        logErr('Error saving user data:', error);
+        throw new Error('Error saving user data, please try again');
       }
     } else {
       throw new Error('Cannot save unauthenticated or anonymous user data');

@@ -1,12 +1,14 @@
 import Avatar from '@components/avatar/Avatar';
+import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
-import { EMAIL_REGEX, PHONE_REGEX } from '@constants/regex';
+import PhoneInput from '@components/phone-input/PhoneInput';
+import { PASSWORD_ICON } from '@constants/icons';
+import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
-import { Button } from '@rneui/themed';
-import { useState } from 'react';
+import { Button, Icon, ListItem } from '@rneui/themed';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -30,25 +32,22 @@ export default function UserProfileScreen({ navigation }) {
       confirmPassword: '',
     },
   });
-  const [submitErr, setSubmitErr] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
-  const onSave = form.handleSubmit(async (formData) => {
-    setSubmitErr('');
-    setSubmitting(true);
-    navigation.setOptions({ headerBackVisible: false });
-
-    try {
-      await user.save(formData);
-      form.reset(form.getValues()); // Reset form state to newly saved value - makes it pristine
-      navigation.goBack();
-    } catch (error) {
-      setSubmitErr(error.message);
-    } finally {
-      setSubmitting(false);
-    }
+  // Setup form submit handler
+  const onSave = handleSubmit(async (formData) => {
+    await user.save(formData);
+    form.reset(form.getValues()); // Makes form pristine
+    navigation.goBack();
   });
 
+  // Disable navigation on submit
+  useNavigationOptions({
+    gestureEnabled: false,
+    headerBackVisible: false,
+  }, submitting, []);
+
+  // Change navigation header buttons when form is dirty to Cancel and Save
   useNavigationOptions({
     headerBackTitle: 'Cancel',
     headerRight: () => (
@@ -58,7 +57,9 @@ export default function UserProfileScreen({ navigation }) {
         title="Save"
       />
     ),
-  }, form.formState.isDirty); // Only set the navigation options when the form is dirty
+  },
+  form.formState.isDirty, // Only set the navigation options when the form is dirty
+  [onSave, submitting]);
 
   useNavigationConfirm(form.formState.isDirty); // Confirm navigation when the form is dirty
 
@@ -83,30 +84,35 @@ export default function UserProfileScreen({ navigation }) {
         name="displayName"
       />
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
+      <EmailInput
         disabled={submitting}
-        keyboardType="email-address"
         label="Email"
         name="email"
-        rules={{ required: 'Email is required', pattern: EMAIL_REGEX }}
-        rulesErrorMessageMap={{ pattern: 'Invalid email address' }}
+        required
       />
 
-      <Input
-        autoComplete="tel"
-        autoCorrect={false}
+      <PhoneInput
         disabled={submitting}
-        keyboardType="phone-pad"
         label="Phone Number"
         name="phoneNumber"
-        rules={{ pattern: PHONE_REGEX }}
-        rulesErrorMessageMap={{ pattern: 'Invalid phone number' }}
       />
 
-      <FormError errorMessage={submitErr} style={styles.formError} />
+      {user.hasPassword && (
+        <ListItem
+          bottomDivider
+          disabled={submitting}
+          onPress={() => navigation.navigate('Update Password')}
+          topDivider
+        >
+          <Icon {...PASSWORD_ICON} color="gray" />
+          <ListItem.Content>
+            <ListItem.Title>Update Password</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      )}
+
+      <FormError errorMessage={submitError} style={styles.formError} />
     </Form>
   );
 }

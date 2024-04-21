@@ -1,13 +1,12 @@
 import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
-import { FormFieldProps } from './form-field';
+import { FormFieldProps, FieldValues } from './form';
 
 /**
  * Properties for dropdown components.
  *
  * @param T The type of the value.
- * @param F The type of the form data.
  */
-export interface DropdownProps<T = any, F = Any> extends RneDropdownProps<T>, FormFieldProps<F> {
+export interface DropdownProps<T = any> extends RneDropdownProps<T>, FormFieldProps {
 
   /**
    * The data for the dropdown.
@@ -35,4 +34,5 @@ export interface DropdownProps<T = any, F = Any> extends RneDropdownProps<T>, Fo
    * The value field within each dropdown data item. Defaults to `'value'`.
    */
   valueField?: string;
+
 }

@@ -1,16 +1,15 @@
+import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
-import Input from '@components/input/Input';
-import { EMAIL_REGEX } from '@constants/regex';
+import PasswordInput from '@components/password-input/PasswordInput';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button, useThemeMode } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
-import { signInAnonymously, signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
+import { signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
 import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { useStyles } from './styles';
@@ -31,43 +30,24 @@ export default function SignInScreen({ navigation }) {
       password: '',
     },
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitErr, setSubmitErr] = useState('');
+  const { handleSubmit, handleSubmitState, submitError, submitting } = useSubmitState(form);
 
   const { mode: themeMode } = useThemeMode();
   const appleButtonStyle = themeMode === 'dark'
     ? AppleAuthenticationButtonStyle.WHITE
     : AppleAuthenticationButtonStyle.BLACK;
 
-  /**
-   * Handles a sign in button click by invoking the given `signInMethodCb` function.
-   *
-   * @param {() => Promise<FirebaseAuthTypes.User>} signInMethodCb The sign in method callback function.
-   * @returns {Promise<void>} A promise that resolves when the sign in method callback function completes.
-   */
-  async function handleSignIn(signInMethodCb) {
-    if (submitting) return;
-    setSubmitErr('');
-    setSubmitting(true);
-
-    try {
-      await signInMethodCb();
-    } catch (error) {
-      setSubmitErr(error.message);
-      setSubmitting(false);
-    }
-  }
-
   return (
     <Form
       form={form}
       safeArea
+      scrollable
       style={generalStyles.screenContainer}
     >
       <View style={styles.oauthProvidersView}>
         <GoogleSigninButton
           color={GoogleSigninButton.Color.Dark}
-          onPress={() => handleSignIn(signInWithGoogle)}
+          onPress={handleSubmitState(signInWithGoogle)}
           size={GoogleSigninButton.Size.Wide}
           style={styles.googleProviderButton}
         />
@@ -75,7 +55,7 @@ export default function SignInScreen({ navigation }) {
           buttonType={AppleAuthenticationButtonType.SIGN_IN}
           buttonStyle={appleButtonStyle}
           cornerRadius={2}
-          onPress={() => handleSignIn(signInWithApple)}
+          onPress={handleSubmitState(signInWithApple)}
           style={styles.oauthProviderButton}
         />
         {/* <FacebookLoginButton
@@ -84,42 +64,28 @@ export default function SignInScreen({ navigation }) {
         /> */}
       </View>
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
+      <EmailInput
         containerStyle={styles.formField}
-        keyboardType="email-address"
         label="Email"
         name="email"
-        rules={{ required: 'Email is required', pattern: EMAIL_REGEX }}
-        rulesErrorMessageMap={{ pattern: 'Invalid email address' }}
-        secureTextEntry={false}
+        required
         textContentType="username"
       />
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="current-password"
-        autoCorrect={false}
+      <PasswordInput
         containerStyle={styles.formField}
         label="Password"
         name="password"
-        rules={{ minLength: 6, required: 'Password is required' }}
-        rulesErrorMessageMap={{ minLength: 'Password must be at least 6 characters' }}
-        secureTextEntry
-        textContentType="password"
+        required
       />
 
       <Button
         loading={submitting}
-        onPress={form.handleSubmit(({ email, password }) =>
-          handleSignIn(async () => {
-            const authUser = await signInWithEmailAndPassword(email, password);
-            setLSLastSignInEmail(email);
-            return authUser;
-          })
-        )}
+        onPress={handleSubmit(async ({ email, password }) => {
+          const authUser = await signInWithEmailAndPassword(email, password);
+          setLSLastSignInEmail(email);
+          return authUser;
+        })}
         style={styles.submitButton}
         title="Sign In"
       />
@@ -140,18 +106,7 @@ export default function SignInScreen({ navigation }) {
         type="clear"
       />
 
-      <FormError errorMessage={submitErr} style={styles.formError} />
-
-      <View style={generalStyles.flexEndItem}>
-        <Button
-          disabled={submitting}
-          onPress={() => handleSignIn(signInAnonymously)}
-          style={styles.skipSignInButton}
-          titleStyle={styles.skipSignInText}
-          title="Skip"
-          type="clear"
-        />
-      </View>
+      <FormError errorMessage={submitError} style={styles.formError} />
     </Form>
   );
 }

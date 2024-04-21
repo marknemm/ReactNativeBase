@@ -1,5 +1,5 @@
 import FormError from '@components/form-error/FormError';
-import { useFormControl } from '@hooks/form-field-hooks';
+import { useFormControl } from '@hooks/form-hooks';
 import { useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';

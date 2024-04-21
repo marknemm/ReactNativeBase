@@ -115,4 +115,7 @@ export const generalStyles = StyleSheet.create({
   verticalGutter: {
     paddingVertical: verticalGutter,
   },
+  white: {
+    color: 'white',
+  },
 });

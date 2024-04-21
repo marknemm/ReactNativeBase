@@ -3,11 +3,11 @@ import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { EMAIL_REGEX } from '@constants/regex';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { Button, Text } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { sendPasswordResetEmail } from '@util/auth';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -26,14 +26,13 @@ export default function ForgotPasswordScreen({ navigation }) {
       email: lastSignInEmail,
     },
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitErr, setSubmitErr] = useState('');
-  const [submitSuccessful, setSubmitSuccessful] = useState(false);
+  const { handleSubmit, submitError, submitSuccessful, submitting } = useSubmitState(form);
 
   return (
     <Form
       form={form}
       safeArea
+      scrollable
       style={generalStyles.screenContainer}
     >
       <Input
@@ -52,20 +51,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
       <Button
         loading={submitting}
-        onPress={form.handleSubmit(async ({ email }) => {
-          setSubmitErr('');
-          setSubmitting(true);
-
-          try {
-            await sendPasswordResetEmail(email);
-            setSubmitSuccessful(true);
-          } catch (error) {
-            setSubmitErr(error.message);
-            setSubmitSuccessful(false);
-          } finally {
-            setSubmitting(false);
-          }
-        })}
+        onPress={handleSubmit(({ email }) => sendPasswordResetEmail(email))}
         style={styles.submitButton}
         title={`${submitSuccessful ? 'Resend' : 'Send'} Password Reset Email`}
       />
@@ -84,7 +70,7 @@ export default function ForgotPasswordScreen({ navigation }) {
         </Text>
       )}
 
-      <FormError errorMessage={submitErr} style={styles.formError} />
+      <FormError errorMessage={submitError} style={styles.formError} />
     </Form>
   );
 }

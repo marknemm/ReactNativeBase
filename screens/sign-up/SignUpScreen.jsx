@@ -1,13 +1,13 @@
+import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
-import Input from '@components/input/Input';
-import { EMAIL_REGEX } from '@constants/regex';
+import PasswordInput from '@components/password-input/PasswordInput';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { useSubmitState } from '@hooks/form-hooks';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { signUp } from '@util/auth';
 import { setLSItem } from '@util/local-storage';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -27,68 +27,45 @@ export default function SignUpScreen({ navigation }) {
       confirmPassword: '',
     },
   });
-  const [submitErr, setSubmitErr] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
   return (
     <Form
       form={form}
       safeArea
+      scrollable
       style={generalStyles.screenContainer}
     >
-      <Input
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
+      <EmailInput
         containerStyle={styles.formField}
-        keyboardType="email-address"
         label="Email"
         name="email"
-        rules={{ required: 'Email is required', pattern: EMAIL_REGEX }}
-        rulesErrorMessageMap={{ pattern: 'Invalid email address' }}
-        textContentType="emailAddress"
+        required
       />
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="new-password"
-        autoCorrect={false}
+      <PasswordInput
         containerStyle={styles.formField}
         label="Password"
         name="password"
-        rules={{ minLength: 6, required: 'Password is required' }}
-        rulesErrorMessageMap={{ minLength: 'Password must be at least 6 characters' }}
-        secureTextEntry
+        required
         textContentType="newPassword"
       />
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="new-password"
-        autoCorrect={false}
+      <PasswordInput
         containerStyle={styles.formField}
         label="Confirm Password"
         name="confirmPassword"
         rules={{
-          required: 'Confirm password is required',
+          required: 'Confirm Password is required',
           validate: (value) => value === form.getValues().password || 'Passwords must match',
         }}
-        secureTextEntry
         textContentType="newPassword"
       />
 
       <Button
-        onPress={form.handleSubmit(async ({ email, password }) => {
-          setSubmitErr('');
-          setSubmitting(true);
-
-          try {
-            await signUp(email, password);
-            setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, email);
-          } catch (error) {
-            setSubmitErr(error.message);
-            setSubmitting(false);
-          }
+        onPress={handleSubmit(async ({ email, password }) => {
+          await signUp(email, password);
+          setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, email);
         })}
         style={styles.submitButton}
         title="Sign up"
@@ -102,7 +79,7 @@ export default function SignUpScreen({ navigation }) {
         type="clear"
       />
 
-      <FormError errorMessage={submitErr} style={styles.formError} />
+      <FormError errorMessage={submitError} style={styles.formError} />
     </Form>
   );
 }

@@ -1,5 +1,5 @@
 import CameraBottomSheet from '@components/camera-bottom-sheet/CameraBottomSheet';
-import { useFormControl } from '@hooks/form-field-hooks';
+import { useFormControl } from '@hooks/form-hooks';
 import { Avatar as RneAvatar } from '@rneui/themed';
 import { MediaTypeOptions, launchCamera, launchMediaLibrary } from '@util/camera';
 import PropTypes from 'prop-types';

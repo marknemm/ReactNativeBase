@@ -61,6 +61,16 @@ export const LOGOUT_ICON = {
 };
 
 /**
+ * Password {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const PASSWORD_ICON = {
+  name: 'lock',
+  type: 'material',
+};
+
+/**
  * Pets {@link IconProps icon props}.
  *
  * @type {IconProps}
