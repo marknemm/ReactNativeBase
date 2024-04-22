@@ -10,6 +10,8 @@
     "clean": "rimraf android ios",
     "clean:all": "npm run clean && rimraf node_modules",
     "clean:expo": "expo start --clear",
+    "firebase": "firebase",
+    "firebase:emulators": "firebase emulators:start",
     "ios": "expo run:ios",
     "ios:local": "APP_ENV=local expo run:ios",
     "lint": "eslint .",
@@ -79,6 +81,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "expo-dev-client": "~3.3.11",
+    "firebase-tools": "^13.7.3",
     "utility-types": "^3.11.0"
   },
   "private": true
