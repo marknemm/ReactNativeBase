@@ -3,14 +3,15 @@ import EmailInput from '@components/email-input/EmailInput';
 import EmailVerification from '@components/email-verification/EmailVerification';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
+import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import Input from '@components/input/Input';
 import PhoneInput from '@components/phone-input/PhoneInput';
-import { PASSWORD_ICON } from '@constants/icons';
+import { LOCATION_ICON, PASSWORD_ICON } from '@constants/icons';
 import { useAuthRefresh } from '@hooks/auth-hooks';
 import { useSubmitState } from '@hooks/form-hooks';
-import { useNavigationConfirm, useNavigationOptions } from '@hooks/navigation-hooks';
+import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
-import { Button, Icon, ListItem } from '@rneui/themed';
+import { Icon, ListItem } from '@rneui/themed';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -30,8 +31,6 @@ export default function UserProfileScreen({ navigation }) {
       email: user?.email,
       phoneNumber: user?.phoneNumber,
       photoURL: user?.photoURL,
-      password: '',
-      confirmPassword: '',
     },
   });
   const { handleSubmit, submitError, submitting } = useSubmitState(form);
@@ -46,20 +45,13 @@ export default function UserProfileScreen({ navigation }) {
     navigation.goBack();
   });
 
-  // Disable navigation on submit
-  useNavigationOptions({
-    gestureEnabled: false,
-    headerBackVisible: false,
-  }, submitting, []); // Only set navigation options when the form is submitting
-
-  // Change navigation header buttons when form is dirty to Cancel and Save
-  useNavigationOptions({
+  // Change navigation options to accommodate a (form) submit screen
+  useNavigationSubmitOptions(submitting, {
     headerBackTitle: 'Cancel',
     headerRight: () => (
-      <Button
+      <HeaderSaveButton
         loading={submitting}
         onPress={onSave}
-        title="Save"
       />
     ),
   },
@@ -107,12 +99,28 @@ export default function UserProfileScreen({ navigation }) {
         name="phoneNumber"
       />
 
+      <ListItem
+        bottomDivider
+        disabled={submitting}
+        onPress={() => navigation.navigate('Address')}
+        topDivider
+      >
+        <Icon {...LOCATION_ICON} color="gray" />
+        <ListItem.Content>
+          <ListItem.Title>Address</ListItem.Title>
+          {user.address && (
+            <ListItem.Subtitle>
+              {user.address?.street ?? ''}
+            </ListItem.Subtitle>
+          )}
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
       {user.hasPassword && (
         <ListItem
           bottomDivider
           disabled={submitting}
           onPress={() => navigation.navigate('Update Password')}
-          topDivider
         >
           <Icon {...PASSWORD_ICON} color="gray" />
           <ListItem.Content>

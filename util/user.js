@@ -1,10 +1,9 @@
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { setDBDoc } from '@util/db';
+import { hasSignInProvider } from './auth';
 import { log, logErr } from './log';
 import { uploadFile } from './remote-fs';
-import { hasSignInProvider } from './auth';
 
 /**
  * Represents a user.
@@ -22,7 +21,7 @@ export class User {
   /**
    * The raw user document data.
    *
-   * @type {FirebaseFirestoreTypes.DocumentData?}
+   * @type {Types.User.UserDoc?}
    * @readonly
    */
   #docData;
@@ -30,8 +29,8 @@ export class User {
   /**
    * Creates a new profile instance.
    *
-   * @param {FirebaseFirestoreTypes.DocumentData} [docData] The raw user document data.
-   * @param {FirebaseAuthTypes.User} [authUser] The authenticated user data.
+   * @param {Types.User.UserDoc} [docData] The raw {@link Types.User.UserDoc UserDoc} data.
+   * @param {FirebaseAuthTypes.User} [authUser] The {@link FirebaseAuthTypes.User} data.
    */
   constructor(docData, authUser) {
     this.#docData = docData;
@@ -52,6 +51,7 @@ export class User {
   /**
    * The user email address. If the user has no email address, then an empty string.
    *
+   * @type {string}
    * @readonly
    */
   get email() {
@@ -141,6 +141,16 @@ export class User {
   }
 
   /**
+   * Indicates if the user is linked with a Facebook account.
+   * If this {@link User} object was constructed without authentication data, then `false`.
+   *
+   * @readonly
+   */
+  get isLinkedWithFacebook() {
+    return this.isAuthenticated && hasSignInProvider(auth.FacebookAuthProvider.PROVIDER_ID);
+  }
+
+  /**
    * Indicates if the user is linked with a Google account.
    * If this {@link User} object was constructed without authentication data, then `false`.
    *
@@ -177,6 +187,7 @@ export class User {
   /**
    * The user phone number. If the user has no phone number, then an empty string.
    *
+   * @type {string}
    * @readonly
    */
   get phoneNumber() {
@@ -186,6 +197,7 @@ export class User {
   /**
    * The user photo URL. If the user has no photo URL, then an empty string.
    *
+   * @type {string}
    * @readonly
    */
   get photoURL() {
@@ -195,7 +207,7 @@ export class User {
   /**
    * The raw user data.
    *
-   * @type {Types.DeepReadonly<{ authUser: FirebaseAuthTypes.User?, docData: FirebaseFirestoreTypes.DocumentData? }>}
+   * @type {Types.DeepReadonly<{ authUser: FirebaseAuthTypes.User?, docData: Types.User.UserDoc? }>}
    * @readonly
    */
   get rawData() {
@@ -206,8 +218,19 @@ export class User {
   }
 
   /**
+   * The user mailing address. If the user has no mailing address, then `null`.
+   *
+   * @type {Readonly<Types.User.Address>} The user mailing address.
+   * @readonly
+   */
+  get address() {
+    return this.#docData?.address;
+  }
+
+  /**
    * The user unique identifier.
    *
+   * @type {string}
    * @readonly
    */
   get uid() {
@@ -225,6 +248,7 @@ export class User {
 
   /**
    * Triggers a reload of the user data from the authentication server and remote database.
+   * If the user is not authenticated, then nothing happens.
    *
    * @returns {Promise<void>} A promise that resolves when the user data reload is triggered.
    */
@@ -237,7 +261,7 @@ export class User {
   /**
    * Saves the user data to the remote database by merging in any updated field values.
    *
-   * @param {FirebaseFirestoreTypes.DocumentData} userData The user data to save.
+   * @param {Types.DeepPartial<Types.User.UserDoc>} userData The raw {@link Types.User.UserDoc UserDoc} data to save.
    * @return {Promise<void>} A promise that resolves when the user data is saved.
    * @throws {Error} An error is thrown if the user is not authenticated or anonymous.
    */
@@ -246,7 +270,7 @@ export class User {
 
     if (this.isAuthenticated && !this.isAnonymous) {
       try {
-        if (userData.photoURL !== this.photoURL) {
+        if (userData.photoURL !== undefined && userData.photoURL !== this.photoURL) {
           log('Uploading user photo:', userData.photoURL);
           const remotePath = `users/${this.uid}/photo`;
           const { ref } = await uploadFile(userData.photoURL, remotePath);
@@ -255,15 +279,10 @@ export class User {
         }
 
         log('Saving user data:', userData);
-        await setDBDoc('users', this.uid, {
-          displayName: userData.displayName,
-          email: userData.email,
-          phoneNumber: userData.phoneNumber,
-          photoURL: userData.photoURL,
-        }, { merge: true });
+        await setDBDoc('users', this.uid, userData, { merge: true });
         log('User data saved:', userData);
 
-        if (userData.email !== this.email) {
+        if (userData.email && userData.email !== this.email) {
           log('Sending email verification message');
           await this.sendEmailVerification();
           log('Email verification message sent');

@@ -7,6 +7,7 @@ import DevicesScreen from '@screens/devices/DevicesScreen';
 import SettingsScreen from '@screens/settings/SettingsScreen';
 import ThemeScreen from '@screens/theme/ThemeScreen';
 import UserProfileScreen from '@screens/user-profile/UserProfileScreen';
+import AddressScreen from '@screens/address/AddressScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,25 +24,30 @@ export default function SettingsStack() {
         component={SettingsScreen}
       />
       <Stack.Screen
-        name="Profile"
-        component={UserProfileScreen}
+        name="About"
+        component={AboutScreen}
       />
       <Stack.Screen
-        name="Update Password"
-        component={UpdatePasswordScreen}
+        name="Address"
+        component={AddressScreen}
         options={OPTIONS_HEADER_SAVE_CANCEL}
-      />
-      <Stack.Screen
-        name="Theme"
-        component={ThemeScreen}
       />
       <Stack.Screen
         name="Devices"
         component={DevicesScreen}
       />
       <Stack.Screen
-        name="About"
-        component={AboutScreen}
+        name="Profile"
+        component={UserProfileScreen}
+      />
+      <Stack.Screen
+        name="Theme"
+        component={ThemeScreen}
+      />
+      <Stack.Screen
+        name="Update Password"
+        component={UpdatePasswordScreen}
+        options={OPTIONS_HEADER_SAVE_CANCEL}
       />
     </Stack.Navigator>
   );

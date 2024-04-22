@@ -51,6 +51,16 @@ export const INFO_ICON = {
 };
 
 /**
+ * Location {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const LOCATION_ICON = {
+  name: 'location-pin',
+  type: 'material',
+};
+
+/**
  * Logout {@link IconProps icon props}.
  *
  * @type {IconProps}

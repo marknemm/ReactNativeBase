@@ -1,5 +1,4 @@
-import { Button } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
+import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 
 /**
  * Navigation screen options for header with Save and Cancel buttons.
@@ -8,12 +7,5 @@ import { generalStyles } from '@styles/general-styles';
  */
 export const OPTIONS_HEADER_SAVE_CANCEL = {
   headerBackTitle: 'Cancel',
-  headerRight: () => (
-    <Button
-      disabled
-      title="Save"
-      titleStyle={generalStyles.white}
-      type="clear"
-    />
-  ),
+  headerRight: () => <HeaderSaveButton disabled />,
 };

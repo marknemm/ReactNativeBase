@@ -7,13 +7,12 @@ import { logErr } from './log';
  *
  * @param {string} collectionPath A slash-separated path to a collection.
  * @param {string} documentPath A slash-separated path to a document.
- * @returns {Promise<FirebaseFirestoreTypes.DocumentData>} A promise that resolves to the document data.
+ * @returns {Promise<Types.DB.Doc>} A promise that resolves to the document data.
  * @throws {Error} An error is thrown if the operation unexpectedly fails.
  */
 export async function getDBDoc(collectionPath, documentPath) {
   const snapshot = await firestore().collection(collectionPath).doc(documentPath).get();
-  const docData = snapshot.data();
-  docData.documentId = documentPath.split('/').pop();
+  const docData = toDBDoc(snapshot.data(), documentPath);
   return docData;
 }
 
@@ -23,7 +22,7 @@ export async function getDBDoc(collectionPath, documentPath) {
  *
  * @param {string} collectionPath A slash-separated path to a collection.
  * @param {string} documentPath A slash-separated path to a document.
- * @param {(docData: FirebaseFirestoreTypes.DocumentData) => void} onSuccess A callback function that receives the document data.
+ * @param {(docData: Types.DB.Doc) => void} onSuccess A callback function that receives the document data.
  * @param {(error: Error) => void} [onError] A callback function that receives an error if the operation fails.
  * @returns {() => void} A function that unsubscribes the listener.
  */
@@ -31,8 +30,7 @@ export function listenDBDoc(collectionPath, documentPath, onSuccess, onError) {
   return firestore().collection(collectionPath).doc(documentPath).onSnapshot(
     (snapshot) => {
       if (snapshot.exists) {
-        const docData = snapshot.data();
-        docData.documentId = documentPath.split('/').pop();
+        const docData = toDBDoc(snapshot.data(), documentPath);
         onSuccess(docData);
       }
     },
@@ -50,10 +48,25 @@ export function listenDBDoc(collectionPath, documentPath, onSuccess, onError) {
  *
  * @param {string} collectionPath A slash-separated path to a collection.
  * @param {string} documentPath A slash-separated path to a document.
- * @param {any} docData The document data to set.
+ * @param {FirebaseFirestoreTypes.DocumentData} docData The document data to set.
  * @param {FirebaseFirestoreTypes.SetOptions} [options] The set options that specify merge strategies.
  * @returns {Promise<void>} A promise that resolves when the operation is complete.
  */
-export function setDBDoc(collectionPath, documentPath, docData, options) {
+export async function setDBDoc(collectionPath, documentPath, docData, options) {
   return firestore().collection(collectionPath).doc(documentPath).set(docData, options);
+}
+
+/**
+ * Converts raw document data to a DBDoc object.
+ * Adds the `documentId` property to the document data.
+ *
+ * @param {FirebaseFirestoreTypes.DocumentData} data The raw document data.
+ * @param {string} documentPath The slash-separated path to the document.
+ * @returns {Types.DB.Doc} The DBDoc object.
+ */
+function toDBDoc(data, documentPath) {
+  /** @type {Types.DB.Doc} */ // @ts-ignore - Force type cast to more specific type DBDoc
+  const docData = data;
+  docData.documentId = documentPath.split('/').pop();
+  return docData;
 }

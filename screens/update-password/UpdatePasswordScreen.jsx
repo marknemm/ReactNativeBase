@@ -1,10 +1,9 @@
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
+import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import PasswordInput from '@components/password-input/PasswordInput';
 import { useSubmitState } from '@hooks/form-hooks';
-import { useNavigationOptions } from '@hooks/navigation-hooks';
-import { Button } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
+import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
 import { updatePassword } from '@util/auth';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
@@ -32,21 +31,20 @@ export default function UpdatePasswordScreen({ navigation }) {
     navigation.goBack();
   });
 
-  useNavigationOptions({
+  // Change navigation options to accommodate a (form) submit screen
+  useNavigationSubmitOptions(submitting, {
     headerRight: () => (
-      <Button
-        disabled={submitting || !form.formState.isDirty}
+      <HeaderSaveButton
+        disabled={!form.formState.isDirty}
         loading={submitting}
         onPress={onSave}
-        title="Save"
-        titleStyle={generalStyles.white}
-        type="clear"
       />
     ),
-  }, [form.formState.isValid, onSave, submitting]);
+  }, [form.formState.isDirty, onSave, submitting]);
 
   return (
     <Form form={form} safeArea scrollable>
+
       <PasswordInput
         label="Current Password"
         name="currentPassword"
@@ -71,6 +69,7 @@ export default function UpdatePasswordScreen({ navigation }) {
       />
 
       <FormError errorMessage={submitError} style={styles.formError} />
+
     </Form>
   );
 }

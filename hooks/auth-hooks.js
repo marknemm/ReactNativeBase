@@ -3,7 +3,6 @@ import { listenDBDoc } from '@util/db';
 import { User } from '@util/user';
 import { useEffect, useRef, useState } from 'react';
 import { useUser } from './user-hooks';
-import { log } from '@util/log';
 
 /**
  * A hook that gets the current authenticated {@link User} and its loading state.

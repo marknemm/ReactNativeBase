@@ -17,6 +17,27 @@ export function useNavigationContainerRef() {
 
 /**
  * Sets the navigation header options.
+ * Disables the navigation gestures and hides the back button when the {@link submitting} state is `true`.
+ *
+ * @param {boolean} submitting The submitting state.
+ * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
+ * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
+ * If changed from `true` to `false`, the original options are restored.
+ * @param {ReadonlyArray<any>} [optionsDependencies=undefined] The dependencies to watch for changes to options.
+ */
+export function useNavigationSubmitOptions(submitting, options, predicate = true, optionsDependencies = undefined) {
+  // Disable navigation on submit
+  useNavigationOptions({
+    gestureEnabled: false,
+    headerBackVisible: false,
+  }, submitting, []); // Only set navigation options when the form is submitting
+
+  // Change navigation header options when component loads
+  useNavigationOptions(options, predicate, optionsDependencies);
+}
+
+/**
+ * Sets the navigation header options.
  *
  * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
  * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
