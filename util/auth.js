@@ -30,11 +30,10 @@ export function hasSignInProvider(providerId) {
  */
 export async function reloadAuthUser() {
   try {
-    return auth().currentUser?.reload();
+    await auth().currentUser?.reload();
   } catch (error) {
     log('Error refreshing user:', error);
   }
-  return Promise.resolve();
 }
 
 /**

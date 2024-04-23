@@ -14,7 +14,7 @@ import { useUser } from './user-hooks';
  */
 export function useAuthState() {
   const [authUser, setAuthUser] = useState(auth().currentUser);
-  const [user, setUser] = useState(authUser?.isAnonymous ? new User(null, authUser) : null);
+  const [user, setUser] = useState(authUser?.isAnonymous ? new User(null) : null);
   const [userLoading, setUserLoading] = useState(!user);
 
   // Listen for changes to the authenticated user.
@@ -22,9 +22,9 @@ export function useAuthState() {
     setAuthUser(newAuthUser);
     setUser((prevUser) => (
       newAuthUser?.isAnonymous
-        ? new User(null, newAuthUser)
+        ? new User(null)
         : (prevUser && prevUser?.uid === newAuthUser?.uid)
-          ? new User(prevUser.rawData.docData, newAuthUser)
+          ? new User(prevUser.rawData.docData)
           : null
     ));
     setUserLoading(newAuthUser && !newAuthUser?.isAnonymous);
@@ -35,7 +35,7 @@ export function useAuthState() {
     if (!authUser || authUser.isAnonymous) return () => {};
 
     return listenDBDoc('users', authUser.uid, (docData) => { // Must listen in-case result of sign up which will create new user doc.
-      setUser(new User(docData, authUser));
+      setUser(new User(docData));
       setUserLoading(false);
     });
   }, [authUser]);

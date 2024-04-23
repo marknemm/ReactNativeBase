@@ -1,5 +1,3 @@
-import Backdrop from '@components/backdrop/Backdrop';
-import BackdropProvider from '@contexts/backdrop/BackdropProvider';
 import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
 import UserProvider from '@contexts/user/UserProvider';
 import { useAuthState } from '@hooks/auth-hooks';
@@ -36,20 +34,17 @@ export default function App() {
   }
 
   return (
-    <RootSiblingParent>
-      <SafeAreaProvider onLayout={SplashScreen.hideAsync}>
-        <ThemeProvider theme={theme}>
-          <BleManagerProvider>
-            <UserProvider user={user}>
-              <BackdropProvider>
-                <StatusBar />
-                <NavigationRoot />
-                <Backdrop />
-              </BackdropProvider>
-            </UserProvider>
-          </BleManagerProvider>
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </RootSiblingParent>
+    <SafeAreaProvider onLayout={SplashScreen.hideAsync}>
+      <ThemeProvider theme={theme}>
+        <BleManagerProvider>
+          <UserProvider user={user}>
+            <StatusBar />
+            <RootSiblingParent>
+              <NavigationRoot />
+            </RootSiblingParent>
+          </UserProvider>
+        </BleManagerProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

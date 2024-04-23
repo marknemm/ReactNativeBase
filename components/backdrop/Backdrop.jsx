@@ -1,31 +1,27 @@
-import { BackdropContext } from '@contexts/backdrop/BackdropContext';
-import { useCallbacks } from '@hooks/callbacks';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useStyles } from './styles';
 
 /**
  * The {@link Backdrop} component.
  *
- * @param {Types.Backdrop.BackdropProps} props The component {@link Types.Backdrop.BackdropProps properties}.
+ * @param {object} props The component properties.
+ * @param {boolean} [props.isVisible=true] The visibility state of the backdrop. Defaults to `true`.
+ * @param {() => void} [props.onPress] The function to call when the backdrop is pressed.
+ * @param {object} [props.style] The style to apply to the backdrop.
  * @returns {React.JSX.Element} The {@link Backdrop} component.
  */
-export default function Backdrop({ isVisible, onPress, style }) {
-  const context = useContext(BackdropContext);
-  const styles = useStyles({ style: style ?? context.style });
-  const combinedOnPress = useCallbacks(onPress, ...context.pressListeners);
+export default function Backdrop({ isVisible = true, onPress, style }) {
+  const styles = useStyles({ style });
 
-  return (isVisible ?? context.isVisible)
-    ? (
-      <Animated.View
-        entering={FadeIn}
-        exiting={FadeOut}
-        onTouchEnd={combinedOnPress}
-        style={styles.backdrop}
-      />
-    )
-    : null;
+  return isVisible && (
+    <Animated.View
+      entering={FadeIn}
+      exiting={FadeOut}
+      onTouchEnd={onPress}
+      style={styles.backdrop}
+    />
+  );
 }
 
 Backdrop.propTypes = {

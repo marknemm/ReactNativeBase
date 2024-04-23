@@ -7,17 +7,9 @@ import { log, logErr } from './log';
 import { uploadFile } from './remote-fs';
 
 /**
- * Represents a user.
+ * Represents a {@link User}.
  */
 export class User {
-
-  /**
-   * The authenticated user data.
-   *
-   * @type {FirebaseAuthTypes.User?}
-   * @readonly
-   */
-  #authUser;
 
   /**
    * The raw user document data.
@@ -28,14 +20,12 @@ export class User {
   #docData;
 
   /**
-   * Creates a new profile instance.
+   * Creates a new {@link User} instance.
    *
    * @param {Types.User.UserDoc} [docData] The raw {@link Types.User.UserDoc UserDoc} data.
-   * @param {FirebaseAuthTypes.User} [authUser] The {@link FirebaseAuthTypes.User} data.
    */
-  constructor(docData, authUser) {
+  constructor(docData) {
     this.#docData = docData;
-    this.#authUser = authUser;
   }
 
   /**
@@ -66,7 +56,7 @@ export class User {
    * @readonly
    */
   get emailVerified() {
-    return this.#authUser?.emailVerified ?? false;
+    return auth().currentUser?.emailVerified ?? false;
   }
 
   /**
@@ -119,7 +109,7 @@ export class User {
    * @readonly
    */
   get isAnonymous() {
-    return this.#authUser?.isAnonymous ?? false;
+    return auth().currentUser?.isAnonymous ?? false;
   }
 
   /**
@@ -128,7 +118,7 @@ export class User {
    * @readonly
    */
   get isAuthenticated() {
-    return this.#authUser != null;
+    return this.uid === auth().currentUser?.uid;
   }
 
   /**
@@ -213,7 +203,7 @@ export class User {
    */
   get rawData() {
     return {
-      authUser: this.#authUser,
+      authUser: this.isAuthenticated ? auth().currentUser : null,
       docData: this.#docData,
     };
   }
@@ -309,7 +299,7 @@ export class User {
    */
   async sendEmailVerification() {
     if (this.isAuthenticated && !this.isAnonymous) {
-      await this.#authUser.sendEmailVerification();
+      await auth().currentUser.sendEmailVerification();
     } else {
       throw new Error('Cannot send email verification for unauthenticated or anonymous user');
     }

@@ -1,6 +1,7 @@
+import Backdrop from '@components/backdrop/Backdrop';
 import { CLOSE_ICON } from '@constants/icons';
-import { useBackdrop } from '@hooks/backdrop-hooks';
 import { useCallbacks } from '@hooks/callbacks';
+import { useModal } from '@hooks/modal-hooks';
 import { Button, BottomSheet as RneBottomSheet, Text } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
@@ -15,7 +16,10 @@ import { useStyles } from './styles';
 export default function BottomSheet(props) {
   const { backdropStyle, children, isVisible, onBackdropPress, onClose, title } = props;
   const styles = useStyles(props);
-  useBackdrop({ isVisible, style: backdropStyle });
+
+  useModal(isVisible, () => // Show custom Backdrop to change animation from sliding up to fading in.
+    <Backdrop style={backdropStyle} />
+  );
 
   return (
     <RneBottomSheet

@@ -40,7 +40,7 @@ module.exports = {
     'array-bracket-spacing': ['warn', 'never'],                 // Enable the warning about array bracket spacing
     'block-spacing': 'warn',                                    // Enable the warning about block spacing
     'brace-style': 'warn',                                      // Enable the warning about brace style
-    'class-methods-use-this': 'warn',                           // Enable the warning about using this in class methods
+    'class-methods-use-this': 'off',                            // Disable the warning about using this in class methods
     'comma-dangle': ['warn', {                                  // Require trailing commas in object and array literals
       arrays: 'always-multiline',                               // Require trailing commas in arrays
       exports: 'never',                                         // Disallow trailing commas in exports
