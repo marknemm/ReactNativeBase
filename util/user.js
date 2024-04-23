@@ -1,7 +1,8 @@
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { setDBDoc } from '@util/db';
-import { hasSignInProvider } from './auth';
+import Toast from 'react-native-root-toast';
+import { hasSignInProvider, reloadAuthUser } from './auth';
 import { log, logErr } from './log';
 import { uploadFile } from './remote-fs';
 
@@ -254,7 +255,7 @@ export class User {
    */
   async reload() {
     if (this.isAuthenticated) {
-      await this.#authUser.reload();
+      await reloadAuthUser();
     }
   }
 
@@ -283,9 +284,13 @@ export class User {
         log('User data saved:', userData);
 
         if (userData.email && userData.email !== this.email) {
+          // TODO: Prompt user to reauthenticate via modal dialog containing SignInScreen.
           log('Sending email verification message');
           await this.sendEmailVerification();
+          Toast.show('Profile updated successfully, please check your email for a verification message');
           log('Email verification message sent');
+        } else {
+          Toast.show('Profile updated successfully');
         }
       } catch (error) {
         logErr('Error saving user data:', error);

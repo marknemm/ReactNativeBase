@@ -24,6 +24,20 @@ export function hasSignInProvider(providerId) {
 }
 
 /**
+ * Reloads the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @returns {Promise<void>} A promise that resolves when the user is reloaded.
+ */
+export async function reloadAuthUser() {
+  try {
+    return auth().currentUser?.reload();
+  } catch (error) {
+    log('Error refreshing user:', error);
+  }
+  return Promise.resolve();
+}
+
+/**
  * Sends a password reset email.
  *
  * @param {string} email The user email address.

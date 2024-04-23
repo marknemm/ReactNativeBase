@@ -12,6 +12,7 @@ import { initKeyboardConfig } from '@util/keyboard';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
+import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Initial global configuration that is separate from App component rendering and hooks.
@@ -35,18 +36,20 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider onLayout={SplashScreen.hideAsync}>
-      <ThemeProvider theme={theme}>
-        <BleManagerProvider>
-          <UserProvider user={user}>
-            <BackdropProvider>
-              <StatusBar />
-              <NavigationRoot />
-              <Backdrop />
-            </BackdropProvider>
-          </UserProvider>
-        </BleManagerProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <RootSiblingParent>
+      <SafeAreaProvider onLayout={SplashScreen.hideAsync}>
+        <ThemeProvider theme={theme}>
+          <BleManagerProvider>
+            <UserProvider user={user}>
+              <BackdropProvider>
+                <StatusBar />
+                <NavigationRoot />
+                <Backdrop />
+              </BackdropProvider>
+            </UserProvider>
+          </BleManagerProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </RootSiblingParent>
   );
 }

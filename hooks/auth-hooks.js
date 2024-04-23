@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import { reloadAuthUser } from '@util/auth';
 import { listenDBDoc } from '@util/db';
 import { User } from '@util/user';
 import { useEffect, useRef, useState } from 'react';
@@ -55,11 +56,11 @@ export function useAuthRefresh(predicate = true, intervalMs = 3000) {
 
   useEffect(() => {
     if (predicate && auth().currentUser) {
-      auth().currentUser.reload();
+      reloadAuthUser();
 
       intervalRef.current = setInterval(() => {
         (predicate && auth().currentUser)
-          ? auth().currentUser?.reload()
+          ? reloadAuthUser()
           : clearInterval(intervalRef.current);
       }, intervalMs);
     }
