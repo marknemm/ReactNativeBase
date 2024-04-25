@@ -7,8 +7,9 @@ export * from 'react-hook-form';
  * State information about form submission.
  *
  * @template {FieldValues} [TFieldValues=FieldValues] The type of the form data.
+ * @template R The submit result type.
  */
-export interface SubmitState<TFieldValues> {
+export interface SubmitState<TFieldValues, R = any> {
 
   /**
    * Form {@link UseFormHandleSubmit} that also maintains the {@link SubmitState} of the form.
@@ -47,7 +48,7 @@ export interface SubmitState<TFieldValues> {
   handleSubmitState: (
     onSubmit: Submit,
     afterSubmitCbs?: {
-      onSuccess?: (result?: any) => void;
+      onSuccess?: (result?: R) => void;
       onError?: (error: any) => void;
       onFinally?: () => void;
     }

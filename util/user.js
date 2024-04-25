@@ -1,9 +1,13 @@
+import SignInModal from '@components/sign-in-modal/SignInModal';
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
+import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { setDBDoc } from '@util/db';
 import Toast from 'react-native-root-toast';
 import { hasSignInProvider, reloadAuthUser } from './auth';
+import { setLSItem } from './local-storage';
 import { log, logErr } from './log';
+import { showModalAsync } from './modal';
 import { uploadFile } from './remote-fs';
 
 /**
@@ -274,10 +278,14 @@ export class User {
         log('User data saved:', userData);
 
         if (userData.email && userData.email !== this.email) {
-          // TODO: Prompt user to reauthenticate via modal dialog containing SignInScreen.
+          setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, userData.email);
+          await showModalAsync(SignInModal, { // Must re-authenticate if email is changed
+            prompt: 'Please sign-in again',
+          });
+
           log('Sending email verification message');
           await this.sendEmailVerification();
-          Toast.show('Profile updated successfully, please check your email for a verification message');
+          Toast.show('Profile updated, please check your email for a verification message');
           log('Email verification message sent');
         } else {
           Toast.show('Profile updated successfully');

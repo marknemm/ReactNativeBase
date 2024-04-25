@@ -36,7 +36,7 @@ export default function UserProfileScreen({ navigation }) {
   const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
   // Refresh the user at a regular 3 sec. interval if the email is not verified
-  useAuthRefresh(!user.emailVerified);
+  useAuthRefresh(!user.emailVerified && !submitting);
 
   // Setup form submit handler
   const onSave = handleSubmit(async (formData) => {

@@ -38,6 +38,7 @@ module.exports = {
   rules: {                                                      // Add specific rules for your React project
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
     'array-bracket-spacing': ['warn', 'never'],                 // Enable the warning about array bracket spacing
+    'arrow-parens': 'warn',                                     // Enable the warning about arrow function parens
     'block-spacing': 'warn',                                    // Enable the warning about block spacing
     'brace-style': 'warn',                                      // Enable the warning about brace style
     'class-methods-use-this': 'off',                            // Disable the warning about using this in class methods

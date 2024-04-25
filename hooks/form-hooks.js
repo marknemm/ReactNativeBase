@@ -5,10 +5,12 @@ import { useFormContext } from 'react-hook-form';
  * Custom hook to generate {@link SubmitState} for a submittable form.
  *
  * @template {Types.Form.FieldValues} TFieldValues The form field values type.
+ * @template R The submit result type.
  * @param {Types.Form.UseFormReturn<TFieldValues>} [form] The {@link Types.Form.UseFormReturn Form} instance.
- * @returns {Types.Form.SubmitState<TFieldValues>} The {@link Types.Form.SubmitState SubmitState}.
+ * @param {(result: R) => void} [onSubmitSuccess] The submit success callback.
+ * @returns {Types.Form.SubmitState<TFieldValues, R>} The {@link Types.Form.SubmitState SubmitState}.
  */
-export function useSubmitState(form) {
+export function useSubmitState(form, onSubmitSuccess) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submitSuccessful, setSubmitSuccessful] = useState(false);
@@ -30,6 +32,7 @@ export function useSubmitState(form) {
         form.reset(form.getValues()); // Make form pristine
       }
       afterSubmitCbs?.onSuccess?.(result);
+      onSubmitSuccess?.(result);
     } catch (error) {
       // Handle form submit error
       setSubmitError(error.message);
@@ -40,7 +43,7 @@ export function useSubmitState(form) {
     }
 
     return result;
-  }, [form, submitting]);
+  }, [form, onSubmitSuccess, submitting]);
 
   const handleSubmit = useCallback((onValid, onInvalid) =>
     form?.handleSubmit(handleSubmitState(onValid), onInvalid),

@@ -5,10 +5,7 @@ import { useStyles } from './styles';
 /**
  * The {@link Backdrop} component.
  *
- * @param {object} props The component properties.
- * @param {boolean} [props.isVisible=true] The visibility state of the backdrop. Defaults to `true`.
- * @param {() => void} [props.onPress] The function to call when the backdrop is pressed.
- * @param {object} [props.style] The style to apply to the backdrop.
+ * @param {Types.Modal.BackdropProps} props The component {@link Types.Modal.BackdropProps properties}.
  * @returns {React.JSX.Element} The {@link Backdrop} component.
  */
 export default function Backdrop({ isVisible = true, onPress, style }) {

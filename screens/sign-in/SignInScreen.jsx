@@ -10,6 +10,7 @@ import { Button, useThemeMode } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
 import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { useStyles } from './styles';
@@ -17,11 +18,13 @@ import { useStyles } from './styles';
 /**
  * Sign in screen.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {boolean} [props.isModal] Whether the screen is a modal.
+ * @param {Types.Navigation.StackNavigation} [props.navigation] The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {() => void} [props.onSignIn] The function to call after signing in.
  * @returns {React.JSX.Element} The sign in screen.
  */
-export default function SignInScreen({ navigation }) {
+export default function SignInScreen({ isModal, navigation, onSignIn }) {
   const styles = useStyles();
   const [lastSignInEmail, setLSLastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
@@ -30,7 +33,7 @@ export default function SignInScreen({ navigation }) {
       password: '',
     },
   });
-  const { handleSubmit, handleSubmitState, submitError, submitSuccessful, submitting } = useSubmitState(form);
+  const { handleSubmit, handleSubmitState, submitError, submitSuccessful, submitting } = useSubmitState(form, onSignIn);
   const loading = submitting || submitSuccessful;
 
   const { mode: themeMode } = useThemeMode();
@@ -91,23 +94,32 @@ export default function SignInScreen({ navigation }) {
         title="Sign In"
       />
 
-      <Button
-        disabled={loading}
-        onPress={() => navigation.navigate('Sign Up')}
-        style={generalStyles.horizontalGutter}
-        title="Don&apos;t have an account?"
-        type="clear"
-      />
+      {!isModal && (
+        <>
+          <Button
+            disabled={loading}
+            onPress={() => navigation.navigate('Sign Up')}
+            style={generalStyles.horizontalGutter}
+            title="Don&apos;t have an account?"
+            type="clear"
+          />
 
-      <Button
-        disabled={loading}
-        onPress={() => navigation.navigate('Forgot Password')}
-        style={generalStyles.horizontalGutter}
-        title="Forgot password?"
-        type="clear"
-      />
+          <Button
+            disabled={loading}
+            onPress={() => navigation.navigate('Forgot Password')}
+            style={generalStyles.horizontalGutter}
+            title="Forgot password?"
+            type="clear"
+          />
+        </>
+      )}
 
       <FormError errorMessage={submitError} style={styles.formError} />
     </Form>
   );
 }
+
+SignInScreen.propTypes = {
+  isModal: PropTypes.bool,
+  onSignIn: PropTypes.func,
+};

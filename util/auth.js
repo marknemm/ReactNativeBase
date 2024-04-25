@@ -1,13 +1,14 @@
+import PasswordModal from '@components/password-modal/PasswordModal';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { CodedError } from '@util/coded-error';
 import { log, logErr, logThrowErr } from '@util/log';
 import { AppleAuthenticationScope, signInAsync } from 'expo-apple-authentication';
-import { Alert } from 'react-native';
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import { getFBEmail } from './facebook';
 import { getLSItem } from './local-storage';
+import { showModalAsync } from './modal';
 
 GoogleSignin.configure();
 
@@ -61,8 +62,6 @@ export async function sendPasswordResetEmail(email) {
  * @throws {Error} An error is thrown when the anonymous sign in request unexpectedly fails.
  */
 export async function signInAnonymously() {
-  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
-
   log('Signing in anonymously');
 
   try {
@@ -82,8 +81,6 @@ export async function signInAnonymously() {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithApple() {
-  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
-
   let authCredential, email;
   log('Signing in with Apple');
 
@@ -121,10 +118,8 @@ export async function signInWithApple() {
  * @throws {Error} An error is thrown when the sign in request fails.
  */
 export async function signInWithEmailAndPassword(email, password) {
-  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
-
   log('Signing in with email and password:', email);
-  password ??= await promptForPassword(email);
+  password ??= await showModalAsync(PasswordModal, { email });
 
   try {
     await auth().signInWithEmailAndPassword(email, password);
@@ -144,8 +139,6 @@ export async function signInWithEmailAndPassword(email, password) {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithFacebook(loginError, loginResult) {
-  if (auth().currentUser) return auth().currentUser; // Prevent multiple sign in attempts
-
   let authCredential, email;
   log('Signing in with Facebook');
 
@@ -185,8 +178,6 @@ export async function signInWithFacebook(loginError, loginResult) {
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  */
 export async function signInWithGoogle() {
-  if (auth().currentUser) return auth().currentUser; // Prevent sign in if already signed in
-
   let authCredential, email;
   log('Signing in with Google');
 
@@ -220,8 +211,6 @@ export async function signInWithGoogle() {
  * when the confirmation code is texted to the given `phoneNumber`.
  */
 export async function signInWithPhoneNumber(phoneNumber) {
-  if (!auth().currentUser) return null; // Prevent sign in if already signed in
-
   log('Signing in with phone:', phoneNumber);
 
   try {
@@ -260,8 +249,6 @@ export async function signOut() {
  * @throws {Error} An error is thrown when the sign up request fails.
  */
 export async function signUp(email, password) {
-  if (auth().currentUser) return auth().currentUser; // Prevent sign up if already signed in
-
   log('Signing up with email:', email);
 
   try {
@@ -420,25 +407,4 @@ async function signInWithProvider(providerId, emailPhone) {
     case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter sign in not supported');
     default:                                    throw new Error('Unknown sign in provider');
   }
-}
-
-/**
- * Prompts the user to enter their password.
- *
- * @param {string} email The email address of the account.
- * @param {string} [title='Link to Existing Account'] The title of the alert dialog.
- * @returns {Promise<string>} A promise that resolves to the user's password when they acknowledge the prompt.
- */
-async function promptForPassword(email, title = 'Link to Existing Account') {
-  return new Promise((resolve) => {
-    Alert.prompt(
-      title,
-      `Please enter your password for your existing account:\n\n${email}`,
-      [{ text: 'OK', onPress: resolve }],
-      'secure-text',
-      '',
-      'password',
-      { cancelable: false }
-    );
-  });
 }
