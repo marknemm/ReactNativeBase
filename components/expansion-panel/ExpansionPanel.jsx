@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 /**
  * The {@link ExpansionPanel} component.
  *
- * @param {Object} param0 The component properties.
- * @param {React.ReactNode} param0.children The children components inside the expansion panel.
- * @param {boolean} [param0.initExpanded=false] The initial expanded state.
- * @param {string} param0.title The title of the expansion panel toggle button.
+ * @param {Object} props The component properties.
+ * @param {React.ReactNode} props.children The children components inside the expansion panel.
+ * @param {boolean} [props.initExpanded=false] The initial expanded state.
+ * @param {string} props.title The title of the expansion panel toggle button.
  * @returns {React.JSX.Element} The {@link ExpansionPanel} component.
  */
 export function ExpansionPanel({ children, initExpanded = false, title }) {

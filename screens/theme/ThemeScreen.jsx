@@ -8,8 +8,8 @@ import { View, useColorScheme } from 'react-native';
 /**
  * Theme screen.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The theme screen.
  */
 export default function ThemeScreen({ navigation }) {

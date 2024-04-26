@@ -1,4 +1,5 @@
 import CameraBottomSheet from '@components/camera-bottom-sheet/CameraBottomSheet';
+import { useCallbacks } from '@hooks/callbacks';
 import { useFormControl } from '@hooks/form-hooks';
 import { Avatar as RneAvatar } from '@rneui/themed';
 import { MediaTypeOptions, launchCamera, launchMediaLibrary } from '@util/camera';
@@ -49,12 +50,10 @@ function AvatarControlled(props) {
   const { description, editable, onChange, onPress, source, value } = props;
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
-  const onPressWrapper = useCallback(() => {
-    if (editable) {
-      setBottomSheetVisible(true);
-      onPress?.();
-    }
-  }, [editable, onPress]);
+  const onPressWrapper = useCallbacks(
+    useCallback(() => setBottomSheetVisible(true), []),
+    onPress
+  );
 
   const sourceMemo = useMemo(() =>
     source ?? (value ? { uri: value } : undefined),
@@ -66,7 +65,7 @@ function AvatarControlled(props) {
         rounded
         {...props}
         containerStyle={styles.container}
-        onPress={onPressWrapper}
+        onPress={editable ? onPressWrapper : undefined}
         source={sourceMemo}
       />
 

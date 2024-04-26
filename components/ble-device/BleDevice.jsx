@@ -10,8 +10,8 @@ import { Device } from 'react-native-ble-plx';
 /**
  * The {@link BleDevice} component.
  *
- * @param {Object} param0 The component properties.
- * @param {Device} [param0.bleDevice] The Bluetooth {@link Device}. If not given, the {@link Device} is derived from {@link BleDeviceContext}.
+ * @param {Object} props The component properties.
+ * @param {Device} [props.bleDevice] The Bluetooth {@link Device}. If not given, the {@link Device} is derived from {@link BleDeviceContext}.
  * @returns {React.JSX.Element} The {@link BleDevice} component.
  */
 export default function BleDevice({ bleDevice }) {

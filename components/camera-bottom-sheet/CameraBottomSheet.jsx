@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 /**
  * The {@link CameraBottomSheet} component.
  *
- * @param {object} param0 The component properties.
- * @param {boolean} [param0.isVisible] Whether the bottom sheet is visible.
- * @param {() => void} [param0.onClose] The function to call when the bottom sheet is to be closed.
- * @param {() => void} [param0.onPressChoosePhoto] The function to call when the choose photo button is pressed.
- * @param {() => void} [param0.onPressTakePhoto] The function to call when the take photo button is pressed.
- * @param {string} [param0.title] The description.
+ * @param {object} props The component properties.
+ * @param {boolean} [props.isVisible] Whether the bottom sheet is visible.
+ * @param {() => void} [props.onClose] The function to call when the bottom sheet is to be closed.
+ * @param {() => void} [props.onPressChoosePhoto] The function to call when the choose photo button is pressed.
+ * @param {() => void} [props.onPressTakePhoto] The function to call when the take photo button is pressed.
+ * @param {string} [props.title] The description.
  * @returns {React.JSX.Element} The {@link CameraBottomSheet} component.
  */
 export default function CameraBottomSheet({ isVisible, onClose, onPressChoosePhoto, onPressTakePhoto, title }) {

@@ -25,42 +25,17 @@ export interface AuthState {
 }
 
 /**
- * The `PasswordModal` component properties.
- */
-interface PasswordModalProps extends ModalProps {
-
-  /**
-   * The email address to sign in.
-   */
-  email: string;
-
-  /**
-   * The password prompt message.
-   * Defaults to `'Sign in to your current account'`.
-   *
-   * @default 'Sign in to your current account'
-   */
-  prompt?: string;
-
-  /**
-   * The password prompt style.
-   */
-  promptStyle?: StyleProp<TextStyle>;
-
-  /**
-   * The submit button title.
-   * Defaults to `'Sign In'`.
-   *
-   * @default 'Sign In'
-   */
-  submitTitle?: string;
-
-}
-
-/**
  * The `SignInModal` component properties.
  */
-interface SignInModalProps extends ModalProps {
+interface SignInModalProps extends ModalProps<FirebaseAuthTypes.User> {
+
+  /**
+   * Whether to show the (email) password only sign-in form.
+   * Defaults to `false`.
+   *
+   * @default false
+   */
+  isPasswordOnly?: boolean;
 
   /**
    * The sign-in prompt message.
@@ -74,5 +49,13 @@ interface SignInModalProps extends ModalProps {
    * The sign-in prompt style.
    */
   promptStyle?: StyleProp<TextStyle>;
+
+  /**
+   * The sign-in email that must be used for sign-in.
+   * Defaults to `''`.
+   *
+   * @default ''
+   */
+  readOnlyEmail?: string;
 
 }

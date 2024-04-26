@@ -94,6 +94,10 @@ export const generalStyles = StyleSheet.create({
   screenContainer: {
     flexGrow: 1,
   },
+  submitError: {
+    marginTop: 10,
+    textAlign: 'center',
+  },
   topGutter: {
     marginTop: verticalGutter,
   },

@@ -1,4 +1,4 @@
-import PasswordModal from '@components/password-modal/PasswordModal';
+import SignInModal from '@components/sign-in-modal/SignInModal';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
@@ -6,6 +6,7 @@ import { CodedError } from '@util/coded-error';
 import { log, logErr, logThrowErr } from '@util/log';
 import { AppleAuthenticationScope, signInAsync } from 'expo-apple-authentication';
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import Toast from 'react-native-root-toast';
 import { getFBEmail } from './facebook';
 import { getLSItem } from './local-storage';
 import { showModalAsync } from './modal';
@@ -113,16 +114,22 @@ export async function signInWithApple() {
  * Performs a user sign in request.
  *
  * @param {string} email The user email address.
- * @param {string} [password] The user password. If not given, then prompts the user for a password via alert dialog.
+ * @param {string} [password] The user password. If not given, then prompts the user to sign in with given email via a modal dialog.
+ * @param {string} [signInPrompt='Please sign in'] The sign in prompt message. Defaults to `'Please sign in'`. Ignored if {@link password} is given.
  * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves to the signed in {@link FirebaseAuthTypes.User} when the sign in request is successful.
  * @throws {Error} An error is thrown when the sign in request fails.
  */
-export async function signInWithEmailAndPassword(email, password) {
+export async function signInWithEmailAndPassword(email, password, signInPrompt = 'Please sign in') {
   log('Signing in with email and password:', email);
-  password ??= await showModalAsync(PasswordModal, { email });
 
   try {
-    await auth().signInWithEmailAndPassword(email, password);
+    password
+      ? await auth().signInWithEmailAndPassword(email, password)
+      : await showModalAsync(SignInModal, { // If no password, then show sign-in modal.
+        isPasswordOnly: true,
+        prompt: signInPrompt,
+        readOnlyEmail: email,
+      });
     log(`${email} signed in`);
   } catch (error) {
     await handleAuthError(error, email, auth.EmailAuthProvider.credential(email, password));
@@ -219,6 +226,8 @@ export async function signInWithPhoneNumber(phoneNumber) {
     await handleAuthError(error, phoneNumber, auth.PhoneAuthProvider.credential(phoneNumber));
   }
 
+  // TODO: Finish sign in with confirmation code.
+
   return null;
 }
 
@@ -285,6 +294,7 @@ export async function updatePassword(currentPassword, newPassword) {
     const authCredential = auth.EmailAuthProvider.credential(auth().currentUser.email, currentPassword);
     await auth().currentUser.reauthenticateWithCredential(authCredential);
     await auth().currentUser.updatePassword(newPassword);
+    Toast.show('Password updated successfully');
     log('Password updated');
   } catch (error) {
     log('Failed to update password:', error);
@@ -298,10 +308,10 @@ export async function updatePassword(currentPassword, newPassword) {
 // --- PRIVATE HELPER FUNCTIONS --- //
 
 /**
- * Handles authentication credential sign in.
+ * Handles {@link FirebaseAuthTypes.AuthCredential AuthCredential} sign in.
  * Handles case where account already exists with email/password by linking accounts.
  *
- * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for sign in.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The {@link FirebaseAuthTypes.AuthCredential AuthCredential} used for sign in.
  * @param {string} [email] The email address of the account.
  * @returns {Promise<void>} A promise that resolves when the sign in request is successful.
  */
@@ -366,7 +376,8 @@ async function linkWithCredential(authCredential, email) {
 
   // Sign in with the first available provider of existing account to link with new account
   try {
-    await signInWithProvider(signInMethods[0], email);
+    await signInWithProvider(signInMethods[0], email,
+      `Sign in to link your ${getProviderName(authCredential)} account`);
   } catch (error) {
     logErr('Failed to sign in with existing account:', error);
     throw new CodedError('Failed to link accounts, please try again', { code: 'auth/link-failed' });
@@ -388,18 +399,36 @@ async function linkWithCredential(authCredential, email) {
 }
 
 /**
+ * Gets the provider name based on the {@link FirebaseAuthTypes.AuthCredential AuthCredential} provider ID.
+ *
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The {@link FirebaseAuthTypes.AuthCredential AuthCredential}.
+ * @returns {string} The provider name.
+ */
+function getProviderName(authCredential) {
+  switch (authCredential.providerId) {
+    case auth.EmailAuthProvider.PROVIDER_ID:    return 'Email';
+    case auth.PhoneAuthProvider.PROVIDER_ID:    return 'Phone';
+    default:
+      return authCredential.providerId
+        .replace('.com', '')
+        .replace(authCredential.providerId.charAt(0), authCredential.providerId.charAt(0).toUpperCase());
+  }
+}
+
+/**
  * Prompts the user to sign in with a specific sign in provider.
  *
  * @param {string} providerId The sign in provider ID (e.g. {@link auth.EmailAuthProvider.PROVIDER_ID}).
  * @param {string} emailPhone The email address or phone number of the sign in account.
+ * @param {string} [signInPrompt='Please sign in'] The sign in prompt message. Defaults to `'Please sign in'`.
  * @returns {Promise<FirebaseAuthTypes.User | FirebaseAuthTypes.ConfirmationResult>} A promise that resolves to the
  * signed in {@link FirebaseAuthTypes.User} when the sign in request is successful
  * or {@link FirebaseAuthTypes.ConfirmationResult} when the sign in request also requires a confirmation code.
  */
-async function signInWithProvider(providerId, emailPhone) {
+async function signInWithProvider(providerId, emailPhone, signInPrompt = 'Please sign in') {
   switch (providerId) {
     case auth.AppleAuthProvider.PROVIDER_ID:    return signInWithApple();
-    case auth.EmailAuthProvider.PROVIDER_ID:    return signInWithEmailAndPassword(emailPhone);
+    case auth.EmailAuthProvider.PROVIDER_ID:    return signInWithEmailAndPassword(emailPhone, null, signInPrompt);
     case auth.FacebookAuthProvider.PROVIDER_ID: return signInWithFacebook();
     case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub sign in not supported');
     case auth.GoogleAuthProvider.PROVIDER_ID:   return signInWithGoogle();

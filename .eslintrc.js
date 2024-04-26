@@ -49,6 +49,7 @@ module.exports = {
       imports: 'never',                                         // Disallow trailing commas in imports
       objects: 'always-multiline',                              // Require trailing commas in objects
     }],
+    'comma-spacing': 'warn',                                    // Enable the warning about comma spacing
     'comma-style': 'warn',                                      // Enable the warning about comma style
     'consistent-return': 'warn',                                // Enable the warning about consistent return statements
     'eol-last': 'warn',                                         // Enable the warning about end of line characters

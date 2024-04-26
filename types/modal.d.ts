@@ -31,9 +31,9 @@ export interface BackdropProps {
 /**
  * The `Modal` component properties.
  *
- * @template R The type of the result of the modal prompt.
+ * @template TResult The type of the result of the modal prompt.
  */
-export interface ModalProps<R = any> {
+export interface ModalProps<TResult = any> {
 
   /**
    * The {@link ViewStyle style} to apply to the `Backdrop`.
@@ -76,7 +76,7 @@ export interface ModalProps<R = any> {
    *
    * @param result The result of the modal prompt.
    */
-  onClose?: (result?: R) => void;
+  onClose?: (result?: TResult) => void;
 
   /**
    * The {@link ViewStyle style} to apply to the `Modal`.
@@ -84,3 +84,21 @@ export interface ModalProps<R = any> {
   style?: StyleProp<ViewStyle>;
 
 }
+
+/**
+ * Infers the `TResult` type from a `ModalProps` type's template argument.
+ */
+export type InferTResult<TProps> = TProps extends ModalProps<infer TResult>
+                                 ? TResult
+                                 : any;
+
+/**
+ * The `Modal` render function type.
+ * Takes either a render function or a functional component.
+ *
+ * - The render function receives a `onClose` callback to close the modal and returns JSX that is to be rendered.
+ *
+ * - The functional component receives the `ModalProps` and returns JSX that is to be rendered.
+ */
+export type ModalRenderFn<TProps, TResult> = ((onClose: (result?: TResult) => void) => React.ReactNode)
+                                           | React.FunctionComponent<TProps>

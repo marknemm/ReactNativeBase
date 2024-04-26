@@ -14,8 +14,8 @@ import { useStyles } from './styles';
 /**
  * Sign up screen.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The sign up screen.
  */
 export default function SignUpScreen({ navigation }) {
@@ -37,6 +37,7 @@ export default function SignUpScreen({ navigation }) {
       scrollable
       style={generalStyles.screenContainer}
     >
+
       <EmailInput
         containerStyle={styles.formField}
         label="Email"
@@ -81,7 +82,11 @@ export default function SignUpScreen({ navigation }) {
         type="clear"
       />
 
-      <FormError errorMessage={submitError} style={styles.formError} />
+      <FormError
+        errorMessage={submitError}
+        style={generalStyles.submitError}
+      />
+
     </Form>
   );
 }

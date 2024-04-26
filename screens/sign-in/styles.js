@@ -5,10 +5,6 @@ import { horizontalGutter } from '@styles/general-styles';
  * Gets the styles for the `SignInScreen`.
  */
 export const useStyles = makeStyles((theme) => ({
-  formError: {
-    marginTop: 10,
-    textAlign: 'center',
-  },
   formField: {
     marginBottom: 5,
   },

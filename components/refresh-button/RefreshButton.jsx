@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 /**
  * The {@link RefreshButton} component.
  *
- * @param {Object} param0 The component properties.
- * @param {string} [param0.backgroundColor='transparent'] The background color of the refresh button.
- * @param {string} [param0.color='black'] The color of the refresh button.
- * @param {(event: import('react-native').GestureResponderEvent) => void} [param0.onPress=() => {}] The function to call when the refresh button is pressed.
- * @param {number} [param0.size=24] The size of the refresh button.
- * @param {Object} [param0.style={}] The additional style of the refresh button.
+ * @param {Object} props The component properties.
+ * @param {string} [props.backgroundColor='transparent'] The background color of the refresh button.
+ * @param {string} [props.color='black'] The color of the refresh button.
+ * @param {(event: import('react-native').GestureResponderEvent) => void} [props.onPress=() => {}] The function to call when the refresh button is pressed.
+ * @param {number} [props.size=24] The size of the refresh button.
+ * @param {Object} [props.style={}] The additional style of the refresh button.
  * @returns {React.JSX.Element} The {@link RefreshButton} component.
  */
 export default function RefreshButton({

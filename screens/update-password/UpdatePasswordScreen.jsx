@@ -4,19 +4,19 @@ import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import PasswordInput from '@components/password-input/PasswordInput';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
-import { updatePassword } from '@util/auth';
+import { useUser } from '@hooks/user-hooks';
+import { generalStyles } from '@styles/general-styles';
 import { useForm } from 'react-hook-form';
-import { useStyles } from './styles';
 
 /**
  * The {@link UpdatePasswordScreen} component.
  *
- * @param {object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The {@link UpdatePasswordScreen} component.
  */
 export default function UpdatePasswordScreen({ navigation }) {
-  const styles = useStyles();
+  const user = useUser();
   const form = useForm({
     defaultValues: {
       currentPassword: '',
@@ -27,7 +27,7 @@ export default function UpdatePasswordScreen({ navigation }) {
   const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
   const onSave = handleSubmit(async (formData) => {
-    await updatePassword(formData.currentPassword, formData.newPassword);
+    await user.updatePassword(formData.currentPassword, formData.newPassword);
     navigation.goBack();
   });
 
@@ -68,7 +68,10 @@ export default function UpdatePasswordScreen({ navigation }) {
         textContentType="newPassword"
       />
 
-      <FormError errorMessage={submitError} style={styles.formError} />
+      <FormError
+        errorMessage={submitError}
+        style={generalStyles.submitError}
+      />
 
     </Form>
   );

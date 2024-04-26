@@ -4,7 +4,7 @@ import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { setDBDoc } from '@util/db';
 import Toast from 'react-native-root-toast';
-import { hasSignInProvider, reloadAuthUser } from './auth';
+import { hasSignInProvider, reloadAuthUser, updatePassword } from './auth';
 import { setLSItem } from './local-storage';
 import { log, logErr } from './log';
 import { showModalAsync } from './modal';
@@ -265,7 +265,13 @@ export class User {
 
     if (this.isAuthenticated && !this.isAnonymous) {
       try {
-        if (userData.photoURL !== undefined && userData.photoURL !== this.photoURL) {
+        // Record changes to specific fields
+        const addressChanged = userData.address; // Address is always updated separately as whole object.
+        const emailChanged = userData.email && userData.email !== this.email;
+        const photoURLChanged = userData.photoURL && userData.photoURL !== this.photoURL;
+
+        // If photo URL changed, upload new photo to remote storage bucket
+        if (photoURLChanged) {
           log('Uploading user photo:', userData.photoURL);
           const remotePath = `users/${this.uid}/photo`;
           const { ref } = await uploadFile(userData.photoURL, remotePath);
@@ -273,20 +279,27 @@ export class User {
           log('User photo uploaded:', userData.photoURL);
         }
 
+        // Save user data document to remote database
         log('Saving user data:', userData);
         await setDBDoc('users', this.uid, userData, { merge: true });
         log('User data saved:', userData);
 
-        if (userData.email && userData.email !== this.email) {
+        // If email changed, must re-authenticate due to token invalidation
+        if (emailChanged) {
           setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, userData.email);
-          await showModalAsync(SignInModal, { // Must re-authenticate if email is changed
+          await showModalAsync(SignInModal, {
             prompt: 'Please sign-in again',
           });
+        }
 
+        // If new email is not verified, send verification email (can already be verified if set to 3rd party linked email account)
+        if (emailChanged && !this.emailVerified) {
           log('Sending email verification message');
           await this.sendEmailVerification();
           Toast.show('Profile updated, please check your email for a verification message');
           log('Email verification message sent');
+        } else if (addressChanged) {
+          Toast.show('Address updated successfully');
         } else {
           Toast.show('Profile updated successfully');
         }
@@ -310,6 +323,22 @@ export class User {
       await auth().currentUser.sendEmailVerification();
     } else {
       throw new Error('Cannot send email verification for unauthenticated or anonymous user');
+    }
+  }
+
+  /**
+   * Updates the user password.
+   *
+   * @param {string} currentPassword The user's current password.
+   * @param {string} newPassword The user's new password.
+   * @returns {Promise<void>} A promise that resolves when the password update request is successful.
+   * @throws {Error} An error is thrown when the password update request fails.
+   */
+  async updatePassword(currentPassword, newPassword) {
+    if (this.isAuthenticated && !this.isAnonymous) {
+      await updatePassword(currentPassword, newPassword);
+    } else {
+      throw new Error('Cannot update password for unauthenticated or anonymous user');
     }
   }
 

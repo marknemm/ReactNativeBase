@@ -5,9 +5,9 @@ import { UserContext } from './UserContext';
 /**
  * The {@link UserProvider} component.
  *
- * @param {Object} param0 The component props.
- * @param {React.ReactNode} param0.children The children components.
- * @param {User} param0.user The {@link User}.
+ * @param {Object} props The component props.
+ * @param {React.ReactNode} props.children The children components.
+ * @param {User} props.user The {@link User}.
  * @returns {React.JSX.Element} The {@link UserProvider} component.
  */
 export default function UserProvider({ children, user }) {

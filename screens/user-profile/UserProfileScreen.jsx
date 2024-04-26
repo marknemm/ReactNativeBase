@@ -12,14 +12,15 @@ import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Icon, ListItem } from '@rneui/themed';
+import { generalStyles } from '@styles/general-styles';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
 /**
  * The user profile screen.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The user profile screen.
  */
 export default function UserProfileScreen({ navigation }) {
@@ -62,6 +63,7 @@ export default function UserProfileScreen({ navigation }) {
 
   return (
     <Form form={form} safeArea scrollable>
+
       <Avatar
         backgroundColor={user?.backgroundColor}
         containerStyle={styles.avatar}
@@ -130,7 +132,11 @@ export default function UserProfileScreen({ navigation }) {
         </ListItem>
       )}
 
-      <FormError errorMessage={submitError} style={styles.formError} />
+      <FormError
+        errorMessage={submitError}
+        style={generalStyles.submitError}
+      />
+
     </Form>
   );
 }

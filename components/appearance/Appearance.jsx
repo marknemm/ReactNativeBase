@@ -6,10 +6,10 @@ import { View } from 'react-native';
 /**
  * The {@link Appearance} component.
  *
- * @param {Object} param0 The component properties.
- * @param {'auto' | 'dark' | 'light'} param0.appearance The appearance.
- * @param {boolean} [param0.disabled=false] Whether the component is disabled.
- * @param {(appearance: 'auto' | 'dark' | 'light') => void} [param0.onAppearanceChange] The function to call when the appearance changes.
+ * @param {Object} props The component properties.
+ * @param {'auto' | 'dark' | 'light'} props.appearance The appearance.
+ * @param {boolean} [props.disabled=false] Whether the component is disabled.
+ * @param {(appearance: 'auto' | 'dark' | 'light') => void} [props.onAppearanceChange] The function to call when the appearance changes.
  * @returns {React.JSX.Element} The {@link Appearance} component.
  */
 export default function Appearance({ appearance, disabled = false, onAppearanceChange = () => {} }) {

@@ -13,7 +13,7 @@ import { useStyles } from './styles';
  */
 export default function SignInModal(props) {
   const styles = useStyles(props);
-  const { onClose, prompt } = props;
+  const { isPasswordOnly, onClose, prompt, readOnlyEmail } = props;
 
   return (
     <Modal
@@ -30,7 +30,9 @@ export default function SignInModal(props) {
 
       <SignInScreen
         isModal
+        isPasswordOnly={isPasswordOnly}
         onSignIn={onClose}
+        readOnlyEmail={readOnlyEmail}
       />
     </Modal>
   );
@@ -40,4 +42,5 @@ SignInModal.propTypes = {
   isPasswordOnly: PropTypes.bool,
   onClose: PropTypes.func,
   prompt: PropTypes.string,
+  readOnlyEmail: PropTypes.string,
 };

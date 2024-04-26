@@ -6,12 +6,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 /**
  * The {@link Form} component.
  *
- * @param {Object} param0 The component properties.
- * @param {React.ReactNode} [param0.children] The children components.
- * @param {Types.Form.UseFormReturn<any>} param0.form The {@link Types.Form.UseFormReturn Form} instance.
- * @param {boolean} [param0.safeArea=false] Whether to apply safe area styling.
- * @param {boolean} [param0.scrollable=false] Whether the form is scrollable.
- * @param {import('react-native').ViewStyle | import('react-native').ViewStyle[]} [param0.style={}] The style to apply.
+ * @param {Object} props The component properties.
+ * @param {React.ReactNode} [props.children] The children components.
+ * @param {Types.Form.UseFormReturn<any>} props.form The {@link Types.Form.UseFormReturn Form} instance.
+ * @param {boolean} [props.safeArea=false] Whether to apply safe area styling.
+ * @param {boolean} [props.scrollable=false] Whether the form is scrollable.
+ * @param {import('react-native').ViewStyle | import('react-native').ViewStyle[]} [props.style={}] The style to apply.
  * @returns {React.JSX.Element} The {@link Form} component.
  */
 export default function Form({ children, form, safeArea = false, scrollable = false, style = {} }) {

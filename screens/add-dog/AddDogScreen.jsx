@@ -1,7 +1,9 @@
 import Dropdown from '@components/dropdown/Dropdown';
+import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
 import { WEIGHT_UNITS } from '@constants/units';
+import { useSubmitState } from '@hooks/form-hooks';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { log } from '@util/log';
@@ -12,8 +14,8 @@ import { useStyles } from './styles';
 /**
  * The screen for adding dogs.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The screen for adding dogs.
  */
 export default function AddDogScreen({ navigation }) {
@@ -27,9 +29,16 @@ export default function AddDogScreen({ navigation }) {
       weightUnits: WEIGHT_UNITS[0],
     },
   });
+  const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
   return (
-    <Form form={form} style={generalStyles.verticalGutter}>
+    <Form
+      form={form}
+      safeArea
+      scrollable
+      style={generalStyles.verticalGutter}
+    >
+
       <Input
         name="name"
         placeholder="Name"
@@ -72,10 +81,17 @@ export default function AddDogScreen({ navigation }) {
       </View>
 
       <Button
-        onPress={form.handleSubmit((data) => { log(data); })}
+        loading={submitting}
+        onPress={handleSubmit((data) => { log(data); })}
         style={generalStyles.horizontalGutter}
         title="Save Dog"
       />
+
+      <FormError
+        errorMessage={submitError}
+        style={generalStyles.submitError}
+      />
+
     </Form>
   );
 }

@@ -5,8 +5,8 @@ import { BleManagerContext } from './BleManagerContext';
 /**
  * The BleProvider component.
  *
- * @param {Object} param0 The component props.
- * @param {React.ReactNode} param0.children The children components.
+ * @param {Object} props The component props.
+ * @param {React.ReactNode} props.children The children components.
  * @returns {React.JSX.Element} The BleProvider component.
  */
 export default function BleManagerProvider({ children }) {

@@ -9,9 +9,9 @@ import { BleDeviceContext } from './BleDeviceContext';
 /**
  * The BleDevice component.
  *
- * @param {Object} param0 The component props.
- * @param {React.ReactNode} param0.children The children components.
- * @param {(device: Device) => boolean} [param0.deviceMatchCb] The device match callback.
+ * @param {Object} props The component props.
+ * @param {React.ReactNode} props.children The children components.
+ * @param {(device: Device) => boolean} [props.deviceMatchCb] The device match callback.
  * @returns {React.JSX.Element} The BleDeviceProvider component.
  */
 export default function BleDeviceProvider({ children, deviceMatchCb }) {

@@ -42,10 +42,10 @@ exports.updateUser = functions.firestore.document('users/{userId}').onUpdate(asy
   }
 
   return admin.auth().updateUser(userId, {
-    displayName: user.displayName,
+    displayName: user.displayName || null,
     email,
     phoneNumber,
-    photoURL: user.photoURL,
+    photoURL: user.photoURL || null,
   });
 });
 

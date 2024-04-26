@@ -5,10 +5,6 @@ import { horizontalGutter } from '@styles/general-styles';
  * The `ForgotPasswordScreen` `useStyles` hook.
  */
 export const useStyles = makeStyles((theme) => ({
-  formError: {
-    marginTop: 10,
-    textAlign: 'center',
-  },
   formField: {
     marginBottom: 5,
   },

@@ -14,8 +14,8 @@ import { useStyles } from './styles';
 /**
  * {@link ForgotPasswordScreen} component.
  *
- * @param {Object} param0 The component properties.
- * @param {Types.Navigation.StackNavigation} param0.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {Object} props The component properties.
+ * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
  * @returns {React.JSX.Element} The {@link ForgotPasswordScreen} component.
  */
 export default function ForgotPasswordScreen({ navigation }) {
@@ -35,6 +35,7 @@ export default function ForgotPasswordScreen({ navigation }) {
       scrollable
       style={generalStyles.screenContainer}
     >
+
       <Input
         autoCapitalize="none"
         autoComplete="email"
@@ -70,7 +71,11 @@ export default function ForgotPasswordScreen({ navigation }) {
         </Text>
       )}
 
-      <FormError errorMessage={submitError} style={styles.formError} />
+      <FormError
+        errorMessage={submitError}
+        style={generalStyles.submitError}
+      />
+
     </Form>
   );
 }

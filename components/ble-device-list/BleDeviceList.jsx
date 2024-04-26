@@ -15,8 +15,8 @@ import { useStyles } from './styles';
 /**
  * The {@link BleDeviceList} component.
  *
- * @param {Object} param0 The component properties.
- * @param {string} [param0.title='Detected Devices'] The title of the device list.
+ * @param {Object} props The component properties.
+ * @param {string} [props.title='Detected Devices'] The title of the device list.
  * @returns {React.JSX.Element} The {@link BleDeviceList} component.
  */
 export default function BleDeviceList({ title = 'Detected Devices' }) {
@@ -43,8 +43,8 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
 /**
  * The {@link BleDeviceListHeader} component.
  *
- * @param {Object} param0 The component properties.
- * @param {string} param0.title The title of the device list.
+ * @param {Object} props The component properties.
+ * @param {string} props.title The title of the device list.
  * @returns {React.JSX.Element} The {@link BleDeviceListHeader} component.
  */
 function BleDeviceListHeader({ title }) {
@@ -63,8 +63,8 @@ function BleDeviceListHeader({ title }) {
 /**
  * The {@link BleDeviceListItem} component.
  *
- * @param {Object} param0 The component properties.
- * @param {Device} param0.bleDevice The Bluetooth {@link Device}.
+ * @param {Object} props The component properties.
+ * @param {Device} props.bleDevice The Bluetooth {@link Device}.
  * @returns {React.JSX.Element} The {@link BleDeviceListItem} component.
  */
 function BleDeviceListItem({ bleDevice }) {

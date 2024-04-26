@@ -5,10 +5,10 @@ import { useFormContext } from 'react-hook-form';
  * Custom hook to generate {@link SubmitState} for a submittable form.
  *
  * @template {Types.Form.FieldValues} TFieldValues The form field values type.
- * @template R The submit result type.
+ * @template TResult The submit result type.
  * @param {Types.Form.UseFormReturn<TFieldValues>} [form] The {@link Types.Form.UseFormReturn Form} instance.
- * @param {(result: R) => void} [onSubmitSuccess] The submit success callback.
- * @returns {Types.Form.SubmitState<TFieldValues, R>} The {@link Types.Form.SubmitState SubmitState}.
+ * @param {(result: TResult) => void} [onSubmitSuccess] The submit success callback.
+ * @returns {Types.Form.SubmitState<TFieldValues, TResult>} The {@link Types.Form.SubmitState SubmitState}.
  */
 export function useSubmitState(form, onSubmitSuccess) {
   const [submitting, setSubmitting] = useState(false);

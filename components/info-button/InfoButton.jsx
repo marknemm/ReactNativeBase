@@ -7,15 +7,15 @@ import { useState } from 'react';
 /**
  * The {@link InfoButton} component.
  *
- * @param {Object} param0 The component properties.
- * @param {string} [param0.backgroundColor='transparent'] The background color of the info button.
- * @param {string} [param0.color='black'] The color of the info button.
- * @param {React.ReactNode} [param0.children] The info dialog content.
- * @param {string} [param0.dialogTitle=''] The title of the info dialog.
- * @param {boolean} [param0.disabled=false] Whether the info button is disabled.
- * @param {(event: import('react-native').GestureResponderEvent) => void} [param0.onPress=() => {}] The function to call when the info button is pressed.
- * @param {number} [param0.size=24] The size of the info button.
- * @param {Object} [param0.style={}] The additional style of the info button.
+ * @param {Object} props The component properties.
+ * @param {string} [props.backgroundColor='transparent'] The background color of the info button.
+ * @param {string} [props.color='black'] The color of the info button.
+ * @param {React.ReactNode} [props.children] The info dialog content.
+ * @param {string} [props.dialogTitle=''] The title of the info dialog.
+ * @param {boolean} [props.disabled=false] Whether the info button is disabled.
+ * @param {(event: import('react-native').GestureResponderEvent) => void} [props.onPress=() => {}] The function to call when the info button is pressed.
+ * @param {number} [props.size=24] The size of the info button.
+ * @param {Object} [props.style={}] The additional style of the info button.
  * @returns {React.JSX.Element} The {@link InfoButton} component.
  */
 export default function InfoButton({
