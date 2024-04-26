@@ -1,3 +1,4 @@
+export * as Animation from './animation';
 export * as Auth from './auth';
 export * as Avatar from './avatar';
 export * as Backdrop from './backdrop';

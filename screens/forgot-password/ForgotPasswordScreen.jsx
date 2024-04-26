@@ -1,13 +1,13 @@
+import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
-import Input from '@components/input/Input';
-import { EMAIL_REGEX } from '@constants/regex';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { Button, Text } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { sendPasswordResetEmail } from '@util/auth';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
 
@@ -15,15 +15,18 @@ import { useStyles } from './styles';
  * {@link ForgotPasswordScreen} component.
  *
  * @param {Object} props The component properties.
- * @param {Types.Navigation.StackNavigation} props.navigation The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {boolean} [props.isModal] Whether the screen is a modal.
+ * @param {Types.Navigation.StackNavigation} [props.navigation] The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {() => void} [props.onSignIn] The function to call when the user presses the sign in button.
+ * @param {string} [props.readOnlyEmail] The email address that must be used for the forgot password.
  * @returns {React.JSX.Element} The {@link ForgotPasswordScreen} component.
  */
-export default function ForgotPasswordScreen({ navigation }) {
+export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, readOnlyEmail }) {
   const styles = useStyles();
   const [lastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
-      email: lastSignInEmail,
+      email: readOnlyEmail || lastSignInEmail,
     },
   });
   const { handleSubmit, submitError, submitSuccessful, submitting } = useSubmitState(form);
@@ -36,17 +39,11 @@ export default function ForgotPasswordScreen({ navigation }) {
       style={generalStyles.screenContainer}
     >
 
-      <Input
-        autoCapitalize="none"
-        autoComplete="email"
-        autoCorrect={false}
+      <EmailInput
         containerStyle={styles.formField}
-        keyboardType="email-address"
         label="Email"
         name="email"
-        rules={{ required: 'Email is required', pattern: EMAIL_REGEX }}
-        rulesErrorMessageMap={{ pattern: 'Invalid email address' }}
-        secureTextEntry={false}
+        readOnly={!!readOnlyEmail}
         textContentType="username"
       />
 
@@ -59,7 +56,12 @@ export default function ForgotPasswordScreen({ navigation }) {
 
       <Button
         disabled={submitting}
-        onPress={() => navigation.navigate('Sign In')}
+        onPress={() => {
+          if (!isModal) { // Can't navigate to sign in from a modal
+            navigation.navigate('Sign In');
+          }
+          onSignIn?.();
+        }}
         style={generalStyles.horizontalGutter}
         title="Sign in"
         type="clear"
@@ -79,3 +81,9 @@ export default function ForgotPasswordScreen({ navigation }) {
     </Form>
   );
 }
+
+ForgotPasswordScreen.propTypes = {
+  isModal: PropTypes.bool,
+  onSignIn: PropTypes.func,
+  readOnlyEmail: PropTypes.string,
+};

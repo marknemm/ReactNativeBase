@@ -1,5 +1,5 @@
 import { makeStyles } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 const modalHorizontalGutter = 16;
 const modalVerticalGutter = 80;
@@ -11,17 +11,17 @@ export const useStyles = makeStyles((theme, props) => ({
   modal: {
     backgroundColor: theme.colors.white,
     borderRadius: 7,
-    height: '100%',
+    height: Dimensions.get('window').height - modalVerticalGutter * 2,
+    marginHorizontal: modalHorizontalGutter,
+    marginVertical: modalVerticalGutter,
     position: 'absolute',
-    width: '100%',
+    width: Dimensions.get('window').width - modalHorizontalGutter * 2,
     ...props.style,
   },
   modalContainer: {
     alignItems: 'center',
     backgroundColor: 'transparent',
     justifyContent: 'center',
-    paddingHorizontal: modalHorizontalGutter,
-    paddingVertical: modalVerticalGutter,
     ...StyleSheet.absoluteFillObject,
   },
 }));

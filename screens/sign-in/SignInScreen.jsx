@@ -23,11 +23,19 @@ import { useStyles } from './styles';
  * @param {boolean} [props.isModal] Whether the screen is a modal.
  * @param {boolean} [props.isPasswordOnly=false] Whether to show only the (email) password sign-in. Defaults to `false`.
  * @param {Types.Navigation.StackNavigation} [props.navigation] The {@link Types.Navigation.StackNavigation navigation} object.
+ * @param {() => void} [props.onForgotPassword] The function to call when the user clicks the forgot password button.
  * @param {(authUser: FirebaseAuthTypes.User) => void} [props.onSignIn] The function to call after signing in.
  * @param {string} [props.readOnlyEmail] The email address that must be used for sign in.
  * @returns {React.JSX.Element} The sign in screen.
  */
-export default function SignInScreen({ isModal, isPasswordOnly = false, navigation, onSignIn, readOnlyEmail }) {
+export default function SignInScreen({
+  isModal,
+  isPasswordOnly = false,
+  navigation,
+  onForgotPassword,
+  onSignIn,
+  readOnlyEmail,
+}) {
   const styles = useStyles();
   const [lastSignInEmail, setLSLastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
@@ -101,25 +109,28 @@ export default function SignInScreen({ isModal, isPasswordOnly = false, navigati
         title="Sign In"
       />
 
-      {!isModal && (
-        <>
-          <Button
-            disabled={loading}
-            onPress={() => navigation.navigate('Sign Up')}
-            style={generalStyles.horizontalGutter}
-            title="Don&apos;t have an account?"
-            type="clear"
-          />
-
-          <Button
-            disabled={loading}
-            onPress={() => navigation.navigate('Forgot Password')}
-            style={generalStyles.horizontalGutter}
-            title="Forgot password?"
-            type="clear"
-          />
-        </>
+      {!isModal && ( // Can't navigate to sign up from modal
+        <Button
+          disabled={loading}
+          onPress={() => navigation.navigate('Sign Up')}
+          style={generalStyles.horizontalGutter}
+          title="Don&apos;t have an account?"
+          type="clear"
+        />
       )}
+
+      <Button
+        disabled={loading}
+        onPress={() => {
+          if (!isModal) { // Can't navigate to forgot password from a modal
+            navigation.navigate('Forgot Password');
+          }
+          onForgotPassword?.();
+        }}
+        style={generalStyles.horizontalGutter}
+        title="Forgot password?"
+        type="clear"
+      />
 
       <FormError
         errorMessage={submitError}
@@ -133,6 +144,7 @@ export default function SignInScreen({ isModal, isPasswordOnly = false, navigati
 SignInScreen.propTypes = {
   isModal: PropTypes.bool,
   isPasswordOnly: PropTypes.bool,
+  onForgotPassword: PropTypes.func,
   onSignIn: PropTypes.func,
   readOnlyEmail: PropTypes.string,
 };

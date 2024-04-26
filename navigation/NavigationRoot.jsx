@@ -27,35 +27,37 @@ export default function NavigationRoot() {
     <NavigationContainer theme={useNavTheme()} ref={navigationRef}>
       <RootNavigationContainerRefContext.Provider value={navigationRef}>
         <Stack.Navigator screenOptions={useScreenOptions()}>
-          { user?.isAuthenticated ? (
-            <>
-              <Stack.Screen
-                name="Bottom Tabs"
-                component={BottomTabs}
-                options={noHeaderOpts}
-              />
-              <Stack.Screen
-                name="Camera"
-                component={CameraScreen}
-                options={noHeaderOpts}
-              />
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Sign In"
-                component={SignInScreen}
-              />
-              <Stack.Screen
-                name="Sign Up"
-                component={SignUpScreen}
-              />
-              <Stack.Screen
-                name="Forgot Password"
-                component={ForgotPasswordScreen}
-              />
-            </>
-          )}
+          { user?.isAuthenticated
+            ? (
+              <>
+                <Stack.Screen
+                  name="Bottom Tabs"
+                  component={BottomTabs}
+                  options={noHeaderOpts}
+                />
+                <Stack.Screen
+                  name="Camera"
+                  component={CameraScreen}
+                  options={noHeaderOpts}
+                />
+              </>
+            )
+            : (
+              <>
+                <Stack.Screen
+                  name="Sign In"
+                  component={SignInScreen}
+                />
+                <Stack.Screen
+                  name="Sign Up"
+                  component={SignUpScreen}
+                />
+                <Stack.Screen
+                  name="Forgot Password"
+                  component={ForgotPasswordScreen}
+                />
+              </>
+            )}
         </Stack.Navigator>
       </RootNavigationContainerRefContext.Provider>
     </NavigationContainer>

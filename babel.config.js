@@ -27,6 +27,7 @@ module.exports = (api) => {
         },
       ],
       '@babel/plugin-transform-class-static-block',
+      'react-native-reanimated/plugin',
     ],
   };
 };

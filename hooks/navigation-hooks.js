@@ -1,6 +1,7 @@
 import { RootNavigationContainerRefContext } from '@contexts/root-navigation-container-ref/RootNavigationContainerRefContext';
 import { NavigationContainerRefContext, useNavigation, usePreventRemoveContext, useRoute } from '@react-navigation/native';
 import { useTheme } from '@rneui/themed';
+import { resolvePredicate } from '@util/predicate';
 import { nanoid } from 'nanoid/non-secure';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert } from 'react-native';
@@ -20,8 +21,10 @@ export function useNavigationContainerRef() {
  * Disables the navigation gestures and hides the back button when the {@link submitting} state is `true`.
  *
  * @param {boolean} submitting The submitting state.
- * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
- * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
+ * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation
+ * {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
+ * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation
+ * {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
  * If changed from `true` to `false`, the original options are restored.
  * @param {ReadonlyArray<any>} [optionsDependencies=undefined] The dependencies to watch for changes to options.
  */
@@ -39,16 +42,17 @@ export function useNavigationSubmitOptions(submitting, options, predicate = true
 /**
  * Sets the navigation header options.
  *
- * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
- * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
+ * @param {Types.Navigation.NativeStackNavigationOptions} options The navigation
+ * {@link Types.Navigation.NativeStackNavigationOptions options} to set when {@link predicate} evaluates to `true`.
+ * @param {boolean | (() => boolean) | ReadonlyArray<any>} [predicate=true] Determines whether to set the navigation
+ * {@link Types.Navigation.NativeStackNavigationOptions options}. Defaults to `true`.
  * If changed from `true` to `false`, the original options are restored.
  * @param {ReadonlyArray<any>} [optionsDependencies=undefined] The dependencies to watch for changes to options.
  */
 export function useNavigationOptions(options, predicate = true, optionsDependencies = undefined) {
   const navigation = useNavigation();
   const navigationContainerRef = useNavigationContainerRef();
-  const originalOptionsRef = useRef(navigationContainerRef?.getCurrentOptions() ?? {});
-  const [optionsChanged, setOptionsChanged] = useState(false);
+  const originalOptionsRef = useRef(undefined);
 
   // Check if second argument is an array of dependencies and predicate is not provided
   if (predicate instanceof Array) {
@@ -56,12 +60,11 @@ export function useNavigationOptions(options, predicate = true, optionsDependenc
     predicate = true;
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   options = useMemo(() => options, optionsDependencies ?? [options]);
 
   useEffect(() => {
-    const predicateValue = (typeof predicate === 'function')
-      ? predicate()
-      : predicate;
+    const predicateValue = resolvePredicate(predicate);
 
     if (predicateValue) {
       originalOptionsRef.current = navigationContainerRef.getCurrentOptions();
@@ -73,8 +76,7 @@ export function useNavigationOptions(options, predicate = true, optionsDependenc
       }
 
       navigation.setOptions(options);
-      setOptionsChanged(true);
-    } else if (!predicateValue && optionsChanged) {
+    } else if (!predicateValue && originalOptionsRef.current) {
       // Remove options that originally were not there; needs to be explicit since given options are merged in with current set.
       for (const key in options) {
         if (originalOptionsRef.current[key] === undefined) {
@@ -83,7 +85,7 @@ export function useNavigationOptions(options, predicate = true, optionsDependenc
       }
 
       navigation.setOptions(originalOptionsRef.current);
-      setOptionsChanged(false);
+      originalOptionsRef.current = undefined;
     }
   }, [navigation, navigationContainerRef, options, originalOptionsRef, predicate]);
 }
@@ -96,9 +98,7 @@ export function useNavigationOptions(options, predicate = true, optionsDependenc
 export function useNavigationConfirm(predicate = true) {
   const navigation = useNavigation();
 
-  if (typeof predicate === 'function') {
-    predicate = predicate();
-  }
+  predicate = resolvePredicate(predicate);
 
   usePreventRemove(predicate, (event) => {
     // Prompt the user before leaving the screen
