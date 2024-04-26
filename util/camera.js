@@ -1,7 +1,8 @@
 import * as ImagePicker from 'expo-image-picker';
 import { Alert } from 'react-native';
 
-export { MediaTypeOptions } from 'expo-image-picker';
+export { ImagePicker };
+export { CameraType, MediaTypeOptions } from 'expo-image-picker';
 
 /**
  * Opens the OS native camera and returns the captured image media.
@@ -14,9 +15,7 @@ export async function launchCamera(options = {}) {
   await requestCameraRollPermission('camera');
 
   const result = await ImagePicker.launchCameraAsync({
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
+    allowsMultipleSelection: options?.selectionLimit > 1 || options?.selectionLimit === 0,
     ...options,
   });
 
@@ -36,10 +35,7 @@ export async function launchMediaLibrary(options = {}) {
   await requestCameraRollPermission('camera');
 
   const result = await ImagePicker.launchImageLibraryAsync({
-    allowsEditing: true,
     allowsMultipleSelection: options?.selectionLimit > 1 || options?.selectionLimit === 0,
-    aspect: [4, 3],
-    quality: 1,
     ...options,
   });
 
