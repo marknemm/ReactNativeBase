@@ -20,6 +20,9 @@
   "devDependencies": {
     "eslint": "^8.15.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^48.2.1",
+    "eslint-plugin-no-floating-promise": "^1.0.2",
     "firebase-functions-test": "^3.1.0"
   },
   "private": true
