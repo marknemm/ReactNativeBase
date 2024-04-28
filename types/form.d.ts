@@ -1,7 +1,90 @@
-import { Control, FieldErrors, FieldPath, FieldValues, SubmitErrorHandler, SubmitHandler, RegisterOptions, SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
+import { Control, FieldPath, FieldPathValue, FieldValues, RegisterOptions, SubmitErrorHandler, SubmitHandler, UseFormHandleSubmit, Validate } from 'react-hook-form';
 import { TextStyle } from 'react-native';
 
 export * from 'react-hook-form';
+
+/**
+ * Form validation rules.
+ */
+export type ValidationRules<TFieldValues = FieldValues, TFieldName = keyof TFieldValues>
+  = Omit<
+    RegisterOptions<TFieldValues, TFieldName>,
+    "deps" | "disabled" | "onBlur" | "onChange" | "setValueAs" | "ShouldUnregister" | "value" | "valueAsDate" | "valueAsNumber"
+  >;
+
+/**
+ * Validate function for form validation rules.
+ */
+export type ValidateFn<TFieldValues = FieldValues, TFieldName = keyof TFieldValues>
+  = Validate<FieldPathValue<TFieldValues, TFieldName>, TFieldValues>
+  | Record<string, Validate<FieldPathValue<TFieldValues, TFieldName>, TFieldValues>>
+
+/**
+ * {@link FormFieldProps Properties} for form field components.
+ *
+ * @param TFieldValues The type of the form data.
+ * @param TContext The type of the form context.
+ * @param TFieldName The form field name.
+ */
+export interface FormFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = keyof TFieldValues
+> {
+
+  /**
+   * The {@link Control} for the form.
+   *
+   * `Note`: Designates this form field as controlled by a `react-hook-form`.
+   *
+   * The form field will be registered with the form {@link Control} and its value will be managed by the form {@link Control}.
+   *
+   * The form field will also be validated by the form {@link Control} based on the {@link rules} provided.
+   *
+   * If set, it is not recommended to directly set the form field value or listen to changes on the form field value.
+   */
+  control?: Control<TFieldValues, TContext>;
+
+  /**
+   * The error message to display for the form field.
+   *
+   * `Note`: If controlled with `react-hook-form`, the error message is implicitly derived from {@link rules}.
+   * If set explicitly in such a case, the explicit error message will be displayed instead.
+   */
+  errorMessage?: string;
+
+  /**
+   * The name of the form field.
+   *
+   * `Required` if using `react-hook-form` {@link control}; ignored otherwise.
+   */
+  name?: TFieldName;
+
+}
+
+/**
+ * Properties for `FormError` components.
+ *
+ * @param TFieldValues The type of the form data.
+ * @param TContext The type of the form context.
+ * @param TFieldName The form field name.
+ */
+export interface FormErrorProps {
+
+  /**
+   * The error message to display for the form field.
+   *
+   * `Note`: If controlled with `react-hook-form`, the error message is implicitly derived from {@link rules}.
+   * If set explicitly in such a case, the explicit error message will be displayed instead.
+   */
+  errorMessage?: string;
+
+  /**
+   * The style for the error message.
+   */
+  style?: TextStyle;
+
+}
 
 /**
  * State information about form submission.
@@ -83,70 +166,5 @@ export interface SubmitState<TFieldValues, R = any> {
    * The submitting state of the form.
    */
   submitting: boolean;
-
-}
-
-/**
- * {@link FormFieldProps Properties} for form field components.
- *
- * @param TFieldValues The type of the form data.
- * @param TContext The type of the form context.
- * @param TFieldName The form field name.
- */
-export interface FormFieldProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TContext = any,
-  TFieldName extends FieldPath<TFieldValues> = keyof TFieldValues
-> {
-
-  /**
-   * The control for the form.
-   */
-  control?: Control<TFieldValues, TContext>;
-
-  /**
-   * The error message to display for the form field.
-   */
-  errorMessage?: string;
-
-  /**
-   * The errors associated with the form control.
-   */
-  errors?: FieldErrors<TFieldValues>;
-
-  /**
-   * The name of the form field.
-   */
-  name?: TFieldName;
-
-  /**
-   * The input validation rules for the form field.
-   */
-  rules?: Omit<RegisterOptions<TFieldValues, TFieldName>, "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs">;
-
-  /**
-   * The rules to error message map for the form field. Maps rules (error types) to error messages.
-   */
-  rulesErrorMessageMap?: Record<string, string>;
-
-}
-
-/**
- * Properties for `FormError` components.
- *
- * @param TFieldValues The type of the form data.
- * @param TContext The type of the form context.
- * @param TFieldName The form field name.
- */
-export interface FormErrorProps<
-  TFieldValues,
-  TContext,
-  TFieldName
-> extends FormFieldProps<TFieldValues, TContext, TFieldName> {
-
-  /**
-   * The style for the error message.
-   */
-  style?: TextStyle;
 
 }

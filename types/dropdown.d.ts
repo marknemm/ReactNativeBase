@@ -1,5 +1,5 @@
 import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
-import { FormFieldProps, FieldValues } from './form';
+import { FormFieldProps, FieldValues, ValidationRule } from './form';
 
 /**
  * Properties for dropdown components.
@@ -19,6 +19,11 @@ export interface DropdownProps<T = any> extends RneDropdownProps<T>, FormFieldPr
   includeEmptyOption?: boolean;
 
   /**
+   * The label of the dropdown.
+   */
+  label?: string | React.ReactNode;
+
+  /**
    * The label field within each dropdown data item. Defaults to `'label'`.
    */
   labelField?: string;
@@ -29,6 +34,14 @@ export interface DropdownProps<T = any> extends RneDropdownProps<T>, FormFieldPr
    * @param value The new value.
    */
   onChange?: (value: T) => void;
+
+  /**
+   * The required validation rule of the `Input`.
+   * If given a non-empty `string`, the `Input` will be required and the string will be used as the error message.
+   *
+   * @default `${label} is required`
+   */
+  required?: ValidationRule<boolean>;
 
   /**
    * The value field within each dropdown data item. Defaults to `'value'`.

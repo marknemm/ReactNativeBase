@@ -3,7 +3,7 @@ import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import PasswordInput from '@components/password-input/PasswordInput';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
-import { useSubmitState } from '@hooks/form-hooks';
+import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { signUp } from '@util/auth';
@@ -57,11 +57,9 @@ export default function SignUpScreen({ navigation }) {
         containerStyle={styles.formField}
         label="Confirm Password"
         name="confirmPassword"
-        rules={{
-          required: 'Confirm Password is required',
-          validate: (value) => value === form.getValues().password || 'Passwords must match',
-        }}
+        required
         textContentType="newPassword"
+        validate={useMatchValidator(form, 'password', 'Passwords must match')}
       />
 
       <Button

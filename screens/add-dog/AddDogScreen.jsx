@@ -2,8 +2,9 @@ import Dropdown from '@components/dropdown/Dropdown';
 import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import Input from '@components/input/Input';
+import { POSITIVE_DECIMAL_REGEX, POSITIVE_WHOLE_NUMBER_REGEX } from '@constants/regex';
 import { WEIGHT_UNITS } from '@constants/units';
-import { useSubmitState } from '@hooks/form-hooks';
+import { useSubmitState, useValidationRule } from '@hooks/form-hooks';
 import { Button } from '@rneui/themed';
 import { generalStyles } from '@styles/general-styles';
 import { log } from '@util/log';
@@ -40,32 +41,38 @@ export default function AddDogScreen({ navigation }) {
     >
 
       <Input
+        label="Name"
         name="name"
-        placeholder="Name"
-        rules={{ required: 'Dog name is required' }}
+        required
       />
 
       <Input
+        label="Breed"
         name="breed"
-        placeholder="Breed"
       />
 
       <Input
         keyboardType="number-pad"
+        label="Age"
         name="age"
-        placeholder="Age"
-        rules={{ pattern: /[0-9]+/, min: 0 }}
-        rulesErrorMessageMap={{ pattern: 'The age must be a whole number' }}
+        min={0}
+        pattern={useValidationRule({
+          message: 'Age must be a whole number',
+          value: POSITIVE_WHOLE_NUMBER_REGEX,
+        })}
       />
 
       <View style={generalStyles.row}>
         <View style={styles.weightInputContainer}>
           <Input
             keyboardType="numeric"
+            label="Weight"
+            min={0}
             name="weight"
-            placeholder="Weight"
-            rules={{ pattern: /\d+/, min: 0 }}
-            rulesErrorMessageMap={{ pattern: 'The weight must be a number' }}
+            pattern={useValidationRule({
+              message: 'Weight must be a number',
+              value: POSITIVE_DECIMAL_REGEX,
+            })}
           />
         </View>
 
@@ -74,7 +81,7 @@ export default function AddDogScreen({ navigation }) {
             data={WEIGHT_UNITS}
             name="weightUnits"
             placeholder="Units"
-            rules={{ required: true }}
+            required
             value={WEIGHT_UNITS[0]}
           />
         </View>

@@ -14,7 +14,8 @@ export * as Navigation from './navigation';
 export * as RemoteFS from './remote-fs';
 export * as User from './user';
 
-export { DeepPartial, DeepReadonly } from 'utility-types';
+export * from 'react-native';
+export * from 'utility-types';
 
 /**
  * Types namespace for easy access to types in jsdocs.

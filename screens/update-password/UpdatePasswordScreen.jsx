@@ -2,7 +2,7 @@ import FormError from '@components/form-error/FormError';
 import Form from '@components/form/Form';
 import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import PasswordInput from '@components/password-input/PasswordInput';
-import { useSubmitState } from '@hooks/form-hooks';
+import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
 import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { generalStyles } from '@styles/general-styles';
@@ -61,11 +61,9 @@ export default function UpdatePasswordScreen({ navigation }) {
       <PasswordInput
         label="Confirm Password"
         name="confirmPassword"
-        rules={{
-          required: 'Confirm Password is required',
-          validate: (value) => value === form.getValues().newPassword || 'Passwords must match',
-        }}
+        required
         textContentType="newPassword"
+        validate={useMatchValidator(form, 'newPassword', 'Passwords must match')}
       />
 
       <FormError

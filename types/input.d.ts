@@ -1,27 +1,69 @@
 import { InputProps as RneInputProps } from '@rneui/base';
-import { FormFieldProps, FieldValues } from './form';
+import { Mask } from 'react-native-mask-input';
+import { FieldValues, FormFieldProps, ValidateFn, ValidationRule, ValidationRules } from './form';
 
 /**
  * Properties for `Input` components.
+ *
+ * @param TFieldValues The type of the form data.
+ * @param TContext The type of the form context.
+ * @param TFieldName The form field name.
  */
-export interface InputProps extends RneInputProps, FormFieldProps {
+export interface InputProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = keyof TFieldValues
+> extends RneInputProps, FormFieldProps<TFieldValues, TContext, TFieldName>, ValidationRules<TFieldValues, TFieldName> {
 
   /**
-   * The minimum length of the password.
-   *
-   * If {@link rules} is given, this will be ignored.
+   * The mask to apply to the `Input`.
    */
-  minLength?: number;
+  mask?: Mask;
 
   /**
-   * The required validation state of the input.
-   * If given a non-empty `string`, the input will be required and the string will be used as the error message.
+   * The maximum value of a valid `Input` value.
+   */
+  max?: ValidationRule<number | string>;
+
+  /**
+   * The maximum length of a valid `Input` value.
+   */
+  maxLength?: ValidationRule<number>;
+
+  /**
+   * Whether the {@link maxLength} validation rule should limit the number of characters typed by the user.
    *
-   * If {@link rules} is given, this will be ignored.
+   * @default false
+   */
+  maxLengthLimitTyping?: boolean;
+
+  /**
+   * The minimum value of a valid `Input` value.
+   */
+  min?: ValidationRule<number | string>;
+
+  /**
+   * The minimum length of a valid `Input` value.
+   */
+  minLength?: ValidationRule<number>;
+
+  /**
+   * The pattern to match the `Input` value against.
+   */
+  pattern?: ValidationRule<RegExp>;
+
+  /**
+   * The required validation rule of the `Input`.
+   * If given a non-empty `string`, the `Input` will be required and the string will be used as the error message.
    *
    * @default `${label} is required`
    */
-  required?: boolean | string;
+  required?: Message | ValidationRule<boolean>;
+
+  /**
+   * The custom validation callback function to use for the `Input`.
+   */
+  validate?: ValidateFn<TFieldValues, TFieldName>;
 
 }
 
@@ -31,6 +73,13 @@ export interface InputProps extends RneInputProps, FormFieldProps {
 export interface EmailInputProps extends InputProps {
 
   keyboardType?: 'email-address';
+
+  /**
+   * The pattern to match the email address against.
+   *
+   * @default Constants.EMAIL_PATTERN
+   */
+  pattern?: ValidationRule<RegExp>;
 
   /**
    * @default 'emailAddress'
@@ -50,11 +99,11 @@ export interface PasswordInputProps extends InputProps {
   autoComplete?: 'current-password' | 'new-password';
 
   /**
-   * Whether to enable the password visibility toggle.
+   * Whether the password visibility toggle is enabled.
    *
    * @default true
    */
-  enablePasswordVisibilityToggle?: boolean;
+  isVisibilityToggleEnabled?: boolean;
 
   /**
    * @default 'default'
@@ -64,11 +113,9 @@ export interface PasswordInputProps extends InputProps {
   /**
    * The minimum length of the password.
    *
-   * If {@link rules} is given, this will be ignored.
-   *
    * @default 6
    */
-  minLength?: number;
+  minLength?: ValidationRule<number>;
 
   /**
    * @default 'password'
@@ -85,6 +132,13 @@ export interface PhoneInputProps extends InputProps {
   autoComplete?: 'tel';
 
   keyboardType?: 'phone-pad';
+
+  /**
+   * The pattern to match the phone number against.
+   *
+   * @default Constants.PHONE_PATTERN
+   */
+  pattern?: ValidationRule<RegExp>;
 
   textContentType?: 'telephoneNumber';
 

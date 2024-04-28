@@ -1,4 +1,5 @@
 import Input from '@components/input/Input';
+import { PASSWORD_MIN_LENGTH_RULE } from '@constants/validation';
 import PropTypes from 'prop-types';
 import { useMemo, useState } from 'react';
 
@@ -9,10 +10,7 @@ import { useMemo, useState } from 'react';
  * @returns {React.JSX.Element} The {@link PasswordInput} component.
  */
 export default function PasswordInput(props) {
-  const {
-    autoComplete, enablePasswordVisibilityToggle = true, label,
-    minLength = 6, required, rules, rulesErrorMessageMap, textContentType,
-  } = props;
+  const { autoComplete, isVisibilityToggleEnabled = true, textContentType } = props;
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const derivedAutoComplete = autoComplete
@@ -25,31 +23,8 @@ export default function PasswordInput(props) {
     ? 'password'
     : 'newPassword';
 
-  const derivedRules = useMemo(
-    () => rules ?? {
-      minLength,
-      required: (typeof required === 'string')
-        ? required
-        : required
-          ? `${label || 'Password'} is required`
-          : undefined,
-    },
-    [label, minLength, required, rules]
-  );
-
-  const derivedRulesErrorMessageMap = useMemo(
-    () => (rules
-      ? rulesErrorMessageMap
-      : {
-        minLength: `${label ?? 'Password'} must be at least ${minLength} characters`,
-        ...rulesErrorMessageMap,
-      }
-    ),
-    [label, minLength, rules, rulesErrorMessageMap]
-  );
-
   const passwordVisibleIcon = useMemo(
-    () => (enablePasswordVisibilityToggle
+    () => (isVisibilityToggleEnabled
       ? {
         color: passwordVisible ? 'green' : 'gray',
         name: passwordVisible ? 'eye' : 'eye-off',
@@ -59,7 +34,7 @@ export default function PasswordInput(props) {
       }
       : undefined
     ),
-    [enablePasswordVisibilityToggle, passwordVisible]
+    [isVisibilityToggleEnabled, passwordVisible]
   );
 
   return (
@@ -68,23 +43,18 @@ export default function PasswordInput(props) {
       autoCorrect={false}
       autoComplete={derivedAutoComplete}
       keyboardType={passwordVisible ? 'default' : 'visible-password'}
+      minLength={PASSWORD_MIN_LENGTH_RULE}
       secureTextEntry={!passwordVisible}
       textContentType={derivedTextContentType}
       rightIcon={passwordVisibleIcon}
       {...props}
-      rules={derivedRules}
-      rulesErrorMessageMap={derivedRulesErrorMessageMap}
     />
   );
 }
 
 PasswordInput.propTypes = {
   autoComplete: PropTypes.string,
-  enablePasswordVisibilityToggle: PropTypes.bool,
-  label: PropTypes.string,
-  minLength: PropTypes.number,
-  required: PropTypes.bool,
+  isVisibilityToggleEnabled: PropTypes.bool,
   rules: PropTypes.object,
-  rulesErrorMessageMap: PropTypes.object,
   textContentType: PropTypes.string,
 };

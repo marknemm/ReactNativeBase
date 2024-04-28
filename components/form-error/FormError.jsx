@@ -1,24 +1,27 @@
-/* eslint-disable react/destructuring-assignment */
-import { useFormErrorMessage } from '@hooks/form-hooks';
 import { Text } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
+import PropTypes from 'prop-types';
 import { useStyles } from './styles';
 
 /**
  * The {@link FormError} component.
  *
- * @param {Types.Form.FormErrorProps} props The component {@link Types.Form.FormErrorProps properties}.
+ * @param {object} props The component properties.
+ * @param {string} props.errorMessage The error message to display.
+ * @param {Types.StyleProp<Types.TextStyle>} props.style The custom {@link Types.TextStyle style}.
  * @returns {React.JSX.Element} The {@link FormError} component.
  */
-export default function FormError(props) {
-  const styles = useStyles();
-  const errorMessage = useFormErrorMessage(props);
+export default function FormError({ errorMessage, ...props }) {
+  const styles = useStyles(props);
 
   return errorMessage
     ? (
-      <Text style={[styles.formError, generalStyles.horizontalGutter, props.style]}>
+      <Text style={styles.formError}>
         {`${errorMessage}`}
       </Text>
     )
     : null; // Do not render anything if there is no error message.
 }
+
+FormError.propTypes = {
+  errorMessage: PropTypes.string,
+};

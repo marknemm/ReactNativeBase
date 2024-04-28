@@ -2,6 +2,121 @@ import { useCallback, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 /**
+ * Custom hook to derive the form control.
+ *
+ * @param {Object} props The form field component properties.
+ * @param {Types.Form.Control} [props.control] The form {@link Types.Form.Control control}.
+ * @param {string} [props.name=''] The name of the form {@link Types.Form.Control control}.
+ * @returns {Types.Form.Control} The form {@link Types.Form.Control control}.
+ * @throws {Error} The name property is required when using form controls.
+ */
+export function useFormControl({ control, name = '' }) {
+  const form = useFormContext();
+
+  if (!control && form) {
+    control = form.control;
+  }
+
+  if (control && !name) {
+    throw new Error('The name property is required when using form controls.');
+  }
+
+  return control;
+}
+
+/**
+ * Custom hook to derive form error messages.
+ *
+ * @param {Types.Form.ValidationRules} rules The form field {@link Types.Form.ValidationRules ValidationRules}.
+ * @param {object} props The form field component properties.
+ * @param {string} [props.errorMessage=''] The custom error message.
+ * @param {string} [props.name=''] The name of the form field.
+ * @returns {string} The error message.
+ */
+export function useFormErrorMessage(rules, { errorMessage = '', name = '' }) {
+  const form = useFormContext();
+  const error = form?.formState.errors[name];
+
+  return useMemo(() => {
+    let derivedErrorMessage = errorMessage;
+
+    // Derive error message if not explicitly set
+    if (!derivedErrorMessage && error) {
+      // Derive error message from rules messages
+      derivedErrorMessage = error.message?.toString();
+
+      // Derive default error message from error type
+      if (!derivedErrorMessage) {
+        switch (error.type) {
+          case 'required':
+            derivedErrorMessage = 'This field is required';
+            break;
+          case 'min':
+            derivedErrorMessage = rules?.min != null
+              ? `This value must be at least ${rules.min}`
+              : 'This value is too small';
+            break;
+          case 'max':
+            derivedErrorMessage = rules?.max != null
+              ? `This value must be at most ${rules.max}`
+              : 'This value is too large';
+            break;
+          case 'minLength':
+            derivedErrorMessage = rules?.minLength != null
+              ? `Must be at least ${rules.minLength} characters`
+              : 'The character count is too small';
+            break;
+          case 'maxLength':
+            derivedErrorMessage = rules?.maxLength != null
+              ? `Must be at most ${rules.maxLength} characters`
+              : 'The character count is too large';
+            break;
+          case 'pattern':
+          default:
+            derivedErrorMessage = 'The value does not match the expected pattern';
+            break;
+        }
+      }
+    }
+
+    return derivedErrorMessage ?? '';
+  }, [error, errorMessage, rules]);
+}
+
+/**
+ * Custom hook to derive a memoized form field {@link Types.Form>validationRule ValidationRule}
+ * object with {@link value} and {@link message} members.
+ *
+ * @template TValidationValue The validation rule value type.
+ * @param {Object} props The form field validation rule properties.
+ * @param {TValidationValue} props.value The validation rule value.
+ * @param {Types.Form.Message} props.message The validation rule message.
+ * @returns {Types.Form.ValidationValueMessage<TValidationValue>} The memoized form field {@link Types.Form.ValidationRule ValidationRule}.
+ */
+export function useValidationRule({ value, message }) {
+  return useMemo(() => ({
+    value,
+    message,
+  }), [value, message]);
+}
+
+/**
+ * Custom hook to derive a memoized form field match validator.
+ *
+ * @template {Types.Form.FieldValues} TFieldValues The form field values type.
+ * @template {Types.Form.FieldPath<TFieldValues>} TFieldName The form field name type.
+ * @param {Types.Form.UseFormReturn<TFieldValues>} form The {@link Types.Form.UseFormReturn Form} instance.
+ * @param {TFieldName} fieldName The name of the form field to match.
+ * @param {string} [message=`${fieldName} must match`] The error message. Defaults to `${fieldName} must match`.
+ * @returns {Types.Form.ValidateFn<TFieldValues, TFieldName>} The form field match validator function.
+ */
+export function useMatchValidator(form, fieldName, message = '') {
+  return useCallback((value) =>
+    value === form.getValues(fieldName) || message || `${fieldName} must match`,
+  [message, fieldName, form]);
+}
+
+/**
  * Custom hook to generate {@link SubmitState} for a submittable form.
  *
  * @template {Types.Form.FieldValues} TFieldValues The form field values type.
@@ -62,77 +177,50 @@ export function useSubmitState(form, onSubmitSuccess) {
 }
 
 /**
- * Custom hook to derive the form control.
+ * Custom hook to generate memoized validation rules with default messages.
  *
- * @param {Object} props The component properties.
- * @param {Types.Form.Control} [props.control] The form {@link Types.Form.Control control}.
- * @param {string} [props.name=''] The name of the form {@link Types.Form.Control control}.
- * @returns {Types.Form.Control} The form {@link Types.Form.Control control}.
- * @throws {Error} The name property is required when using form controls.
+ * @param {Types.Form.ValidationRules} rules The form {@link Types.Form.ValidationRules ValidationRules}.
+ * @param {string} [label] The form field label, used in default messages.
+ * @returns {Types.Form.ValidationRules} The memoized form {@link Types.Form.ValidationRules ValidationRules}.
  */
-export function useFormControl({ control, name = '' }) {
-  const form = useFormContext();
-
-  if (!control && form) {
-    control = form.control;
-  }
-
-  if (control && !name) {
-    throw new Error('The name property is required when using form controls.');
-  }
-
-  return control;
-}
-
-/**
- * Custom hook to derive form error messages.
- *
- * @param {Types.Form.FormFieldProps} props The component {@link Types.Form.FormFieldProps properties}.
- * @returns {string} The error message.
- */
-export function useFormErrorMessage({ errorMessage = '', rulesErrorMessageMap, errors, name = '', rules }) {
-  const form = useFormContext();
-  const error = errors ? errors[name] : form?.formState.errors[name];
-
-  if (!errorMessage && error) {
-    errorMessage = error.message?.toString();
-
-    if (!errorMessage && rulesErrorMessageMap) {
-      errorMessage = rulesErrorMessageMap[error.type.toString()];
-    }
-
-    if (!errorMessage) {
-      switch (error.type) {
-        case 'required':
-          errorMessage = 'This field is required';
-          break;
-        case 'min':
-          errorMessage = rules?.min != null
-            ? `The value must be at least ${rules.min}`
-            : 'The value is too small';
-          break;
-        case 'max':
-          errorMessage = rules?.max != null
-            ? `The value must be at most ${rules.max}`
-            : 'The value is too large';
-          break;
-        case 'minLength':
-          errorMessage = rules?.minLength != null
-            ? `Must be at least ${rules.minLength} characters`
-            : 'The character count is too small';
-          break;
-        case 'maxLength':
-          errorMessage = rules?.maxLength != null
-            ? `Must be at most ${rules.maxLength} characters`
-            : 'The character count is too large';
-          break;
-        case 'pattern':
-        default:
-          errorMessage = 'The value does not match the expected pattern';
-          break;
+export function useValidationRules({ max, maxLength, min, minLength, pattern, required, validate }, label = '') {
+  return useMemo(() => ({
+    max: (typeof max === 'number')
+      ? {
+        message: `${label || 'This value'} must be at most ${max}`,
+        value: max,
       }
-    }
-  }
-
-  return errorMessage ?? '';
+      : max,
+    maxLength: (typeof maxLength === 'number')
+      ? {
+        message: `${label || 'This value'} must be at most ${maxLength} characters`,
+        value: maxLength,
+      }
+      : maxLength,
+    min: (typeof min === 'number')
+      ? {
+        message: `${label || 'This value'} must be at least ${min}`,
+        value: min,
+      }
+      : min,
+    minLength: (typeof minLength === 'number')
+      ? {
+        message: `${label || 'This value'} must be at least ${minLength} characters`,
+        value: minLength,
+      }
+      : minLength,
+    pattern: (pattern instanceof RegExp)
+      ? {
+        message: `${label || 'This value'} does not match the expected pattern`,
+        value: pattern,
+      }
+      : pattern,
+    required: (required === true)
+      ? {
+        message: `${label || 'This field'} is required`,
+        value: true,
+      }
+      : required,
+    validate,
+  }), [label, max, maxLength, min, minLength, pattern, required, validate]);
 }

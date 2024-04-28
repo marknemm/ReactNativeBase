@@ -198,6 +198,7 @@ module.exports = {
     'react/jsx-max-props-per-line': 'warn',                     // Enable the warning about the maximum number of props per line in JSX
     'react/jsx-no-useless-fragment': 'warn',                    // Enable the warning about using useless fragments in JSX
     'react/jsx-one-expression-per-line': 'off',                 // Disable the rule that enforces one expression per line in JSX
+    'react/jsx-props-no-multi-spaces': 'warn',                  // Enable the warning about prop spacing in JSX
     'react/jsx-props-no-spreading': 'off',                      // Disable the rule that prevents spreading props
     'react/jsx-tag-spacing': 'warn',                            // Enable the warning about tag spacing in JSX
     'react/jsx-wrap-multilines': 'warn',                        // Enable the warning about wrapping multiline JSX
