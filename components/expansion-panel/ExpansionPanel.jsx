@@ -1,6 +1,6 @@
+import { useControlledToggleState } from '@hooks/misc-hooks';
 import { ListItem } from '@rneui/themed';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
 
 /**
  * The {@link ExpansionPanel} component.
@@ -15,19 +15,7 @@ import { useCallback, useEffect, useState } from 'react';
  * @returns {React.JSX.Element} The {@link ExpansionPanel} component.
  */
 export function ExpansionPanel({ children, expanded = false, onPress, title }) {
-  const [expandedState, setExpandedState] = useState(expanded);
-
-  // Sync expanded state with expanded prop
-  useEffect(() => {
-    setExpandedState(expanded);
-  }, [expanded]);
-
-  // Memoize onPress callback and auto toggle expanded state
-  const onPressCb = useCallback((event) => {
-    onPress?.(event);
-    if (event.isDefaultPrevented()) return;
-    setExpandedState((state) => !state);
-  }, [onPress]);
+  const [expandedState, toggleExpandedState] = useControlledToggleState(expanded, onPress);
 
   return (
     <ListItem.Accordion
@@ -39,7 +27,7 @@ export function ExpansionPanel({ children, expanded = false, onPress, title }) {
         </ListItem.Content>
       )}
       isExpanded={expandedState}
-      onPress={onPressCb}
+      onPress={toggleExpandedState}
     >
       { children }
     </ListItem.Accordion>

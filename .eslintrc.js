@@ -189,6 +189,7 @@ module.exports = {
     'prefer-template': 'warn',                                  // Enable the warning about using template literals
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
     'radix': 'warn',                                            // Enable the warning about using radix
+    'react-hooks/exhaustive-deps': 'warn',                      // Enable the warning about exhaustive dependencies
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
     'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
     'react/jsx-boolean-value': 'warn',                          // Enable the warning about boolean values in JSX

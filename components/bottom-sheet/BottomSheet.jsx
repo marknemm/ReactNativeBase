@@ -1,6 +1,6 @@
 import Backdrop from '@components/backdrop/Backdrop';
 import { CLOSE_ICON } from '@constants/icons';
-import { useCallbacks } from '@hooks/callbacks';
+import { useCallbacks } from '@hooks/misc-hooks';
 import { useModal } from '@hooks/modal-hooks';
 import { Button, BottomSheet as RneBottomSheet, Text } from '@rneui/themed';
 import PropTypes from 'prop-types';
