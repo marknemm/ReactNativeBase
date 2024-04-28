@@ -148,7 +148,11 @@ module.exports = {
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
-    'no-unused-vars': 'warn',                                   // Enable the warning about unused variables
+    'no-unused-vars': ['warn', {                                // Enable the warning about unused variables
+      args: 'after-used',                                       // Check for unused arguments after the last used argument
+      caughtErrors: 'none',                                     // Do not check for unused caught errors
+      varsIgnorePattern: '^[A-Z]|^_',                           // Ignore variables (type / class imports) that start with an uppercase letter or an underscore
+    }],
     'no-useless-constructor': 'off',                            // Enable the warning about useless constructors
     'no-useless-return': 'warn',                                // Enable the warning about useless return statements
     'no-use-before-define': ['warn', {                          // Enable the warning about using variables before they are defined

@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
  * @param {React.ReactNode} props.children The children components that will be placed in the dialog body.
  * @param {boolean} [props.isVisible=false] The visibility of the dialog.
  * @param {() => void} [props.onClose=() => {}] The function to call when the dialog is closed.
- * @param {string} [props.title=''] The title of the dialog.
+ * @param {React.ReactNode | string} [props.title=''] The title of the dialog.
  * @returns {React.JSX.Element} The {@link InfoDialog} component.
  */
-export default function InfoDialog({ children, isVisible = false, onClose = () => {}, title = '' }) {
+export default function InfoDialog({ children, isVisible = false, onClose, title = '' }) {
   return (
     <Dialog
       isVisible={isVisible}

@@ -13,8 +13,8 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link Camera} component.
  */
 export default function Camera(props) {
+  const { device, isActive, position } = props;
   const styles = useStyles(props);
-  const { device, isActive, position, style } = props;
   const cameraDevice = useCameraDevice(position || 'back');
   const isFocused = useIsFocused();
   const appState = useAppState();
@@ -35,7 +35,7 @@ export default function Camera(props) {
         {...props}
         device={device ?? cameraDevice}
         isActive={isActive && isFocused && appState === 'active'}
-        style={[styles.camera, style]}
+        style={styles.camera}
       />
     </GestureDetector>
   );

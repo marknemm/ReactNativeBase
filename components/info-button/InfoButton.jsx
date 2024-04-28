@@ -11,7 +11,7 @@ import { useState } from 'react';
  * @param {string} [props.backgroundColor='transparent'] The background color of the info button.
  * @param {string} [props.color='black'] The color of the info button.
  * @param {React.ReactNode} [props.children] The info dialog content.
- * @param {string} [props.dialogTitle=''] The title of the info dialog.
+ * @param {React.ReactNode | string} [props.dialogTitle=''] The title of the info dialog.
  * @param {boolean} [props.disabled=false] Whether the info button is disabled.
  * @param {(event: import('react-native').GestureResponderEvent) => void} [props.onPress=() => {}] The function to call when the info button is pressed.
  * @param {number} [props.size=24] The size of the info button.
@@ -24,7 +24,7 @@ export default function InfoButton({
   children,
   dialogTitle = '',
   disabled = false,
-  onPress = () => {},
+  onPress,
   size = 24,
   style = {},
 }) {
@@ -56,7 +56,7 @@ export default function InfoButton({
           if (infoDialog) {
             setInfoDialogVisible(true);
           }
-          onPress(event);
+          onPress?.(event);
         }}
         radius={size}
       />

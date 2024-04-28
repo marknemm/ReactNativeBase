@@ -12,11 +12,6 @@ module.exports = {
     'eslint:recommended',
     'google',
   ],
-  plugins: [
-    'jsdoc',                  // Linting for JSDoc comments
-    'no-floating-promise',    // Linting for floating promises
-    'prefer-arrow-functions', // Linting for arrow function expressions
-  ],
   rules: {
     ...Object.keys(rules) // Merge in the rules from the root .eslintrc.js
         // Filter out rules that are not applicable to this project

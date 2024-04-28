@@ -10,8 +10,10 @@ export { Device, State };
 export class BleManager {
 
   #bleManager = new _BleManager();
+
   /** @type {Map<string, Device>} */
   #connectedDevices = new Map();
+
   /** @type {Promise<Map<string, Device>>} */
   #connectedDevicesPromise = this.#reconnectDevices().catch((err) => {
     logErr(err);
@@ -103,7 +105,7 @@ export class BleManager {
         this.startDeviceScan(listener, UUIDs, options); // Must restart on error, will stop any previous scan
       } else if (device) {
         const isPaired = isDevicePaired(device.id);
-        if (isPaired && !(await device.isConnected())) {
+        if (isPaired && !await device.isConnected()) {
           await this.getConnectedDevices(); // Ensure connected devices are up-to-date
         }
         listener(device);

@@ -33,7 +33,7 @@ export default function EmailVerification(props) {
         <Icon name={verifiedIcon} iconStyle={styles.icon} />
         <Text>{verifiedText}</Text>
 
-        {!user?.emailVerified && (
+        {!user.emailVerified && (
           <Button
             loading={submitting}
             onPress={handleSubmitState(() => user.sendEmailVerification())}

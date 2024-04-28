@@ -3,7 +3,7 @@ import { reloadAuthUser } from '@util/auth';
 import { listenDBDoc } from '@util/db';
 import { User } from '@util/user';
 import { useEffect, useRef, useState } from 'react';
-import { useUser } from './user-hooks';
+import { useUser } from './user-hooks'; // eslint-disable-line no-unused-vars
 
 /**
  * A hook that gets the current authenticated {@link User} and its loading state.

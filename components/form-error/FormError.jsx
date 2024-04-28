@@ -7,10 +7,11 @@ import { useStyles } from './styles';
  *
  * @param {object} props The component properties.
  * @param {string} props.errorMessage The error message to display.
- * @param {Types.StyleProp<Types.TextStyle>} props.style The custom {@link Types.TextStyle style}.
+ * @param {Types.StyleProp<Types.TextStyle>} [props.style] The custom {@link Types.TextStyle style}.
  * @returns {React.JSX.Element} The {@link FormError} component.
  */
-export default function FormError({ errorMessage, ...props }) {
+export default function FormError(props) {
+  const { errorMessage } = props;
   const styles = useStyles(props);
 
   return errorMessage

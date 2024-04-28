@@ -12,11 +12,12 @@ export function useModal(isVisible, renderModal) {
   const destroyRef = useRef(() => {});
 
   useEffect(() => {
-    (isVisible)
+    isVisible
       ? destroyRef.current = showModal(renderModal)
       : destroyRef.current();
 
     return destroyRef.current;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 
   return destroyRef.current;

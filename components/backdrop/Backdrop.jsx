@@ -8,8 +8,9 @@ import { useStyles } from './styles';
  * @param {Types.Modal.BackdropProps} props The component {@link Types.Modal.BackdropProps properties}.
  * @returns {React.JSX.Element} The {@link Backdrop} component.
  */
-export default function Backdrop({ isVisible = true, onPress, style }) {
-  const styles = useStyles({ style });
+export default function Backdrop(props) {
+  const { isVisible = true, onPress } = props;
+  const styles = useStyles(props);
 
   return isVisible && (
     <Animated.View

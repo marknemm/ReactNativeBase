@@ -30,7 +30,7 @@ export function genTheme(colorScheme = Appearance.getColorScheme() ?? 'light') {
         overlayStyle: {
           maxHeight: '90%',
         },
-      }
+      },
     },
   });
 }
