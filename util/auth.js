@@ -26,6 +26,63 @@ export function hasSignInProvider(providerId) {
 }
 
 /**
+ * Links an Apple account to the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves when the Apple account is linked.
+ */
+export async function linkWithApple() {
+  let authCredential, email;
+  log('Linking with Apple');
+
+  try {
+    ({ authCredential, email } = await authApple());
+    await linkWithCredential(authCredential, email);
+  } catch (error) {
+    await handleAppleAuthError(error, email, authCredential);
+  }
+
+  return auth().currentUser;
+}
+
+/**
+ * Links a Facebook account to the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves when the Facebook account is linked.
+ */
+export async function linkWithFacebook() {
+  let authCredential, email;
+  log('Linking with Facebook');
+
+  try {
+    ({ authCredential, email } = await authFacebook());
+    await linkWithCredential(authCredential, email);
+  } catch (error) {
+    await handleFacebookAuthError(error, email, authCredential);
+  }
+
+  return auth().currentUser;
+}
+
+/**
+ * Links a Google account to the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that resolves when the Google account is linked.
+ */
+export async function linkWithGoogle() {
+  let authCredential, email;
+  log('Linking with Google');
+
+  try {
+    ({ authCredential, email } = await authGoogle());
+    await linkWithCredential(authCredential, email);
+  } catch (error) {
+    await handleGoogleAuthError(error, email, authCredential);
+  }
+
+  return auth().currentUser;
+}
+
+/**
  * Reloads the current authenticated {@link FirebaseAuthTypes.User}.
  *
  * @returns {Promise<void>} A promise that resolves when the user is reloaded.
@@ -86,25 +143,10 @@ export async function signInWithApple() {
   log('Signing in with Apple');
 
   try {
-    // Present modal to sign into Apple account with email and full name permissions
-    const appleCredential = await signInAsync({
-      requestedScopes: [
-        AppleAuthenticationScope.EMAIL,
-        AppleAuthenticationScope.FULL_NAME,
-      ],
-    });
-
-    // Create Apple credential with Apple identity token
-    authCredential = auth.AppleAuthProvider.credential(appleCredential.identityToken);
-    email = appleCredential.email; // Will be null if not first time signing in with Apple
-
-    // Sign-in the user with the Apple auth credential
+    ({ authCredential, email } = await authApple());
     await signInWithCredential(authCredential, email);
   } catch (error) {
-    switch (error.code) {
-      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
-      default:                      await handleAuthError(error, email, authCredential);
-    }
+    await handleAppleAuthError(error, email, authCredential);
   }
 
   return auth().currentUser;
@@ -152,28 +194,10 @@ export async function signInWithFacebook(loginError, loginResult) {
   try {
     if (loginError) logThrowErr(loginError); // If external sign in button produced error, throw it
 
-    // Present modal to sign into Facebook account with public profile and email permissions
-    loginResult ??= await LoginManager.logInWithPermissions(['public_profile', 'email']);
-    if (loginResult.isCancelled) {
-      throw new CodedError('Sign in request cancelled', { code: 'ERR_REQUEST_CANCELLED' });
-    }
-
-    // Get Facebook access token upon successful sign in and create a Facebook credential with it
-    const data = await AccessToken.getCurrentAccessToken();
-    if (!data) {
-      throw new Error('Something went wrong obtaining access token');
-    }
-    authCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-    email = await getFBEmail(); // Have to use custom instead of Profile.getCurrentProfile() due to Android SDK limitations
-
-    // Sign-in the user with the Facebook credential
+    ({ authCredential, email } = await authFacebook(loginResult));
     await signInWithCredential(authCredential, email);
   } catch (error) {
-    LoginManager.logOut();
-    switch (error.code) {
-      case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
-      default:                      await handleAuthError(error, email, authCredential);
-    }
+    await handleFacebookAuthError(error, email, authCredential);
   }
 
   return auth().currentUser;
@@ -189,22 +213,10 @@ export async function signInWithGoogle() {
   log('Signing in with Google');
 
   try {
-    // Show Play services update dialog on Android since must be up-to-date to show sign-in modal
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-
-    // Present modal to sign into Gmail account and create Google credential with Gmail ID token
-    const { idToken, user } = await GoogleSignin.signIn();
-    authCredential = auth.GoogleAuthProvider.credential(idToken);
-    email = user.email;
-
+    ({ authCredential, email } = await authGoogle());
     await signInWithCredential(authCredential, email);
   } catch (error) {
-    switch (error.code) {
-      case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled sign in, do not present visible error
-      case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
-      case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
-      default:                                      await handleAuthError(error, email, authCredential);
-    }
+    await handleGoogleAuthError(error, email, authCredential);
   }
 
   return auth().currentUser;
@@ -308,6 +320,75 @@ export async function updatePassword(currentPassword, newPassword) {
 // --- PRIVATE HELPER FUNCTIONS --- //
 
 /**
+ * Authenticates with Apple and retrieves the Apple auth credential.
+ *
+ * @returns {Promise<{authCredential: FirebaseAuthTypes.AuthCredential, email: string }>}
+ * A promise that resolves to the Apple {@link FirebaseAuthTypes.AuthCredential AuthCredential} and email address.
+ */
+async function authApple() {
+  // Present modal to sign into Apple account with email and full name permissions
+  const appleCredential = await signInAsync({
+    requestedScopes: [
+      AppleAuthenticationScope.EMAIL,
+      AppleAuthenticationScope.FULL_NAME,
+    ],
+  });
+
+  // Create Apple credential with Apple ID token
+  return {
+    authCredential: auth.AppleAuthProvider.credential(appleCredential.identityToken),
+    email: appleCredential.email, // Will be null if not first time signing in with Apple
+  };
+}
+
+/**
+ * Authenticates with Facebook and retrieves the Facebook auth credential.
+ *
+ * @param {import('react-native-fbsdk-next').LoginResult} [loginResult] The Facebook sign in result. If not given, will prompt user to sign in.
+ * @returns {Promise<{authCredential: FirebaseAuthTypes.AuthCredential, email: string }>}
+ * A promise that resolves to the Facebook {@link FirebaseAuthTypes.AuthCredential AuthCredential} and email address.
+ */
+async function authFacebook(loginResult) {
+  // Present modal to sign into Facebook account with public profile and email permissions
+  loginResult ??= await LoginManager.logInWithPermissions(['public_profile', 'email']);
+  if (loginResult.isCancelled) {
+    throw new CodedError('Sign in request cancelled', { code: 'ERR_REQUEST_CANCELLED' });
+  }
+
+  // Get Facebook access token upon successful sign in
+  const data = await AccessToken.getCurrentAccessToken();
+  if (!data) {
+    throw new Error('Something went wrong obtaining access token');
+  }
+
+  // Create Facebook credential with Facebook access token
+  return {
+    authCredential: auth.FacebookAuthProvider.credential(data.accessToken),
+    email: await getFBEmail(), // Have to use custom instead of Profile.getCurrentProfile() due to Android SDK limitations
+  };
+}
+
+/**
+ * Authenticates with Google and retrieves the Google auth credential.
+ *
+ * @returns {Promise<{authCredential: FirebaseAuthTypes.AuthCredential, email: string }>}
+ * A promise that resolves to the Google {@link FirebaseAuthTypes.AuthCredential AuthCredential} and email address.
+ */
+async function authGoogle() {
+  // Show Play services update dialog on Android since must be up-to-date to show sign-in modal
+  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+  // Present modal to sign into Google account
+  const { idToken, user } = await GoogleSignin.signIn();
+
+  // Create Google credential with Google ID token
+  return {
+    authCredential: auth.GoogleAuthProvider.credential(idToken),
+    email: user.email,
+  };
+}
+
+/**
  * Handles {@link FirebaseAuthTypes.AuthCredential AuthCredential} sign in.
  * Handles case where account already exists with email/password by linking accounts.
  *
@@ -331,6 +412,57 @@ async function signInWithCredential(authCredential, email) {
     : await auth().signInWithCredential(authCredential);
 
   log('Signed in with:', authCredential.providerId);
+}
+
+/**
+ * Handles an Apple authentication error based on the error code.
+ *
+ * @param {CodedError} error The authentication {@link CodedError error}.
+ * @param {string} email The email address of the account.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for the failed authentication.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that typically rejects with an error message based on the error code.
+ * If the error code is equivalent to `auth/email-already-in-use`, if account link is successful, the promise resolves to the linked {@link FirebaseAuthTypes.User}.
+ */
+async function handleAppleAuthError(error, email, authCredential) {
+  switch (error.code) {
+    case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
+    default:                      return handleAuthError(error, email, authCredential);
+  }
+}
+
+/**
+ * Handles a Facebook authentication error based on the error code.
+ *
+ * @param {CodedError} error The authentication {@link CodedError error}.
+ * @param {string} email The email address of the account.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for the failed authentication.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that typically rejects with an error message based on the error code.
+ * If the error code is equivalent to `auth/email-already-in-use`, if account link is successful, the promise resolves to the linked {@link FirebaseAuthTypes.User}.
+ */
+async function handleFacebookAuthError(error, email, authCredential) {
+  LoginManager.logOut();
+  switch (error.code) {
+    case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
+    default:                      return handleAuthError(error, email, authCredential);
+  }
+}
+
+/**
+ * Handles a Google authentication error based on the error code.
+ *
+ * @param {CodedError} error The authentication {@link CodedError error}.
+ * @param {string} email The email address of the account.
+ * @param {FirebaseAuthTypes.AuthCredential} authCredential The auth credential used for the failed authentication.
+ * @returns {Promise<FirebaseAuthTypes.User>} A promise that typically rejects with an error message based on the error code.
+ * If the error code is equivalent to `auth/email-already-in-use`, if account link is successful, the promise resolves to the linked {@link FirebaseAuthTypes.User}.
+ */
+async function handleGoogleAuthError(error, email, authCredential) {
+  switch (error.code) {
+    case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled sign in, do not present visible error
+    case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
+    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
+    default:                                      return handleAuthError(error, email, authCredential);
+  }
 }
 
 /**
@@ -367,6 +499,7 @@ async function handleAuthError(error, email, authCredential, authAction = 'Sign 
  */
 async function linkWithCredential(authCredential, email) {
   log('Attempting to link accounts');
+  email ??= auth().currentUser?.email ?? getLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY);
 
   // Get current account(s) / sign-in method(s) and check if account already exists
   const signInMethods = await auth().fetchSignInMethodsForEmail(email);
@@ -374,13 +507,15 @@ async function linkWithCredential(authCredential, email) {
     throw new CodedError('Account already exists, please sign in instead', { code: 'auth/provider-already-linked' });
   }
 
-  // Sign in with the first available provider of existing account to link with new account
-  try {
-    await signInWithProvider(signInMethods[0], email,
-      `Sign in to link your ${getProviderName(authCredential)} account`);
-  } catch (error) {
-    logErr('Failed to sign in with existing account:', error);
-    throw new CodedError('Failed to link accounts, please try again', { code: 'auth/link-failed' });
+  // If not already signed in, sign in with first available provider of existing account to link with new account
+  if (!auth().currentUser) {
+    try {
+      await signInWithProvider(signInMethods[0], email,
+        `Sign in to link your ${getProviderName(authCredential)} account`);
+    } catch (error) {
+      logErr('Failed to sign in with existing account:', error);
+      throw new CodedError('Failed to link accounts, please try again', { code: 'auth/link-failed' });
+    }
   }
 
   try {

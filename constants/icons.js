@@ -11,12 +11,32 @@ export const ADD_ICON = {
 };
 
 /**
+ * Apple {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const APPLE_ICON = {
+  name: 'apple',
+  type: 'material-community',
+};
+
+/**
  * Camera {@link IconProps icon props}.
  *
  * @type {IconProps}
  */
 export const CAMERA_ICON = {
   name: 'camera-alt',
+  type: 'material',
+};
+
+/**
+ * Check {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const CHECK_ICON = {
+  name: 'check',
   type: 'material',
 };
 
@@ -38,6 +58,36 @@ export const CLOSE_ICON = {
 export const DEVICES_ICON = {
   name: 'extension',
   type: 'material',
+};
+
+/**
+ * Facebook {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const FACEBOOK_ICON = {
+  name: 'facebook',
+  type: 'material-community',
+};
+
+/**
+ * Gmail {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const GMAIL_ICON = {
+  name: 'gmail',
+  type: 'material-community',
+};
+
+/**
+ * Google {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const GOOGLE_ICON = {
+  name: 'google',
+  type: 'material-community',
 };
 
 /**

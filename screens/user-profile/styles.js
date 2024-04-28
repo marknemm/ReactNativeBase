@@ -12,4 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   emailVerification: {
     marginBottom: verticalGutter,
   },
+  checkIcon: {
+    color: theme.colors.success,
+  },
 }));
