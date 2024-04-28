@@ -2,6 +2,21 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { User } from '@util/user';
 import { ModalProps } from './modal';
 import { TextStyle } from 'react-native';
+import { ConfigureParams } from '@react-native-google-signin/google-signin';
+
+/**
+ * The authentication options.
+ *
+ * @extends ConfigureParams GoogleSignin configuration options.
+ */
+interface AuthOptions extends ConfigureParams {
+
+  /**
+   * The component to use when prompting the user to sign in via modal dialog.
+   */
+  SignInModal: React.FunctionComponent<SignInModalProps>;
+
+}
 
 /**
  * Authentication state for a {@link User}.

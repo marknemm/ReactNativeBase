@@ -1,4 +1,3 @@
-import SignInModal from '@components/sign-in-modal/SignInModal';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
@@ -11,7 +10,18 @@ import { getFBEmail } from './facebook';
 import { getLSItem } from './local-storage';
 import { showModalAsync } from './modal';
 
-GoogleSignin.configure();
+/** @type {Types.Auth.AuthOptions} */
+let authOptions;
+
+/**
+ * Initializes the authentication service with the given options.
+ *
+ * @param {Types.Auth.AuthOptions} options The {@link Types.Auth.AuthOptions AuthOptions}.
+ */
+export function initAuth(options) {
+  authOptions = options;
+  GoogleSignin.configure(options);
+}
 
 /**
  * Determines if a given sign-in provider is linked to the current {@link FirebaseAuthTypes.User user}.
@@ -167,7 +177,7 @@ export async function signInWithEmailAndPassword(email, password, signInPrompt =
   try {
     password
       ? await auth().signInWithEmailAndPassword(email, password)
-      : await showModalAsync(SignInModal, { // If no password, then show sign-in modal.
+      : await showModalAsync(authOptions.SignInModal, { // If no password, then show sign-in modal.
         isPasswordOnly: true,
         prompt: signInPrompt,
         readOnlyEmail: email,

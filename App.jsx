@@ -1,3 +1,4 @@
+import SignInModal from '@components/sign-in-modal/SignInModal';
 import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
 import UserProvider from '@contexts/user/UserProvider';
 import { useAuthState } from '@hooks/auth-hooks';
@@ -5,6 +6,7 @@ import { useThemeGenerator } from '@hooks/theme-hooks';
 import NavigationRoot from '@navigation/NavigationRoot';
 import { ThemeProvider } from '@rneui/themed';
 import { genTheme } from '@styles/theme';
+import { initAuth } from '@util/auth';
 import { initFirebaseEnv } from '@util/firebase';
 import { initKeyboardConfig } from '@util/keyboard';
 import * as SplashScreen from 'expo-splash-screen';
@@ -17,6 +19,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 SplashScreen.preventAutoHideAsync(); // Prevent splash screen from hiding until App component is rendered.
 initFirebaseEnv();                   // Initialize Firebase environment - mods backend host to simulator for local dev env.
 initKeyboardConfig();                // Initialize app-wide keyboard features.
+initAuth({ SignInModal });           // Initialize authentication.
 
 /**
  * The main application component.
