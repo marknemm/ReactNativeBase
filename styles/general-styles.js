@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 
 /**
  * The horizontal padding for screen gutter.
  */
-export const horizontalGutter = 10;
+export const horizontalGutter = moderateScale(10);
 
 /**
  * The vertical padding for screen gutter.
  */
-export const verticalGutter = 20;
+export const verticalGutter = moderateScale(20);
 
 /**
  * General styles.
@@ -59,12 +60,19 @@ export const generalStyles = StyleSheet.create({
   fill: {
     width: '100%',
   },
+  fillButton: {
+    marginHorizontal: horizontalGutter,
+    width: 'auto',
+  },
   flexItem: {
     flex: 1,
   },
   flexEndItem: {
     flex: 1,
     justifyContent: 'flex-end',
+  },
+  formField: {
+    marginBottom: verticalGutter / 3,
   },
   gutter: {
     paddingHorizontal: horizontalGutter,
@@ -94,8 +102,13 @@ export const generalStyles = StyleSheet.create({
   screenContainer: {
     flexGrow: 1,
   },
+  submitButton: {
+    marginBottom: verticalGutter / 2,
+    marginHorizontal: horizontalGutter,
+    width: 'auto',
+  },
   submitError: {
-    marginTop: 10,
+    marginTop: verticalGutter / 2,
     textAlign: 'center',
   },
   topGutter: {

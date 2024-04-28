@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme, props) => ({
     color: props.user?.emailVerified
       ? theme.colors.success
       : theme.colors.error,
-    marginRight: 5,
+    marginRight: horizontalGutter / 2,
   },
   resendButton: {
     textAlign: 'left',

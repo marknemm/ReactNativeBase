@@ -30,11 +30,11 @@ export default function BleDeviceList({ title = 'Detected Devices' }) {
   return (
     <View>
       <FlatList
-        ListHeaderComponent={<BleDeviceListHeader title={title} />}
-        ListEmptyComponent={<Text>No devices found</Text>}
         data={availableBleDevices}
-        renderItem={({ item }) => <BleDeviceListItem bleDevice={item} />}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={<Text>No devices found</Text>}
+        ListHeaderComponent={<BleDeviceListHeader title={title} />}
+        renderItem={({ item }) => <BleDeviceListItem bleDevice={item} />}
       />
     </View>
   );
@@ -97,7 +97,9 @@ function BleDeviceListItem({ bleDevice }) {
   return (
     <View style={styles.bleDeviceListItem}>
       <View style={styles.bleDeviceNameInfoContainer}>
-        <Text style={styles.bleDeviceName}>{ bleDevice.localName ?? bleDevice.name }</Text>
+        <Text style={styles.bleDeviceName}>
+          { bleDevice.localName ?? bleDevice.name }
+        </Text>
         <InfoButton>
           <BleDevice bleDevice={bleDevice} />
         </InfoButton>

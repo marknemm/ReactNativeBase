@@ -9,7 +9,6 @@ import { generalStyles } from '@styles/general-styles';
 import { signUp } from '@util/auth';
 import { setLSItem } from '@util/local-storage';
 import { useForm } from 'react-hook-form';
-import { useStyles } from './styles';
 
 /**
  * Sign up screen.
@@ -19,7 +18,6 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The sign up screen.
  */
 export default function SignUpScreen({ navigation }) {
-  const styles = useStyles();
   const form = useForm({
     defaultValues: {
       email: '',
@@ -39,14 +37,14 @@ export default function SignUpScreen({ navigation }) {
     >
 
       <EmailInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         required
       />
 
       <PasswordInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Password"
         name="password"
         required
@@ -54,7 +52,7 @@ export default function SignUpScreen({ navigation }) {
       />
 
       <PasswordInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Confirm Password"
         name="confirmPassword"
         required
@@ -68,14 +66,14 @@ export default function SignUpScreen({ navigation }) {
           await signUp(email, password);
           setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, email);
         })}
-        style={styles.submitButton}
+        style={generalStyles.submitButton}
         title="Sign up"
       />
 
       <Button
         disabled={loading}
         onPress={() => navigation.navigate('Sign In')}
-        style={generalStyles.horizontalGutter}
+        style={generalStyles.fillButton}
         title="Have an account?"
         type="clear"
       />

@@ -23,6 +23,9 @@ export function genTheme(colorScheme = Appearance.getColorScheme() ?? 'light') {
     },
     mode: colorScheme,
     components: {
+      Avatar: {
+        rounded: true,
+      },
       Button: {
         raised: false,
       },

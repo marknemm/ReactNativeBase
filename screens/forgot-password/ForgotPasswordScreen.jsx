@@ -40,7 +40,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
     >
 
       <EmailInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         readOnly={!!readOnlyEmail}
@@ -50,7 +50,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
       <Button
         loading={submitting}
         onPress={handleSubmit(({ email }) => sendPasswordResetEmail(email))}
-        style={styles.submitButton}
+        style={generalStyles.submitButton}
         title={`${submitSuccessful ? 'Resend' : 'Send'} Password Reset Email`}
       />
 
@@ -62,7 +62,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
           }
           onSignIn?.();
         }}
-        style={generalStyles.horizontalGutter}
+        style={generalStyles.fillButton}
         title="Sign in"
         type="clear"
       />

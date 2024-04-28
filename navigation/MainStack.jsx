@@ -2,7 +2,7 @@ import AddButton from '@components/add-button/AddButton';
 import { useScreenOptions } from '@hooks/navigation-hooks';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddDogScreen from '@screens/add-dog/AddDogScreen';
-import DogsScreen from '@screens/dogs/DogsScreen';
+import HomeScreen from '@screens/home/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +18,7 @@ export default function MainStack({ navigation }) {
     <Stack.Navigator screenOptions={useScreenOptions()}>
       <Stack.Screen
         name="Dogs"
-        component={DogsScreen}
+        component={HomeScreen}
         options={{
           headerRight: () => (
             <AddButton

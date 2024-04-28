@@ -1,42 +1,25 @@
 import { makeStyles } from '@rneui/themed';
-import { horizontalGutter } from '@styles/general-styles';
+import { horizontalGutter, verticalGutter } from '@styles/general-styles';
 
 /**
  * Gets the styles for the `SignInScreen`.
  */
-export const useStyles = makeStyles((theme) => ({
-  formField: {
-    marginBottom: 5,
-  },
+export const useStyles = makeStyles(() => ({
   oauthProviderButton: {
     height: 40,
-    marginBottom: 10,
-    paddingVertical: 20,
+    marginBottom: verticalGutter / 2,
+    paddingVertical: verticalGutter,
     width: 312,
   },
   googleProviderButton: {
     height: 50,
-    marginBottom: 5,
+    marginBottom: verticalGutter / 4,
     width: 320,
   },
   oauthProvidersView: {
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: verticalGutter * 1.5,
     marginHorizontal: horizontalGutter,
-    marginTop: -20,
-  },
-  skipSignInButton: {
-    borderTopWidth: 0.25,
-    borderTopColor: theme.colors.primary,
-    marginHorizontal: horizontalGutter,
-    marginTop: 'auto',
-  },
-  skipSignInText: {
-    fontSize: 16,
-    fontWeight: '300',
-  },
-  submitButton: {
-    marginBottom: 10,
-    marginHorizontal: horizontalGutter,
+    marginTop: -verticalGutter,
   },
 }));

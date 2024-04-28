@@ -41,17 +41,20 @@ export default function AddDogScreen({ navigation }) {
     >
 
       <Input
+        containerStyle={generalStyles.formField}
         label="Name"
         name="name"
         required
       />
 
       <Input
+        containerStyle={generalStyles.formField}
         label="Breed"
         name="breed"
       />
 
       <Input
+        containerStyle={generalStyles.formField}
         keyboardType="number-pad"
         label="Age"
         name="age"
@@ -65,6 +68,7 @@ export default function AddDogScreen({ navigation }) {
       <View style={generalStyles.row}>
         <View style={styles.weightInputContainer}>
           <Input
+            containerStyle={generalStyles.formField}
             keyboardType="numeric"
             label="Weight"
             min={0}
@@ -90,7 +94,7 @@ export default function AddDogScreen({ navigation }) {
       <Button
         loading={submitting}
         onPress={handleSubmit((data) => { log(data); })}
-        style={generalStyles.horizontalGutter}
+        style={generalStyles.submitButton}
         title="Save Dog"
       />
 

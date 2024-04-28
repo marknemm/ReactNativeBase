@@ -1,4 +1,5 @@
 import { makeStyles } from '@rneui/themed';
+import { horizontalGutter, verticalGutter } from '@styles/general-styles';
 
 /**
  * Gets the styles for the `BleDeviceList` component.
@@ -8,8 +9,8 @@ export const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
     columnGap: 15,
-    marginBottom: 10,
-    paddingStart: 10,
+    marginBottom: verticalGutter / 2,
+    paddingStart: horizontalGutter,
   },
   deviceListTitle: {
     fontSize: 20,

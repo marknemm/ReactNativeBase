@@ -83,7 +83,7 @@ export default function SignInScreen({
       )}
 
       <EmailInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         readOnly={!!readOnlyEmail}
@@ -92,7 +92,7 @@ export default function SignInScreen({
       />
 
       <PasswordInput
-        containerStyle={styles.formField}
+        containerStyle={generalStyles.formField}
         label="Password"
         name="password"
         required
@@ -105,7 +105,7 @@ export default function SignInScreen({
           setLSLastSignInEmail(email);
           return authUser;
         })}
-        style={styles.submitButton}
+        style={generalStyles.submitButton}
         title="Sign In"
       />
 
@@ -113,7 +113,7 @@ export default function SignInScreen({
         <Button
           disabled={loading}
           onPress={() => navigation.navigate('Sign Up')}
-          style={generalStyles.horizontalGutter}
+          style={generalStyles.fillButton}
           title="Don&apos;t have an account?"
           type="clear"
         />
@@ -127,7 +127,7 @@ export default function SignInScreen({
           }
           onForgotPassword?.();
         }}
-        style={generalStyles.horizontalGutter}
+        style={generalStyles.fillButton}
         title="Forgot password?"
         type="clear"
       />
