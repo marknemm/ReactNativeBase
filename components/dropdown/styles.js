@@ -18,6 +18,12 @@ export const useStyles = makeStyles((theme, props) => ({
     color: theme.colors.black,
     ...props.itemTextStyle,
   },
+  label: {
+    color: theme.colors.grey3,
+    fontWeight: 'bold',
+    fontSize: 16,
+    ...props.labelStyle,
+  },
   placeholder: {
     color: 'gray',
     fontSize: 18,

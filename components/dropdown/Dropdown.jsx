@@ -35,9 +35,9 @@ export default function Dropdown(props) {
                 onBlurForm();
                 onBlur?.();
               }}
-              onChange={() => {
-                onChangeForm();
-                onChange?.();
+              onChange={(item) => {
+                onChangeForm(item?.value);
+                onChange?.(item?.value);
               }}
               value={value}
             />
@@ -70,7 +70,7 @@ function DropdownControlled(props) {
   return (
     <>
       {label && (
-        <Text>
+        <Text style={styles.label}>
           {label}
         </Text>
       )}

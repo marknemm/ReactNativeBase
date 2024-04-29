@@ -1,5 +1,7 @@
+import { StyleProp } from 'react-native';
 import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
-import { FormFieldProps, FieldValues, ValidationRule } from './form';
+import { TextStyle } from 'react-native-size-matters';
+import { FormFieldProps, ValidationRule } from './form';
 
 /**
  * Properties for dropdown components.
@@ -27,6 +29,11 @@ export interface DropdownProps<T = any> extends RneDropdownProps<T>, FormFieldPr
    * The label field within each dropdown data item. Defaults to `'label'`.
    */
   labelField?: string;
+
+  /**
+   * The style of the label.
+   */
+  labelStyle?: StyleProp<TextStyle>;
 
   /**
    * On Change callback that is invoked whenever the dropdown value changes.

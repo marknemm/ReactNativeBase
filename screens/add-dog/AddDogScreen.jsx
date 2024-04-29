@@ -41,6 +41,9 @@ export default function AddDogScreen({ navigation }) {
     >
 
       <Input
+        autoCapitalize="words"
+        autoComplete="name"
+        autoCorrect={false}
         containerStyle={generalStyles.formField}
         label="Name"
         name="name"
@@ -48,6 +51,7 @@ export default function AddDogScreen({ navigation }) {
       />
 
       <Input
+        autoCapitalize="words"
         containerStyle={generalStyles.formField}
         label="Breed"
         name="breed"
@@ -83,10 +87,9 @@ export default function AddDogScreen({ navigation }) {
         <View style={styles.weightUnitsDropdownContainer}>
           <Dropdown
             data={WEIGHT_UNITS}
+            label="Units"
             name="weightUnits"
-            placeholder="Units"
             required
-            value={WEIGHT_UNITS[0]}
           />
         </View>
       </View>
