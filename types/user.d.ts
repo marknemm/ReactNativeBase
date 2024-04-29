@@ -1,4 +1,6 @@
 import { Doc } from './db';
+import { TeaserCardStyleProps } from './teaser-card';
+import { GestureResponderEvent } from 'react-native';
 
 /**
  * A raw {@link UserDoc} from a remote database.

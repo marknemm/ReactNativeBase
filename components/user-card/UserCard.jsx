@@ -1,52 +1,27 @@
-import Avatar from '@components/avatar/Avatar';
-import { Button, Card, Text } from '@rneui/themed';
+import TeaserCard from '@components/teaser-card/TeaserCard';
 import { User } from '@util/user';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { useStyles } from './styles';
 
 /**
  * The {@link UserCard} component.
  *
- * @param {Object} props The component properties.
- * @param {import('react-native').ViewStyle} [props.style] The style for the card container.
- * @param {(event: import('react-native').GestureResponderEvent) => void} [props.onPress] The function to call when the card is pressed.
- * @param {User} props.user The user profile instance.
+ * @param {Types.UserCard.UserCardProps} props The component {@link Types.UserCard.UserCardProps properties}.
  * @returns {React.JSX.Element} The {@link UserCard} component.
  */
-export default function UserCard({ onPress, style, user }) {
-  const styles = useStyles();
-  if (!user || user.isAnonymous) return null;
-
-  return (
-    <Button
-      disabled={!onPress}
-      onPress={onPress}
-      size="lg"
-      type="clear"
-    >
-      <Card
-        containerStyle={[styles.cardContainer, style]}
-        wrapperStyle={styles.cardInner}
-      >
-        <Avatar
-          backgroundColor={user.backgroundColor}
-          size="medium"
-          title={user.initials}
-          value={user.photoURL}
-        />
-
-        <View style={styles.content}>
-          <Card.Title style={styles.title}>
-            {user.username}
-          </Card.Title>
-          <Text style={styles.subtitle}>
-            {user.email}
-          </Text>
-        </View>
-      </Card>
-    </Button>
-  );
+export default function UserCard({ onPress, user, ...styleProps }) {
+  return (user && !user.isAnonymous)
+    ? (
+      <TeaserCard
+        avatarBackgroundColor={user.backgroundColor}
+        avatarTitle={user.initials}
+        avatarURL={user.photoURL}
+        onPress={onPress}
+        subtitle={user.email}
+        title={user.username}
+        {...styleProps}
+      />
+    )
+    : null;
 }
 
 UserCard.propTypes = {

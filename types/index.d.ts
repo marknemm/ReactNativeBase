@@ -12,7 +12,9 @@ export * as LocalStorage from './local-storage';
 export * as Modal from './modal';
 export * as Navigation from './navigation';
 export * as RemoteFS from './remote-fs';
+export * as TeaserCard from './teaser-card';
 export * as User from './user';
+export * as UserCard from './user-card';
 
 export * from 'react-native';
 export * from 'utility-types';
