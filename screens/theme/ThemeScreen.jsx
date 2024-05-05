@@ -2,7 +2,6 @@ import Appearance from '@components/appearance/Appearance';
 import { SETTINGS_THEME_APPEARANCE_KEY } from '@constants/storage-keys';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { useTheme } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { View, useColorScheme } from 'react-native';
 
 /**
@@ -21,7 +20,7 @@ export default function ThemeScreen({ navigation }) {
   const { updateTheme } = useTheme();
 
   return (
-    <View style={generalStyles.gutter}>
+    <View>
       <Appearance
         appearance={appearance}
         disabled={!appearance}

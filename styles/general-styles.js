@@ -1,138 +1,22 @@
 import { StyleSheet } from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
+import { createColorStyles } from './color-styles';
+import { createFormStyles } from './form-styles';
+import { createImageStyles } from './image-styles';
+import { createTextStyles } from './text-styles';
+import { createViewStyles } from './view-styles';
 
 /**
- * The horizontal padding for screen gutter.
+ * Creates the {@link Types.Theme.GeneralStyles general styles}.
+ *
+ * @param {Types.Rneui.CreateThemeOptions} themeOptions The {@link Types.Rneui.CreateThemeOptions theme options}.
+ * @returns {Types.Styles.GeneralStyles} The {@link Types.Styles.GeneralStyles general styles}.
  */
-export const horizontalGutter = moderateScale(10);
-
-/**
- * The vertical padding for screen gutter.
- */
-export const verticalGutter = moderateScale(20);
-
-/**
- * General styles.
- */
-export const generalStyles = StyleSheet.create({
-  bold: {
-    fontWeight: 'bold',
-  },
-  bolder: {
-    fontWeight: '700',
-  },
-  boldest: {
-    fontWeight: '900',
-  },
-  bottomGutter: {
-    marginBottom: verticalGutter,
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  centerText: {
-    textAlign: 'center',
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  doubleUnderline: {
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'double',
-  },
-  doubleUnderlineBold: {
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'double',
-    fontWeight: 'bold',
-  },
-  doubleUnderlineBolder: {
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'double',
-    fontWeight: '700',
-  },
-  doubleUnderlineBoldest: {
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'double',
-    fontWeight: '900',
-  },
-  fill: {
-    width: '100%',
-  },
-  fillButton: {
-    marginHorizontal: horizontalGutter,
-    width: 'auto',
-  },
-  flexItem: {
-    flex: 1,
-  },
-  flexEndItem: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  formField: {
-    marginBottom: verticalGutter / 3,
-  },
-  gutter: {
-    paddingHorizontal: horizontalGutter,
-    paddingVertical: verticalGutter,
-  },
-  horizontalGutter: {
-    paddingHorizontal: horizontalGutter,
-  },
-  leftGutter: {
-    marginLeft: horizontalGutter,
-  },
-  leftText: {
-    textAlign: 'left',
-  },
-  lineThrough: {
-    textDecorationLine: 'line-through',
-  },
-  rightGutter: {
-    marginRight: horizontalGutter,
-  },
-  rightText: {
-    textAlign: 'right',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  screenContainer: {
-    flexGrow: 1,
-  },
-  submitButton: {
-    marginBottom: verticalGutter / 2,
-    marginHorizontal: horizontalGutter,
-    width: 'auto',
-  },
-  submitError: {
-    marginTop: verticalGutter / 2,
-    textAlign: 'center',
-  },
-  topGutter: {
-    marginTop: verticalGutter,
-  },
-  underline: {
-    textDecorationLine: 'underline',
-  },
-  underlineBold: {
-    textDecorationLine: 'underline',
-    fontWeight: 'bold',
-  },
-  underlineBolder: {
-    textDecorationLine: 'underline',
-    fontWeight: '700',
-  },
-  underlineBoldest: {
-    textDecorationLine: 'underline',
-    fontWeight: '900',
-  },
-  verticalGutter: {
-    paddingVertical: verticalGutter,
-  },
-  white: {
-    color: 'white',
-  },
-});
+export function createGeneralStyles(themeOptions) {
+  return {
+    color: StyleSheet.create(createColorStyles(themeOptions)),
+    form: StyleSheet.create(createFormStyles(themeOptions)),
+    image: StyleSheet.create(createImageStyles(themeOptions)),
+    text: StyleSheet.create(createTextStyles(themeOptions)),
+    view: StyleSheet.create(createViewStyles(themeOptions)),
+  };
+}

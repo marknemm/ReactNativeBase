@@ -4,8 +4,8 @@ import Form from '@components/form/Form';
 import PasswordInput from '@components/password-input/PasswordInput';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { Button } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { signUp } from '@util/auth';
 import { setLSItem } from '@util/local-storage';
 import { useForm } from 'react-hook-form';
@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form';
  * @returns {React.JSX.Element} The sign up screen.
  */
 export default function SignUpScreen({ navigation }) {
+  const generalStyles = useGeneralStyles();
   const form = useForm({
     defaultValues: {
       email: '',
@@ -33,18 +34,15 @@ export default function SignUpScreen({ navigation }) {
       form={form}
       safeArea
       scrollable
-      style={generalStyles.screenContainer}
     >
 
       <EmailInput
-        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         required
       />
 
       <PasswordInput
-        containerStyle={generalStyles.formField}
         label="Password"
         name="password"
         required
@@ -52,7 +50,6 @@ export default function SignUpScreen({ navigation }) {
       />
 
       <PasswordInput
-        containerStyle={generalStyles.formField}
         label="Confirm Password"
         name="confirmPassword"
         required
@@ -66,21 +63,21 @@ export default function SignUpScreen({ navigation }) {
           await signUp(email, password);
           setLSItem(AUTH_SIGN_IN_LAST_EMAIL_KEY, email);
         })}
-        style={generalStyles.submitButton}
+        style={generalStyles.form.submitButton}
         title="Sign up"
       />
 
       <Button
         disabled={loading}
         onPress={() => navigation.navigate('Sign In')}
-        style={generalStyles.fillButton}
+        style={generalStyles.view.screenMarginHorizontal}
         title="Have an account?"
         type="clear"
       />
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

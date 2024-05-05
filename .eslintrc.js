@@ -109,6 +109,7 @@ module.exports = {
     }],
     'jsx-a11y/anchor-is-valid': 'off',                          // Disable the rule that enforces valid <a> tag usage
     'jsx-quotes': ['warn', 'prefer-double'],                    // Enable the warning about using double quotes in JSX
+    'key-spacing': 'warn',                                      // Enable the warning about key spacing
     'keyword-spacing': 'warn',                                  // Enable the warning about keyword spacing
     'lines-between-class-members': ['warn', 'always', {         // Enable the warning about lines between class members
       exceptAfterSingleLine: true,                              // Allow single-line class members to be grouped together
@@ -145,6 +146,7 @@ module.exports = {
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
     'no-underscore-dangle': 'off',                              // Disable the rule that disallows dangling underscores
     'no-unneeded-ternary': 'warn',                              // Enable the warning about unneeded ternary expressions
+    'no-unreachable': 'warn',                                   // Enable the warning about unreachable code
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
@@ -189,7 +191,9 @@ module.exports = {
     'prefer-template': 'warn',                                  // Enable the warning about using template literals
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
     'radix': 'warn',                                            // Enable the warning about using radix
-    'react-hooks/exhaustive-deps': 'warn',                      // Enable the warning about exhaustive dependencies
+    'react-hooks/exhaustive-deps': ['warn', {                   // Enable the warning about exhaustive dependencies
+      additionalHooks: 'useThemedStyles',                       // Include additional custom hooks to check for dependencies
+    }],
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
     'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
     'react/jsx-boolean-value': 'warn',                          // Enable the warning about boolean values in JSX

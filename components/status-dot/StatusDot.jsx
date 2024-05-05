@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
-import { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
+import { useStyles } from './styles';
 
 /**
  * The {@link StatusDot} component.
@@ -11,20 +10,8 @@ import { StyleSheet, View } from 'react-native';
  * @param {Object} [props.style={}] The additional style of the {@link StatusDot}.
  * @returns {React.JSX.Element} The {@link StatusDot} component.
  */
-export default function StatusDot({ color = 'gray', size = 10, style = {} }) {
-  const styles = useMemo(() => StyleSheet.create({
-    statusDot: {
-      width: size,
-      height: size,
-      borderRadius: size / 2,
-      backgroundColor: color,
-    },
-  }), [color, size]);
+export default function StatusDot(props) {
+  const styles = useStyles(props);
 
-  return <View style={[styles.statusDot, style]} />;
+  return <View style={styles.statusDot} />;
 }
-
-StatusDot.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.number,
-};

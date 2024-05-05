@@ -21,6 +21,16 @@ export const APPLE_ICON = {
 };
 
 /**
+ * Bullet point {@link IconProps icon props}.
+ *
+ * @type {IconProps}
+ */
+export const BULLET_POINT_ICON = {
+  name: 'dot-fill',
+  type: 'octicon',
+};
+
+/**
  * Camera {@link IconProps icon props}.
  *
  * @type {IconProps}

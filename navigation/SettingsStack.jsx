@@ -1,13 +1,13 @@
 import { OPTIONS_HEADER_SAVE_CANCEL } from '@constants/navigation';
 import { useScreenOptions } from '@hooks/navigation-hooks';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AboutScreen from '@screens/about/About';
-import UpdatePasswordScreen from '@screens/update-password/UpdatePasswordScreen';
+import AboutScreen from '@screens/about/AboutScreen';
+import AddressScreen from '@screens/address/AddressScreen';
 import DevicesScreen from '@screens/devices/DevicesScreen';
 import SettingsScreen from '@screens/settings/SettingsScreen';
 import ThemeScreen from '@screens/theme/ThemeScreen';
+import UpdatePasswordScreen from '@screens/update-password/UpdatePasswordScreen';
 import UserProfileScreen from '@screens/user-profile/UserProfileScreen';
-import AddressScreen from '@screens/address/AddressScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,6 @@ export default function SettingsStack() {
       <Stack.Screen
         name="Address"
         component={AddressScreen}
-        options={OPTIONS_HEADER_SAVE_CANCEL}
       />
       <Stack.Screen
         name="Devices"

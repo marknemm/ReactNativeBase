@@ -1,6 +1,5 @@
 import Backdrop from '@components/backdrop/Backdrop';
 import { Dialog } from '@rneui/themed';
-import { showModal } from '@util/modal';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -10,7 +9,7 @@ import { useStyles } from './styles';
  * The {@link Modal} component.
  *
  * Unlike the standard {@link Dialog} component, the {@link Modal} component is blocking and is meant
- * to be launched imperatively from anywhere within the app via {@link showModal}.
+ * to be launched imperatively from anywhere within the app via {@link import('@util/modal').showModal showModal}.
  *
  * @param {Types.Modal.ModalProps} props The component {@link Types.Modal.ModalProps properties}.
  * @returns {React.JSX.Element} The {@link Modal} component.

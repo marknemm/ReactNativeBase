@@ -1,25 +1,29 @@
-import { makeStyles } from '@rneui/themed';
-import { horizontalGutter, verticalGutter } from '@styles/general-styles';
+/* eslint-disable jsdoc/require-returns-type */
+import { useThemedStyles } from '@hooks/theme-hooks';
 
 /**
- * Gets the styles for the `SignInScreen`.
+ * Gets the styles for the `SignInScreen` component.
+ *
+ * @returns The styles for the `SignInScreen` component.
  */
-export const useStyles = makeStyles(() => ({
-  oauthProviderButton: {
-    height: 40,
-    marginBottom: verticalGutter / 2,
-    paddingVertical: verticalGutter,
-    width: 312,
-  },
-  googleProviderButton: {
-    height: 50,
-    marginBottom: verticalGutter / 4,
-    width: 320,
-  },
-  oauthProvidersView: {
-    alignItems: 'center',
-    marginBottom: verticalGutter * 1.5,
-    marginHorizontal: horizontalGutter,
-    marginTop: -verticalGutter,
-  },
-}));
+export function useStyles() {
+  return useThemedStyles((theme) => ({
+    oauthProviderButton: {
+      height: 40,
+      marginBottom: theme.spacing.sm,
+      paddingVertical: theme.spacing.lg,
+      width: 312,
+    },
+    googleProviderButton: {
+      height: 50,
+      marginBottom: theme.spacing.xs,
+      width: 320,
+    },
+    oauthProvidersView: {
+      alignItems: 'center',
+      marginBottom: theme.spacing.lg * 1.5,
+      marginHorizontal: theme.spacing.sm,
+      marginTop: -theme.spacing.lg,
+    },
+  }), []);
+}

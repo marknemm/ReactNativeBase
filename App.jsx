@@ -9,6 +9,7 @@ import { genTheme } from '@styles/theme';
 import { initAuth } from '@util/auth';
 import { initFirebaseEnv } from '@util/firebase';
 import { initKeyboardConfig } from '@util/keyboard';
+import '@util/why-did-you-render';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';

@@ -72,6 +72,8 @@
     "@babel/core": "^7.20.0",
     "@babel/eslint-parser": "^7.24.1",
     "@babel/plugin-transform-class-static-block": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
+    "@welldone-software/why-did-you-render": "^8.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "dotenv-cli": "^7.4.1",
     "eslint-config-airbnb": "^19.0.4",

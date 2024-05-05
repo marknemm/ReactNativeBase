@@ -12,7 +12,10 @@ export * as LocalStorage from './local-storage';
 export * as Modal from './modal';
 export * as Navigation from './navigation';
 export * as RemoteFS from './remote-fs';
+export * as Rneui from './rneui';
+export * as Styles from './styles';
 export * as TeaserCard from './teaser-card';
+export * as Theme from './theme';
 export * as User from './user';
 export * as UserCard from './user-card';
 

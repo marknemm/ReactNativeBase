@@ -5,8 +5,8 @@ import Input from '@components/input/Input';
 import { POSITIVE_DECIMAL_REGEX, POSITIVE_WHOLE_NUMBER_REGEX } from '@constants/regex';
 import { WEIGHT_UNITS } from '@constants/units';
 import { useSubmitState, useValidationRule } from '@hooks/form-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { Button } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { log } from '@util/log';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -21,6 +21,7 @@ import { useStyles } from './styles';
  */
 export default function AddDogScreen({ navigation }) {
   const styles = useStyles();
+  const generalStyles = useGeneralStyles();
   const form = useForm({
     defaultValues: {
       name: '',
@@ -37,28 +38,26 @@ export default function AddDogScreen({ navigation }) {
       form={form}
       safeArea
       scrollable
-      style={generalStyles.verticalGutter}
     >
 
       <Input
         autoCapitalize="words"
         autoComplete="name"
         autoCorrect={false}
-        containerStyle={generalStyles.formField}
         label="Name"
         name="name"
+        placeholder='e.g. "Fido" or "Spot"'
         required
       />
 
       <Input
         autoCapitalize="words"
-        containerStyle={generalStyles.formField}
         label="Breed"
         name="breed"
+        placeholder='e.g. "Golden Retriever" or "Pit Bull"'
       />
 
       <Input
-        containerStyle={generalStyles.formField}
         keyboardType="number-pad"
         label="Age"
         name="age"
@@ -69,10 +68,9 @@ export default function AddDogScreen({ navigation }) {
         })}
       />
 
-      <View style={generalStyles.row}>
+      <View style={generalStyles.view.row}>
         <View style={styles.weightInputContainer}>
           <Input
-            containerStyle={generalStyles.formField}
             keyboardType="numeric"
             label="Weight"
             min={0}
@@ -97,13 +95,13 @@ export default function AddDogScreen({ navigation }) {
       <Button
         loading={submitting}
         onPress={handleSubmit((data) => { log(data); })}
-        style={generalStyles.submitButton}
+        style={generalStyles.form.submitButton}
         title="Save Dog"
       />
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

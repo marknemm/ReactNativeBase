@@ -74,7 +74,6 @@ function AvatarControlled(props) {
   return (
     <>
       <RneAvatar
-        rounded
         {...props}
         containerStyle={styles.container}
         onPress={editable ? onPressWrapper : undefined}

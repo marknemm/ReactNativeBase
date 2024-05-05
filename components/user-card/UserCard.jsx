@@ -13,6 +13,7 @@ export default function UserCard({ onPress, user, ...styleProps }) {
     ? (
       <TeaserCard
         avatarBackgroundColor={user.backgroundColor}
+        avatarRounded
         avatarTitle={user.initials}
         avatarURL={user.photoURL}
         onPress={onPress}

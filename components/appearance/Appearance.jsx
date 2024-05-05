@@ -1,7 +1,9 @@
+import ScreenView from '@components/screen-view/ScreenView';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { CheckBox, Text } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
+import { useStyles } from './styles';
 
 /**
  * The {@link Appearance} component.
@@ -13,17 +15,22 @@ import { View } from 'react-native';
  * @returns {React.JSX.Element} The {@link Appearance} component.
  */
 export default function Appearance({ appearance, disabled = false, onAppearanceChange = () => {} }) {
+  const styles = useStyles();
+  const generalStyles = useGeneralStyles();
+
   return (
-    <View>
-      <Text>Appearance</Text>
-      <View style={generalStyles.row}>
+    <ScreenView safeArea scrollable>
+      <Text style={styles.label}>
+        Appearance
+      </Text>
+      <View style={generalStyles.view.row}>
         <CheckBox
           title="Auto"
           checked={appearance === 'auto'}
           checkedIcon="circle-half-full"
           uncheckedIcon="circle-half-full"
           iconType="material-community"
-          textStyle={appearance === 'auto' ? generalStyles.doubleUnderline : {}}
+          textStyle={appearance === 'auto' ? generalStyles.text.doubleUnderline : undefined}
           onPress={() => onAppearanceChange('auto')}
           disabled={disabled}
         />
@@ -32,7 +39,7 @@ export default function Appearance({ appearance, disabled = false, onAppearanceC
           checked={appearance === 'light'}
           checkedIcon="sun-o"
           uncheckedIcon="sun-o"
-          textStyle={appearance === 'light' ? generalStyles.doubleUnderline : {}}
+          textStyle={appearance === 'light' ? generalStyles.text.doubleUnderline : undefined}
           onPress={() => onAppearanceChange('light')}
           disabled={disabled}
         />
@@ -41,12 +48,12 @@ export default function Appearance({ appearance, disabled = false, onAppearanceC
           checked={appearance === 'dark'}
           checkedIcon="moon-o"
           uncheckedIcon="moon-o"
-          textStyle={appearance === 'dark' ? generalStyles.doubleUnderline : {}}
+          textStyle={appearance === 'dark' ? generalStyles.text.doubleUnderline : undefined}
           onPress={() => onAppearanceChange('dark')}
           disabled={disabled}
         />
       </View>
-    </View>
+    </ScreenView>
   );
 }
 

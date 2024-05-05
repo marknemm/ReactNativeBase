@@ -1,6 +1,5 @@
 import BleDeviceList from '@components/ble-device-list/BleDeviceList';
-import { generalStyles } from '@styles/general-styles';
-import { View } from 'react-native';
+import ScreenView from '@components/screen-view/ScreenView';
 
 /**
  * Devices screen.
@@ -11,8 +10,8 @@ import { View } from 'react-native';
  */
 export default function DogsScreen({ navigation }) {
   return (
-    <View style={generalStyles.verticalGutter}>
+    <ScreenView safeArea>
       <BleDeviceList />
-    </View>
+    </ScreenView>
   );
 }

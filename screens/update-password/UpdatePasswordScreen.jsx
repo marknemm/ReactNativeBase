@@ -4,8 +4,8 @@ import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import PasswordInput from '@components/password-input/PasswordInput';
 import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
 import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { useUser } from '@hooks/user-hooks';
-import { generalStyles } from '@styles/general-styles';
 import { useForm } from 'react-hook-form';
 
 /**
@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
  * @returns {React.JSX.Element} The {@link UpdatePasswordScreen} component.
  */
 export default function UpdatePasswordScreen({ navigation }) {
+  const generalStyles = useGeneralStyles();
   const user = useUser();
   const form = useForm({
     defaultValues: {
@@ -68,7 +69,7 @@ export default function UpdatePasswordScreen({ navigation }) {
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

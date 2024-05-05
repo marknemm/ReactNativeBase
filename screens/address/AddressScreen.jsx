@@ -3,9 +3,9 @@ import Form from '@components/form/Form';
 import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import Input from '@components/input/Input';
 import { useSubmitState } from '@hooks/form-hooks';
-import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
+import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { useUser } from '@hooks/user-hooks';
-import { generalStyles } from '@styles/general-styles';
 import { useForm } from 'react-hook-form';
 
 /**
@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
  * @returns {React.JSX.Element} The {@link AddressScreen}.
  */
 export default function AddressScreen({ navigation }) {
+  const generalStyles = useGeneralStyles();
   const user = useUser();
   const form = useForm({
     defaultValues: {
@@ -36,13 +37,18 @@ export default function AddressScreen({ navigation }) {
 
   // Change navigation options to accommodate a (form) submit screen
   useNavigationSubmitOptions(submitting, {
+    headerBackTitle: 'Cancel',
     headerRight: () => (
       <HeaderSaveButton
         loading={submitting}
         onPress={onSave}
       />
     ),
-  }, [form.formState.isDirty, onSave, submitting]);
+  },
+  form.formState.isDirty, // Only set the navigation options when the form is dirty
+  [onSave, submitting]);
+
+  useNavigationConfirm(form.formState.isDirty); // Confirm navigation when the form is dirty
 
   return (
     <Form form={form} safeArea scrollable>
@@ -89,7 +95,7 @@ export default function AddressScreen({ navigation }) {
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

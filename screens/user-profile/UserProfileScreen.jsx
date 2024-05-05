@@ -10,9 +10,9 @@ import { APPLE_ICON, CHECK_ICON, GMAIL_ICON, LOCATION_ICON, PASSWORD_ICON } from
 import { useAuthRefresh } from '@hooks/auth-hooks';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Icon, ListItem } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { linkWithApple, linkWithGoogle } from '@util/auth';
 import { useForm } from 'react-hook-form';
 import { useStyles } from './styles';
@@ -26,6 +26,7 @@ import { useStyles } from './styles';
  */
 export default function UserProfileScreen({ navigation }) {
   const styles = useStyles();
+  const generalStyles = useGeneralStyles();
   const user = useUser();
   const form = useForm({
     defaultValues: {
@@ -71,6 +72,7 @@ export default function UserProfileScreen({ navigation }) {
         description="Profile Picture"
         editable={!submitting}
         name="photoURL"
+        rounded
         size="xlarge"
         title={user?.initials}
       />
@@ -182,7 +184,7 @@ export default function UserProfileScreen({ navigation }) {
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

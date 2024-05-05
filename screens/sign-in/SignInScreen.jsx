@@ -5,10 +5,10 @@ import PasswordInput from '@components/password-input/PasswordInput';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button, useThemeMode } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
 import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
 import PropTypes from 'prop-types';
@@ -37,6 +37,7 @@ export default function SignInScreen({
   readOnlyEmail,
 }) {
   const styles = useStyles();
+  const generalStyles = useGeneralStyles();
   const [lastSignInEmail, setLSLastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
@@ -57,7 +58,6 @@ export default function SignInScreen({
       form={form}
       safeArea
       scrollable
-      style={generalStyles.screenContainer}
     >
 
       {!isPasswordOnly && (
@@ -83,7 +83,6 @@ export default function SignInScreen({
       )}
 
       <EmailInput
-        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         readOnly={!!readOnlyEmail}
@@ -92,7 +91,6 @@ export default function SignInScreen({
       />
 
       <PasswordInput
-        containerStyle={generalStyles.formField}
         label="Password"
         name="password"
         required
@@ -105,7 +103,7 @@ export default function SignInScreen({
           setLSLastSignInEmail(email);
           return authUser;
         })}
-        style={generalStyles.submitButton}
+        containerStyle={generalStyles.form.submitButton}
         title="Sign In"
       />
 
@@ -113,7 +111,6 @@ export default function SignInScreen({
         <Button
           disabled={loading}
           onPress={() => navigation.navigate('Sign Up')}
-          style={generalStyles.fillButton}
           title="Don&apos;t have an account?"
           type="clear"
         />
@@ -127,14 +124,13 @@ export default function SignInScreen({
           }
           onForgotPassword?.();
         }}
-        style={generalStyles.fillButton}
         title="Forgot password?"
         type="clear"
       />
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

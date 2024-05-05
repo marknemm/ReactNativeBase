@@ -53,12 +53,17 @@ export default function Input(props) {
  * @returns {React.JSX.Element} The {@link InputControlled} component.
  */
 function InputControlled(props) {
-  const { mask, maxLength, maxLengthLimitTyping, onChangeText, value } = props;
+  const { mask, maxLength, maxLengthLimitTyping } = props;
+  let { onChangeText, value } = props;
   const { theme } = useTheme();
   const [uiValue, setUiValue] = useState('');
   const inputRef = useRef(null);
 
   const maskedInputProps = useMaskedInputProps({ mask, onChangeText, value });
+  if (mask) {
+    onChangeText = maskedInputProps.onChangeText;
+    value = maskedInputProps.value;
+  }
 
   const maxLengthNum = (typeof maxLength === 'number')
     ? maxLength
@@ -66,21 +71,21 @@ function InputControlled(props) {
 
   useEffect(() => {
     // Sync value prop with input (UI) value. Done manually to prevent change on each keystroke and prevent lag.
-    if (maskedInputProps.value !== undefined && maskedInputProps.value !== uiValue) {
-      inputRef.current?.setNativeProps({ text: maskedInputProps.value });
+    if (value !== undefined && value !== uiValue) {
+      inputRef.current?.setNativeProps({ text: value });
     }
-  }, [maskedInputProps.value, uiValue]);
+  }, [value, uiValue]);
 
   return (
     <RneInput
       keyboardAppearance={theme.mode}
       {...props}
-      {...maskedInputProps}
+      {...(mask ? maskedInputProps : undefined)}
       maxLength={maxLengthLimitTyping ? maxLengthNum : undefined}
       onChangeText={useCallback((text) => {
-        maskedInputProps.onChangeText?.(text);
+        onChangeText?.(text);
         setUiValue(text);
-      }, [maskedInputProps])}
+      }, [onChangeText])}
       ref={inputRef}
       value={undefined} // Do not update value prop directly to prevent input lag (see useEffect above).
     />

@@ -4,8 +4,8 @@ import Form from '@components/form/Form';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { Button, Text } from '@rneui/themed';
-import { generalStyles } from '@styles/general-styles';
 import { sendPasswordResetEmail } from '@util/auth';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ import { useStyles } from './styles';
  */
 export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, readOnlyEmail }) {
   const styles = useStyles();
+  const generalStyles = useGeneralStyles();
   const [lastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
   const form = useForm({
     defaultValues: {
@@ -36,11 +37,9 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
       form={form}
       safeArea
       scrollable
-      style={generalStyles.screenContainer}
     >
 
       <EmailInput
-        containerStyle={generalStyles.formField}
         label="Email"
         name="email"
         readOnly={!!readOnlyEmail}
@@ -50,7 +49,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
       <Button
         loading={submitting}
         onPress={handleSubmit(({ email }) => sendPasswordResetEmail(email))}
-        style={generalStyles.submitButton}
+        style={generalStyles.form.submitButton}
         title={`${submitSuccessful ? 'Resend' : 'Send'} Password Reset Email`}
       />
 
@@ -62,7 +61,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
           }
           onSignIn?.();
         }}
-        style={generalStyles.fillButton}
+        style={generalStyles.view.screenMarginHorizontal}
         title="Sign in"
         type="clear"
       />
@@ -75,7 +74,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
 
       <FormError
         errorMessage={submitError}
-        style={generalStyles.submitError}
+        style={generalStyles.form.submitError}
       />
 
     </Form>

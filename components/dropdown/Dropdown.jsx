@@ -1,5 +1,6 @@
 import FormError from '@components/form-error/FormError';
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
+import { useGeneralStyles } from '@hooks/theme-hooks';
 import { Text, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
@@ -77,13 +78,14 @@ function DropdownControlled(props) {
 
       <RneDropdown
         activeColor={theme.colors.grey5}
-        placeholderStyle={styles.placeholder}
         {...props}
+        containerStyle={styles.container}
         data={items}
         itemContainerStyle={styles.itemContainer}
         itemTextStyle={styles.itemText}
         labelField={labelField}
         onChange={onChange}
+        placeholderStyle={styles.placeholder}
         selectedTextStyle={styles.selectedText}
         style={styles.dropdown}
         valueField={valueField}
@@ -113,6 +115,7 @@ DropdownControlled.propTypes = {
   includeEmptyOption: PropTypes.bool,
   label: PropTypes.string,
   labelField: PropTypes.string,
+  labelStyle: PropTypes.object,
   onChange: PropTypes.func,
   valueField: PropTypes.string,
 };

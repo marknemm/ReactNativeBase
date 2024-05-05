@@ -1,6 +1,5 @@
-import { StyleProp } from 'react-native';
+import { StyleProp, TextStyle } from 'react-native';
 import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
-import { TextStyle } from 'react-native-size-matters';
 import { FormFieldProps, ValidationRule } from './form';
 
 /**

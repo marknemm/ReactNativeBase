@@ -1,18 +1,22 @@
-import { makeStyles } from '@rneui/themed';
-import { verticalGutter } from '@styles/general-styles';
+/* eslint-disable jsdoc/require-returns-type */
+import { useThemedStyles } from '@hooks/theme-hooks';
 
 /**
- * Gets the styles for the `UserProfileScreen`.
+ * Gets the styles for the `UserProfileScreen` component.
+ *
+ * @returns The styles for the `UserProfileScreen` component.
  */
-export const useStyles = makeStyles((theme) => ({
-  avatar: {
-    alignSelf: 'center',
-    marginBottom: verticalGutter + 20,
-  },
-  emailVerification: {
-    marginBottom: verticalGutter,
-  },
-  checkIcon: {
-    color: theme.colors.success,
-  },
-}));
+export function useStyles() {
+  return useThemedStyles((theme) => ({
+    avatar: {
+      alignSelf: 'center',
+      marginBottom: theme.spacing.xl,
+    },
+    emailVerification: {
+      marginBottom: theme.spacing.lg,
+    },
+    checkIcon: {
+      color: theme.colors.success,
+    },
+  }), []);
+}
