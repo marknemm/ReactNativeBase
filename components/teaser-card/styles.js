@@ -1,12 +1,12 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 
 /**
  * Gets the styles for the `TeaserCard` component.
  *
  * @param {object} props The component props.
- * @param {Types.StyleProp<Types.ViewStyle>} [props.avatarStyle] The style to apply to the avatar.
+ * @param {Types.StyleProp<Types.ImageStyle>} [props.avatarStyle] The style to apply to the avatar.
  * @param {Types.StyleProp<Types.ViewStyle>} [props.avatarIconStyle] The style to apply to the avatar icon.
  * @param {Types.StyleProp<Types.TextStyle>} [props.avatarTitleStyle] The style to apply to the avatar title.
  * @param {Types.StyleProp<Types.ViewStyle>} [props.containerStyle] The style to apply to the container.

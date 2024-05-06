@@ -1,19 +1,21 @@
 import { createTheme, darkColors, lightColors } from '@rneui/themed';
-import { Appearance, Platform } from 'react-native';
+import { Appearance, Dimensions, Platform } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
-import { createGeneralStyles } from './general-styles';
 import Divider from './theme-components/Divider';
-import Input from './theme-components/Input';
 import Text from './theme-components/Text';
 
 /**
  * Generates the app theme options.
  *
  * @param {Types.ColorSchemeName} [colorScheme] The {@link Types.ColorSchemeName color scheme}, either `'dark'` or `'light'`.
+ * @param {Types.ScaledSize} [windowDimensions] The window {@link Types.ScaledSize Dimensions}.
  * @returns {Types.Rneui.CreateThemeOptions} The generated {@link Types.Rneui.CreateThemeOptions theme options}.
  */
-export function genTheme(colorScheme = Appearance.getColorScheme() ?? 'light') {
-  const themeOptions = createTheme({
+export function genTheme(
+  colorScheme = Appearance.getColorScheme() ?? 'light',
+  windowDimensions = Dimensions.get('window')
+) {
+  return createTheme({
     mode: colorScheme,
     lightColors: {
       ...lightColors,
@@ -54,15 +56,14 @@ export function genTheme(colorScheme = Appearance.getColorScheme() ?? 'light') {
       md: moderateScale(8),
       lg: moderateScale(12),
       xl: moderateScale(24),
+      screenHorizontal: (windowDimensions.width >= 768)
+        ? moderateScale(24)
+        : moderateScale(12),
+      screenVertical: moderateScale(24),
     },
     components: {
       Divider,
-      Input,
       Text,
     },
   });
-
-  themeOptions.styles = createGeneralStyles(themeOptions);
-
-  return themeOptions;
 }

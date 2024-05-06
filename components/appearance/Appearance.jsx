@@ -1,9 +1,8 @@
 import ScreenView from '@components/screen-view/ScreenView';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { CheckBox, Text } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { useStyles } from './styles';
 
 /**
  * The {@link Appearance} component.
@@ -15,12 +14,11 @@ import { useStyles } from './styles';
  * @returns {React.JSX.Element} The {@link Appearance} component.
  */
 export default function Appearance({ appearance, disabled = false, onAppearanceChange = () => {} }) {
-  const styles = useStyles();
   const generalStyles = useGeneralStyles();
 
   return (
-    <ScreenView safeArea scrollable>
-      <Text style={styles.label}>
+    <ScreenView>
+      <Text style={generalStyles.form.label}>
         Appearance
       </Text>
       <View style={generalStyles.view.row}>

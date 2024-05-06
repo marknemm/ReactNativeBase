@@ -1,11 +1,11 @@
 import Dropdown from '@components/dropdown/Dropdown';
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import Input from '@components/input/Input';
+import ScreenView from '@components/screen-view/ScreenView';
 import { POSITIVE_DECIMAL_REGEX, POSITIVE_WHOLE_NUMBER_REGEX } from '@constants/regex';
 import { WEIGHT_UNITS } from '@constants/units';
 import { useSubmitState, useValidationRule } from '@hooks/form-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { Button } from '@rneui/themed';
 import { log } from '@util/log';
 import { useForm } from 'react-hook-form';
@@ -34,11 +34,7 @@ export default function AddDogScreen({ navigation }) {
   const { handleSubmit, submitError, submitting } = useSubmitState(form);
 
   return (
-    <Form
-      form={form}
-      safeArea
-      scrollable
-    >
+    <ScreenView form={form}>
 
       <Input
         autoCapitalize="words"
@@ -69,27 +65,25 @@ export default function AddDogScreen({ navigation }) {
       />
 
       <View style={generalStyles.view.row}>
-        <View style={styles.weightInputContainer}>
-          <Input
-            keyboardType="numeric"
-            label="Weight"
-            min={0}
-            name="weight"
-            pattern={useValidationRule({
-              message: 'Weight must be a number',
-              value: POSITIVE_DECIMAL_REGEX,
-            })}
-          />
-        </View>
+        <Input
+          containerStyle={styles.weightInputContainer}
+          keyboardType="numeric"
+          label="Weight"
+          min={0}
+          name="weight"
+          pattern={useValidationRule({
+            message: 'Weight must be a number',
+            value: POSITIVE_DECIMAL_REGEX,
+          })}
+        />
 
-        <View style={styles.weightUnitsDropdownContainer}>
-          <Dropdown
-            data={WEIGHT_UNITS}
-            label="Units"
-            name="weightUnits"
-            required
-          />
-        </View>
+        <Dropdown
+          containerStyle={styles.weightUnitsDropdownContainer}
+          data={WEIGHT_UNITS}
+          label="Units"
+          name="weightUnits"
+          required
+        />
       </View>
 
       <Button
@@ -104,6 +98,6 @@ export default function AddDogScreen({ navigation }) {
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }

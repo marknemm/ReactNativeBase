@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles, useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 
 /**
@@ -24,14 +24,16 @@ export function useStyles({
   selectedTextStyle,
   style,
 }) {
+  const generalStyles = useGeneralStyles();
+
   return useThemedStyles((theme) => ({
     container: {
-      ...theme.styles.form.fieldContainer,
+      ...generalStyles.form.fieldContainer,
       ...StyleSheet.flatten(containerStyle),
     },
     dropdown: {
-      ...theme.styles.form.field,
-      ...theme.styles.form.fieldBorder,
+      ...generalStyles.form.field,
+      ...generalStyles.form.fieldBorder,
       ...StyleSheet.flatten(style),
     },
     itemContainer: {
@@ -43,16 +45,25 @@ export function useStyles({
       ...StyleSheet.flatten(itemTextStyle),
     },
     label: {
-      ...theme.styles.form.label,
+      ...generalStyles.form.label,
       ...StyleSheet.flatten(labelStyle),
     },
     placeholder: {
-      ...theme.styles.form.placeholder,
+      ...generalStyles.form.placeholder,
       ...StyleSheet.flatten(placeholderStyle),
     },
     selectedText: {
       color: theme.colors.black,
       ...StyleSheet.flatten(selectedTextStyle),
     },
-  }), [containerStyle, itemContainerStyle, itemTextStyle, labelStyle, placeholderStyle, selectedTextStyle, style]);
+  }), [
+    containerStyle,
+    generalStyles,
+    itemContainerStyle,
+    itemTextStyle,
+    labelStyle,
+    placeholderStyle,
+    selectedTextStyle,
+    style,
+  ]);
 }

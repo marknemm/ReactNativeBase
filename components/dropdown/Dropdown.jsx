@@ -1,9 +1,9 @@
 import FormError from '@components/form-error/FormError';
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
 import { Text, useTheme } from '@rneui/themed';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
+import { View } from 'react-native';
 import { Dropdown as RneDropdown } from 'react-native-element-dropdown';
 import { useDropdownItems } from './hooks';
 import { useStyles } from './styles';
@@ -62,14 +62,36 @@ export default function Dropdown(props) {
  * @param {Types.Dropdown.DropdownProps} props The component {@link Types.Dropdown.DropdownProps properties}.
  * @returns {React.JSX.Element} The {@link DropdownControlled} component.
  */
-function DropdownControlled(props) {
-  const styles = useStyles(props);
+function DropdownControlled({
+  containerStyle,
+  data,
+  includeEmptyOption,
+  itemContainerStyle,
+  itemTextStyle,
+  label = 'label',
+  labelField,
+  labelStyle,
+  onChange,
+  placeholderStyle,
+  selectedTextStyle,
+  style,
+  valueField = 'value',
+  ...rneDropdownProps
+}) {
+  const styles = useStyles({
+    containerStyle,
+    itemContainerStyle,
+    itemTextStyle,
+    labelStyle,
+    placeholderStyle,
+    selectedTextStyle,
+    style,
+  });
   const { theme } = useTheme();
-  const { data, includeEmptyOption, label, labelField = 'label', onChange, valueField = 'value' } = props;
   const items = useDropdownItems(data, labelField, valueField, includeEmptyOption);
 
   return (
-    <>
+    <View style={styles.container}>
       {label && (
         <Text style={styles.label}>
           {label}
@@ -78,8 +100,6 @@ function DropdownControlled(props) {
 
       <RneDropdown
         activeColor={theme.colors.grey5}
-        {...props}
-        containerStyle={styles.container}
         data={items}
         itemContainerStyle={styles.itemContainer}
         itemTextStyle={styles.itemText}
@@ -89,8 +109,9 @@ function DropdownControlled(props) {
         selectedTextStyle={styles.selectedText}
         style={styles.dropdown}
         valueField={valueField}
+        {...rneDropdownProps}
       />
-    </>
+    </View>
   );
 }
 
@@ -103,6 +124,7 @@ Dropdown.propTypes = {
 };
 
 DropdownControlled.propTypes = {
+  containerStyle: PropTypes.object,
   data: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -113,9 +135,13 @@ DropdownControlled.propTypes = {
     }),
   ])),
   includeEmptyOption: PropTypes.bool,
+  itemContainerStyle: PropTypes.object,
+  itemTextStyle: PropTypes.object,
   label: PropTypes.string,
   labelField: PropTypes.string,
   labelStyle: PropTypes.object,
   onChange: PropTypes.func,
+  placeholderStyle: PropTypes.object,
+  selectedTextStyle: PropTypes.object,
   valueField: PropTypes.string,
 };

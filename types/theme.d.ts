@@ -2,6 +2,7 @@ import '@rneui/themed';
 import { TextStyle } from 'react-native';
 import { ViewStyle } from 'react-native-size-matters';
 import { FontWeight, GeneralStyles } from './styles';
+import { Colors, Theme } from '@rneui/themed';
 
 /**
  * Symbolic or numeric-string font weight.
@@ -13,6 +14,11 @@ export type Bold = boolean | '100' | '200' | '300' | '400' | '500' | '600' | '70
  */
 export type Spacing = boolean | number | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+/**
+ * The {@link Theme} with {@link Colors}.
+ */
+export type ThemeWithColors = Theme & { colors: Colors };
+
 declare module '@rneui/themed' {
   interface Theme {
 
@@ -20,11 +26,6 @@ declare module '@rneui/themed' {
      * The theme {@link Font}.
      */
     font: Font;
-
-    /**
-     * The {@link GeneralStyles general styles}.
-     */
-    styles: GeneralStyles;
 
   }
 
@@ -111,6 +112,21 @@ declare module '@rneui/themed' {
     underline?: boolean;
 
   }
+
+  interface ThemeSpacing {
+
+    /**
+     * The horizontal screen spacing.
+     */
+    screenHorizontal: number;
+
+    /**
+     * The vertical screen spacing.
+     */
+    screenVertical: number;
+
+  }
+
 }
 
 /**

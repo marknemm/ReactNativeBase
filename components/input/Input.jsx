@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useMaskedInputProps } from 'react-native-mask-input';
+import { useStyles } from './styles';
 
 /**
  * The {@link Input} component.
@@ -52,9 +53,20 @@ export default function Input(props) {
  * @param {Types.Input.InputProps} props The component {@link Types.Input.InputProps properties}.
  * @returns {React.JSX.Element} The {@link InputControlled} component.
  */
-function InputControlled(props) {
-  const { mask, maxLength, maxLengthLimitTyping } = props;
-  let { onChangeText, value } = props;
+function InputControlled({
+  containerStyle,
+  inputContainerStyle,
+  inputStyle,
+  labelStyle,
+  mask,
+  maxLength,
+  maxLengthLimitTyping,
+  onChangeText,
+  style,
+  value,
+  ...inputProps
+}) {
+  const styles = useStyles({ containerStyle, inputContainerStyle, inputStyle, labelStyle, style });
   const { theme } = useTheme();
   const [uiValue, setUiValue] = useState('');
   const inputRef = useRef(null);
@@ -79,7 +91,13 @@ function InputControlled(props) {
   return (
     <RneInput
       keyboardAppearance={theme.mode}
-      {...props}
+      placeholderTextColor={theme.colors.placeholder}
+      containerStyle={styles.container}
+      inputContainerStyle={styles.inputContainer}
+      inputStyle={styles.input}
+      labelStyle={styles.label}
+      style={styles.style}
+      {...inputProps}
       {...(mask ? maskedInputProps : undefined)}
       maxLength={maxLengthLimitTyping ? maxLengthNum : undefined}
       onChangeText={useCallback((text) => {
@@ -100,9 +118,14 @@ Input.propTypes = {
 };
 
 InputControlled.propTypes = {
+  containerStyle: PropTypes.object,
+  inputContainerStyle: PropTypes.object,
+  inputStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
   mask: PropTypes.any,
   maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   maxLengthLimitTyping: PropTypes.bool,
   onChangeText: PropTypes.func,
+  style: PropTypes.object,
   value: PropTypes.string,
 };

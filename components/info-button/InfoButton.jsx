@@ -22,11 +22,11 @@ export default function InfoButton({
   backgroundColor = 'transparent',
   color,
   children,
-  dialogTitle = '',
-  disabled = false,
+  dialogTitle,
+  disabled,
   onPress,
   size = 24,
-  style = {},
+  style,
 }) {
   const { theme } = useTheme();
   const [infoDialogVisible, setInfoDialogVisible] = useState(false);

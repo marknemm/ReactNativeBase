@@ -1,11 +1,11 @@
 import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import PasswordInput from '@components/password-input/PasswordInput';
+import ScreenView from '@components/screen-view/ScreenView';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button, useThemeMode } from '@rneui/themed';
@@ -54,11 +54,7 @@ export default function SignInScreen({
     : AppleAuthenticationButtonStyle.BLACK;
 
   return (
-    <Form
-      form={form}
-      safeArea
-      scrollable
-    >
+    <ScreenView form={form} noFooter>
 
       {!isPasswordOnly && (
         <View style={styles.oauthProvidersView}>
@@ -133,7 +129,7 @@ export default function SignInScreen({
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }
 

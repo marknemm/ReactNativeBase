@@ -2,19 +2,20 @@ import Avatar from '@components/avatar/Avatar';
 import EmailInput from '@components/email-input/EmailInput';
 import EmailVerification from '@components/email-verification/EmailVerification';
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import Input from '@components/input/Input';
 import PhoneInput from '@components/phone-input/PhoneInput';
+import ScreenView from '@components/screen-view/ScreenView';
 import { APPLE_ICON, CHECK_ICON, GMAIL_ICON, LOCATION_ICON, PASSWORD_ICON } from '@constants/icons';
 import { useAuthRefresh } from '@hooks/auth-hooks';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Icon, ListItem } from '@rneui/themed';
 import { linkWithApple, linkWithGoogle } from '@util/auth';
 import { useForm } from 'react-hook-form';
+import { View } from 'react-native';
 import { useStyles } from './styles';
 
 /**
@@ -44,7 +45,7 @@ export default function UserProfileScreen({ navigation }) {
   // Setup form submit handler
   const onSave = handleSubmit(async (formData) => {
     await user.save(formData);
-    form.reset(form.getValues()); // Makes form pristine
+    form.reset(formData); // Makes form pristine
     navigation.goBack();
   });
 
@@ -64,7 +65,7 @@ export default function UserProfileScreen({ navigation }) {
   useNavigationConfirm(form.formState.isDirty); // Confirm navigation when the form is dirty
 
   return (
-    <Form form={form} safeArea scrollable>
+    <ScreenView form={form}>
 
       <Avatar
         backgroundColor={user?.backgroundColor}
@@ -104,89 +105,91 @@ export default function UserProfileScreen({ navigation }) {
         name="phoneNumber"
       />
 
-      <ListItem
-        bottomDivider
-        disabled={submitting}
-        onPress={() => navigation.navigate('Address')}
-        topDivider
-      >
-        <Icon {...LOCATION_ICON} color="gray" />
-        <ListItem.Content>
-          <ListItem.Title>Address</ListItem.Title>
-          {user.address && (
-            <ListItem.Subtitle>
-              {user.address?.street ?? ''}
-            </ListItem.Subtitle>
-          )}
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
-      {user.hasPassword && (
+      <View style={generalStyles.view.fullWidth}>
         <ListItem
           bottomDivider
           disabled={submitting}
-          onPress={() => navigation.navigate('Update Password')}
+          onPress={() => navigation.navigate('Address')}
+          topDivider
         >
-          <Icon {...PASSWORD_ICON} color="gray" />
+          <Icon {...LOCATION_ICON} color="gray" />
           <ListItem.Content>
-            <ListItem.Title>Update Password</ListItem.Title>
+            <ListItem.Title>Address</ListItem.Title>
+            {user.address && (
+              <ListItem.Subtitle>
+                {user.address?.street ?? ''}
+              </ListItem.Subtitle>
+            )}
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-      )}
-      <ListItem
-        bottomDivider
-        disabled={submitting || user.isLinkedWithGoogle}
-        onPress={handleSubmitState(linkWithGoogle)}
-      >
-        <Icon {...GMAIL_ICON} color="gray" />
-        <ListItem.Content>
-          <ListItem.Title>
-            {user.isLinkedWithGoogle
-              ? 'Google Account Linked'
-              : 'Link Google Account'}
-          </ListItem.Title>
-        </ListItem.Content>
-        {user.isLinkedWithGoogle
-          ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
-          : <ListItem.Chevron />}
-      </ListItem>
-      <ListItem
-        bottomDivider
-        disabled={submitting || user.isLinkedWithApple}
-        onPress={handleSubmitState(linkWithApple)}
-      >
-        <Icon {...APPLE_ICON} color="gray" />
-        <ListItem.Content>
-          <ListItem.Title>
-            {user.isLinkedWithApple
-              ? 'Apple Account Linked'
-              : 'Link Apple Account'}
-          </ListItem.Title>
-        </ListItem.Content>
-        {user.isLinkedWithApple
-          ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
-          : <ListItem.Chevron />}
-      </ListItem>
-      {/* <ListItem
-        bottomDivider
-        disabled={submitting}
-        onPress={handleSubmitState(linkWithFacebook)}
-      >
-        <Icon {...FACEBOOK_ICON} color="gray" />
-        <ListItem.Content>
-          <ListItem.Title>Link Facebook Account</ListItem.Title>
-        </ListItem.Content>
-        {user.isLinkedWithFacebook
-          ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
-          : <ListItem.Chevron />}
-      </ListItem> */}
+        {user.hasPassword && (
+          <ListItem
+            bottomDivider
+            disabled={submitting}
+            onPress={() => navigation.navigate('Update Password')}
+          >
+            <Icon {...PASSWORD_ICON} color="gray" />
+            <ListItem.Content>
+              <ListItem.Title>Update Password</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        )}
+        <ListItem
+          bottomDivider
+          disabled={submitting || user.isLinkedWithGoogle}
+          onPress={handleSubmitState(linkWithGoogle)}
+        >
+          <Icon {...GMAIL_ICON} color="gray" />
+          <ListItem.Content>
+            <ListItem.Title>
+              {user.isLinkedWithGoogle
+                ? 'Google Account Linked'
+                : 'Link Google Account'}
+            </ListItem.Title>
+          </ListItem.Content>
+          {user.isLinkedWithGoogle
+            ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
+            : <ListItem.Chevron />}
+        </ListItem>
+        <ListItem
+          bottomDivider
+          disabled={submitting || user.isLinkedWithApple}
+          onPress={handleSubmitState(linkWithApple)}
+        >
+          <Icon {...APPLE_ICON} color="gray" />
+          <ListItem.Content>
+            <ListItem.Title>
+              {user.isLinkedWithApple
+                ? 'Apple Account Linked'
+                : 'Link Apple Account'}
+            </ListItem.Title>
+          </ListItem.Content>
+          {user.isLinkedWithApple
+            ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
+            : <ListItem.Chevron />}
+        </ListItem>
+        {/* <ListItem
+          bottomDivider
+          disabled={submitting}
+          onPress={handleSubmitState(linkWithFacebook)}
+        >
+          <Icon {...FACEBOOK_ICON} color="gray" />
+          <ListItem.Content>
+            <ListItem.Title>Link Facebook Account</ListItem.Title>
+          </ListItem.Content>
+          {user.isLinkedWithFacebook
+            ? <Icon {...CHECK_ICON} iconStyle={styles.checkIcon} />
+            : <ListItem.Chevron />}
+        </ListItem> */}
+      </View>
 
       <FormError
         errorMessage={submitError}
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }

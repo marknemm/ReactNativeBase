@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 
 /**
  * Gets the styles for the `SignInScreen` component.
@@ -23,7 +23,6 @@ export function useStyles() {
       alignItems: 'center',
       marginBottom: theme.spacing.lg * 1.5,
       marginHorizontal: theme.spacing.sm,
-      marginTop: -theme.spacing.lg,
     },
   }), []);
 }

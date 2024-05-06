@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 
 /**

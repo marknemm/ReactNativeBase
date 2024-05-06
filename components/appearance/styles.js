@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 
 /**
  * Gets the styles for the `Appearance` component.
@@ -7,10 +7,6 @@ import { useThemedStyles } from '@hooks/theme-hooks';
  * @returns The styles for the `Appearance` component.
  */
 export function useStyles() {
-  return useThemedStyles((theme) => ({
-    label: {
-      marginHorizontal: theme.spacing.md,
-      ...theme.styles.form.label,
-    },
+  return useThemedStyles(() => ({
   }), []);
 }

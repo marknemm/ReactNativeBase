@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 
 /**
  * Gets the styles for the `UserProfileScreen` component.
@@ -13,7 +13,7 @@ export function useStyles() {
       marginBottom: theme.spacing.xl,
     },
     emailVerification: {
-      marginBottom: theme.spacing.lg,
+      marginBottom: theme.spacing.xl,
     },
     checkIcon: {
       color: theme.colors.success,

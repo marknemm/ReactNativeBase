@@ -1,19 +1,19 @@
 /**
  * Creates general {@link Types.Styles.TextStyles text styles}.
  *
- * @param {Types.Rneui.CreateThemeOptions} themeOptions The {@link Types.Rneui.CreateThemeOptions theme options}.
+ * @param {Types.Theme.ThemeWithColors} theme The {@link Types.Theme.ThemeWithColors Theme}.
  * @returns {Types.Styles.TextStyles} The {@link Types.Styles.TextStyles text styles}.
  */
-export function createTextStyles(themeOptions) {
+export function createTextStyles(theme) {
   return {
     bold: {
-      fontWeight: themeOptions.font.weight.bold,
+      fontWeight: theme.font.weight.bold,
     },
     bolder: {
-      fontWeight: themeOptions.font.weight.bolder,
+      fontWeight: theme.font.weight.bolder,
     },
     boldest: {
-      fontWeight: themeOptions.font.weight.boldest,
+      fontWeight: theme.font.weight.boldest,
     },
     center: {
       textAlign: 'center',
@@ -25,17 +25,17 @@ export function createTextStyles(themeOptions) {
     doubleUnderlineBold: {
       textDecorationLine: 'underline',
       textDecorationStyle: 'double',
-      fontWeight: themeOptions.font.weight.bold,
+      fontWeight: theme.font.weight.bold,
     },
     doubleUnderlineBolder: {
       textDecorationLine: 'underline',
       textDecorationStyle: 'double',
-      fontWeight: themeOptions.font.weight.bolder,
+      fontWeight: theme.font.weight.bolder,
     },
     doubleUnderlineBoldest: {
       textDecorationLine: 'underline',
       textDecorationStyle: 'double',
-      fontWeight: themeOptions.font.weight.boldest,
+      fontWeight: theme.font.weight.boldest,
     },
     left: {
       textAlign: 'left',
@@ -51,15 +51,15 @@ export function createTextStyles(themeOptions) {
     },
     underlineBold: {
       textDecorationLine: 'underline',
-      fontWeight: themeOptions.font.weight.bold,
+      fontWeight: theme.font.weight.bold,
     },
     underlineBolder: {
       textDecorationLine: 'underline',
-      fontWeight: themeOptions.font.weight.bolder,
+      fontWeight: theme.font.weight.bolder,
     },
     underlineBoldest: {
       textDecorationLine: 'underline',
-      fontWeight: themeOptions.font.weight.boldest,
+      fontWeight: theme.font.weight.boldest,
     },
   };
 }

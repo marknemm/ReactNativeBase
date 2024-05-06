@@ -1,6 +1,6 @@
+import Form from '@components/form/Form';
 import PropTypes from 'prop-types';
 import { ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyles } from './styles';
 
 /**
@@ -8,38 +8,60 @@ import { useStyles } from './styles';
  *
  * @param {Object} props The component properties.
  * @param {React.ReactNode} [props.children] The children components.
- * @param {boolean} [props.safeArea=false] Whether to apply safe area styling.
- * @param {boolean} [props.safeAreaBottom=false] Whether to apply safe area styling to the bottom.
- * @param {boolean} [props.scrollable=false] Whether the form is scrollable.
- * @param {Types.StyleProp<Types.ViewStyle>} [props.style] The {@link Types.ViewStyle style} to apply.
+ * @param {Types.StyleProp<Types.ViewStyle>} [props.containerStyle] The {@link Types.ViewStyle style} to apply to the container.
+ * @param {Types.Form.UseFormReturn<any>} [props.form] The {@link Types.Form.UseFormReturn form} that shall be provided to the view children.
+ * @param {boolean} [props.fullScreen=false] Whether to apply full screen (no header / bottom tabs) styling.
+ * @param {boolean} [props.noFooter=false] Whether to apply no footer styling.
+ * @param {boolean} [props.noHeader=false] Whether to apply no header styling.
+ * @param {boolean} [props.noScroll=false] Whether to not apply scrolling to the view.
+ * @param {Types.StyleProp<Types.ViewStyle>} [props.style] The {@link Types.ViewStyle style} to apply to the inner {@link View}.
  * @returns {React.JSX.Element} The {@link ScreenView} component.
  */
-export default function ScreenView(props) {
-  const { children, safeArea, scrollable } = props;
-  const styles = useStyles(props);
+export default function ScreenView({
+  children,
+  containerStyle,
+  form,
+  fullScreen,
+  noFooter,
+  noHeader,
+  noScroll,
+  style,
+}) {
+  const styles = useStyles({ containerStyle, fullScreen, noFooter, noHeader, style });
 
-  const innerView = safeArea
+  const inner = form
     ? (
-      <SafeAreaView style={styles.viewStyle}>
+      <Form
+        form={form}
+        style={styles.inner}
+      >
         { children }
-      </SafeAreaView>
+      </Form>
     )
     : (
-      <View style={styles.viewStyle}>
+      <View style={styles.inner}>
         { children }
       </View>
     );
 
-  return scrollable
+  return noScroll
     ? (
-      <ScrollView>
-        { innerView }
-      </ScrollView>
+      <View style={styles.container}>
+        { inner }
+      </View>
     )
-    : innerView;
+    : (
+      <ScrollView style={styles.container}>
+        { inner }
+      </ScrollView>
+    );
 }
 
 ScreenView.propTypes = {
-  safeArea: PropTypes.bool,
-  scrollable: PropTypes.bool,
+  containerStyle: PropTypes.object,
+  form: PropTypes.object,
+  fullScreen: PropTypes.bool,
+  noFooter: PropTypes.bool,
+  noHeader: PropTypes.bool,
+  noScroll: PropTypes.bool,
 };

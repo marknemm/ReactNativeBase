@@ -1,10 +1,10 @@
 import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import PasswordInput from '@components/password-input/PasswordInput';
+import ScreenView from '@components/screen-view/ScreenView';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { Button } from '@rneui/themed';
 import { signUp } from '@util/auth';
 import { setLSItem } from '@util/local-storage';
@@ -30,11 +30,7 @@ export default function SignUpScreen({ navigation }) {
   const loading = submitting || submitSuccessful;
 
   return (
-    <Form
-      form={form}
-      safeArea
-      scrollable
-    >
+    <ScreenView form={form} noFooter>
 
       <EmailInput
         label="Email"
@@ -70,7 +66,6 @@ export default function SignUpScreen({ navigation }) {
       <Button
         disabled={loading}
         onPress={() => navigation.navigate('Sign In')}
-        style={generalStyles.view.screenMarginHorizontal}
         title="Have an account?"
         type="clear"
       />
@@ -80,6 +75,6 @@ export default function SignUpScreen({ navigation }) {
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }

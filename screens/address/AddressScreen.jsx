@@ -1,10 +1,10 @@
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import Input from '@components/input/Input';
+import ScreenView from '@components/screen-view/ScreenView';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useNavigationConfirm, useNavigationSubmitOptions } from '@hooks/navigation-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { useForm } from 'react-hook-form';
 
@@ -32,6 +32,7 @@ export default function AddressScreen({ navigation }) {
 
   const onSave = handleSubmit(async (formData) => {
     await user.save({ address: formData });
+    form.reset(formData);  // Makes form pristine
     navigation.goBack();
   });
 
@@ -51,7 +52,7 @@ export default function AddressScreen({ navigation }) {
   useNavigationConfirm(form.formState.isDirty); // Confirm navigation when the form is dirty
 
   return (
-    <Form form={form} safeArea scrollable>
+    <ScreenView form={form}>
 
       <Input
         autoCapitalize="words"
@@ -98,6 +99,6 @@ export default function AddressScreen({ navigation }) {
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }

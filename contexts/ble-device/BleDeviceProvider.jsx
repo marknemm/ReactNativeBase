@@ -7,12 +7,12 @@ import { useContext, useMemo, useState } from 'react';
 import { BleDeviceContext } from './BleDeviceContext';
 
 /**
- * The BleDevice component.
+ * The {@link BleDeviceProvider} component.
  *
  * @param {Object} props The component props.
  * @param {React.ReactNode} props.children The children components.
  * @param {(device: Device) => boolean} [props.deviceMatchCb] The device match callback.
- * @returns {React.JSX.Element} The BleDeviceProvider component.
+ * @returns {React.JSX.Element} The {@link BleDeviceProvider} component.
  */
 export default function BleDeviceProvider({ children, deviceMatchCb }) {
   const [bleDevice, setBleDevice] = useState(null);

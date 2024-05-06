@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 
 /**
  * Gets the styles for the `BleDeviceList` component.
@@ -9,27 +9,28 @@ import { useThemedStyles } from '@hooks/theme-hooks';
 export function useStyles() {
   return useThemedStyles((theme) => ({
     deviceListHeader: {
-      flexDirection: 'row',
       alignItems: 'center',
       columnGap: theme.spacing.md,
+      flexDirection: 'row',
       marginBottom: theme.spacing.sm,
-      paddingStart: theme.spacing.sm,
+      paddingStart: theme.spacing.screenHorizontal,
     },
     deviceListTitle: {
       fontSize: theme.font.size.larger,
       textDecorationLine: 'underline',
     },
     bleDeviceListItem: {
-      flexDirection: 'row',
       alignItems: 'center',
-      columnGap: theme.spacing.sm,
-      padding: theme.spacing.sm,
-      borderBottomWidth: 1,
       borderBottomColor: 'lightgray',
+      borderBottomWidth: 1,
+      columnGap: theme.spacing.sm,
+      flexDirection: 'row',
+      paddingHorizontal: theme.spacing.screenHorizontal,
+      paddingVertical: theme.spacing.sm,
     },
     bleDeviceNameInfoContainer: {
-      flexDirection: 'row',
       alignItems: 'center',
+      flexDirection: 'row',
       flexGrow: 1,
     },
     bleDeviceName: {

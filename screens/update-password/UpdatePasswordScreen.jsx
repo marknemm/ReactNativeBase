@@ -1,10 +1,10 @@
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
 import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
 import PasswordInput from '@components/password-input/PasswordInput';
+import ScreenView from '@components/screen-view/ScreenView';
 import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
 import { useNavigationSubmitOptions } from '@hooks/navigation-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { useForm } from 'react-hook-form';
 
@@ -44,7 +44,7 @@ export default function UpdatePasswordScreen({ navigation }) {
   }, [form.formState.isDirty, onSave, submitting]);
 
   return (
-    <Form form={form} safeArea scrollable>
+    <ScreenView form={form}>
 
       <PasswordInput
         label="Current Password"
@@ -72,6 +72,6 @@ export default function UpdatePasswordScreen({ navigation }) {
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }

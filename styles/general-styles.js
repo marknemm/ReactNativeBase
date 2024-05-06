@@ -8,15 +8,15 @@ import { createViewStyles } from './view-styles';
 /**
  * Creates the {@link Types.Theme.GeneralStyles general styles}.
  *
- * @param {Types.Rneui.CreateThemeOptions} themeOptions The {@link Types.Rneui.CreateThemeOptions theme options}.
+ * @param {Types.Theme.ThemeWithColors} theme The {@link Types.Theme.ThemeWithColors Theme}.
  * @returns {Types.Styles.GeneralStyles} The {@link Types.Styles.GeneralStyles general styles}.
  */
-export function createGeneralStyles(themeOptions) {
+export function createGeneralStyles(theme) {
   return {
-    color: StyleSheet.create(createColorStyles(themeOptions)),
-    form: StyleSheet.create(createFormStyles(themeOptions)),
-    image: StyleSheet.create(createImageStyles(themeOptions)),
-    text: StyleSheet.create(createTextStyles(themeOptions)),
-    view: StyleSheet.create(createViewStyles(themeOptions)),
+    color: StyleSheet.create(createColorStyles(theme)),
+    form: StyleSheet.create(createFormStyles(theme)),
+    image: StyleSheet.create(createImageStyles(theme)),
+    text: StyleSheet.create(createTextStyles(theme)),
+    view: StyleSheet.create(createViewStyles(theme)),
   };
 }

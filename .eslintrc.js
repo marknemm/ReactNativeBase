@@ -165,6 +165,7 @@ module.exports = {
       consistent: true,                                         // Require consistent newlines in object literals
     }],
     'object-curly-spacing': ['warn', 'always'],                 // Enable the warning about object curly spacing
+    'object-property-newline': 'warn',                          // Enable the warning about object property newlines
     'object-shorthand': 'warn',                                 // Enable the warning about object shorthand
     'one-var': ['warn', {                                       // Enable the warning about variable declarations
       initialized: 'never',                                     // Do not require variables to be initialized

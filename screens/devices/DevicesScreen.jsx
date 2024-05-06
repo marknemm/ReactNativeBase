@@ -1,5 +1,6 @@
 import BleDeviceList from '@components/ble-device-list/BleDeviceList';
 import ScreenView from '@components/screen-view/ScreenView';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 
 /**
  * Devices screen.
@@ -9,8 +10,10 @@ import ScreenView from '@components/screen-view/ScreenView';
  * @returns {React.JSX.Element} The devices screen.
  */
 export default function DogsScreen({ navigation }) {
+  const generalStyles = useGeneralStyles();
+
   return (
-    <ScreenView safeArea>
+    <ScreenView noScroll style={generalStyles.view.noPaddingHorizontal}>
       <BleDeviceList />
     </ScreenView>
   );

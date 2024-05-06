@@ -1,9 +1,10 @@
+import ScreenView from '@components/screen-view/ScreenView';
 import UserCard from '@components/user-card/UserCard';
 import { DEVICES_ICON, INFO_ICON, LOGOUT_ICON, THEME_ICON } from '@constants/icons';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useUser } from '@hooks/user-hooks';
 import { Icon, ListItem } from '@rneui/themed';
 import { signOut } from '@util/auth';
-import { View } from 'react-native';
 
 /**
  * Settings screen.
@@ -13,10 +14,13 @@ import { View } from 'react-native';
  * @returns {React.JSX.Element} The settings screen.
  */
 export default function SettingsScreen({ navigation }) {
+  const generalStyles = useGeneralStyles();
   const user = useUser();
+
   return (
-    <View>
+    <ScreenView style={generalStyles.view.noPaddingHorizontal}>
       <UserCard
+        containerStyle={generalStyles.view.noMarginTop}
         onPress={() => navigation.navigate('Profile')}
         user={user}
       />
@@ -48,6 +52,6 @@ export default function SettingsScreen({ navigation }) {
           <ListItem.Title>Sign Out</ListItem.Title>
         </ListItem.Content>
       </ListItem>
-    </View>
+    </ScreenView>
   );
 }

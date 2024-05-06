@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-returns-type */
-import { useThemedStyles } from '@hooks/theme-hooks';
+import { useThemedStyles } from '@hooks/styles-hooks';
 import { User } from '@util/user';
 import { StyleSheet } from 'react-native';
 
@@ -14,7 +14,6 @@ import { StyleSheet } from 'react-native';
 export function useStyles({ containerStyle, user }) {
   return useThemedStyles((theme) => ({
     container: {
-      marginHorizontal: theme.spacing.sm,
       ...StyleSheet.flatten(containerStyle),
     },
     icon: {

@@ -1,10 +1,10 @@
 import EmailInput from '@components/email-input/EmailInput';
 import FormError from '@components/form-error/FormError';
-import Form from '@components/form/Form';
+import ScreenView from '@components/screen-view/ScreenView';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
-import { useGeneralStyles } from '@hooks/theme-hooks';
+import { useGeneralStyles } from '@hooks/styles-hooks';
 import { Button, Text } from '@rneui/themed';
 import { sendPasswordResetEmail } from '@util/auth';
 import PropTypes from 'prop-types';
@@ -33,16 +33,13 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
   const { handleSubmit, submitError, submitSuccessful, submitting } = useSubmitState(form);
 
   return (
-    <Form
-      form={form}
-      safeArea
-      scrollable
-    >
+    <ScreenView form={form} noFooter>
 
       <EmailInput
         label="Email"
         name="email"
         readOnly={!!readOnlyEmail}
+        required
         textContentType="username"
       />
 
@@ -61,7 +58,6 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
           }
           onSignIn?.();
         }}
-        style={generalStyles.view.screenMarginHorizontal}
         title="Sign in"
         type="clear"
       />
@@ -77,7 +73,7 @@ export default function ForgotPasswordScreen({ isModal, navigation, onSignIn, re
         style={generalStyles.form.submitError}
       />
 
-    </Form>
+    </ScreenView>
   );
 }
 

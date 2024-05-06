@@ -1,5 +1,5 @@
+import ScreenView from '@components/screen-view/ScreenView';
 import { Text } from '@rneui/themed';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
  * The {@link HomeScreen}.
@@ -10,8 +10,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
  */
 export default function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView>
+    <ScreenView>
       <Text>My Pets</Text>
-    </SafeAreaView>
+    </ScreenView>
   );
 }

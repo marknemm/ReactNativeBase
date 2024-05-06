@@ -1,5 +1,6 @@
 import SignInModal from '@components/sign-in-modal/SignInModal';
 import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
+import GeneralStylesProvider from '@contexts/general-styles/GeneralStylesProvider';
 import UserProvider from '@contexts/user/UserProvider';
 import { useAuthState } from '@hooks/auth-hooks';
 import { useThemeGenerator } from '@hooks/theme-hooks';
@@ -40,14 +41,16 @@ export default function App() {
   return (
     <SafeAreaProvider onLayout={SplashScreen.hideAsync}>
       <ThemeProvider theme={theme}>
-        <BleManagerProvider>
-          <UserProvider user={user}>
-            <StatusBar />
-            <RootSiblingParent>
-              <NavigationRoot />
-            </RootSiblingParent>
-          </UserProvider>
-        </BleManagerProvider>
+        <GeneralStylesProvider>
+          <BleManagerProvider>
+            <UserProvider user={user}>
+              <StatusBar />
+              <RootSiblingParent>
+                <NavigationRoot />
+              </RootSiblingParent>
+            </UserProvider>
+          </BleManagerProvider>
+        </GeneralStylesProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

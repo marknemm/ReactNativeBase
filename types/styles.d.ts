@@ -138,6 +138,19 @@ export type ViewStyles = {
   flexItem: ViewStyle;
   flexEndItem: ViewStyle;
   fullWidth: ViewStyle;
+  noMargin: ViewStyle;
+  noMarginBottom: ViewStyle;
+  noMarginHorizontal: ViewStyle;
+  noMarginLeft: ViewStyle;
+  noMarginRight: ViewStyle;
+  noMarginTop: ViewStyle;
+  noMarginVertical: ViewStyle;
+  noPadding: ViewStyle;
+  noPaddingBottom: ViewStyle;
+  noPaddingHorizontal: ViewStyle;
+  noPaddingLeft: ViewStyle;
+  noPaddingRight: ViewStyle;
+  noPaddingTop: ViewStyle;
+  noPaddingVertical: ViewStyle;
   row: ViewStyle;
-  screenMarginHorizontal: ViewStyle;
 }
