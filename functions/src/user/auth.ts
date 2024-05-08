@@ -1,11 +1,13 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const logger = require('firebase-functions/logger');
+import admin from 'firebase-admin';
+import { UserRecord } from 'firebase-admin/auth';
+import { DocumentData, DocumentSnapshot } from 'firebase-admin/firestore';
+import { auth } from 'firebase-functions';
+import * as logger from 'firebase-functions/logger';
 
 /**
  * Sync newly created user data from Firebase Auth to Firestore.
  */
-exports.createUser = functions.auth.user().onCreate(async (user) => {
+export const createUser = auth.user().onCreate(async (user: UserRecord) => {
   const { uid, displayName, email, phoneNumber, photoURL } = user;
 
   if (!email && !phoneNumber) return; // Do not save anonymous user.
@@ -29,7 +31,7 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
 /**
  * Sync deleted user data from Firebase Auth to Firestore.
  */
-exports.deleteUser = functions.auth.user().onDelete(async (user) => {
+export const deleteUser = auth.user().onDelete(async (user: UserRecord) => {
   const { uid, email, phoneNumber } = user;
 
   if (!email && !phoneNumber) return; // Do not delete anonymous user.
@@ -48,12 +50,11 @@ exports.deleteUser = functions.auth.user().onDelete(async (user) => {
 /**
  * Get {@link UserRecord} data from Firebase Auth.
  *
- * @param {string} uid The unique User ID.
- * @returns {Promise<admin.firestore.DocumentSnapshot<admin.firestore.DocumentData>>}
- * The {@link admin.firestore.DocumentSnapshot<admin.firestore.DocumentData> User doc snapshot} or `null` if not found.
- * @throws {Error} Short Circuit `Error` if an error occurs.
+ * @param uid The unique User ID.
+ * @returns The {@link DocumentSnapshot<DocumentData>} or `null` if not found.
+ * @throws Short Circuit {@link Error} if an error occurs.
  */
-async function getFirestoreUser(uid) {
+async function getFirestoreUser(uid: string): Promise<DocumentSnapshot<DocumentData>> {
   try {
     return await admin.firestore().collection('users').doc(uid).get();
   } catch (error) {

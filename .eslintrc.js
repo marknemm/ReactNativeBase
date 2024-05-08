@@ -75,7 +75,7 @@ module.exports = {
     'eqeqeq': 'warn',                                           // Enable the warning about using strict equality
     'function-call-argument-newline': 'off',                    // Disable the rule about function call argument newlines
     'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
-    'indent': 'warn',                                           // Enable the warning about indentation
+    'indent': ['warn', 2],                                      // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
     'import/extensions': ['warn', 'never'],                     // Enable the warning about import extensions
     'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports

@@ -1,16 +1,21 @@
 const { rules } = require('../.eslintrc');
 
 module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ["tsconfig.json", "tsconfig.dev.json"],
+    sourceType: "module",
+  },
   env: {
     es6: true,
     node: true,
   },
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
   extends: [
-    'eslint:recommended',
     'google',
+  ],
+  ignorePatterns: [
+    "/lib/**/*",        // Ignore built files.
+    "/generated/**/*",  // Ignore generated files.
   ],
   rules: {
     ...Object.keys(rules) // Merge in the rules from the root .eslintrc.js
@@ -20,7 +25,8 @@ module.exports = {
           obj[key] = rules[key];
           return obj;
         }, {}),
-    'valid-jsdoc': 'off', // Require valid JSDoc comments
+    'import/no-import-module-exports': 'off', // Disallow import declarations from import call arguments
+    'valid-jsdoc': 'off',                     // Use inherited jsdoc rules instead
   },
   overrides: [
     {
