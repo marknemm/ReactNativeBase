@@ -1,0 +1,50 @@
+import FormError from '@components/form-error/FormError';
+import { useSubmitState } from '@hooks/form-hooks';
+import { Button, Icon, Text } from '@rneui/themed';
+import { View } from 'react-native';
+import { Props } from './props';
+import { useStyles } from './styles';
+
+/**
+ * A component for displaying email verification status and resending verification emails.
+ */
+const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVisible = false }) => {
+  const styles = useStyles({ containerStyle, user });
+  const { handleSubmitState, submitError, submitSuccessful, submitting } = useSubmitState();
+
+  const verifiedText = user?.emailVerified
+    ? 'Email Verified'
+    : 'Email Not Verified   -';
+  const verifiedIcon = user?.emailVerified
+    ? 'check-circle-outline'
+    : 'error-outline';
+
+  return user && (isVerifiedVisible || !user.emailVerified) && (
+    <View style={styles.container}>
+      <View style={styles.statusContainer}>
+        <Icon name={verifiedIcon} iconStyle={styles.icon} />
+        <Text>{verifiedText}</Text>
+
+        {!user.emailVerified && (
+          <Button
+            loading={submitting}
+            onPress={handleSubmitState(() => user.sendEmailVerification())}
+            titleStyle={styles.resendButton}
+            title="Resend Email"
+            type="clear"
+          />
+        )}
+      </View>
+
+      {submitSuccessful && (
+        <Text style={styles.submitSuccessful}>
+          Success - please check your email
+        </Text>
+      )}
+
+      <FormError errorMessage={submitError} />
+    </View>
+  );
+}
+
+export default EmailVerification;

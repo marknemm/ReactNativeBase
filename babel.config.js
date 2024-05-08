@@ -22,6 +22,7 @@ module.exports = (api) => {
           '@contexts': './contexts',
           '@env': './util/env',
           '@hooks': './hooks',
+          '@interfaces': './interfaces',
           '@navigation': './navigation',
           '@screens': './screens',
           '@styles': './styles',
