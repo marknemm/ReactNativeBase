@@ -5,6 +5,9 @@ import { Props } from './props';
 
 /**
  * An {@link Input} field for entering a password.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link PasswordInput} component.
  */
 const PasswordInput: React.FC<Props> = (props) => {
   const { autoComplete, isVisibilityToggleEnabled = true, textContentType } = props;
@@ -47,6 +50,6 @@ const PasswordInput: React.FC<Props> = (props) => {
       {...props}
     />
   );
-}
+};
 
 export default PasswordInput;

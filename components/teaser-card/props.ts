@@ -110,5 +110,6 @@ export interface Props extends CardProps {
  */
 export type StyleProps = Pick<
   Props,
-  'avatarStyle' | 'avatarIconStyle' | 'avatarTitleStyle' | 'containerStyle' | 'layout' | 'innerStyle' | 'subtitleStyle' | 'titleStyle'
+  'avatarStyle' | 'avatarIconStyle' | 'avatarTitleStyle' | 'containerStyle'
+  | 'layout' | 'innerStyle' | 'subtitleStyle' | 'titleStyle'
 >;

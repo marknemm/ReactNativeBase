@@ -7,6 +7,8 @@ import { View, useColorScheme } from 'react-native';
 
 /**
  * The theme screen.
+ *
+ * @returns The {@link ThemeScreen} component.
  */
 const ThemeScreen: React.FC<ScreenProps> = () => {
   const autoColorScheme = useColorScheme();
@@ -29,6 +31,6 @@ const ThemeScreen: React.FC<ScreenProps> = () => {
       />
     </View>
   );
-}
+};
 
 export default ThemeScreen;

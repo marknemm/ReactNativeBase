@@ -6,6 +6,9 @@ import { useStyles } from './styles';
 
 /**
  * A card with a surrounding link, avatar image, title, and subtitle.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link TeaserCard} component.
  */
 const TeaserCard: React.FC<Props> = ({
   avatarBackgroundColor,
@@ -59,6 +62,6 @@ const TeaserCard: React.FC<Props> = ({
       </Card>
     </Button>
   );
-}
+};
 
 export default TeaserCard;

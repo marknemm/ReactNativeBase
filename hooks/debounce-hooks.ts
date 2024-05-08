@@ -6,7 +6,7 @@ import { useCallback, useRef } from 'react';
  * @param timeout The debounce timeout in milliseconds.
  * @returns The debounce function, which debounces a callback function.
  */
-export function useDebounce(timeout: number): (callback: Function) => void {
+export function useDebounce(timeout: number): (callback: () => any) => void {
   const timeoutRef = useRef(null);
 
   return useCallback((cb) => {
@@ -23,11 +23,12 @@ export function useDebounce(timeout: number): (callback: Function) => void {
 /**
  * Custom hook that creates a debounced callback function.
  *
- * @param {Function} callback The callback function.
- * @param {number} timeout The debounce timeout in milliseconds.
- * @returns {Function} The debounced callback function.
+ * @template T The callback function type.
+ * @param callback The callback function.
+ * @param timeout The debounce timeout in milliseconds.
+ * @returns The debounced callback function.
  */
-export function useDebounced(callback: Function, timeout: number): Function {
+export function useDebounced<T extends((...args: any[]) => any)>(callback: T, timeout: number): T {
   const debounce = useDebounce(timeout);
-  return useCallback((...args: any[]) => debounce(() => callback(...args)), [callback, debounce]);
+  return useCallback((...args: any[]) => debounce(() => callback(...args)), [callback, debounce]) as T;
 }

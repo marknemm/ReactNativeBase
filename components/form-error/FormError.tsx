@@ -20,6 +20,6 @@ const FormError: React.FC<Props> = ({ center, errorMessage, style }) => {
       </Text>
     )
     : null; // Do not render anything if there is no error message.
-}
+};
 
 export default FormError;

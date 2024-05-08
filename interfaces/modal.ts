@@ -12,6 +12,15 @@ export type InferTResult<TProps> = TProps extends ModalProps<infer TResult>
                                  : any;
 
 /**
+ * The `Modal` render callback type.
+ *
+ * @template TResult The type of the result of the modal prompt.
+ * @param onClose The callback to close the modal.
+ * @returns The JSX to render in the modal.
+ */
+export type ModalRenderCb<TResult> = ((onClose: (result?: TResult) => void) => React.ReactNode);
+
+/**
  * The `Modal` render function type.
  * Takes either a render function or a functional component.
  *
@@ -22,5 +31,4 @@ export type InferTResult<TProps> = TProps extends ModalProps<infer TResult>
  * @template TProps The `ModalProps` type.
  * @template TResult The type of the result of the modal prompt.
  */
-export type ModalRenderFn<TProps, TResult> = ((onClose: (result?: TResult) => void) => React.ReactNode)
-                                           | React.FunctionComponent<TProps>
+export type ModalRenderFn<TProps, TResult> = ModalRenderCb<TResult> | React.FC<TProps>;

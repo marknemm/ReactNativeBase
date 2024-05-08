@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { ScaledSize, TextStyle, ViewStyle } from 'react-native';
 import { ThemeWithColors } from './theme';
 
@@ -110,9 +111,8 @@ export type FormStyles = {
 /**
  * General image styles.
  */
-export type ImageStyles = {
-
-}
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type ImageStyles = {}
 
 /**
  * General text styles.

@@ -13,6 +13,9 @@ import { useForm } from 'react-hook-form';
 
 /**
  * Sign up screen.
+ *
+ * @param props The {@link ScreenProps}.
+ * @returns The {@link SignUpScreen} component.
  */
 const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const generalStyles = useGeneralStyles();
@@ -74,6 +77,6 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
     </ScreenView>
   );
-}
+};
 
 export default SignUpScreen;

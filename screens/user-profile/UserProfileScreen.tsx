@@ -21,6 +21,9 @@ import { useStyles } from './styles';
 
 /**
  * The user profile screen.
+ *
+ * @param props The {@link ScreenProps}.
+ * @returns The {@link UserProfileScreen} component.
  */
 const UserProfileScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const styles = useStyles();
@@ -189,6 +192,6 @@ const UserProfileScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
     </ScreenView>
   );
-}
+};
 
 export default UserProfileScreen;

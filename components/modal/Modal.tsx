@@ -10,6 +10,9 @@ import { useStyles } from './styles';
  *
  * Unlike the standard {@link Dialog} component, the {@link Modal} component is blocking and is meant
  * to be launched imperatively from anywhere within the app via {@link import('@util/modal').showModal showModal}.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Modal} component.
  */
 const Modal: React.FC<Props> = ({
   backdropStyle,
@@ -41,6 +44,6 @@ const Modal: React.FC<Props> = ({
       </Animated.View>
     </>
   );
-}
+};
 
 export default Modal;

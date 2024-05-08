@@ -1,7 +1,6 @@
-
+import { DBDocData } from '@interfaces/db';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { logErr } from './log';
-import { DBDocData } from '@interfaces/db';
 
 /**
  * Gets a document from a remote DB collection.
@@ -53,7 +52,7 @@ export function listenDBDoc(
  * @param documentPath A slash-separated path to a document.
  * @param docData The document data to set.
  * @param options The set options that specify merge strategies.
- * @returnsA promise that resolves when the operation is complete.
+ * @returns A promise that resolves when the operation is complete.
  */
 export async function setDBDoc(
   collectionPath: string,

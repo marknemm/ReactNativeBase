@@ -77,4 +77,7 @@ export interface Props<
 /**
  * The `Input` component style properties.
  */
-export type StyleProps = Pick<InputProps, 'containerStyle' | 'inputContainerStyle' | 'inputStyle' | 'labelStyle' | 'style'>;
+export type StyleProps = Pick<
+  InputProps,
+  'containerStyle' | 'inputContainerStyle' | 'inputStyle' | 'labelStyle' | 'style'
+>;

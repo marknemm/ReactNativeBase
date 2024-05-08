@@ -16,8 +16,7 @@ export function log(...message: any[]) {
  * Logs the environment variables to the console.
  */
 export function logEnv() {
-  // eslint-disable-next-line global-require
-  const env = require('@env');
+  const env = require('@env'); // eslint-disable-line global-require, @typescript-eslint/no-var-requires
   for (const envVar in env) {
     if (typeof env[envVar] !== 'function') {
       log(envVar, env[envVar]);

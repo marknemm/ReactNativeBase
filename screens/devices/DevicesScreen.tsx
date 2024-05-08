@@ -5,6 +5,8 @@ import { ScreenProps } from '@interfaces/screen';
 
 /**
  * Screen that displays a list of BLE devices.
+ *
+ * @returns The {@link DevicesScreen} component.
  */
 const DevicesScreen: React.FC<ScreenProps> = () => {
   const generalStyles = useGeneralStyles();
@@ -14,6 +16,6 @@ const DevicesScreen: React.FC<ScreenProps> = () => {
       <BleDeviceList />
     </ScreenView>
   );
-}
+};
 
 export default DevicesScreen;

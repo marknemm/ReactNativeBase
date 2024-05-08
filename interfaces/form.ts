@@ -86,7 +86,6 @@ export interface SubmitState<TFieldValues extends FieldValues = FieldValues, TRe
    * @param onValid The {@link SubmitHandler} to invoke after form passes validation.
    * @param onInvalid The {@link SubmitErrorHandler} to invoke when the form failed validation.
    * @returns Callback function.
-   *
    * @example
    *
    * const onValid = (data) => console.log(data);
@@ -181,5 +180,6 @@ export type ValidationRules<
 >
   = Omit<
     RegisterOptions<TFieldValues, TFieldName>,
-    "deps" | "disabled" | "onBlur" | "onChange" | "setValueAs" | "ShouldUnregister" | "value" | "valueAsDate" | "valueAsNumber"
+    'deps' | 'disabled' | 'onBlur' | 'onChange' | 'setValueAs' | 'ShouldUnregister'
+    | 'value' | 'valueAsDate' | 'valueAsNumber'
   >;

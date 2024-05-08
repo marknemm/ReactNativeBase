@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form';
 
 /**
  * A screen that allows the user to edit their {@link Address} information.
+ *
+ * @param props The {@link ScreenProps}.
+ * @returns The {@link AddressScreen} component.
  */
 const AddressScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const generalStyles = useGeneralStyles();
@@ -98,6 +101,6 @@ const AddressScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
     </ScreenView>
   );
-}
+};
 
 export default AddressScreen;

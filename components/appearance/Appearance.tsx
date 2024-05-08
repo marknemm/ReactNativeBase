@@ -6,6 +6,9 @@ import { Props } from './props';
 
 /**
  * Component that allows the user to select the appearance of the application.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Appearance} component.
  */
 const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanceChange = () => {} }) => {
   const generalStyles = useGeneralStyles();
@@ -47,6 +50,6 @@ const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanc
       </View>
     </ScreenView>
   );
-}
+};
 
 export default Appearance;

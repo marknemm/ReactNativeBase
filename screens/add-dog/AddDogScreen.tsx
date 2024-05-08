@@ -10,11 +10,14 @@ import { Button } from '@rneui/themed';
 import { log } from '@util/log';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { useStyles } from './styles';
 import { ScreenProps } from '@interfaces/screen';
+import { useStyles } from './styles';
 
 /**
  * The screen for adding dogs.
+ *
+ * @param props The {@link ScreenProps}.
+ * @returns The {@link AddDogScreen} component.
  */
 const AddDogScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const styles = useStyles();
@@ -97,6 +100,6 @@ const AddDogScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
     </ScreenView>
   );
-}
+};
 
 export default AddDogScreen;

@@ -3,14 +3,15 @@ import { UserContext } from './UserContext';
 
 /**
  * Provides the authenticated {@link User} instance.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link UserProvider} component.
  */
-const UserProvider: React.FC<Props> = ({ children, user }) => {
-  return (
-    <UserContext.Provider value={user}>
-      { children }
-    </UserContext.Provider>
-  );
-}
+const UserProvider: React.FC<Props> = ({ children, user }) => (
+  <UserContext.Provider value={user}>
+    { children }
+  </UserContext.Provider>
+);
 
 /**
  * The {@link UserProvider} component properties.

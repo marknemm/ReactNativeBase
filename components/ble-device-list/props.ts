@@ -1,9 +1,9 @@
 import { Device } from 'react-native-ble-plx';
 
 /**
- * The {@link BleDeviceList} component properties.
+ * The `BleDeviceList` component properties.
  */
-export interface BleDeviceListProps {
+export interface Props {
 
   /**
    * The title of the device list.

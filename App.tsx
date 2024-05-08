@@ -25,8 +25,10 @@ initAuth({ SignInModal });           // Initialize authentication.
 
 /**
  * The main application component.
+ *
+ * @returns The {@link App} component.
  */
-export default function App() {
+const App: React.FC = () => {
   const theme = useThemeGenerator(genTheme);
   const { user, userLoading } = useAuthState();
   const [appInitialized, setAppInitialized] = useState(!userLoading);
@@ -52,4 +54,6 @@ export default function App() {
       </ThemeProvider>
     </SafeAreaProvider>
   );
-}
+};
+
+export default App;

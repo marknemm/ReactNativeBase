@@ -10,6 +10,9 @@ import { useStyles } from './styles';
 
 /**
  * A component for displaying info for a Bluetooth {@link Device}.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link BleDevice} component.
  */
 const BleDevice: React.FC<Props> = ({ bleDevice }) => {
   const styles = useStyles();
@@ -30,6 +33,6 @@ const BleDevice: React.FC<Props> = ({ bleDevice }) => {
       </ExpansionPanel>
     </View>
   );
-}
+};
 
 export default BleDevice;

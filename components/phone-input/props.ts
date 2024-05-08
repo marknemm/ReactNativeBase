@@ -12,8 +12,14 @@ export interface Props<
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 > extends InputProps<TFieldValues, TContext, TFieldName>  {
 
+  /**
+   * @inheritdoc
+   */
   autoComplete?: 'tel';
 
+  /**
+   * @inheritdoc
+   */
   keyboardType?: 'phone-pad';
 
   /**
@@ -23,6 +29,9 @@ export interface Props<
    */
   pattern?: ValidationRule<RegExp>;
 
+  /**
+   * @inheritdoc
+   */
   textContentType?: 'telephoneNumber';
 
 }

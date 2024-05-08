@@ -14,6 +14,9 @@ import { useStyles } from './styles';
 /**
  * A screen that allows the user to reset their forgotten password.
  * This screen can also be displayed inside a modal dialog.
+ *
+ * @param props The {@link Props}.
+ * @returns The {@link ForgotPasswordScreen} component.
  */
 const ForgotPasswordScreen: React.FC<Props> = ({ isModal, navigation, onSignIn, readOnlyEmail }) => {
   const styles = useStyles();
@@ -69,7 +72,7 @@ const ForgotPasswordScreen: React.FC<Props> = ({ isModal, navigation, onSignIn, 
 
     </ScreenView>
   );
-}
+};
 
 /**
  * The {@link ForgotPasswordScreen} component properties.

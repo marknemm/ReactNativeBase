@@ -6,8 +6,18 @@ import { Props } from './props';
  * A component for a expandable panel with a title toggle button.
  *
  * The expanded state can be controlled internally or externally.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link ExpansionPanel} component.
  */
-const ExpansionPanel: React.FC<Props> = ({ children, initExpanded = false, isExpanded, onPress, title, ...accordionProps }) => {
+const ExpansionPanel: React.FC<Props> = ({
+  children,
+  initExpanded = false,
+  isExpanded,
+  onPress,
+  title,
+  ...accordionProps
+}) => {
   const [expandedState, toggleExpandedState] = useControlledToggleState(isExpanded, onPress, initExpanded);
 
   return (
@@ -26,6 +36,6 @@ const ExpansionPanel: React.FC<Props> = ({ children, initExpanded = false, isExp
       { children }
     </ListItem.Accordion>
   );
-}
+};
 
 export default ExpansionPanel;

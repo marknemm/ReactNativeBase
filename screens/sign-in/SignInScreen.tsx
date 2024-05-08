@@ -18,6 +18,9 @@ import { useStyles } from './styles';
 
 /**
  * Screen for signing in.
+ *
+ * @param props The {@link Props}.
+ * @returns The {@link SignInScreen} component.
  */
 const SignInScreen: React.FC<Props> = ({
   isModal,
@@ -122,7 +125,7 @@ const SignInScreen: React.FC<Props> = ({
 
     </ScreenView>
   );
-}
+};
 
 /**
  * The {@link SignInScreen} component properties.

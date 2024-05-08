@@ -7,6 +7,9 @@ import { useStyles } from './styles';
 
 /**
  * A component for displaying email verification status and resending verification emails.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link EmailVerification} component.
  */
 const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVisible = false }) => {
   const styles = useStyles({ containerStyle, user });
@@ -45,6 +48,6 @@ const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVi
       <FormError errorMessage={submitError} />
     </View>
   );
-}
+};
 
 export default EmailVerification;

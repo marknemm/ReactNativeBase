@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form';
 
 /**
  * Update password screen.
+ *
+ * @param props The {@link ScreenProps}.
+ * @returns The {@link UpdatePasswordScreen} component.
  */
 const UpdatePasswordScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const generalStyles = useGeneralStyles();
@@ -71,6 +74,6 @@ const UpdatePasswordScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
     </ScreenView>
   );
-}
+};
 
 export default UpdatePasswordScreen;

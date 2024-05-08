@@ -1,4 +1,4 @@
-import { InferTResult, ModalProps, ModalRenderFn } from '@interfaces/modal';
+import { InferTResult, ModalProps, ModalRenderCb, ModalRenderFn } from '@interfaces/modal';
 import { createElement } from 'react';
 import RootSiblingsManager from 'react-native-root-siblings';
 
@@ -19,23 +19,21 @@ export function showModal<
   props?: TProps
 ): (result?: TResult) => void {
   let rootNode: RootSiblingsManager;
-  const onClose = (result: TResult) => {
+  const onClose = (result?: TResult) => {
     rootNode?.destroy();
     rootNode = null;
     props?.onClose?.(result);
   };
 
-  if (renderModal.name.charAt(0) === renderModal.name.charAt(0).toUpperCase()) {
-    // @ts-ignore
-    const ModalElement = createElement(renderModal, {
+  // Get the callback function version of the ModalRenderFn argument.
+  const renderModalCb = (renderModal.name.charAt(0) === renderModal.name.charAt(0).toUpperCase())
+    ? () => createElement(renderModal as React.FC<TProps>, {
       ...props,
       onClose,
-    });
-    renderModal = () => ModalElement;
-  }
+    })
+    : renderModal as ModalRenderCb<TResult>;
 
-  // @ts-ignore
-  rootNode = new RootSiblingsManager(renderModal(onClose));
+  rootNode = new RootSiblingsManager(renderModalCb(onClose));
 
   return onClose;
 }

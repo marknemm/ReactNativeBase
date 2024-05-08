@@ -20,6 +20,9 @@ const IMAGE_PICKER_OPTIONS: ImagePickerOptions = {
 
 /**
  * Component that displays an editable avatar image.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Avatar} component.
  */
 const Avatar: React.FC<Props> = (props) => {
   const { name, onChange } = props;
@@ -43,10 +46,13 @@ const Avatar: React.FC<Props> = (props) => {
       />
     )
     : <AvatarControlled {...props} />;
-}
+};
 
 /**
  * The controlled {@link Avatar} component.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link AvatarControlled} component.
  */
 const AvatarControlled: React.FC<Props> = (props) => {
   const styles = useStyles(props);
@@ -90,6 +96,6 @@ const AvatarControlled: React.FC<Props> = (props) => {
       />
     </>
   );
-}
+};
 
 export default Avatar;

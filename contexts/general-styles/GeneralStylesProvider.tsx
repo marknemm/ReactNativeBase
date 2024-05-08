@@ -6,6 +6,9 @@ import { GeneralStylesContext } from './GeneralStylesContext';
 /**
  * Provides the {@link GeneralStyles} for the application.
  * The {@link GeneralStyles} are based on the current theme, and will update with the theme.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link GeneralStylesProvider} component.
  */
 const GeneralStylesProvider: React.FC<Props> = ({ children }) => {
   const { theme } = useTheme();
@@ -18,7 +21,7 @@ const GeneralStylesProvider: React.FC<Props> = ({ children }) => {
       { children }
     </GeneralStylesContext.Provider>
   );
-}
+};
 
 /**
  * The {@link GeneralStylesProvider} component properties.

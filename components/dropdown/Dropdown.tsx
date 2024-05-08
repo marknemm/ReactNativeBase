@@ -10,6 +10,9 @@ import { useStyles } from './styles';
 
 /**
  * A component for a dropdown form field.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Dropdown} component.
  */
 const Dropdown: React.FC<Props> = (props) => {
   const { label, name, onBlur, onChange, placeholder } = props;
@@ -50,10 +53,13 @@ const Dropdown: React.FC<Props> = (props) => {
       </>
     )
     : <DropdownControlled {...props} />;
-}
+};
 
 /**
  * The controlled {@link Dropdown} component.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link DropdownControlled} component.
  */
 const DropdownControlled: React.FC<Props> = ({
   containerStyle,
@@ -106,6 +112,6 @@ const DropdownControlled: React.FC<Props> = ({
       />
     </View>
   );
-}
+};
 
 export default Dropdown;

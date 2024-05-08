@@ -95,7 +95,7 @@ export function useFormErrorMessage(rules: ValidationRules, props: FormFieldProp
  */
 export function useValidationRule<TValidationValue extends ValidationValue = ValidationValue>({
   value,
-  message
+  message,
 }: ValidationValueMessage<TValidationValue>): ValidationValueMessage<TValidationValue> {
   return useMemo(() => ({
     value,
@@ -119,8 +119,8 @@ export function useMatchValidator<
 >(
   form: UseFormReturn<TFieldValues>,
   fieldName: TFieldName,
-  message = '',
-): ValidateFn<TFieldValues, TFieldName>{
+  message = ''
+): ValidateFn<TFieldValues, TFieldName> {
   return useCallback((value: TFieldValues[TFieldName]) =>
     value === form.getValues(fieldName) || message || `${fieldName} must match`,
   [message, fieldName, form]);
@@ -140,7 +140,7 @@ export function useSubmitState<
   TResult = any
 >(
   form?: UseFormReturn<TFieldValues>,
-  onSubmitSuccess?: (result: TResult) => void,
+  onSubmitSuccess?: (result: TResult) => void
 ): SubmitState<TFieldValues, TResult> {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -190,7 +190,7 @@ function useHandleSubmitState<TFieldValues = FieldValues, TResult = any>(
   onSubmitSuccess: (result: TResult) => void | null,
   setSubmitError: StateSetter<string>,
   setSubmitSuccessful: StateSetter<boolean>,
-  setSubmitting: StateSetter<boolean>,
+  setSubmitting: StateSetter<boolean>
 ): UseHandleSubmitState<TResult> {
   return useCallback((onSubmit, afterSubmitCbs?) =>
     async (...args) => {
@@ -222,7 +222,14 @@ function useHandleSubmitState<TFieldValues = FieldValues, TResult = any>(
 
       return result;
     },
-  [form, onSubmitSuccess, submitting]) as UseHandleSubmitState<TResult>;
+  [
+    form,
+    onSubmitSuccess,
+    setSubmitError,
+    setSubmitSuccessful,
+    setSubmitting,
+    submitting,
+  ]) as UseHandleSubmitState<TResult>;
 }
 
 /**

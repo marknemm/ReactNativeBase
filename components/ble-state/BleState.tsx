@@ -8,6 +8,8 @@ import { useStyles } from './styles';
 
 /**
  * A component for displaying the BLE {@link State}.
+ *
+ * @returns The {@link BleState} component.
  */
 const BleState: React.FC = () => {
   const styles = useStyles();
@@ -26,6 +28,6 @@ const BleState: React.FC = () => {
       </Tooltip>
     </View>
   );
-}
+};
 
 export default BleState;

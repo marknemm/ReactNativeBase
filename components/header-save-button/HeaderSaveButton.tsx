@@ -18,6 +18,6 @@ const HeaderSaveButton: React.FC<ButtonProps> = (props) => {
       titleStyle={styles.title}
     />
   );
-}
+};
 
 export default HeaderSaveButton;

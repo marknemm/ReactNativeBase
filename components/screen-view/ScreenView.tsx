@@ -5,6 +5,9 @@ import { useStyles } from './styles';
 
 /**
  * A root {@link View} for a screen.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link ScreenView} component.
  */
 const ScreenView: React.FC<Props> = ({
   children,
@@ -48,6 +51,6 @@ const ScreenView: React.FC<Props> = ({
         { inner }
       </ScrollView>
     );
-}
+};
 
 export default ScreenView;

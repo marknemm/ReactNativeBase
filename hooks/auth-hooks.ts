@@ -13,8 +13,7 @@ import { useEffect, useRef, useState } from 'react';
  *
  * @returns An {@link AuthState} object that contains the current authenticated user and its loading state.
  */
-export function useAuthState(): AuthState
-{
+export function useAuthState(): AuthState {
   const [authUser, setAuthUser] = useState(auth().currentUser);
   const [user, setUser] = useState(authUser?.isAnonymous ? new User(null) : null);
   const [userLoading, setUserLoading] = useState(!user);
@@ -56,18 +55,17 @@ export function useAuthState(): AuthState
 export function useAuthRefresh(
   predicate: Predicate = true,
   intervalMs = 3000
-): React.MutableRefObject<NodeJS.Timeout>
-{
+): React.MutableRefObject<NodeJS.Timeout> {
   const intervalRef = useRef(null);
 
   useEffect(() => {
-    const predicateVal = resolvePredicate(predicate);
+    let predicateVal = resolvePredicate(predicate);
 
     if (predicateVal && auth().currentUser) {
       reloadAuthUser();
 
       intervalRef.current = setInterval(() => {
-        const predicateVal = resolvePredicate(predicate);
+        predicateVal = resolvePredicate(predicate);
 
         (predicateVal && auth().currentUser)
           ? reloadAuthUser()

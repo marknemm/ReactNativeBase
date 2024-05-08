@@ -9,13 +9,16 @@ import { Device } from '@util/ble-manager';
 import { logErr } from '@util/log';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { BleDeviceListHeaderProps, BleDeviceListItemProps, BleDeviceListProps } from './props';
+import { BleDeviceListHeaderProps, BleDeviceListItemProps, Props } from './props';
 import { useStyles } from './styles';
 
 /**
  * A component for displaying a list of Bluetooth {@link Device Devices}.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link BleDeviceList} component.
  */
-const BleDeviceList: React.FC<BleDeviceListProps> = ({ title = 'Detected Devices' }) => {
+const BleDeviceList: React.FC<Props> = ({ title = 'Detected Devices' }) => {
   const bleDevices = useBleDevices();
   const availableBleDevices = bleDevices.filter(
     (d) => d.localName || d.name
@@ -34,10 +37,13 @@ const BleDeviceList: React.FC<BleDeviceListProps> = ({ title = 'Detected Devices
       />
     </View>
   );
-}
+};
 
 /**
  * Component for the header of the {@link BleDeviceList}.
+ *
+ * @param props The component {@link BleDeviceListHeaderProps}.
+ * @returns The {@link BleDeviceListHeader} component.
  */
 const BleDeviceListHeader: React.FC<BleDeviceListHeaderProps> = ({ title }) => {
   const styles = useStyles();
@@ -50,10 +56,13 @@ const BleDeviceListHeader: React.FC<BleDeviceListHeaderProps> = ({ title }) => {
       <RefreshButton onPress={() => resetBleManager()} />
     </View>
   );
-}
+};
 
 /**
  * A component for displaying a Bluetooth {@link Device} in a list.
+ *
+ * @param props The component {@link BleDeviceListItemProps}.
+ * @returns The {@link BleDeviceListItem} component.
  */
 const BleDeviceListItem: React.FC<BleDeviceListItemProps> = ({ bleDevice }) => {
   const styles = useStyles();
@@ -100,6 +109,6 @@ const BleDeviceListItem: React.FC<BleDeviceListItemProps> = ({ bleDevice }) => {
       />
     </View>
   );
-}
+};
 
 export default BleDeviceList;

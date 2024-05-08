@@ -8,6 +8,9 @@ import { Props } from './props';
  * A standard info icon button.
  *
  * Can also display an {@link InfoDialog} on press.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link InfoButton} component.
  */
 const InfoButton: React.FC<Props> = ({
   color = 'transparent',
@@ -52,6 +55,6 @@ const InfoButton: React.FC<Props> = ({
       { infoDialog }
     </>
   );
-}
+};
 
 export default InfoButton;

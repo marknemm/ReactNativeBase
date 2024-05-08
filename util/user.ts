@@ -1,6 +1,7 @@
 import SignInModal from '@components/sign-in-modal/SignInModal';
 import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import { Address, UserDoc } from '@interfaces/user';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { setDBDoc } from '@util/db';
 import Toast from 'react-native-root-toast';
@@ -10,7 +11,6 @@ import { setLSItem } from './local-storage';
 import { log, logErr } from './log';
 import { showModalAsync } from './modal';
 import { uploadFile } from './remote-fs';
-import { Address, UserDoc } from '@interfaces/user';
 
 /**
  * Represents a {@link User}.
@@ -167,7 +167,7 @@ export class User {
   /**
    * The raw user data.
    */
-  get rawData(): DeepReadonly<{ authUser?: FirebaseAuthTypes.User, docData?: UserDoc }>{
+  get rawData(): DeepReadonly<{ authUser?: FirebaseAuthTypes.User, docData?: UserDoc }> {
     return {
       authUser: this.isAuthenticated ? auth().currentUser : null,
       docData: this.#docData,

@@ -9,6 +9,9 @@ import { useStyles } from './styles';
 
 /**
  * A component for displaying a bottom sheet.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link BottomSheet} component.
  */
 const BottomSheet: React.FC<Props> = (props) => {
   const { backdropStyle, children, isVisible, onBackdropPress, onClose, title } = props;
@@ -44,6 +47,6 @@ const BottomSheet: React.FC<Props> = (props) => {
       </View>
     </RneBottomSheet>
   );
-}
+};
 
 export default BottomSheet;

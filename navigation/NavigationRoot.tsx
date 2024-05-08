@@ -17,6 +17,8 @@ const noHeaderOpts = { headerShown: false };
 
 /**
  * The root stack navigator for the application.
+ *
+ * @returns The {@link MainStack} component.
  */
 const NavigationRoot: React.FC<ScreenProps> = () => {
   const user = useUser();
@@ -61,7 +63,7 @@ const NavigationRoot: React.FC<ScreenProps> = () => {
       </RootNavigationContainerRefContext.Provider>
     </NavigationContainer>
   );
-}
+};
 
 /**
  * Custom hook that gets the navigation {@link Theme}.

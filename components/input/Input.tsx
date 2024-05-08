@@ -8,6 +8,9 @@ import { useStyles } from './styles';
 
 /**
  * Component for generic user text input.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Input} component.
  */
 const Input: React.FC<Props> = (props) => {
   const { label, name, onBlur, onChangeText } = props;
@@ -41,10 +44,13 @@ const Input: React.FC<Props> = (props) => {
       />
     )
     : <InputControlled {...props} />;
-}
+};
 
 /**
  * Controlled {@link Input} component.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link InputControlled} component.
  */
 const InputControlled: React.FC<Props> = ({
   containerStyle,
@@ -101,6 +107,6 @@ const InputControlled: React.FC<Props> = ({
       value={undefined} // Do not update value prop directly to prevent input lag (see useEffect above).
     />
   );
-}
+};
 
 export default Input;

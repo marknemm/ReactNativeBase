@@ -12,6 +12,9 @@ export interface Props<
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 > extends InputProps<TFieldValues, TContext, TFieldName> {
 
+  /**
+   * @inheritdoc
+   */
   keyboardType?: 'email-address';
 
   /**

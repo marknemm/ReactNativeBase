@@ -8,8 +8,7 @@ import { useContext, useEffect, useState } from 'react';
  *
  * @returns The current Bluetooth {@link State}.
  */
-export function useBleState(): State
-{
+export function useBleState(): State {
   const [bleState, setBleState] = useState(State.Unknown);
   const { bleManager } = useContext(BleManagerContext);
 
@@ -32,8 +31,7 @@ export function useBleState(): State
  *
  * @returns The list of detected Bluetooth {@link Device} objects.
  */
-export function useBleDevices(): Device[]
-{
+export function useBleDevices(): Device[] {
   const [bleDevices, setBleDevices] = useState([]);
   const { bleManager } = useContext(BleManagerContext);
   const bleState = useBleState();

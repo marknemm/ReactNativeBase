@@ -1,12 +1,15 @@
 import { useControlledState } from '@hooks/state-hooks';
 import { Tooltip as RneuiTooltip } from '@rneui/themed';
-import { Props } from './props';
 import { useCallback } from 'react';
+import { Props } from './props';
 
 /**
  * A tooltip component.
  *
  * The visibility state can be controlled internally or externally.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link Tooltip} component.
  */
 const Tooltip: React.FC<Props> = ({
   backgroundColor = 'gray',
@@ -21,12 +24,12 @@ const Tooltip: React.FC<Props> = ({
   const onCloseCb = useCallback(() => {
     setTooltipVisible(false);
     onClose?.();
-  }, [onClose]);
+  }, [onClose, setTooltipVisible]);
 
   const onOpenCb = useCallback(() => {
     setTooltipVisible(true);
     onOpen?.();
-  }, [onOpen]);
+  }, [onOpen, setTooltipVisible]);
 
   return (
     <RneuiTooltip
@@ -39,6 +42,6 @@ const Tooltip: React.FC<Props> = ({
       { children }
     </RneuiTooltip>
   );
-}
+};
 
 export default Tooltip;

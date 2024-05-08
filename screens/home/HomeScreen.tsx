@@ -4,13 +4,13 @@ import { Text } from '@rneui/themed';
 
 /**
  * The home screen of the application.
+ *
+ * @returns The {@link HomeScreen} component.
  */
-const HomeScreen: React.FC<ScreenProps> = () => {
-  return (
-    <ScreenView>
-      <Text>My Pets</Text>
-    </ScreenView>
-  );
-}
+const HomeScreen: React.FC<ScreenProps> = () => (
+  <ScreenView>
+    <Text>My Pets</Text>
+  </ScreenView>
+);
 
 export default HomeScreen;

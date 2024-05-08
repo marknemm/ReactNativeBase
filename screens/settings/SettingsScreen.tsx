@@ -9,6 +9,9 @@ import { signOut } from '@util/auth';
 
 /**
  * The settings screen of the application.
+ *
+ * @param props The component {@link ScreenProps}.
+ * @returns The {@link SettingsScreen} component.
  */
 const SettingsScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const generalStyles = useGeneralStyles();
@@ -51,6 +54,6 @@ const SettingsScreen: React.FC<ScreenProps> = ({ navigation }) => {
       </ListItem>
     </ScreenView>
   );
-}
+};
 
 export default SettingsScreen;

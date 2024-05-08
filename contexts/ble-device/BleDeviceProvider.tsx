@@ -7,8 +7,11 @@ import { BleDeviceContext } from './BleDeviceContext';
 
 /**
  * Provides the Bluetooth {@link Device} instance to the application or a subtree within the application.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link BleDeviceProvider} component.
  */
-const BleDeviceProvider: React.FC<Props> = ({children, device, deviceMatchCb }) => {
+const BleDeviceProvider: React.FC<Props> = ({ children, device, deviceMatchCb }) => {
   const [bleDevice, setBleDevice] = useState(device);
   const { bleManager } = useContext(BleManagerContext);
   const bleDevices = useBleDevices();
@@ -41,7 +44,7 @@ const BleDeviceProvider: React.FC<Props> = ({children, device, deviceMatchCb }) 
       { children }
     </BleDeviceContext.Provider>
   );
-}
+};
 
 /**
  * The {@link BleDeviceProvider} component props.

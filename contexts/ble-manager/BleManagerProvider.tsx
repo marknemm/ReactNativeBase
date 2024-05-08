@@ -4,6 +4,9 @@ import { BleManagerContext } from './BleManagerContext';
 
 /**
  * Provides the {@link BleManager} instance to the application.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link BleManagerProvider} component.
  */
 const BleManagerProvider: React.FC<Props> = ({ children }) => {
   const [bleManager, setBleManager] = useState(() => new BleManager());
@@ -25,7 +28,7 @@ const BleManagerProvider: React.FC<Props> = ({ children }) => {
       { children }
     </BleManagerContext.Provider>
   );
-}
+};
 
 /**
  * The {@link BleManagerProvider} component properties.

@@ -28,7 +28,15 @@ export type ThemeGeneratorFn = (colorScheme: 'light' | 'dark', windowDimensions:
  * The {@link ThemeFont}.
  */
 export interface ThemeFont {
+
+  /**
+   * The font family.
+   */
   family?: string;
+
+  /**
+   * The font size.
+   */
   size: {
     small?: number;
     normal?: number;
@@ -36,6 +44,10 @@ export interface ThemeFont {
     larger?: number;
     largest?: number;
   };
+
+  /**
+   * The font weight.
+   */
   weight: {
     lightest?: FontWeight;
     lighter?: FontWeight;
@@ -45,6 +57,7 @@ export interface ThemeFont {
     bolder?: FontWeight;
     boldest?: FontWeight;
   }
+
 }
 
 export interface ColorProps {

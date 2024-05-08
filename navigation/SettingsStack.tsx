@@ -14,41 +14,41 @@ const Stack = createNativeStackNavigator();
 
 /**
  * The settings stack navigation for the application.
+ *
+ * @returns The {@link MainStack} component.
  */
-const SettingsStack: React.FC<ScreenProps> = () => {
-  return (
-    <Stack.Navigator screenOptions={useScreenOptions()}>
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-      />
-      <Stack.Screen
-        name="About"
-        component={AboutScreen}
-      />
-      <Stack.Screen
-        name="Address"
-        component={AddressScreen}
-      />
-      <Stack.Screen
-        name="Devices"
-        component={DevicesScreen}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={UserProfileScreen}
-      />
-      <Stack.Screen
-        name="Theme"
-        component={ThemeScreen}
-      />
-      <Stack.Screen
-        name="Update Password"
-        component={UpdatePasswordScreen}
-        options={OPTIONS_HEADER_SAVE_CANCEL}
-      />
-    </Stack.Navigator>
-  );
-}
+const SettingsStack: React.FC<ScreenProps> = () => (
+  <Stack.Navigator screenOptions={useScreenOptions()}>
+    <Stack.Screen
+      name="Settings"
+      component={SettingsScreen}
+    />
+    <Stack.Screen
+      name="About"
+      component={AboutScreen}
+    />
+    <Stack.Screen
+      name="Address"
+      component={AddressScreen}
+    />
+    <Stack.Screen
+      name="Devices"
+      component={DevicesScreen}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={UserProfileScreen}
+    />
+    <Stack.Screen
+      name="Theme"
+      component={ThemeScreen}
+    />
+    <Stack.Screen
+      name="Update Password"
+      component={UpdatePasswordScreen}
+      options={OPTIONS_HEADER_SAVE_CANCEL}
+    />
+  </Stack.Navigator>
+);
 
 export default SettingsStack;

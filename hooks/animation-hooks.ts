@@ -22,8 +22,7 @@ export function useValueAnimation(
   animationFn: AnimationFn = withTiming,
   config: any = null,
   callback?: AnimationCallback
-): SharedValue<number>
-{
+): SharedValue<number> {
   const height = useSharedValue(resolvePredicate(predicate) ? trueValue : falseValue);
 
   useEffect(() => {

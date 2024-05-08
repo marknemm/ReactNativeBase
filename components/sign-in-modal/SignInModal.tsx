@@ -11,6 +11,9 @@ import { useStyles } from './styles';
 
 /**
  * A modal dialog for signing in or resetting a password.
+ *
+ * @param props The component {@link Props}.
+ * @returns The {@link SignInModal} component.
  */
 const SignInModal: React.FC<Props> = ({
   isPasswordOnly,
@@ -72,6 +75,6 @@ const SignInModal: React.FC<Props> = ({
       </Animated.View>
     </Modal>
   );
-}
+};
 
 export default SignInModal;
