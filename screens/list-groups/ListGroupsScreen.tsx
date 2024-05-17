@@ -63,6 +63,8 @@ const ListGroupsScreen: React.FC<ScreenProps> = ({ navigation }) => {
         data={queryState.items}
         keyExtractor={(group) => group.id}
         onEndReached={() => setStartAfter(queryState.cursor)}
+        onRefresh={queryState.refresh}
+        refreshing={queryState.refreshing}
         renderItem={({ item: group }) => (
           <GroupCard
             group={group}

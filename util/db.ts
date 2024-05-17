@@ -5,7 +5,7 @@ import { logErr } from '@util/log';
 import { toTitleCase } from '@util/string';
 import deepMerge from 'deepmerge';
 
-export { DBQueryOptions, DBQueryResult };
+export * from '@interfaces/db';
 
 const and: FirestoreCompositeFilterFn = firestore.Filter.and as any;
 const or: FirestoreCompositeFilterFn = firestore.Filter.or as any;

@@ -1,8 +1,10 @@
 import { PreventableEvent } from '@interfaces/event';
-import { UseControlledToggleStateReturn, UseStateReturn, UseToggleStateReturn } from '@interfaces/state';
+import { UseControlledToggleStateReturn, UseIncrementStateReturn, UseStateReturn, UseToggleStateReturn } from '@interfaces/state';
 import mergeRefs from 'merge-refs';
 import { useCallback, useMemo, useState } from 'react';
 import { GestureResponderEvent } from 'react-native';
+
+export * from '@interfaces/state';
 
 /**
  * Custom hook that combines multiple callbacks into a single callback via {@link useCallback}.
@@ -66,6 +68,26 @@ export function useControlledToggleState<Event extends PreventableEvent = Gestur
   }, [onToggle, setState]);
 
   return [state, toggleState];
+}
+
+/**
+ * Custom hook that generates an increment state.
+ *
+ * @param value The initial value of the increment state.
+ * @returns The stateful value and functions to increment and decrement it.
+ */
+export function useIncrementState(value: number): UseIncrementStateReturn {
+  const [state, setState] = useState(value);
+
+  const incState = useCallback((increment = 1) => {
+    setState((val) => val + increment);
+  }, []);
+
+  const decState = useCallback((decrement = 1) => {
+    setState((val) => val - decrement);
+  }, []);
+
+  return [state, incState, decState];
 }
 
 /**

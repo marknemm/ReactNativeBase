@@ -100,6 +100,20 @@ export interface DBQueryOptionsState<
 }
 
 /**
+ * Options for refreshing a DB query.
+ */
+export interface DBQueryRefreshOptions {
+
+  /**
+   * Whether to maintain the current start-after cursor.
+   *
+   * Defaults to `false`, which will reset the cursor to `undefined`.
+   */
+  maintainStartAfter?: boolean;
+
+}
+
+/**
  * Filter options for querying DB documents.
  *
  * @template T The type of the DB document data.
@@ -238,6 +252,11 @@ export interface DBQueryResult<TData = DBDocData> {
 export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
 
   /**
+   * Whether the query is currently loading for the first time.
+   */
+  firstLoading: boolean;
+
+  /**
    * The error that occurred while loading the query.
    */
   loadError: string;
@@ -246,6 +265,26 @@ export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
    * Whether the query is currently loading.
    */
   loading: boolean;
+
+  /**
+   * Refreshes the query options state.
+   *
+   * Sets the {@link refreshing} state to `true`.
+   *
+   * Does nothing if the {@link refreshing} state is already `true`.
+   *
+   * Use in conjunction with {@link setRefreshComplete} to set the {@link refreshing} state to `false` after query completion.
+   *
+   * @param resetStartAfter Whether to reset the start-after cursor.
+   */
+  refresh: (opts?: DBQueryRefreshOptions) => void;
+
+  /**
+   * Whether the query is currently refreshing.
+   *
+   * `Note`: If this is `true`, then {@link loading} will also be true, but not vice-versa.
+   */
+  refreshing: boolean;
 
 }
 
@@ -314,6 +353,16 @@ export interface UseQueryOptions<TData = any, TMap = TData> {
    * @param doc The raw document data.
    * @returns The mapped document data.
    */
-  map?: (doc: TData) => TMap
+  map?: (doc: TData) => TMap;
+
+  /**
+   * A callback function to invoke after the query is loaded.
+   *
+   * This will be invoked on both load success and error.
+   *
+   * @param result The {@link DBQueryResult}. If an error occurred, then `null`.
+   * @param error The {@link Error} that occurred while loading the query. If no error, then `null`.
+   */
+  afterLoad?: (result: DBQueryResult<TMap>, error: Error) => void;
 
 }

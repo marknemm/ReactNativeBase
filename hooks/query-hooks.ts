@@ -1,8 +1,8 @@
-import { DBDocData, DBFilterOptions, DBOrderByOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions } from '@interfaces/db';
-import { listDBDocs, mergeQueryOptions } from '@util/db';
+import { useDebounce } from '@hooks/debounce-hooks';
+import { useIncrementState } from '@hooks/state-hooks';
+import { DBDocData, DBFilterOptions, DBOrderByOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, mergeQueryOptions } from '@util/db';
 import { log, logErr } from '@util/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDebounce } from './debounce-hooks';
 
 /**
  * Custom hook for creating a stateful {@link DBQueryOptions} object.
@@ -28,7 +28,7 @@ export function useQueryOptions<
   const [orderBy, setOrderBy] = useState(initOrderBy);
   const [startAfter, setStartAfter] = useState(initStartAt);
 
-  const queryOptionsState = useMemo(() => ({
+  const queryOptionsState = useMemo<DBQueryOptionsState<TData, TFilters>>(() => ({
     filters,
     limit,
     orderBy,
@@ -96,18 +96,24 @@ export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
     limit,
     orderBy,
     startAfter,
-  }: DBQueryOptions<TData> = {},
+    setStartAfter,
+  }: Partial<DBQueryOptionsState<TData>> = {},
   {
     debounceMs = 500,
     map = (doc) => doc as any,
+    afterLoad = () => {},
   }: UseQueryOptions<TData, TMap> = {}
 ): DBQueryState<TMap> {
+  const [firstLoading, setFirstLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [loading, setLoading] = useState(true);
   const [queryResult, setQueryResult] = useState<DBQueryResult<TMap>>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [queryInstance, incQueryInstance] = useIncrementState(0); // Used to force refresh.
 
   const debounce = useDebounce(debounceMs);
-  const mapCb = useCallback(map, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const mapCb = useCallback(map, []);             // eslint-disable-line react-hooks/exhaustive-deps
+  const afterLoadCb = useCallback(afterLoad, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const prevFiltersRef = useRef<DBFilterOptions>();
   const prevOrderByRef = useRef<DBOrderByOptions<TData>>();
@@ -117,7 +123,7 @@ export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
     setLoadError('');
 
     debounce(() => {
-      log('Querying:', collectionPath, { filters, limit, orderBy, startAfter });
+      log(`Querying '${collectionPath}' with options:`, { filters, limit, orderBy, startAfter });
 
       listDBDocs(collectionPath, { filters, limit, orderBy, startAfter }, mapCb)
         .then((result) => {
@@ -134,19 +140,36 @@ export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
 
           prevFiltersRef.current = filters;
           prevOrderByRef.current = orderBy;
+          afterLoadCb?.(result, null);
         })
         .catch((error) => {
           logErr('Query error:', error);
           setLoadError(error.message);
+          afterLoadCb?.(null, error);
         })
-        .finally(() => setLoading(false));
+        .finally(() => {
+          setFirstLoading(false);
+          setLoading(false);
+          setRefreshing(false);
+        });
     });
-  }, [collectionPath, debounce, filters, limit, mapCb, orderBy, startAfter]);
+  }, [afterLoadCb, collectionPath, debounce, filters, limit, mapCb, orderBy, queryInstance, startAfter]);
 
   return useMemo(() => ({
     cursor: queryResult?.cursor,
-    items: queryResult?.items,
+    firstLoading,
+    items: queryResult?.items ?? [],
     loadError,
     loading,
-  }), [loadError, loading, queryResult]);
+    refresh: ({ maintainStartAfter } = {}) => {
+      if (!refreshing) {
+        setRefreshing(true);
+        if (setStartAfter && !maintainStartAfter) {
+          setStartAfter(null);
+        }
+        incQueryInstance();
+      }
+    },
+    refreshing,
+  }), [firstLoading, incQueryInstance, loadError, loading, queryResult, refreshing, setStartAfter]);
 }
