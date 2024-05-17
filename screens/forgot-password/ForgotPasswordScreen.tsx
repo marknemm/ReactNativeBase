@@ -1,5 +1,5 @@
 import EmailInput from '@components/email-input/EmailInput';
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import ScreenView from '@components/screen-view/ScreenView';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
@@ -65,8 +65,8 @@ const ForgotPasswordScreen: React.FC<Props> = ({ isModal, navigation, onSignIn, 
         </Text>
       )}
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 

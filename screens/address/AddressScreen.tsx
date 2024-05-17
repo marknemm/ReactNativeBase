@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import Input from '@components/input/Input';
 import ScreenView from '@components/screen-view/ScreenView';
@@ -95,8 +95,8 @@ const AddressScreen: React.FC<ScreenProps> = ({ navigation }) => {
         textContentType="postalCode"
       />
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 

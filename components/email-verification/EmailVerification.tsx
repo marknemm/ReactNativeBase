@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import { useSubmitState } from '@hooks/form-hooks';
 import { Button, Icon, Text } from '@rneui/themed';
 import { View } from 'react-native';
@@ -45,7 +45,7 @@ const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVi
         </Text>
       )}
 
-      <FormError errorMessage={submitError} />
+      <ErrorText error={submitError} />
     </View>
   );
 };

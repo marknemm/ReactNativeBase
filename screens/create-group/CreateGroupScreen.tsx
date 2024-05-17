@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import Input from '@components/input/Input';
 import ScreenView from '@components/screen-view/ScreenView';
@@ -55,9 +55,9 @@ const CreateGroupScreen: React.FC<ScreenProps> = () => {
         name="description"
       />
 
-      <FormError
+      <ErrorText
         center
-        errorMessage={submitError}
+        error={submitError}
       />
 
     </ScreenView>

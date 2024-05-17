@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
 import { Text, useTheme } from '@rneui/themed';
 import { forwardRef } from 'react';
@@ -48,9 +48,9 @@ const Dropdown: DropdownFC = forwardRef((props, ref) => {
           rules={rules}
         />
 
-        <FormError
+        <ErrorText
           {...props}
-          errorMessage={errorMessage}
+          error={errorMessage}
           style={null}
         />
       </>

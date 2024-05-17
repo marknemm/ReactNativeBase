@@ -1,7 +1,7 @@
 import Avatar from '@components/avatar/Avatar';
 import EmailInput from '@components/email-input/EmailInput';
 import EmailVerification from '@components/email-verification/EmailVerification';
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import Input from '@components/input/Input';
 import PhoneInput from '@components/phone-input/PhoneInput';
@@ -186,8 +186,8 @@ const UserProfileScreen: React.FC<ScreenProps> = ({ navigation }) => {
         </ListItem> */}
       </View>
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 

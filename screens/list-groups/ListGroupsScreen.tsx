@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import GroupCard from '@components/group-card/GroupCard';
 import ScreenView from '@components/screen-view/ScreenView';
 import SearchBar from '@components/search-bar/SearchBar';
@@ -54,9 +54,9 @@ const ListGroupsScreen: React.FC<ScreenProps> = ({ navigation }) => {
         showLoading={queryState.loading}
       />
 
-      <FormError
+      <ErrorText
         center
-        errorMessage={queryState.loadError}
+        error={queryState.loadError}
       />
 
       <FlatList

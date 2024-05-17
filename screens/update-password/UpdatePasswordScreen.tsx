@@ -1,4 +1,4 @@
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import PasswordInput from '@components/password-input/PasswordInput';
 import ScreenView from '@components/screen-view/ScreenView';
@@ -68,8 +68,8 @@ const UpdatePasswordScreen: React.FC<ScreenProps> = ({ navigation }) => {
         validate={useMatchValidator(form, 'newPassword', 'Passwords must match')}
       />
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 

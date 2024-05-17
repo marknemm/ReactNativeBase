@@ -20,7 +20,9 @@ const TeaserCard: React.FC<Props> = ({
   photoSize = 'medium',
   photoURL,
   subtitle,
+  subtitleNumberOfLines = 1,
   title,
+  titleNumberOfLines = 2,
   ...styleProps
 }) => {
   const styles = useStyles(styleProps);
@@ -49,11 +51,19 @@ const TeaserCard: React.FC<Props> = ({
         />
 
         <View style={styles.textContent}>
-          <Card.Title style={styles.title}>
+          <Card.Title
+            ellipsizeMode="tail"
+            numberOfLines={titleNumberOfLines}
+            style={styles.title}
+          >
             {title}
           </Card.Title>
           {subtitle && (
-            <Text style={styles.subtitle}>
+            <Text
+              ellipsizeMode="tail"
+              numberOfLines={subtitleNumberOfLines}
+              style={styles.subtitle}
+            >
               {subtitle}
             </Text>
           )}

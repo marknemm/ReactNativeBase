@@ -95,6 +95,13 @@ export interface Props extends CardProps {
   subtitle?: string;
 
   /**
+   * The number of lines for the subtitle.
+   *
+   * @default 1
+   */
+  subtitleNumberOfLines?: number;
+
+  /**
    * The {@link TextStyle} for the subtitle.
    */
   subtitleStyle?: StyleProp<TextStyle>;
@@ -103,6 +110,13 @@ export interface Props extends CardProps {
    * The title text or element.
    */
   title?: string | React.ReactNode;
+
+  /**
+   * The number of lines for the title.
+   *
+   * @default 2
+   */
+  titleNumberOfLines?: number;
 
   /**
    * The {@link TextStyle} for the title.

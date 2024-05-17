@@ -15,6 +15,7 @@ const GroupCard: React.FC<Props> = ({ group, ...restProps }) =>
       photoPlaceholderBg={group.backgroundColor}
       photoURL={group.photoURL}
       title={group.name}
+      subtitle={group.description}
       {...restProps}
     />
   );

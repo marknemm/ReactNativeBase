@@ -1,5 +1,5 @@
 import Dropdown from '@components/dropdown/Dropdown';
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import Input from '@components/input/Input';
 import ScreenView from '@components/screen-view/ScreenView';
 import { POSITIVE_DECIMAL_REGEX, POSITIVE_WHOLE_NUMBER_REGEX } from '@constants/regex';
@@ -93,8 +93,8 @@ const AddDogScreen: React.FC<ScreenProps> = ({ navigation }) => {
         title="Save Dog"
       />
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 

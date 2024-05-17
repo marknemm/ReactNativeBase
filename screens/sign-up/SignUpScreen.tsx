@@ -1,5 +1,5 @@
 import EmailInput from '@components/email-input/EmailInput';
-import FormError from '@components/form-error/FormError';
+import ErrorText from '@components/error-text/ErrorText';
 import PasswordInput from '@components/password-input/PasswordInput';
 import ScreenView from '@components/screen-view/ScreenView';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
@@ -70,8 +70,8 @@ const SignUpScreen: React.FC<ScreenProps> = ({ navigation }) => {
         type="clear"
       />
 
-      <FormError
-        errorMessage={submitError}
+      <ErrorText
+        error={submitError}
         style={generalStyles.form.submitError}
       />
 
