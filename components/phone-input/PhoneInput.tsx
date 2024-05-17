@@ -1,15 +1,17 @@
 import Input from '@components/input/Input';
 import { PHONE_PATTERN_RULE } from '@constants/validation';
+import { forwardRef } from 'react';
 import { Masks } from 'react-native-mask-input';
-import { Props } from './props';
+import { PhoneInputFC, Props } from './props';
 
 /**
  * An {@link Input} field for entering a phone number.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link PhoneInput} component.
  */
-const PhoneInput: React.FC<Props> = (props) => (
+const PhoneInput: PhoneInputFC = forwardRef((props, ref) => (
   <Input
     autoCapitalize="none"
     autoComplete="tel"
@@ -17,9 +19,10 @@ const PhoneInput: React.FC<Props> = (props) => (
     keyboardType="phone-pad"
     mask={Masks.USA_PHONE}
     pattern={PHONE_PATTERN_RULE}
+    ref={ref}
     textContentType="telephoneNumber"
     {...props}
   />
-);
+));
 
 export default PhoneInput;

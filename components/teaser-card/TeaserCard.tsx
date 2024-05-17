@@ -11,14 +11,14 @@ import { useStyles } from './styles';
  * @returns The {@link TeaserCard} component.
  */
 const TeaserCard: React.FC<Props> = ({
-  avatarBackgroundColor,
-  avatarIcon,
-  avatarRounded = true,
-  avatarSize = 'medium',
-  avatarTitle,
-  avatarURL,
   children,
+  icon,
   onPress,
+  photoPlaceholder,
+  photoPlaceholderBg,
+  photoRounded = true,
+  photoSize = 'medium',
+  photoURL,
   subtitle,
   title,
   ...styleProps
@@ -37,15 +37,15 @@ const TeaserCard: React.FC<Props> = ({
         wrapperStyle={styles.cardInner}
       >
         <Avatar
-          avatarStyle={styles.avatar}
-          backgroundColor={avatarBackgroundColor}
-          icon={avatarIcon}
-          iconStyle={styles.avatarIcon}
-          rounded={avatarRounded}
-          size={avatarSize}
-          title={avatarTitle}
-          titleStyle={styles.avatarTitle}
-          value={avatarURL}
+          avatarStyle={styles.photo}
+          backgroundColor={photoPlaceholderBg}
+          icon={icon}
+          iconStyle={styles.icon}
+          rounded={photoRounded}
+          size={photoSize}
+          title={photoPlaceholder}
+          titleStyle={styles.photoPlaceholder}
+          value={photoURL}
         />
 
         <View style={styles.textContent}>

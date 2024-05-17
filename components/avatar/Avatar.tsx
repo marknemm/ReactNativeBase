@@ -2,33 +2,25 @@ import CameraBottomSheet from '@components/camera-bottom-sheet/CameraBottomSheet
 import { useFormControl } from '@hooks/form-hooks';
 import { useCallbacks } from '@hooks/state-hooks';
 import { Avatar as RneAvatar } from '@rneui/themed';
-import { CameraType, ImagePickerOptions, MediaTypeOptions, launchCamera, launchMediaLibrary } from '@util/camera';
-import { useCallback, useMemo, useState } from 'react';
+import { launchCamera, launchMediaLibrary } from '@util/camera';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { IMAGE_PICKER_OPTIONS } from './constants';
+import { AvatarFC, Props } from './props';
 import { useStyles } from './styles';
-import { Props } from './props';
-
-/**
- * The {@link Avatar} component's image picker and camera {@link ImagePickerOptions options}.
- */
-const IMAGE_PICKER_OPTIONS: ImagePickerOptions = {
-  allowsEditing: true,
-  aspect: [1, 1],
-  cameraType: CameraType.front,
-  mediaTypes: MediaTypeOptions.Images,
-};
 
 /**
  * Component that displays an editable avatar image.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link Avatar} component.
  */
-const Avatar: React.FC<Props> = (props) => {
-  const { name, onChange } = props;
-  const control = useFormControl(props);
+const Avatar: AvatarFC = forwardRef((props, ref) => {
+  const { editable, name, onChange } = props;
+  const control = useFormControl(props, !editable);
 
-  return control
+  return (control && name)
     ? (
       <Controller
         control={control}
@@ -40,21 +32,23 @@ const Avatar: React.FC<Props> = (props) => {
               onChange?.(uri);
               onChangeForm(uri);
             }}
+            ref={ref}
             value={value}
           />
         )}
       />
     )
-    : <AvatarControlled {...props} />;
-};
+    : <AvatarControlled {...props} ref={ref} />;
+});
 
 /**
  * The controlled {@link Avatar} component.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link AvatarControlled} component.
  */
-const AvatarControlled: React.FC<Props> = (props) => {
+const AvatarControlled: AvatarFC = forwardRef((props, ref) => {
   const styles = useStyles(props);
   const { description, editable, onChange, onPress, source, value } = props;
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
@@ -74,6 +68,7 @@ const AvatarControlled: React.FC<Props> = (props) => {
         {...props}
         containerStyle={styles.container}
         onPress={editable ? onPressWrapper : undefined}
+        ref={ref}
         source={sourceMemo}
       />
 
@@ -96,6 +91,6 @@ const AvatarControlled: React.FC<Props> = (props) => {
       />
     </>
   );
-};
+});
 
 export default Avatar;

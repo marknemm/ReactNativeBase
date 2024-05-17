@@ -1,7 +1,8 @@
 import { AuthState } from '@interfaces/auth';
+import { UserDoc } from '@interfaces/user';
 import auth from '@react-native-firebase/auth';
-import { reloadAuthUser } from '@util/auth';
-import { listenDBDoc } from '@util/db';
+import { getAuthUser, reloadAuthUser } from '@util/auth';
+import { getDBDoc, listenDBDoc } from '@util/db';
 import { Predicate, resolvePredicate } from '@util/predicate';
 import { User } from '@util/user';
 import { useEffect, useRef, useState } from 'react';
@@ -14,7 +15,7 @@ import { useEffect, useRef, useState } from 'react';
  * @returns An {@link AuthState} object that contains the current authenticated user and its loading state.
  */
 export function useAuthState(): AuthState {
-  const [authUser, setAuthUser] = useState(auth().currentUser);
+  const [authUser, setAuthUser] = useState(getAuthUser());
   const [user, setUser] = useState(authUser?.isAnonymous ? new User(null) : null);
   const [userLoading, setUserLoading] = useState(!user);
 
@@ -24,7 +25,7 @@ export function useAuthState(): AuthState {
     setUser((prevUser) => (
       newAuthUser?.isAnonymous
         ? new User(null)
-        : (prevUser && prevUser?.uid === newAuthUser?.uid)
+        : (prevUser && prevUser?.id === newAuthUser?.uid)
           ? new User(prevUser.rawData.docData)
           : null
     ));
@@ -35,10 +36,23 @@ export function useAuthState(): AuthState {
   useEffect(() => {
     if (!authUser || authUser.isAnonymous) return () => {};
 
-    return listenDBDoc('users', authUser.uid, (docData) => { // Must listen in-case result of sign up which will create new user doc.
+    // Must listen in-case result of sign up which will create new user doc.
+    return listenDBDoc<UserDoc>('users', authUser.uid, (docData) => {
       setUser(new User(docData));
       setUserLoading(false);
     });
+  }, [authUser]);
+
+  useEffect(() => {
+    // In DEV mode, check if the user document exists in the database.
+    // Cached user auth data can get out of sync with firebase emulator that has had its data cleared.
+    if (__DEV__ && authUser && !authUser.isAnonymous) {
+      setTimeout(() => {
+        getDBDoc<UserDoc>('users', authUser.uid)
+          .then((docData) => { if (!docData) auth().signOut(); })
+          .catch(() => auth().signOut());
+      }, 3000); // Timeout to allow time for emulator to sync auth user to firestore via cloud functions on sign up.
+    }
   }, [authUser]);
 
   return { authUser, user, userLoading };
@@ -61,13 +75,13 @@ export function useAuthRefresh(
   useEffect(() => {
     let predicateVal = resolvePredicate(predicate);
 
-    if (predicateVal && auth().currentUser) {
+    if (predicateVal && getAuthUser()) {
       reloadAuthUser();
 
       intervalRef.current = setInterval(() => {
         predicateVal = resolvePredicate(predicate);
 
-        (predicateVal && auth().currentUser)
+        (predicateVal && getAuthUser())
           ? reloadAuthUser()
           : clearInterval(intervalRef.current);
       }, intervalMs);

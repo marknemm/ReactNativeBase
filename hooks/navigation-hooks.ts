@@ -75,7 +75,7 @@ export function useNavigationOptions(
 
   useEffect(() => {
     let key: keyof NativeStackNavigationOptions;
-    const predicateValue = resolvePredicate(predicate);
+    const predicateValue = resolvePredicate(predicate as Predicate);
 
     if (predicateValue) {
       originalOptionsRef.current = navigationContainerRef.getCurrentOptions();

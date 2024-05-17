@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useGeneralStyles, useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 import { StyleProps } from './props';
@@ -6,7 +5,7 @@ import { StyleProps } from './props';
 /**
  * Gets the styles for the `Input` component.
  *
- * @param props The component style props.
+ * @param props The component {@link StyleProps}.
  * @returns The styles for the `Input` component.
  */
 export function useStyles({ containerStyle, inputContainerStyle, inputStyle, labelStyle, style }: StyleProps) {

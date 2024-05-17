@@ -8,55 +8,6 @@ import { ColorValue, GestureResponderEvent, ImageStyle, StyleProp, TextStyle, Vi
 export interface Props extends CardProps {
 
   /**
-   * The background color for the avatar.
-   */
-  avatarBackgroundColor?: ColorValue;
-
-  /**
-   * The {@link IconObject icon} for the avatar.
-   */
-  avatarIcon?: IconObject;
-
-  /**
-   * The {@link ImageStyle} for the avatar.
-   */
-  avatarIconStyle?: StyleProp<ImageStyle>;
-
-  /**
-   * Whether the avatar is rounded. Defaults to `true`.
-   *
-   * @default true
-   */
-  avatarRounded?: boolean;
-
-  /**
-   * The size for the avatar. Defaults to `'medium'`
-   *
-   * @default 'medium'
-   */
-  avatarSize?: number | 'medium' | 'small' | 'large' | 'xlarge'
-
-  /**
-   * The {@link ImageStyle} for the avatar container.
-   */
-  avatarStyle?: StyleProp<ImageStyle>;
-
-  /**
-   * The title (placeholder) text for the avatar.
-   */
-  avatarTitle?: string;
-
-  /**
-   * The {@link TextStyle} for the avatar title.
-   */
-  avatarTitleStyle?: StyleProp<TextStyle>;
-
-  /**
-   * The URL for the avatar.
-   */
-  avatarURL?: string;
-
-  /**
    * The children elements.
    */
   children?: React.ReactNode;
@@ -65,6 +16,18 @@ export interface Props extends CardProps {
    * The {@link ViewStyle style} for the card container.
    */
   containerStyle?: StyleProp<ViewStyle>;
+
+  /**
+   * The {@link IconObject icon}.
+   *
+   * Ignored if {@link photoURL} is set.
+   */
+  icon?: IconObject;
+
+  /**
+   * The {@link ImageStyle} for the icon.
+   */
+  iconStyle?: StyleProp<ImageStyle>;
 
   /**
    * The {@link ViewStyle} for the inner container.
@@ -82,6 +45,49 @@ export interface Props extends CardProps {
    * @param event The {@link GestureResponderEvent event} that triggered the press.
    */
   onPress?: (event: GestureResponderEvent) => void;
+
+  /**
+   * The placeholder text for the photo.
+   *
+   * Ignored if {@link photoURL} or {@link icon} is set.
+   */
+  photoPlaceholder?: string;
+
+  /**
+   * The background color for the photo placeholder.
+   *
+   * Ignored if {@link photoURL} is set.
+   */
+  photoPlaceholderBg?: ColorValue;
+
+  /**
+   * The {@link TextStyle} for the photo placeholder.
+   */
+  photoPlaceholderStyle?: StyleProp<TextStyle>;
+
+  /**
+   * Whether the photo / icon is rounded. Defaults to `true`.
+   *
+   * @default true
+   */
+  photoRounded?: boolean;
+
+  /**
+   * The size for the photo / icon. Defaults to `'medium'`
+   *
+   * @default 'medium'
+   */
+  photoSize?: number | 'medium' | 'small' | 'large' | 'xlarge'
+
+  /**
+   * The {@link ImageStyle} for the photo container.
+   */
+  photoStyle?: StyleProp<ImageStyle>;
+
+  /**
+   * The URL for the photo.
+   */
+  photoURL?: string;
 
   /**
    * The subtitle text.
@@ -110,6 +116,6 @@ export interface Props extends CardProps {
  */
 export type StyleProps = Pick<
   Props,
-  'avatarStyle' | 'avatarIconStyle' | 'avatarTitleStyle' | 'containerStyle'
-  | 'layout' | 'innerStyle' | 'subtitleStyle' | 'titleStyle'
+  'containerStyle' | 'iconStyle' | 'layout' | 'innerStyle'
+  | 'photoPlaceholderStyle' | 'photoRounded' | 'photoStyle' | 'subtitleStyle' | 'titleStyle'
 >;

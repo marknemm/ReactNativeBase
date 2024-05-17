@@ -17,6 +17,16 @@ import { showModalAsync } from './modal';
 let authOptions: AuthOptions;
 
 /**
+ * Gets the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @returns The current authenticated {@link FirebaseAuthTypes.User}.
+ * If no user is authenticated, then `null`.
+ */
+export function getAuthUser() {
+  return auth().currentUser;
+}
+
+/**
  * Initializes the authentication service with the given options.
  *
  * @param options The {@link Types.Auth.AuthOptions AuthOptions}.
@@ -447,8 +457,8 @@ async function handleAppleAuthError(
   authCredential: FirebaseAuthTypes.AuthCredential
 ): Promise<FirebaseAuthTypes.User> {
   switch (error.code) {
-    case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
-    default:                      return handleAuthError(error, email, authCredential);
+  case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
+  default:                      return handleAuthError(error, email, authCredential);
   }
 }
 
@@ -468,8 +478,8 @@ async function handleFacebookAuthError(
 ): Promise<FirebaseAuthTypes.User> {
   LoginManager.logOut();
   switch (error.code) {
-    case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
-    default:                      return handleAuthError(error, email, authCredential);
+  case 'ERR_REQUEST_CANCELLED': throw new Error(''); // User cancelled sign in, do not present visible error
+  default:                      return handleAuthError(error, email, authCredential);
   }
 }
 
@@ -488,10 +498,10 @@ async function handleGoogleAuthError(
   authCredential: FirebaseAuthTypes.AuthCredential
 ): Promise<FirebaseAuthTypes.User> {
   switch (error.code) {
-    case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled sign in, do not present visible error
-    case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
-    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
-    default:                                      return handleAuthError(error, email, authCredential);
+  case statusCodes.SIGN_IN_CANCELLED:           throw new Error(''); // User cancelled sign in, do not present visible error
+  case statusCodes.IN_PROGRESS:                 throw new Error('Google sign in already in progress');
+  case statusCodes.PLAY_SERVICES_NOT_AVAILABLE: throw new Error('Google sign in is not available');
+  default:                                      return handleAuthError(error, email, authCredential);
   }
 }
 
@@ -514,14 +524,14 @@ async function handleAuthError(
   log(`(${authAction} - ${email}) auth error:`, error);
 
   switch (error.code) {
-    case 'auth/email-already-in-use':    return linkWithCredential(authCredential, email);
-    case 'auth/invalid-email':           throw new Error('Invalid email address');
-    case 'auth/link-failed':             throw new Error('Failed to link accounts, please try again');
-    case 'auth/provider-already-linked': throw new Error('Account already exists, please sign in instead');
-    case 'auth/user-disabled':           throw new Error('Account is disabled, please contact support');
-    case 'auth/user-not-found':
-    case 'auth/wrong-password':
-    default:                             throw new Error(`${authAction} failed, please try again`);
+  case 'auth/email-already-in-use':    return linkWithCredential(authCredential, email);
+  case 'auth/invalid-email':           throw new Error('Invalid email address');
+  case 'auth/link-failed':             throw new Error('Failed to link accounts, please try again');
+  case 'auth/provider-already-linked': throw new Error('Account already exists, please sign in instead');
+  case 'auth/user-disabled':           throw new Error('Account is disabled, please contact support');
+  case 'auth/user-not-found':
+  case 'auth/wrong-password':
+  default:                             throw new Error(`${authAction} failed, please try again`);
   }
 }
 
@@ -579,12 +589,12 @@ async function linkWithCredential(
  */
 function getProviderName(authCredential: FirebaseAuthTypes.AuthCredential): string {
   switch (authCredential.providerId) {
-    case auth.EmailAuthProvider.PROVIDER_ID:    return 'Email';
-    case auth.PhoneAuthProvider.PROVIDER_ID:    return 'Phone';
-    default:
-      return authCredential.providerId
-        .replace('.com', '')
-        .replace(authCredential.providerId.charAt(0), authCredential.providerId.charAt(0).toUpperCase());
+  case auth.EmailAuthProvider.PROVIDER_ID:    return 'Email';
+  case auth.PhoneAuthProvider.PROVIDER_ID:    return 'Phone';
+  default:
+    return authCredential.providerId
+      .replace('.com', '')
+      .replace(authCredential.providerId.charAt(0), authCredential.providerId.charAt(0).toUpperCase());
   }
 }
 
@@ -603,13 +613,13 @@ async function signInWithProvider(
   signInPrompt = 'Please sign in'
 ): Promise<FirebaseAuthTypes.User | FirebaseAuthTypes.ConfirmationResult> {
   switch (providerId) {
-    case auth.AppleAuthProvider.PROVIDER_ID:    return signInWithApple();
-    case auth.EmailAuthProvider.PROVIDER_ID:    return signInWithEmailAndPassword(emailPhone, null, signInPrompt);
-    case auth.FacebookAuthProvider.PROVIDER_ID: return signInWithFacebook();
-    case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub sign in not supported');
-    case auth.GoogleAuthProvider.PROVIDER_ID:   return signInWithGoogle();
-    case auth.PhoneAuthProvider.PROVIDER_ID:    return signInWithPhoneNumber(emailPhone);
-    case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter sign in not supported');
-    default:                                    throw new Error('Unknown sign in provider');
+  case auth.AppleAuthProvider.PROVIDER_ID:    return signInWithApple();
+  case auth.EmailAuthProvider.PROVIDER_ID:    return signInWithEmailAndPassword(emailPhone, null, signInPrompt);
+  case auth.FacebookAuthProvider.PROVIDER_ID: return signInWithFacebook();
+  case auth.GithubAuthProvider.PROVIDER_ID:   throw new Error('GitHub sign in not supported');
+  case auth.GoogleAuthProvider.PROVIDER_ID:   return signInWithGoogle();
+  case auth.PhoneAuthProvider.PROVIDER_ID:    return signInWithPhoneNumber(emailPhone);
+  case auth.TwitterAuthProvider.PROVIDER_ID:  throw new Error('Twitter sign in not supported');
+  default:                                    throw new Error('Unknown sign in provider');
   }
 }

@@ -15,7 +15,6 @@ Provides a strong foundation for new apps with the following functionality:
 - [Animation](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/) hooks and utilities.
 - [React Hook Form](https://react-hook-form.com/) integration with added components, hooks, and utilities.
 - Various utility components, functions, classes, hooks, and constants.
-- Typings definition support for easily referencing types in JSDoc comments.
 - ESLint support and adherence.
 
 ## Getting Started

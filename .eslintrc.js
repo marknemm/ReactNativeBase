@@ -41,6 +41,7 @@ module.exports = {
   ignorePatterns: [
     'node_modules/',                          // Ignore node_modules
     '.eslintrc.js',                           // Ignore the ESLint config file
+    'babel.config.js',                        // Ignore the Babel config file
   ],
   rules: {                                                      // Add specific rules for your React project
     '@typescript-eslint/no-explicit-any': 'off',                // Disable the rule that disallows explicit any types

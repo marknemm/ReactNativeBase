@@ -1,4 +1,5 @@
 import { Props as InputProps } from '@components/input/props';
+import { ReactNode } from 'react';
 import { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
 
 /**
@@ -35,3 +36,18 @@ export interface Props<
   textContentType?: 'telephoneNumber';
 
 }
+
+/**
+ * The `PhoneInput` component functional component type.
+ *
+ * @template TFieldValues The type of the form data.
+ * @template TContext The type of the form context.
+ * @template TFieldName The form field name.
+ */
+export type PhoneInputFC = <
+  TFieldValues extends FieldValues = any,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
+>(
+  props: Props<TFieldValues, TContext, TFieldName>,
+) => ReactNode;

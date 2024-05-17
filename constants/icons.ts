@@ -41,6 +41,14 @@ export const CHECK_ICON: IconProps = {
 };
 
 /**
+ * Clear {@link IconProps}.
+ */
+export const CLEAR_ICON: IconProps = {
+  name: 'clear',
+  type: 'material',
+};
+
+/**
  * Close {@link IconProps}.
  */
 export const CLOSE_ICON: IconProps = {
@@ -78,6 +86,14 @@ export const GMAIL_ICON: IconProps = {
 export const GOOGLE_ICON: IconProps = {
   name: 'google',
   type: 'material-community',
+};
+
+/**
+ * Home {@link IconProps}.
+ */
+export const HOME_ICON: IconProps = {
+  name: 'home',
+  type: 'material',
 };
 
 /**
@@ -133,6 +149,14 @@ export const PHOTOS_ICON: IconProps = {
  */
 export const REFRESH_ICON: IconProps = {
   name: 'refresh',
+  type: 'material',
+};
+
+/**
+ * Search {@link IconProps}.
+ */
+export const SEARCH_ICON: IconProps = {
+  name: 'search',
   type: 'material',
 };
 

@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
+import { configure } from 'safe-stable-stringify';
 
+const stringify = configure({ maximumDepth: 5 });
 let showDebugLogs: boolean = __DEV__;
 
 /**
@@ -30,7 +32,7 @@ export function logEnv() {
  * @param message The error message(s) to log.
  */
 export function logErr(...message: any[]) {
-  console.error(...beautify(message));
+  console.error(message);
 }
 
 /**
@@ -62,7 +64,7 @@ export function setShowDebugLogs(visible: boolean) {
 function beautify(...message: any[]): string[] {
   return message.map((msg) => (
     (typeof msg === 'object')
-      ? JSON.stringify(msg, undefined, 2)
+      ? stringify(msg, undefined, 2)
         .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
         .replace(/^\[|\]$/g, '')       // Remove square brackets surrounding object
       : msg

@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 import { StyleProps } from './props';
@@ -10,22 +9,16 @@ import { StyleProps } from './props';
  * @returns The styles for the `TeaserCard` component.
  */
 export function useStyles({
-  avatarStyle,
-  avatarIconStyle,
-  avatarTitleStyle,
   containerStyle,
-  layout,
+  iconStyle,
   innerStyle,
+  layout,
+  photoPlaceholderStyle,
+  photoStyle,
   subtitleStyle,
   titleStyle,
 }: StyleProps) {
   return useThemedStyles(() => ({
-    avatar: StyleSheet.flatten(avatarStyle),
-    avatarIcon: StyleSheet.flatten(avatarIconStyle),
-    avatarTitle: {
-      color: 'white',
-      ...StyleSheet.flatten(avatarTitleStyle),
-    },
     cardContainer: {
       width: '100%',
       ...StyleSheet.flatten(containerStyle),
@@ -36,6 +29,12 @@ export function useStyles({
       margin: 0,
       padding: 0,
       ...StyleSheet.flatten(innerStyle),
+    },
+    icon: StyleSheet.flatten(iconStyle),
+    photo: StyleSheet.flatten(photoStyle),
+    photoPlaceholder: {
+      color: 'white',
+      ...StyleSheet.flatten(photoPlaceholderStyle),
     },
     subtitle: {
       color: 'gray',
@@ -52,5 +51,5 @@ export function useStyles({
       textAlign: 'left',
       ...StyleSheet.flatten(titleStyle),
     },
-  }), [avatarStyle, avatarIconStyle, avatarTitleStyle, containerStyle, layout, innerStyle, subtitleStyle, titleStyle]);
+  }), [containerStyle, iconStyle, innerStyle, layout, photoStyle, photoPlaceholderStyle, subtitleStyle, titleStyle]);
 }

@@ -1,24 +1,27 @@
 import { PreventableEvent } from '@interfaces/event';
 import { UseControlledToggleStateReturn, UseStateReturn, UseToggleStateReturn } from '@interfaces/state';
-import { useCallback, useState } from 'react';
+import mergeRefs from 'merge-refs';
+import { useCallback, useMemo, useState } from 'react';
 import { GestureResponderEvent } from 'react-native';
 
 /**
- * Custom hook that combines multiple callbacks into a single callback.
+ * Custom hook that combines multiple callbacks into a single callback via {@link useCallback}.
+ *
  * If any of the callbacks are `null` or `undefined`, they are ignored.
  *
  * `Note`: If any of the callback function references change between renders, the combined callback must be recreated.
  * To prevent this, use the {@link useCallback} hook to memoize each given callback.
  *
- * @param callbacks The callbacks to combine.
+ * @template T The type of the callback function.
+ * @param callbacks The callback functions to combine.
  * @returns The combined callback.
  */
-export function useCallbacks(...callbacks: ReadonlyArray<((...args: any[]) => void)>): (...args: any[]) => void {
-  return useCallback((...args) => {
+export function useCallbacks<T extends((...args: any[]) => void)>(...callbacks: ReadonlyArray<T>): T {
+  return useCallback(((...args) => { // eslint-disable-line react-hooks/exhaustive-deps
     for (const callback of callbacks) {
       callback?.(...args);
     }
-  }, callbacks); // eslint-disable-line react-hooks/exhaustive-deps
+  }) as T, callbacks);
 }
 
 /**
@@ -63,6 +66,19 @@ export function useControlledToggleState<Event extends PreventableEvent = Gestur
   }, [onToggle, setState]);
 
   return [state, toggleState];
+}
+
+/**
+ * Custom hook that merges multiple refs into a single ref.
+ *
+ * @template T The type of the ref.
+ * @param refs The refs to merge.
+ * @returns The merged ref.
+ */
+export function useMergedRefs<T = any>(...refs: ReadonlyArray<React.Ref<T>>): React.Ref<T> {
+  return useMemo(() =>
+    mergeRefs(...refs),
+  [...refs]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 /**

@@ -13,18 +13,18 @@ export function deriveColor({ muted, color }: ColorProps, theme: ThemeWithColors
   }
 
   switch (color) {
-    case 'primary':
-      return theme.colors.primary;
-    case 'secondary':
-      return theme.colors.secondary;
-    case 'success':
-      return theme.colors.success;
-    case 'warning':
-      return theme.colors.warning;
-    case 'error':
-      return theme.colors.error;
-    default:
-      return color;
+  case 'primary':
+    return theme.colors.primary;
+  case 'secondary':
+    return theme.colors.secondary;
+  case 'success':
+    return theme.colors.success;
+  case 'warning':
+    return theme.colors.warning;
+  case 'error':
+    return theme.colors.error;
+  default:
+    return color;
   }
 }
 

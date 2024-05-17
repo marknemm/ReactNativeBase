@@ -1,15 +1,16 @@
 import Input from '@components/input/Input';
 import { PASSWORD_MIN_LENGTH_RULE } from '@constants/validation';
-import { useMemo, useState } from 'react';
-import { Props } from './props';
+import { forwardRef, useMemo, useState } from 'react';
+import { PasswordInputFC, Props } from './props';
 
 /**
  * An {@link Input} field for entering a password.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link PasswordInput} component.
  */
-const PasswordInput: React.FC<Props> = (props) => {
+const PasswordInput: PasswordInputFC = forwardRef((props, ref) => {
   const { autoComplete, isVisibilityToggleEnabled = true, textContentType } = props;
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -46,10 +47,11 @@ const PasswordInput: React.FC<Props> = (props) => {
       minLength={PASSWORD_MIN_LENGTH_RULE}
       secureTextEntry={!passwordVisible}
       textContentType={derivedTextContentType}
+      ref={ref}
       rightIcon={passwordVisibleIcon}
       {...props}
     />
   );
-};
+});
 
 export default PasswordInput;

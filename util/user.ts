@@ -1,16 +1,16 @@
 import SignInModal from '@components/sign-in-modal/SignInModal';
-import { USER_BACKGROUND_COLORS } from '@constants/colors';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { Address, UserDoc } from '@interfaces/user';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAuthUser, hasSignInProvider, reloadAuthUser, updatePassword } from '@util/auth';
+import { getBackgroundColor } from '@util/colors';
 import { setDBDoc } from '@util/db';
+import { setLSItem } from '@util/local-storage';
+import { log, logErr } from '@util/log';
+import { showModalAsync } from '@util/modal';
+import { uploadFile } from '@util/remote-fs';
 import Toast from 'react-native-root-toast';
 import { DeepPartial, DeepReadonly } from 'utility-types';
-import { hasSignInProvider, reloadAuthUser, updatePassword } from './auth';
-import { setLSItem } from './local-storage';
-import { log, logErr } from './log';
-import { showModalAsync } from './modal';
-import { uploadFile } from './remote-fs';
 
 /**
  * Represents a {@link User}.
@@ -18,7 +18,7 @@ import { uploadFile } from './remote-fs';
 export class User {
 
   /**
-   * The raw user document data.
+   * The raw {@link User} document data.
    */
   readonly #docData: UserDoc;
 
@@ -32,38 +32,38 @@ export class User {
   }
 
   /**
-   * The user background color.
+   * The {@link User} background color.
    */
   get backgroundColor(): string {
     return this.isAnonymous
       ? 'grey'
-      : USER_BACKGROUND_COLORS[this.uid.charCodeAt(0) % USER_BACKGROUND_COLORS.length];
+      : getBackgroundColor(this.id);
   }
 
   /**
-   * The user email address. If the user has no email address, then an empty string.
+   * The {@link User} email address. If the {@link User} has no email address, then an empty string.
    */
   get email(): string {
     return this.#docData?.email || '';
   }
 
   /**
-   * Indicates if the user email address has been verified.
+   * Indicates if the {@link User} email address has been verified.
    * If this {@link User} object was constructed without authentication data, then `false`.
    */
   get emailVerified(): boolean {
-    return auth().currentUser?.emailVerified ?? false;
+    return getAuthUser()?.emailVerified ?? false;
   }
 
   /**
-   * The user first name. If the user has no first name, then an empty string.
+   * The {@link User} first name. If the {@link User} has no first name, then an empty string.
    */
   get firstName(): string {
     return this.displayName.split(' ')[0];
   }
 
   /**
-   * Indicates if the user has a password.
+   * Indicates if the {@link User} has a password.
    * If this {@link User} object was constructed without authentication data, then `false`.
    */
   get hasPassword(): boolean {
@@ -71,7 +71,14 @@ export class User {
   }
 
   /**
-   * The user initials. If the user has no initials, then an empty string.
+   * The {@link User} unique identifier.
+   */
+  get id(): string {
+    return this.#docData?.id || '';
+  }
+
+  /**
+   * The {@link User} initials. If the {@link User} has no initials, then an empty string.
    */
   get initials(): string {
     let initials = '';
@@ -94,21 +101,21 @@ export class User {
   }
 
   /**
-   * Indicates if the user is anonymous.
+   * Indicates if the {@link User} is anonymous.
    */
   get isAnonymous(): boolean {
-    return auth().currentUser?.isAnonymous ?? false;
+    return getAuthUser()?.isAnonymous ?? false;
   }
 
   /**
-   * Indicates if the user is authenticated.
+   * Indicates if the {@link User} is authenticated.
    */
   get isAuthenticated(): boolean {
-    return this.uid === auth().currentUser?.uid;
+    return this.id === getAuthUser()?.uid;
   }
 
   /**
-   * Indicates if the user is linked with an Apple account.
+   * Indicates if the {@link User} is linked with an Apple account.
    * If this {@link User} object was constructed without authentication data, then `false`.
    */
   get isLinkedWithApple(): boolean {
@@ -116,7 +123,7 @@ export class User {
   }
 
   /**
-   * Indicates if the user is linked with a Facebook account.
+   * Indicates if the {@link User} is linked with a Facebook account.
    * If this {@link User} object was constructed without authentication data, then `false`.
    */
   get isLinkedWithFacebook(): boolean {
@@ -124,7 +131,7 @@ export class User {
   }
 
   /**
-   * Indicates if the user is linked with a Google account.
+   * Indicates if the {@link User} is linked with a Google account.
    * If this {@link User} object was constructed without authentication data, then `false`.
    */
   get isLinkedWithGoogle(): boolean {
@@ -132,7 +139,7 @@ export class User {
   }
 
   /**
-   * The user last name. If the user has no last name, then an empty string.
+   * The {@link User} last name. If the {@link User} has no last name, then an empty string.
    */
   get lastName(): string {
     const names = this.displayName.split(' ');
@@ -142,7 +149,8 @@ export class User {
   }
 
   /**
-   * The user full/display name. If the user is anonymous, then `'Anonymous'`. If the user has no full/display name, then an empty string.
+   * The {@link User} full/display name. If the {@link User} is anonymous, then `'Anonymous'`.
+   * If the {@link User} has no full/display name, then an empty string.
    */
   get displayName(): string {
     return this.isAnonymous
@@ -151,41 +159,34 @@ export class User {
   }
 
   /**
-   * The user phone number. If the user has no phone number, then an empty string.
+   * The {@link User} phone number. If the {@link User} has no phone number, then an empty string.
    */
   get phoneNumber(): string {
     return this.#docData?.phoneNumber || '';
   }
 
   /**
-   * The user photo URL. If the user has no photo URL, then an empty string.
+   * The {@link User} photo URL. If the {@link User} has no photo URL, then an empty string.
    */
   get photoURL(): string {
     return this.#docData?.photoURL || '';
   }
 
   /**
-   * The raw user data.
+   * The raw {@link User} data.
    */
   get rawData(): DeepReadonly<{ authUser?: FirebaseAuthTypes.User, docData?: UserDoc }> {
     return {
-      authUser: this.isAuthenticated ? auth().currentUser : null,
+      authUser: this.isAuthenticated ? getAuthUser() : null,
       docData: this.#docData,
     };
   }
 
   /**
-   * The user mailing address. If the user has no mailing address, then `null`.
+   * The {@link User} mailing address. If the {@link User} has no mailing address, then `null`.
    */
   get address(): Readonly<Address> {
     return this.#docData?.address;
-  }
-
-  /**
-   * The user unique identifier.
-   */
-  get uid(): string {
-    return this.#docData?.documentId || ''; // documentId and uid should be equivalent.
   }
 
   /**
@@ -196,10 +197,10 @@ export class User {
   }
 
   /**
-   * Triggers a reload of the user data from the authentication server and remote database.
-   * If the user is not authenticated, then nothing happens.
+   * Triggers a reload of the {@link User} data from the authentication server and remote database.
+   * If the {@link User} is not authenticated, then nothing happens.
    *
-   * @returns A promise that resolves when the user data reload is triggered.
+   * @returns A promise that resolves when the {@link User} data reload is triggered.
    */
   async reload(): Promise<void> {
     if (this.isAuthenticated) {
@@ -208,11 +209,11 @@ export class User {
   }
 
   /**
-   * Saves the user data to the remote database by merging in any updated field values.
+   * Saves the {@link User} data to the remote database by merging in any updated field values.
    *
    * @param userData The raw {@link UserDoc} data to save.
-   * @return A promise that resolves when the user data is saved.
-   * @throws An {@link Error} is thrown if the user is not authenticated or anonymous.
+   * @return A promise that resolves when the {@link User} data is saved.
+   * @throws An {@link Error} is thrown if the {@link User} is not authenticated or anonymous.
    */
   async save(userData: DeepPartial<UserDoc>): Promise<void> {
     if (!userData) return;
@@ -227,7 +228,7 @@ export class User {
         // If photo URL changed, upload new photo to remote storage bucket
         if (photoURLChanged) {
           log('Uploading user photo:', userData.photoURL);
-          const remotePath = `users/${this.uid}/photo`;
+          const remotePath = `users/${this.id}/photo`;
           const { ref } = await uploadFile(userData.photoURL, remotePath);
           userData.photoURL = await ref.getDownloadURL();
           log('User photo uploaded:', userData.photoURL);
@@ -235,7 +236,7 @@ export class User {
 
         // Save user data document to remote database
         log('Saving user data:', userData);
-        await setDBDoc('users', this.uid, userData, { merge: true });
+        await setDBDoc('users', this.id, userData, { merge: true });
         log('User data saved:', userData);
 
         // If email changed, must re-authenticate due to token invalidation
@@ -267,24 +268,24 @@ export class User {
   }
 
   /**
-   * Sends a user email verification request.
+   * Sends a {@link User} email verification request.
    *
    * @returns A promise that resolves when the email verification request is complete.
-   * @throws An {@link Error} is thrown if the user is not authenticated or anonymous.
+   * @throws An {@link Error} is thrown if the {@link User} is not authenticated or anonymous.
    */
   async sendEmailVerification(): Promise<void> {
     if (this.isAuthenticated && !this.isAnonymous) {
-      await auth().currentUser.sendEmailVerification();
+      await getAuthUser().sendEmailVerification();
     } else {
       throw new Error('Cannot send email verification for unauthenticated or anonymous user');
     }
   }
 
   /**
-   * Updates the user password.
+   * Updates the {@link User} password.
    *
-   * @param currentPassword The user's current password.
-   * @param newPassword The user's new password.
+   * @param currentPassword The {@link User}'s current password.
+   * @param newPassword The {@link User}'s new password.
    * @returns A promise that resolves when the password update request is successful.
    * @throws An {@link Error} is thrown when the password update request fails.
    */

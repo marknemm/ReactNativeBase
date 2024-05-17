@@ -72,6 +72,21 @@ export interface FormFieldProps<
 }
 
 /**
+ * {@link FormFieldProps Properties} for form field components that have a value property.
+ *
+ * @param T The form field value type.
+ * @param TFieldValues The type of the form data.
+ * @param TContext The type of the form context.
+ * @param TFieldName The form field name.
+ */
+export type FormFieldPropsWithValue<
+  T = any,
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = any,
+  TFieldName extends Path<TFieldValues> = FieldPath<TFieldValues>
+> = FormFieldProps<TFieldValues, TContext, TFieldName> & { value?: T };
+
+/**
  * State information about form submission.
  *
  * @template TFieldValues The type of the form data.

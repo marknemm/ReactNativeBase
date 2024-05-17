@@ -1,7 +1,7 @@
 import InfoDialog from '@components/info-dialog/InfoDialog';
 import { INFO_ICON } from '@constants/icons';
 import { Button, useTheme } from '@rneui/themed';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { Props } from './props';
 
 /**
@@ -10,9 +10,10 @@ import { Props } from './props';
  * Can also display an {@link InfoDialog} on press.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link InfoButton} component.
  */
-const InfoButton: React.FC<Props> = ({
+const InfoButton: React.FC<Props> = forwardRef(({
   color = 'transparent',
   iconColor,
   iconSize = 24,
@@ -20,7 +21,7 @@ const InfoButton: React.FC<Props> = ({
   dialogTitle,
   onPress,
   ...buttonProps
-}) => {
+}, ref) => {
   const { theme } = useTheme();
   const [infoDialogVisible, setInfoDialogVisible] = useState(false);
 
@@ -50,11 +51,12 @@ const InfoButton: React.FC<Props> = ({
           onPress?.(event);
         }}
         {...buttonProps}
+        ref={ref}
       />
 
       { infoDialog }
     </>
   );
-};
+});
 
 export default InfoButton;

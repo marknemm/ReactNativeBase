@@ -2,7 +2,7 @@ import Avatar from '@components/avatar/Avatar';
 import EmailInput from '@components/email-input/EmailInput';
 import EmailVerification from '@components/email-verification/EmailVerification';
 import FormError from '@components/form-error/FormError';
-import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
+import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import Input from '@components/input/Input';
 import PhoneInput from '@components/phone-input/PhoneInput';
 import ScreenView from '@components/screen-view/ScreenView';
@@ -53,9 +53,10 @@ const UserProfileScreen: React.FC<ScreenProps> = ({ navigation }) => {
   useNavigationSubmitOptions(submitting, {
     headerBackTitle: 'Cancel',
     headerRight: () => (
-      <HeaderSaveButton
+      <HeaderActionButton
         loading={submitting}
         onPress={onSave}
+        title="Save"
       />
     ),
   },

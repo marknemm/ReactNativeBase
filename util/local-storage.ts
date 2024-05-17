@@ -20,18 +20,18 @@ storage.addOnValueChangedListener((key) =>
  */
 export function getLSItem<T>(key: string, dataType: LSDataType = 'serialized'): T {
   switch (dataType) {
-    case 'boolean': return storage.getBoolean(key) as any;
-    case 'buffer':  return storage.getBuffer(key) as any;
-    case 'number':  return storage.getNumber(key) as any;
-    case 'string':  return storage.getString(key) as any;
-    default: {
-      const serializedValue = storage.getString(key);
-      try { // Safely attempt to deserialize JSON string. Return raw serialized value if error.
-        return serializedValue !== null ? JSON.parse(serializedValue) : null;
-      } catch {
-        return serializedValue === 'undefined' ? undefined : serializedValue as any;
-      }
+  case 'boolean': return storage.getBoolean(key) as any;
+  case 'buffer':  return storage.getBuffer(key) as any;
+  case 'number':  return storage.getNumber(key) as any;
+  case 'string':  return storage.getString(key) as any;
+  default: {
+    const serializedValue = storage.getString(key);
+    try { // Safely attempt to deserialize JSON string. Return raw serialized value if error.
+      return serializedValue !== null ? JSON.parse(serializedValue) : null;
+    } catch {
+      return serializedValue === 'undefined' ? undefined : serializedValue as any;
     }
+  }
   }
 }
 

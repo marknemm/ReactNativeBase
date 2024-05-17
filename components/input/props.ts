@@ -1,6 +1,8 @@
 import { FormFieldProps, ValidateFn, ValidationRules } from '@interfaces/form';
 import { InputProps } from '@rneui/themed';
+import { PropsWithChildren, ReactNode, Ref } from 'react';
 import { FieldPath, FieldValues, Message, Path, ValidationRule } from 'react-hook-form';
+import { TextInput } from 'react-native';
 import { Mask } from 'react-native-mask-input';
 
 /**
@@ -60,6 +62,11 @@ export interface Props<
   pattern?: ValidationRule<RegExp>;
 
   /**
+   * The `Input` reference.
+   */
+  ref?: Ref<InputRefType>;
+
+  /**
    * The required validation rule of the `Input`.
    * If given a non-empty `string`, the `Input` will be required and the string will be used as the error message.
    *
@@ -79,5 +86,26 @@ export interface Props<
  */
 export type StyleProps = Pick<
   InputProps,
-  'containerStyle' | 'inputContainerStyle' | 'inputStyle' | 'labelStyle' | 'style'
+  'containerStyle' | 'disabledInputStyle' | 'errorStyle' | 'inputContainerStyle' | 'inputStyle'
+  | 'labelStyle' | 'leftIconContainerStyle' | 'rightIconContainerStyle' | 'style'
 >;
+
+/**
+ * The `Input` component functional component type.
+ *
+ * @template TFieldValues The type of the form data.
+ * @template TContext The type of the form context.
+ * @template TFieldName The form field name.
+ */
+export type InputFC = <
+  TFieldValues extends FieldValues = any,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
+>(
+  props: Props<TFieldValues, TContext, TFieldName>,
+) => ReactNode;
+
+/**
+ * The `Input` component reference type.
+ */
+export type InputRefType = TextInput & PropsWithChildren<InputProps>;

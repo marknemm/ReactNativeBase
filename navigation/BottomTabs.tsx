@@ -1,4 +1,4 @@
-import { PETS_ICON, SETTINGS_ICON } from '@constants/icons';
+import { HOME_ICON, PETS_ICON, SETTINGS_ICON } from '@constants/icons';
 import { ScreenProps } from '@interfaces/screen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@rneui/themed';
@@ -18,8 +18,8 @@ const BottomTabs: React.FC<ScreenProps> = () => (
       name="Main Stack"
       component={MainStack}
       options={{
-        tabBarLabel: 'Dogs',
-        tabBarIcon: ({ color, size }) => <Icon {...PETS_ICON} color={color} size={size} />,
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => <Icon {...HOME_ICON} color={color} size={size} />,
       }}
     />
     <Tab.Screen

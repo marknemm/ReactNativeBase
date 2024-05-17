@@ -3,16 +3,21 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function optional(key) {
+      return !request.resource.data.keys().hasAny([key])
+          || request.resource.data[key] == null;
+    }
+
     match /users/{userId} {
       allow read, write: if request.auth.uid == userId;
     }
 
     match /groups/{groupId} {
       function isGroupValid() {
-        return request.resource.data.name is string
-            && request.resource.data.visibility in ['public', 'private']
+        return (request.resource.data.description is string || optional('description'))
             && request.resource.data.members is map
-            && (request.resource.data.descrition == null || request.resource.data.descrition is string);
+            && request.resource.data.name is string
+            && request.resource.data.visibility in ['private', 'public'];
       }
 
       function isAdmin() {
@@ -31,23 +36,12 @@ service cloud.firestore {
         return resource.data.visibility == 'public';
       }
 
-      match /{restOfPath=**} {
-        allow read: if isPublic() || isMember();
-      }
-
+      allow read: if isPublic() || isMember();
       allow create: if isGroupValid();
-      allow update: if isEditor() && isGroupValid();
+      allow update: if isEditor()
+                    && isGroupValid()
+                    && (request.resource.data.members == resource.data.members || isAdmin());
       allow delete: if isAdmin();
-
-      match /members/{userId} {
-        function isMemberValid() {
-          return request.resource.data[userId] in ['admin', 'editor', 'viewer'];
-        }
-
-        allow create: if isAdmin() && isMemberValid();
-        allow update: if isAdmin() && isMemberValid();
-        allow delete: if isAdmin();
-      }
     }
 
   }

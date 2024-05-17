@@ -1,6 +1,7 @@
 import { ADD_ICON } from '@constants/icons';
 import { FixedIconButtonProps } from '@interfaces/button';
 import { Button } from '@rneui/themed';
+import { forwardRef } from 'react';
 
 /**
  * A button that adds an item.
@@ -8,12 +9,12 @@ import { Button } from '@rneui/themed';
  * @param props The component {@link Props}.
  * @returns The {@link AddButton} component.
  */
-const AddButton: React.FC<FixedIconButtonProps> = ({
+const AddButton: React.FC<FixedIconButtonProps> = forwardRef(({
   color = 'transparent',
   iconColor,
   iconSize = 24,
   ...buttonProps
-}) => (
+}, ref) => (
   <Button
     color={color}
     icon={{
@@ -22,8 +23,9 @@ const AddButton: React.FC<FixedIconButtonProps> = ({
       size: iconSize,
     }}
     radius={iconSize}
+    ref={ref}
     {...buttonProps}
   />
-);
+));
 
 export default AddButton;

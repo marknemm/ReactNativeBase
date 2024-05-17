@@ -1,5 +1,6 @@
 import { FormFieldProps } from '@interfaces/form';
-import { FieldValues, ValidationRule } from 'react-hook-form';
+import { ReactNode } from 'react';
+import { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
 import { StyleProp, TextStyle } from 'react-native';
 import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
 
@@ -11,8 +12,12 @@ import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown
  * @extends FormFieldProps The {@link FormFieldProps} from the `@interfaces/form` package.
  */
 export interface Props<
-  T extends FieldValues = FieldValues
-> extends Omit<RneDropdownProps<T>, 'data' | 'labelField' | 'onChange' | 'valueField'>, FormFieldProps {
+  T extends FieldValues = FieldValues,
+  TFieldValues extends FieldValues = any,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
+> extends Omit<RneDropdownProps<T>, 'data' | 'labelField' | 'onChange' | 'valueField'>,
+  FormFieldProps<TFieldValues, TContext, TFieldName> {
 
   /**
    * The data for the dropdown.
@@ -75,3 +80,20 @@ export type StyleProps = Pick<
  */
 export type RawDropdownData<T extends FieldValues = FieldValues>
   = Array<string | number | boolean | { label: string, value: any } | T>;
+
+/**
+ * The `Dropdown` component functional component type.
+ *
+ * @template T The type of the value.
+ * @template TFieldValues The type of the form data.
+ * @template TContext The type of the form context.
+ * @template TFieldName The form field name.
+ */
+export type DropdownFC = <
+  T extends FieldValues = FieldValues,
+  TFieldValues extends FieldValues = any,
+  TContext = any,
+  TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
+>(
+  props: Props<T, TFieldValues, TContext, TFieldName>,
+) => ReactNode;

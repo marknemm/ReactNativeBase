@@ -1,5 +1,5 @@
 import FormError from '@components/form-error/FormError';
-import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
+import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import Input from '@components/input/Input';
 import ScreenView from '@components/screen-view/ScreenView';
 import { useSubmitState } from '@hooks/form-hooks';
@@ -40,9 +40,10 @@ const AddressScreen: React.FC<ScreenProps> = ({ navigation }) => {
   useNavigationSubmitOptions(submitting, {
     headerBackTitle: 'Cancel',
     headerRight: () => (
-      <HeaderSaveButton
+      <HeaderActionButton
         loading={submitting}
         onPress={onSave}
+        title="Save"
       />
     ),
   },

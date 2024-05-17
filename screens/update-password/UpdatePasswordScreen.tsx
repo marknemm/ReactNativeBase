@@ -1,5 +1,5 @@
 import FormError from '@components/form-error/FormError';
-import HeaderSaveButton from '@components/header-save-button/HeaderSaveButton';
+import HeaderActionButton from '@components/header-action-button/HeaderActionButton';
 import PasswordInput from '@components/password-input/PasswordInput';
 import ScreenView from '@components/screen-view/ScreenView';
 import { useMatchValidator, useSubmitState } from '@hooks/form-hooks';
@@ -35,10 +35,11 @@ const UpdatePasswordScreen: React.FC<ScreenProps> = ({ navigation }) => {
   // Change navigation options to accommodate a (form) submit screen
   useNavigationSubmitOptions(submitting, {
     headerRight: () => (
-      <HeaderSaveButton
+      <HeaderActionButton
         disabled={!form.formState.isDirty}
         loading={submitting}
         onPress={onSave}
+        title="Save"
       />
     ),
   }, [form.formState.isDirty, onSave, submitting]);

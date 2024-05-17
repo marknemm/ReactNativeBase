@@ -1,18 +1,20 @@
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
+import { useCallbacks, useMergedRefs } from '@hooks/state-hooks';
 import { Input as RneInput, useTheme } from '@rneui/themed';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useMaskedInputProps } from 'react-native-mask-input';
-import { Props } from './props';
+import { InputFC, InputRefType, Props } from './props';
 import { useStyles } from './styles';
 
 /**
  * Component for generic user text input.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link Input} component.
  */
-const Input: React.FC<Props> = (props) => {
+const Input: InputFC = forwardRef((props, ref) => {
   const { label, name, onBlur, onChangeText } = props;
 
   // Derive entities related to an input controlled by react-hook-form
@@ -37,22 +39,24 @@ const Input: React.FC<Props> = (props) => {
               onChangeForm(text);
               onChangeText?.(text);
             }}
+            ref={ref}
             value={value}
           />
         )}
         rules={rules}
       />
     )
-    : <InputControlled {...props} />;
-};
+    : <InputControlled {...props} ref={ref} />;
+});
 
 /**
  * Controlled {@link Input} component.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link InputControlled} component.
  */
-const InputControlled: React.FC<Props> = ({
+const InputControlled: InputFC = forwardRef(({
   containerStyle,
   inputContainerStyle,
   inputStyle,
@@ -64,11 +68,11 @@ const InputControlled: React.FC<Props> = ({
   style,
   value,
   ...inputProps
-}) => {
+}, ref) => {
   const styles = useStyles({ containerStyle, inputContainerStyle, inputStyle, labelStyle, style });
   const { theme } = useTheme();
   const [uiValue, setUiValue] = useState('');
-  const inputRef = useRef(null);
+  const inputRef = useRef<InputRefType>();
 
   const maskedInputProps = useMaskedInputProps({ mask, onChangeText, value });
   if (mask) {
@@ -91,22 +95,19 @@ const InputControlled: React.FC<Props> = ({
     <RneInput
       keyboardAppearance={theme.mode}
       placeholderTextColor={theme.colors.placeholder}
+      {...inputProps}
+      {...(mask ? maskedInputProps : undefined)}
       containerStyle={styles.container}
       inputContainerStyle={styles.inputContainer}
       inputStyle={styles.input}
       labelStyle={styles.label}
-      style={styles.style}
-      {...inputProps}
-      {...(mask ? maskedInputProps : undefined)}
       maxLength={maxLengthLimitTyping ? maxLengthNum : undefined}
-      onChangeText={useCallback((text) => {
-        onChangeText?.(text);
-        setUiValue(text);
-      }, [onChangeText])}
-      ref={inputRef}
+      onChangeText={useCallbacks(onChangeText, setUiValue)}
+      ref={useMergedRefs(inputRef, ref)}
+      style={styles.style}
       value={undefined} // Do not update value prop directly to prevent input lag (see useEffect above).
     />
   );
-};
+});
 
 export default Input;

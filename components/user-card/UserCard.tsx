@@ -2,26 +2,22 @@ import TeaserCard from '@components/teaser-card/TeaserCard';
 import { Props } from './props';
 
 /**
- * A user card with an optional surrounding link, avatar image, username, and email.
+ * A user card with an image, username, and email.
  *
- * If given an {@link onPress} function, the card will be a link.
- *
- * If not given a {@link user} or the user is anonymous, the card will not be rendered.
+ * If not given a {@link user} or the {@link user} is anonymous, the card will not be rendered.
  *
  * @param props The component {@link Props}.
  * @returns The {@link UserCard} component.
  */
-const UserCard: React.FC<Props> = ({ onPress, user, ...styleProps }) => ((user && !user.isAnonymous)
+const UserCard: React.FC<Props> = ({ user, ...restProps }) => ((user && !user.isAnonymous)
   ? (
     <TeaserCard
-      avatarBackgroundColor={user.backgroundColor}
-      avatarRounded
-      avatarTitle={user.initials}
-      avatarURL={user.photoURL}
-      onPress={onPress}
+      photoPlaceholder={user.initials}
+      photoPlaceholderBg={user.backgroundColor}
+      photoURL={user.photoURL}
       subtitle={user.email}
       title={user.username}
-      {...styleProps}
+      {...restProps}
     />
   )
   : null);

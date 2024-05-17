@@ -4,6 +4,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "clean": "rimraf lib",
+    "clean:all": "npm run clean && rimraf node_modules",
     "serve": "run-p build:watch \"firebase emulators:start --only functions\"",
     "shell": "run-p build:watch \"firebase functions:shell\"",
     "start": "npm run shell",
@@ -27,8 +29,9 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
     "eslint-plugin-no-floating-promise": "^1.0.2",
-    "firebase-functions-test": "^3.1.0",
+    "firebase-functions-test": "^3.2.0",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.7",
     "typescript": "^5.4.5"
   },
   "private": true

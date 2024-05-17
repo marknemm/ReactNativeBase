@@ -1,21 +1,23 @@
 import FormError from '@components/form-error/FormError';
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
 import { Text, useTheme } from '@rneui/themed';
+import { forwardRef } from 'react';
 import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
 import { Dropdown as RneDropdown } from 'react-native-element-dropdown';
 import { useDropdownItems } from './hooks';
-import { Props } from './props';
+import { DropdownFC, Props } from './props';
 import { useStyles } from './styles';
 
 /**
  * A component for a dropdown form field.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link Dropdown} component.
  */
-const Dropdown: React.FC<Props> = (props) => {
-  const { label, name, onBlur, onChange, placeholder } = props;
+const Dropdown: DropdownFC = forwardRef((props, ref) => {
+  const { label, name, onBlur, onChange, placeholder, valueField } = props;
 
   // Derive entities related to a dropdown controlled by react-hook-form
   const control = useFormControl(props);
@@ -36,9 +38,10 @@ const Dropdown: React.FC<Props> = (props) => {
                 onBlur?.();
               }}
               onChange={(item) => {
-                onChangeForm(item?.value);
-                onChange?.(item?.value);
+                onChangeForm(item?.[valueField]);
+                onChange?.(item);
               }}
+              ref={ref as any}
               value={value}
             />
           )}
@@ -52,16 +55,17 @@ const Dropdown: React.FC<Props> = (props) => {
         />
       </>
     )
-    : <DropdownControlled {...props} />;
-};
+    : <DropdownControlled {...props} ref={ref as any} />;
+});
 
 /**
  * The controlled {@link Dropdown} component.
  *
  * @param props The component {@link Props}.
+ * @param ref The component reference.
  * @returns The {@link DropdownControlled} component.
  */
-const DropdownControlled: React.FC<Props> = ({
+const DropdownControlled: DropdownFC = forwardRef(({
   containerStyle,
   data,
   includeEmptyOption,
@@ -74,9 +78,9 @@ const DropdownControlled: React.FC<Props> = ({
   placeholderStyle,
   selectedTextStyle,
   style,
-  valueField = 'value',
+  valueField = 'value' as any,
   ...rneDropdownProps
-}) => {
+}, ref) => {
   const styles = useStyles({
     containerStyle,
     itemContainerStyle,
@@ -105,6 +109,7 @@ const DropdownControlled: React.FC<Props> = ({
         labelField={labelField}
         onChange={onChange}
         placeholderStyle={styles.placeholder}
+        ref={ref as any}
         selectedTextStyle={styles.selectedText}
         style={styles.dropdown}
         valueField={valueField}
@@ -112,6 +117,6 @@ const DropdownControlled: React.FC<Props> = ({
       />
     </View>
   );
-};
+});
 
 export default Dropdown;
