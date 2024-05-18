@@ -19,7 +19,7 @@ const Tooltip: React.FC<Props> = ({
   visible,
   ...tooltipProps
 }) => {
-  const [tooltipVisible, setTooltipVisible] = useControlledState(visible, false);
+  const [tooltipVisible, setTooltipVisible] = useControlledState(visible, { initValue: false });
 
   const onCloseCb = useCallback(() => {
     setTooltipVisible(false);

@@ -173,7 +173,7 @@ export interface DBFilter<T = any> {
      *
      * For example: `'<'`, `'<='`, `'=='`, `'>'`, `'>='`, ...
      */
-    operator: FirebaseFirestoreTypes.WhereFilterOp | 'starts-with' | 'starts-with-i';
+    operator: DBFilterOp;
 
     /**
      * The filter value.
@@ -181,6 +181,11 @@ export interface DBFilter<T = any> {
     value: T | T[];
 
 }
+
+/**
+ * A DB filter operator type.
+ */
+export type DBFilterOp = FirebaseFirestoreTypes.WhereFilterOp | 'starts-with' | 'starts-with-i';
 
 /**
  * A DB document field value.
@@ -252,11 +257,6 @@ export interface DBQueryResult<TData = DBDocData> {
 export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
 
   /**
-   * Whether the query is currently loading for the first time.
-   */
-  firstLoading: boolean;
-
-  /**
    * The error that occurred while loading the query.
    */
   loadError: string;
@@ -265,6 +265,27 @@ export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
    * Whether the query is currently loading.
    */
   loading: boolean;
+
+  /**
+   * Whether the query is currently loading for the first time.
+   *
+   * `Note`: If this is `true`, then {@link loading} will also be `true`, but not vice-versa.
+   */
+  loadingInitial: boolean;
+
+  /**
+   * Whether the query is currently loading more items.
+   *
+   * `Note`: If this is `true`, then {@link loading} will also be `true`, but not vice-versa.
+   */
+  loadingMore: boolean;
+
+  /**
+   * Whether the query is currently loading due to changes in the query options.
+   *
+   * `Note`: If this is `true`, then {@link loading} will also be `true`, but not vice-versa.
+   */
+  loadingOnOptionsChange: boolean;
 
   /**
    * Refreshes the query options state.
@@ -282,7 +303,7 @@ export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
   /**
    * Whether the query is currently refreshing.
    *
-   * `Note`: If this is `true`, then {@link loading} will also be true, but not vice-versa.
+   * `Note`: If this is `true`, then {@link loading} will also be `true`, but not vice-versa.
    */
   refreshing: boolean;
 
@@ -346,6 +367,13 @@ export interface UseQueryOptions<TData = any, TMap = TData> {
   debounceMs?: number;
 
   /**
+   * The function used to load data from a remote database.
+   *
+   * @default {@link listDBDocs}
+   */
+  load?: DBLoadFn;
+
+  /**
    * A function to map the raw document data {@link TData} to the desired type {@link TMap}.
    *
    * If not provided, the raw document data will be returned as-is.
@@ -363,6 +391,39 @@ export interface UseQueryOptions<TData = any, TMap = TData> {
    * @param result The {@link DBQueryResult}. If an error occurred, then `null`.
    * @param error The {@link Error} that occurred while loading the query. If no error, then `null`.
    */
-  afterLoad?: (result: DBQueryResult<TMap>, error: Error) => void;
+  onLoadComplete?: (result: DBQueryResult<TMap>, error: Error) => void;
+
+  /**
+   * A callback function to invoke after the query is load fails.
+   *
+   * @param result The {@link DBQueryResult}.
+   */
+  onLoadError?: (error: Error) => void;
+
+  /**
+   * A callback function to invoke after the query is loaded successfully.
+   *
+   * @param result The {@link DBQueryResult}.
+   */
+  onLoadSuccess?: (result: DBQueryResult<TMap>) => void;
 
 }
+
+/**
+ * A function to load data from a remote database.
+ *
+ * @template TRaw The type of the raw document data.
+ * @template TMap The type of the mapped document data.
+ * @param collectionPath A slash-separated path to a collection.
+ * @param queryOptions The {@link DBQueryOptions}.
+ * @param map A function to map the raw document data {@link TRaw} to the desired type {@link TMap}.
+ * @returns A promise that resolves to the {@link DBQueryResult}.
+ */
+export type DBLoadFn = <
+  TRaw extends DBDocData = DBDocData,
+  TMap = TRaw
+>(
+  collectionPath: string,
+  queryOptions?: DBQueryOptions<TRaw>,
+  map?: (doc: TRaw) => TMap
+) => Promise<DBQueryResult<TMap>>;

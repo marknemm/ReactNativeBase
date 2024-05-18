@@ -18,7 +18,11 @@ const ExpansionPanel: React.FC<Props> = ({
   title,
   ...accordionProps
 }) => {
-  const [expandedState, toggleExpandedState] = useControlledToggleState(isExpanded, onPress, initExpanded);
+  const [expandedState, toggleExpandedState] = useControlledToggleState(
+    isExpanded,
+    onPress,
+    { initValue: initExpanded }
+  );
 
   return (
     <ListItem.Accordion

@@ -1,12 +1,14 @@
+import ActivityIndicator from '@components/activity-indicator/ActivityIndicator';
 import Input from '@components/input/Input';
 import ClearButton from '@components/input/clear-button/ClearButton';
+import { InputRefType } from '@components/input/props';
 import { SEARCH_ICON } from '@constants/icons';
 import { useFormFieldValue } from '@hooks/form-hooks';
 import { useMergedRefs } from '@hooks/state-hooks';
 import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useColors } from '@hooks/theme-hooks';
 import { forwardRef, useMemo, useRef } from 'react';
-import { ActivityIndicator, TextInput, View } from 'react-native';
+import { View } from 'react-native';
 import { SearchBarFC } from './props';
 import { useStyles } from './styles';
 
@@ -22,7 +24,7 @@ const SearchBar: SearchBarFC = forwardRef(({
   ...inputProps
 }, ref) => {
   const value = useFormFieldValue(inputProps);
-  const inputRef = useRef<TextInput>();
+  const inputRef = useRef<InputRefType>();
   const colors = useColors();
   const generalStyles = useGeneralStyles();
   const styles = useStyles(inputProps);
@@ -36,7 +38,7 @@ const SearchBar: SearchBarFC = forwardRef(({
   const rightIcon = useMemo(() => (
     <View style={generalStyles.view.row}>
       <ActivityIndicator
-        animating={showLoading}
+        isVisible={showLoading}
         style={styles.loading}
       />
 

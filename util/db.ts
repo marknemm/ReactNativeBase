@@ -1,7 +1,7 @@
 import { MAX_CHAR } from '@constants/string';
 import { DBCompositeFilter, DBDocData, DBFilter, DBFilterOptions, DBFilters, DBOrderBy, DBOrderByOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, FirestoreCompositeFilterFn, FirestoreQueryFilter } from '@interfaces/db';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { logErr } from '@util/log';
+import { log, logErr } from '@util/log';
 import { toTitleCase } from '@util/string';
 import deepMerge from 'deepmerge';
 
@@ -51,6 +51,15 @@ export async function listDBDocs<TRaw extends DBDocData = DBDocData, T = TRaw>(
   }: DBQueryOptions<TRaw> = {},
   map: (doc: TRaw) => T = (doc) => doc as any
 ): Promise<DBQueryResult<T>> {
+  log(`Querying '${collectionPath}' with options:`, {
+    filters,
+    limit,
+    orderBy,
+    startAfter: startAfter
+      ? `<cursor=${(startAfter as FirebaseFirestoreTypes.DocumentSnapshot).id ?? startAfter}>`
+      : undefined,
+  });
+
   let query: FirebaseFirestoreTypes.Query<TRaw> = firestore().collection<TRaw>(collectionPath);
 
   for (const whereFilter of genWhereFilters(filters)) {

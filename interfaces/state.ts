@@ -8,6 +8,30 @@ import { GestureResponderEvent } from 'react-native';
 export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
 /**
+ * Options for the `useControlledState` hook.
+ *
+ * @template T The state type.
+ */
+export type UseControlledStateOptions<T = any> = {
+
+  /**
+   * The initial value of the controlled state.
+   */
+  initValue?: T;
+
+  /**
+   * Whether to only set the state if the control value itself has changed.
+   *
+   * `Note`: The value will always only be set if it differs from the current state value.
+   * This additionally requires the control value to be different from its previous value.
+   *
+   * @default false
+   */
+  onlyOnControlValueChange?: boolean;
+
+};
+
+/**
  * Return value of the `useControlledToggleState` hook.
  *
  * First value is the state value.

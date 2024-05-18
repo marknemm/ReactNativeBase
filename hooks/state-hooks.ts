@@ -1,7 +1,7 @@
 import { PreventableEvent } from '@interfaces/event';
-import { UseControlledToggleStateReturn, UseIncrementStateReturn, UseStateReturn, UseToggleStateReturn } from '@interfaces/state';
+import { UseControlledStateOptions, UseControlledToggleStateReturn, UseIncrementStateReturn, UseStateReturn, UseToggleStateReturn } from '@interfaces/state';
 import mergeRefs from 'merge-refs';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { GestureResponderEvent } from 'react-native';
 
 export * from '@interfaces/state';
@@ -18,7 +18,9 @@ export * from '@interfaces/state';
  * @param callbacks The callback functions to combine.
  * @returns The combined callback.
  */
-export function useCallbacks<T extends((...args: any[]) => void)>(...callbacks: ReadonlyArray<T>): T {
+export function useCallbacks<
+  T extends((...args: any[]) => void)
+>(...callbacks: ReadonlyArray<T>): T {
   return useCallback(((...args) => { // eslint-disable-line react-hooks/exhaustive-deps
     for (const callback of callbacks) {
       callback?.(...args);
@@ -31,14 +33,22 @@ export function useCallbacks<T extends((...args: any[]) => void)>(...callbacks: 
  *
  * @template T The type of the controlled state.
  * @param value The external control value.
- * @param initValue The initial value of the controlled state.
+ * @param options The {@link UseControlledStateOptions}.
  * @returns The controlled stateful value and a function to update it.
  */
-export function useControlledState<T = any>(value: T, initValue: T = value): UseStateReturn<T> {
+export function useControlledState<T = any>(
+  value: T,
+  {
+    initValue = value,
+    onlyOnControlValueChange = false,
+  }: UseControlledStateOptions<T> = {}
+): UseStateReturn<T> {
   const [state, setState] = useState(initValue);
+  const prevValueRef = useRef(initValue);
 
-  if (value !== undefined && value !== state) {
+  if (value !== undefined && value !== state && (!onlyOnControlValueChange || value !== prevValueRef.current)) {
     setState(value);
+    prevValueRef.current = value;
   }
 
   return [state, setState];
@@ -50,15 +60,15 @@ export function useControlledState<T = any>(value: T, initValue: T = value): Use
  * @template Event The type of the toggle event.
  * @param value The external control value.
  * @param onToggle The function to call to notify an external controller when the toggle state changes.
- * @param initValue The initial value of the controlled toggle state.
+ * @param options The {@link UseControlledStateOptions}.
  * @returns The controlled toggle stateful value and a function to toggle it.
  */
 export function useControlledToggleState<Event extends PreventableEvent = GestureResponderEvent>(
   value: boolean,
   onToggle: (event?: Event) => void,
-  initValue: boolean = value
+  options: UseControlledStateOptions<boolean> = {}
 ): UseControlledToggleStateReturn<Event> {
-  const [state, setState] = useControlledState(value, initValue);
+  const [state, setState] = useControlledState(value, options);
 
   const toggleState = useCallback((event?: Event) => {
     onToggle?.(event);
@@ -79,15 +89,15 @@ export function useControlledToggleState<Event extends PreventableEvent = Gestur
 export function useIncrementState(value: number): UseIncrementStateReturn {
   const [state, setState] = useState(value);
 
-  const incState = useCallback((increment = 1) => {
+  const incrementState = useCallback((increment = 1) => {
     setState((val) => val + increment);
   }, []);
 
-  const decState = useCallback((decrement = 1) => {
+  const decrementState = useCallback((decrement = 1) => {
     setState((val) => val - decrement);
   }, []);
 
-  return [state, incState, decState];
+  return [state, incrementState, decrementState];
 }
 
 /**

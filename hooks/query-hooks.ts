@@ -1,7 +1,7 @@
 import { useDebounce } from '@hooks/debounce-hooks';
 import { useIncrementState } from '@hooks/state-hooks';
 import { DBDocData, DBFilterOptions, DBOrderByOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, mergeQueryOptions } from '@util/db';
-import { log, logErr } from '@util/log';
+import { logErr } from '@util/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 /**
@@ -85,54 +85,58 @@ export function useFormQueryOptions<
  * @template TData The type of the raw queried document data.
  * @template TMap The (refined) type of the queried data.
  * @param collectionPath A slash-separated path to a collection.
- * @param queryOptions The {@link DBQueryOptions}.
+ * @param queryOptionsState The {@link DBQueryOptionsState}.
  * @param map A function to map the raw document data {@link TRaw} to the desired type {@link T}.
  * @returns The {@link DBQueryState}.
  */
 export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
   collectionPath: string,
-  {
-    filters,
-    limit,
-    orderBy,
-    startAfter,
-    setStartAfter,
-  }: Partial<DBQueryOptionsState<TData>> = {},
+  queryOptionsState?: Partial<DBQueryOptionsState<TData>>,
   {
     debounceMs = 500,
+    load = listDBDocs,
     map = (doc) => doc as any,
-    afterLoad = () => {},
+    onLoadComplete = () => {},
+    onLoadError = () => {},
+    onLoadSuccess = () => {},
   }: UseQueryOptions<TData, TMap> = {}
 ): DBQueryState<TMap> {
-  const [firstLoading, setFirstLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadingInitial, setLoadingInitial] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingOnOptionsChange, setLoadingOnOptionsChange] = useState(false);
   const [queryResult, setQueryResult] = useState<DBQueryResult<TMap>>(null);
   const [refreshing, setRefreshing] = useState(false);
-  const [queryInstance, incQueryInstance] = useIncrementState(0); // Used to force refresh.
-
+  const [queryInstance, incrementQueryInstance] = useIncrementState(0); // Used to force refresh.
   const debounce = useDebounce(debounceMs);
-  const mapCb = useCallback(map, []);             // eslint-disable-line react-hooks/exhaustive-deps
-  const afterLoadCb = useCallback(afterLoad, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const prevFiltersRef = useRef<DBFilterOptions>();
   const prevOrderByRef = useRef<DBOrderByOptions<TData>>();
 
   useEffect(() => {
+    const { filters, orderBy } = queryOptionsState ?? {};
+
+    const optionsChangeDetected = !refreshing && !loadingInitial
+      && (
+        queryOptionsState?.filters !== prevFiltersRef.current
+        || queryOptionsState?.orderBy !== prevOrderByRef.current
+      );
+
+    const paginationDetected = !refreshing && !loadingInitial
+      && queryOptionsState?.startAfter === queryResult?.cursor
+      && !optionsChangeDetected;
+
     setLoading(true);
+    setLoadingMore(paginationDetected);
+    setLoadingOnOptionsChange(optionsChangeDetected);
     setLoadError('');
 
     debounce(() => {
-      log(`Querying '${collectionPath}' with options:`, { filters, limit, orderBy, startAfter });
-
-      listDBDocs(collectionPath, { filters, limit, orderBy, startAfter }, mapCb)
+      load(collectionPath, queryOptionsState, map)
         .then((result) => {
           setQueryResult((prevResult) => {
-            result.items = ( // Append results if detected that getting next pagination set.
-              startAfter === prevResult?.cursor
-              && filters === prevFiltersRef.current
-              && orderBy === prevOrderByRef.current
-            )
+            result.items = paginationDetected
               ? (prevResult?.items ?? []).concat(result.items)
               : result.items;
             return result;
@@ -140,36 +144,53 @@ export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
 
           prevFiltersRef.current = filters;
           prevOrderByRef.current = orderBy;
-          afterLoadCb?.(result, null);
+          onLoadSuccess?.(result);
+          onLoadComplete?.(result, null);
         })
         .catch((error) => {
           logErr('Query error:', error);
           setLoadError(error.message);
-          afterLoadCb?.(null, error);
+          onLoadError?.(error);
+          onLoadComplete?.(null, error);
         })
         .finally(() => {
-          setFirstLoading(false);
           setLoading(false);
+          setLoadingInitial(false);
+          setLoadingMore(false);
+          setLoadingOnOptionsChange(false);
           setRefreshing(false);
         });
     });
-  }, [afterLoadCb, collectionPath, debounce, filters, limit, mapCb, orderBy, queryInstance, startAfter]);
+  }, [collectionPath, queryInstance, queryOptionsState]); // eslint-disable-line react-hooks/exhaustive-deps
+  // TODO: Replace disabled eslint rule with EffectEvent when it is stable.
 
   return useMemo(() => ({
     cursor: queryResult?.cursor,
-    firstLoading,
     items: queryResult?.items ?? [],
     loadError,
     loading,
+    loadingInitial,
+    loadingMore,
+    loadingOnOptionsChange,
     refresh: ({ maintainStartAfter } = {}) => {
       if (!refreshing) {
         setRefreshing(true);
-        if (setStartAfter && !maintainStartAfter) {
-          setStartAfter(null);
+        if (queryOptionsState?.setStartAfter && !maintainStartAfter) {
+          queryOptionsState?.setStartAfter(null);
         }
-        incQueryInstance();
+        incrementQueryInstance();
       }
     },
     refreshing,
-  }), [firstLoading, incQueryInstance, loadError, loading, queryResult, refreshing, setStartAfter]);
+  }), [
+    incrementQueryInstance,
+    loadError,
+    loading,
+    loadingInitial,
+    loadingMore,
+    loadingOnOptionsChange,
+    queryOptionsState,
+    queryResult,
+    refreshing,
+  ]);
 }
