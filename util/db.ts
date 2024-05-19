@@ -37,28 +37,17 @@ export async function getDBDoc<TRaw extends DBDocData = DBDocData, T = TRaw>(
  * @template TRaw The type of the raw queried document data.
  * @template T The (refined) type of the queried data.
  * @param collectionPath A slash-separated path to a collection.
- * @param options The {@link DBQueryOptions}.
+ * @param queryOptions The {@link DBQueryOptions}.
  * @param map A function to map the raw document data to the desired type.
  * @returns A promise that resolves to a {@link DBQueryResult}.
  */
 export async function listDBDocs<TRaw extends DBDocData = DBDocData, T = TRaw>(
   collectionPath: string,
-  {
-    filters,
-    limit,
-    orderBy,
-    startAfter,
-  }: DBQueryOptions<TRaw> = {},
+  queryOptions: DBQueryOptions<TRaw> = {},
   map: (doc: TRaw) => T = (doc) => doc as any
 ): Promise<DBQueryResult<T>> {
-  log(`Querying '${collectionPath}' with options:`, {
-    filters,
-    limit,
-    orderBy,
-    startAfter: startAfter
-      ? `<cursor=${(startAfter as FirebaseFirestoreTypes.DocumentSnapshot).id ?? startAfter}>`
-      : undefined,
-  });
+  const { filters, limit, orderBy, startAfter } = queryOptions ?? {};
+  logQueryOptions(`Querying '${collectionPath}' with options:`, queryOptions);
 
   let query: FirebaseFirestoreTypes.Query<TRaw> = firestore().collection<TRaw>(collectionPath);
 
@@ -79,8 +68,15 @@ export async function listDBDocs<TRaw extends DBDocData = DBDocData, T = TRaw>(
   }
 
   const querySnapshot = await query.get();
+  log(`Query result for '${collectionPath}':`, {
+    cursor: querySnapshot.docs[limit - 1]
+      ? `<cursor=${querySnapshot.docs[limit - 1]}>`
+      : undefined,
+    items: querySnapshot.docs.map((doc) => doc.id),
+  });
+
   return {
-    cursor: querySnapshot.docs[querySnapshot.docs.length - 1],
+    cursor: querySnapshot.docs[limit - 1] ?? null, // Only include cursor if more items are available.
     items: querySnapshot.docs.map((doc) =>
       map(toDBDoc(doc))
     ),
@@ -293,6 +289,23 @@ export function mergeQueryOptions<
     ? mergeOptions.startAfter
     : prevStartAfter
   ));
+}
+
+/**
+ * Logs a message along with query options.
+ *
+ * @param message The message to log.
+ * @param queryOptions The {@link DBQueryOptions} to log.
+ */
+export function logQueryOptions(message: string, queryOptions: DBQueryOptions) {
+  log(message, {
+    filters: queryOptions?.filters,
+    limit: queryOptions?.limit,
+    orderBy: queryOptions?.orderBy,
+    startAfter: (queryOptions?.startAfter as FirebaseFirestoreTypes.DocumentSnapshot)?.id
+      ? `<cursor=${(queryOptions.startAfter as FirebaseFirestoreTypes.DocumentSnapshot).id}>`
+      : queryOptions?.startAfter ?? undefined,
+  });
 }
 
 /**

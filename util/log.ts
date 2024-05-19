@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-import { configure } from 'safe-stable-stringify';
+import cj from 'color-json';
 
-const stringify = configure({ maximumDepth: 5 });
 let showDebugLogs: boolean = __DEV__;
 
 /**
@@ -64,9 +63,7 @@ export function setShowDebugLogs(visible: boolean) {
 function beautify(...message: any[]): string[] {
   return message.map((msg) => (
     (typeof msg === 'object')
-      ? stringify(msg, undefined, 2)
-        .replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
-        .replace(/^\[|\]$/g, '')       // Remove square brackets surrounding object
+      ? cj(msg).replace(/"([^"]+)":/g, '$1:') // Remove quotes from object keys
       : msg
   ));
 }

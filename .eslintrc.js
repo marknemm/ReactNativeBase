@@ -159,10 +159,12 @@ module.exports = {
     }],
     'no-extra-semi': 'warn',                                    // Enable the warning about extra semicolons
     'no-floating-promise/no-floating-promise': 'warn',          // Enable the warning about floating promises
+    'no-minusminus': 'off',                                     // Disable the rule that disallows unary operators
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
     'no-nested-ternary': 'off',                                 // Disable the rule that disallows nested ternary expressions
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
+    'no-plusplus': 'off',                                       // Disable the rule that disallows unary operators
     'no-promise-executor-return': 'warn',                       // Enable the warning about returning values from promise executors
     'no-restricted-syntax': 'off',                              // Disable the rule that disallows specific syntax
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces

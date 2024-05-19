@@ -37,3 +37,6 @@ yarn-error.*
 
 # local ide
 .vscode
+
+# testing
+coverage/**/*

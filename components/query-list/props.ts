@@ -13,7 +13,10 @@ export interface Props<
   TData = any,
   TMap = TData,
   TFilters extends DBFilterOptions = DBFilters<TData>
-> extends Omit<FlatListProps<TMap>, 'data'>, UseQueryOptions<TData, TMap> {
+> extends
+  Omit<FlatListProps<TMap>, 'data'>,
+  Omit<UseQueryOptions<TData, TMap>, 'paginationMode'>
+{
 
   /**
    * A slash-separated path to a collection.
@@ -30,7 +33,7 @@ export interface Props<
    *
    * If not provided, then the search bar will be hidden.
    */
-  searchFilterName?: keyof TData;
+  searchFilterName?: keyof TFilters;
 
   /**
    * The operator to use for the general search filter.

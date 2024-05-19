@@ -2,6 +2,7 @@ import ActivityIndicator from '@components/activity-indicator/ActivityIndicator'
 import ErrorText from '@components/error-text/ErrorText';
 import SearchBar from '@components/search-bar/SearchBar';
 import { useQuery } from '@hooks/query-hooks';
+import { DBFilter } from '@interfaces/db';
 import { toTitleCase } from '@util/string';
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
@@ -27,8 +28,7 @@ const QueryList: QueryListFC = ({
   searchPlaceholder,
   ...flatListProps
 }) => {
-  const { setStartAfter } = queryOptionsState;
-  const queryState = useQuery(collectionPath, queryOptionsState as any, {
+  const queryState = useQuery(collectionPath, queryOptionsState, {
     debounceMs,
     load,
     map,
@@ -57,7 +57,7 @@ const QueryList: QueryListFC = ({
           placeholder={searchPlaceholder}
           onChangeText={onSearchChangeCb}
           showLoading={queryState.loadingOnOptionsChange}
-          value={(queryOptionsState.filters as any)[searchFilterName]?.value ?? ''}
+          value={(queryOptionsState.filters[searchFilterName] as DBFilter)?.value ?? ''}
         />
       )}
 
@@ -76,9 +76,7 @@ const QueryList: QueryListFC = ({
         keyExtractor={useCallback((item: any) =>
           item.id,
         [])}
-        onEndReached={useCallback(() =>
-          setStartAfter(queryState.cursor),
-        [queryState.cursor, setStartAfter])}
+        onEndReached={queryState.loadNext}
         onRefresh={queryState.refresh}
         refreshing={queryState.refreshing}
         {...flatListProps}

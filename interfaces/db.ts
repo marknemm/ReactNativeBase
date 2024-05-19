@@ -257,6 +257,14 @@ export interface DBQueryResult<TData = DBDocData> {
 export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
 
   /**
+   * Cancels the current query.
+   *
+   * This will not cancel the network request, but will prevent the query from updating the state
+   * regardless of the response success state.
+   */
+  cancel: () => void;
+
+  /**
    * The error that occurred while loading the query.
    */
   loadError: string;
@@ -286,6 +294,13 @@ export interface DBQueryState<TData = DBDocData> extends DBQueryResult<TData> {
    * `Note`: If this is `true`, then {@link loading} will also be `true`, but not vice-versa.
    */
   loadingOnOptionsChange: boolean;
+
+  /**
+   * Loads the next set of items in the query.
+   *
+   * Does nothing if the {@link loading} state is `true`.
+   */
+  loadNext: () => void;
 
   /**
    * Refreshes the query options state.
@@ -406,6 +421,13 @@ export interface UseQueryOptions<TData = any, TMap = TData> {
    * @param result The {@link DBQueryResult}.
    */
   onLoadSuccess?: (result: DBQueryResult<TMap>) => void;
+
+  /**
+   * The pagination mode to use when loading more items.
+   *
+   * @default 'append'
+   */
+  paginationMode?: 'append' | 'replace';
 
 }
 

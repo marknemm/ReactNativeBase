@@ -1,7 +1,7 @@
 import { useDebounce } from '@hooks/debounce-hooks';
 import { useIncrementState } from '@hooks/state-hooks';
-import { DBDocData, DBFilterOptions, DBOrderByOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, mergeQueryOptions } from '@util/db';
-import { logErr } from '@util/log';
+import { DBDocData, DBFilterOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, logQueryOptions, mergeQueryOptions } from '@util/db';
+import { log, logErr } from '@util/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 /**
@@ -77,120 +77,163 @@ export function useFormQueryOptions<
 }
 
 /**
- * Custom hook for performing a list query against a remote database.
+ * Custom hook for performing a query against a remote database.
  *
  * If given a startAt option that is equivalent to the previous query's cursor,
  * and the same filters and orderBy options, then appends the results to the previous query results.
  *
  * @template TData The type of the raw queried document data.
  * @template TMap The (refined) type of the queried data.
+ * @template TFilters The type of the filters to apply to the query.
  * @param collectionPath A slash-separated path to a collection.
  * @param queryOptionsState The {@link DBQueryOptionsState}.
  * @param map A function to map the raw document data {@link TRaw} to the desired type {@link T}.
  * @returns The {@link DBQueryState}.
  */
-export function useQuery<TData extends DBDocData = DBDocData, TMap = TData>(
+export function useQuery<
+  TData extends DBDocData = DBDocData,
+  TMap = TData,
+  TFilters extends DBFilterOptions = DBFilterOptions<TData>,
+>(
   collectionPath: string,
-  queryOptionsState?: Partial<DBQueryOptionsState<TData>>,
+  queryOptionsState: Partial<DBQueryOptionsState<TData, TFilters>> = {},
   {
     debounceMs = 500,
     load = listDBDocs,
     map = (doc) => doc as any,
-    onLoadComplete = () => {},
-    onLoadError = () => {},
-    onLoadSuccess = () => {},
+    onLoadComplete,
+    onLoadError,
+    onLoadSuccess,
+    paginationMode = 'append',
   }: UseQueryOptions<TData, TMap> = {}
 ): DBQueryState<TMap> {
+  const { filters, limit, orderBy, startAfter, setStartAfter } = queryOptionsState ?? {};
   const [loadError, setLoadError] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [loadingInitial, setLoadingInitial] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadingOnOptionsChange, setLoadingOnOptionsChange] = useState(false);
   const [queryResult, setQueryResult] = useState<DBQueryResult<TMap>>(null);
   const [refreshing, setRefreshing] = useState(false);
-  const [queryInstance, incrementQueryInstance] = useIncrementState(0); // Used to force refresh.
+  const [refreshInstance, incrementRefreshInstance] = useIncrementState(0); // Used to force refresh.
   const debounce = useDebounce(debounceMs);
 
-  const prevFiltersRef = useRef<DBFilterOptions>();
-  const prevOrderByRef = useRef<DBOrderByOptions<TData>>();
+  const queryInstanceRef = useRef<number>(0);
+  const prevQueryOptionsRef = useRef<DBQueryOptions>({});
+
+  const stopLoadingCb = useCallback(() => {
+    setLoading(false);
+    setLoadingMore(false);
+    setLoadingOnOptionsChange(false);
+    setRefreshing(false);
+    queryInstanceRef.current++; // Mark any currently progressing queries as stale.
+  }, []);
 
   useEffect(() => {
-    const { filters, orderBy } = queryOptionsState ?? {};
-
-    const optionsChangeDetected = !refreshing && !loadingInitial
+    const optionsChangeDetected = (queryInstanceRef.current > 0 || loading)
       && (
-        queryOptionsState?.filters !== prevFiltersRef.current
-        || queryOptionsState?.orderBy !== prevOrderByRef.current
+        filters !== prevQueryOptionsRef.current.filters
+        || limit !== prevQueryOptionsRef.current.limit
+        || orderBy !== prevQueryOptionsRef.current.orderBy
       );
 
-    const paginationDetected = !refreshing && !loadingInitial
-      && queryOptionsState?.startAfter === queryResult?.cursor
+    const paginationDetected = (queryInstanceRef.current > 0 || loading)
+      && startAfter === queryResult?.cursor
       && !optionsChangeDetected;
+
+    if (paginationDetected && (!startAfter || refreshing)) {
+      log('Skipping next page query:', !startAfter ? 'No more items' : 'Refreshing');
+      return;
+    }
+
+    if (loading) {
+      logQueryOptions('Cancelling previous query:', prevQueryOptionsRef.current);
+      stopLoadingCb();
+    }
 
     setLoading(true);
     setLoadingMore(paginationDetected);
     setLoadingOnOptionsChange(optionsChangeDetected);
     setLoadError('');
 
-    debounce(() => {
-      load(collectionPath, queryOptionsState, map)
-        .then((result) => {
-          setQueryResult((prevResult) => {
-            result.items = paginationDetected
-              ? (prevResult?.items ?? []).concat(result.items)
-              : result.items;
-            return result;
-          });
+    debounce(async () => {
+      const currentQueryInstance = queryInstanceRef.current; // Track if query was cancelled or is stale.
+      const queryOptions = { filters, limit, orderBy, startAfter };
 
-          prevFiltersRef.current = filters;
-          prevOrderByRef.current = orderBy;
-          onLoadSuccess?.(result);
-          onLoadComplete?.(result, null);
-        })
-        .catch((error) => {
-          logErr('Query error:', error);
-          setLoadError(error.message);
-          onLoadError?.(error);
-          onLoadComplete?.(null, error);
-        })
-        .finally(() => {
-          setLoading(false);
-          setLoadingInitial(false);
-          setLoadingMore(false);
-          setLoadingOnOptionsChange(false);
-          setRefreshing(false);
+      try {
+        const result = await load(collectionPath, queryOptions, map);
+        if (currentQueryInstance !== queryInstanceRef.current) { // Check if query was cancelled or is stale.
+          logQueryOptions(`Discarding stale query result (${currentQueryInstance} !== ${queryInstanceRef.current}):`,
+            queryOptions
+          );
+          return;
+        }
+
+        setQueryResult((prevResult) => {
+          result.items = paginationDetected && paginationMode === 'append'
+            ? (prevResult?.items ?? []).concat(result.items)
+            : result.items;
+          return result;
         });
-    });
-  }, [collectionPath, queryInstance, queryOptionsState]); // eslint-disable-line react-hooks/exhaustive-deps
-  // TODO: Replace disabled eslint rule with EffectEvent when it is stable.
 
-  return useMemo(() => ({
+        prevQueryOptionsRef.current = queryOptions;
+
+        onLoadSuccess?.(result);
+        onLoadComplete?.(result, null);
+      } catch (error: any) {
+        if (currentQueryInstance !== queryInstanceRef.current) { // Check if query was cancelled or is stale.
+          logQueryOptions(`Discarding stale query error (${currentQueryInstance} !== ${queryInstanceRef.current}):`,
+            queryOptions
+          );
+          logErr('Discarded query error:', error);
+          return;
+        }
+
+        logErr('Query error:', error);
+        setLoadError(error instanceof Object ? error.message : error);
+        onLoadError?.(error);
+        onLoadComplete?.(null, error);
+      } finally {
+        if (currentQueryInstance === queryInstanceRef.current) { // Check if query was cancelled or is stale.
+          stopLoadingCb();
+        }
+      }
+    });
+  // TODO: Replace disabled eslint rule with EffectEvent when it is stable.
+  }, [collectionPath, filters, limit, orderBy, refreshInstance, startAfter, stopLoadingCb]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return useMemo<DBQueryState<TMap>>(() => ({
+    cancel: stopLoadingCb,
     cursor: queryResult?.cursor,
     items: queryResult?.items ?? [],
     loadError,
     loading,
-    loadingInitial,
+    loadingInitial: loading && queryInstanceRef.current === 0,
     loadingMore,
     loadingOnOptionsChange,
+    loadNext: () => {
+      if (!loading && queryResult?.cursor) {
+        setStartAfter?.(queryResult.cursor);
+      }
+    },
     refresh: ({ maintainStartAfter } = {}) => {
       if (!refreshing) {
         setRefreshing(true);
-        if (queryOptionsState?.setStartAfter && !maintainStartAfter) {
-          queryOptionsState?.setStartAfter(null);
+        if (!maintainStartAfter) {
+          setStartAfter?.(null);
         }
-        incrementQueryInstance();
+        incrementRefreshInstance();
       }
     },
     refreshing,
   }), [
-    incrementQueryInstance,
+    incrementRefreshInstance,
     loadError,
     loading,
-    loadingInitial,
     loadingMore,
     loadingOnOptionsChange,
-    queryOptionsState,
     queryResult,
     refreshing,
+    setStartAfter,
+    stopLoadingCb,
   ]);
 }
