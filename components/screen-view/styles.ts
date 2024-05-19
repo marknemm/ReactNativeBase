@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -31,6 +30,7 @@ export function useStyles({ containerStyle, fullScreen, noFooter, noHeader, styl
       paddingTop: (fullScreen || noHeader)
         ? Math.max(safeAreaInsets.top, theme.spacing.screenVertical)
         : theme.spacing.screenVertical,
+      width: '100%',
       ...StyleSheet.flatten(style),
     },
   }), [containerStyle, fullScreen, noFooter, noHeader, safeAreaInsets, style]);
