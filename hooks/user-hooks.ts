@@ -1,5 +1,5 @@
 import { UserContext } from '@contexts/user/UserContext';
-import { User } from '@util/user';
+import User from '@util/user';
 import { useContext } from 'react';
 
 /**

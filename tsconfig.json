@@ -26,6 +26,9 @@
       "@interfaces/*": [
         "./interfaces/*"
       ],
+      "@mocks/*": [
+        "./test/mocks/*"
+      ],
       "@navigation/*": [
         "./navigation/*"
       ],
@@ -34,6 +37,9 @@
       ],
       "@styles/*": [
         "./styles/*"
+      ],
+      "@test/*": [
+        "./test/*"
       ],
       "@util/*": [
         "./util/*"

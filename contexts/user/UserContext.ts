@@ -1,4 +1,4 @@
-import { User } from '@util/user';
+import User from '@util/user';
 import { createContext } from 'react';
 
 /**

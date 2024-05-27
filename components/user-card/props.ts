@@ -1,5 +1,5 @@
 import { GestureResponderEvent } from 'react-native';
-import { User } from '@util/user';
+import User from '@util/user';
 import { StyleProps as  TeaserCardStyleProps } from '@components/teaser-card/props';
 
 /**

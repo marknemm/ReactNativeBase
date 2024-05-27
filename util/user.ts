@@ -15,7 +15,7 @@ import { DeepPartial, DeepReadonly } from 'utility-types';
 /**
  * Represents a {@link User}.
  */
-export class User {
+export default class User {
 
   /**
    * The raw {@link User} document data.

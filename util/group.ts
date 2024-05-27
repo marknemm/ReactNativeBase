@@ -2,7 +2,7 @@ import { GroupDoc, GroupFilters, Role } from '@interfaces/group';
 import { getBackgroundColor } from '@util/colors';
 import { DBQueryOptions, DBQueryResult, createDBDoc, getDBDoc, listDBDocs } from '@util/db';
 import { toInitials } from '@util/string';
-import { User } from '@util/user';
+import User from '@util/user';
 import { getAuthUser } from './auth';
 import { log, logErr } from './log';
 

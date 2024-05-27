@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import { getAuthUser, reloadAuthUser } from '@util/auth';
 import { getDBDoc, listenDBDoc } from '@util/db';
 import { Predicate, resolvePredicate } from '@util/predicate';
-import { User } from '@util/user';
+import User from '@util/user';
 import { useEffect, useRef, useState } from 'react';
 
 /**

@@ -12,6 +12,7 @@ module.exports = (api) => {
         jsxRuntime: 'automatic',
         jsxImportSource: '@welldone-software/why-did-you-render',
       }],
+      '@babel/preset-typescript',
     ],
     plugins: [
       ['module-resolver', {
@@ -23,9 +24,11 @@ module.exports = (api) => {
           '@env': './util/env',
           '@hooks': './hooks',
           '@interfaces': './interfaces',
+          '@mocks': './test/mocks',
           '@navigation': './navigation',
           '@screens': './screens',
           '@styles': './styles',
+          '@test': './test',
           '@util': './util',
         },
       }],

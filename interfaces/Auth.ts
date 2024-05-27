@@ -1,7 +1,7 @@
 import { Props as SignInModalProps } from '@components/sign-in-modal/props';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { ConfigureParams } from '@react-native-google-signin/google-signin';
-import { User } from '@util/user';
+import User from '@util/user';
 
 /**
  * The authentication options.

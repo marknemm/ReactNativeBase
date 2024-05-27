@@ -11,6 +11,7 @@ module.exports = {
   env: {
     browser: true,                      // Enable browser global variables
     es2021: true,                       // Enable ES2021 global variables
+    jest: true,                         // Enable Jest global variables
     node: true,                         // Enable Node.js global variables and Node.js scoping
   },
   globals: {
@@ -78,7 +79,7 @@ module.exports = {
     'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
     'indent': ['warn', 2],                                      // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
-    'import/extensions': ['warn', 'never'],                     // Enable the warning about import extensions
+    'import/extensions': 'off',                                 // Disable the warning about import extensions
     'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports
     'import/no-duplicates': 'warn',                             // Enable the warning about duplicate imports
     'import/no-extraneous-dependencies': 'off',                 // Disable the rule that prevents extraneous dependencies and rely on checkJs instead

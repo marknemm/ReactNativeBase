@@ -39,4 +39,4 @@ yarn-error.*
 .vscode
 
 # testing
-coverage/**/*
+coverage
