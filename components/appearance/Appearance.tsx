@@ -2,7 +2,8 @@ import ScreenView from '@components/screen-view/ScreenView';
 import { useGeneralStyles } from '@hooks/styles-hooks';
 import { CheckBox, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { Props } from './props';
+import type AppearanceProps from './Appearance.props';
+import { useCallback } from 'react';
 
 /**
  * Component that allows the user to select the appearance of the application.
@@ -10,7 +11,11 @@ import { Props } from './props';
  * @param props The component {@link Props}.
  * @returns The {@link Appearance} component.
  */
-const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanceChange = () => {} }) => {
+const Appearance: React.FC<AppearanceProps> = ({
+  appearance,
+  disabled,
+  onAppearanceChange,
+}) => {
   const generalStyles = useGeneralStyles();
 
   return (
@@ -26,7 +31,7 @@ const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanc
           uncheckedIcon="circle-half-full"
           iconType="material-community"
           textStyle={appearance === 'auto' ? generalStyles.text.doubleUnderline : undefined}
-          onPress={() => onAppearanceChange('auto')}
+          onPress={() => onAppearanceChange?.('auto')}
           disabled={disabled}
         />
         <CheckBox
@@ -35,7 +40,7 @@ const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanc
           checkedIcon="sun-o"
           uncheckedIcon="sun-o"
           textStyle={appearance === 'light' ? generalStyles.text.doubleUnderline : undefined}
-          onPress={() => onAppearanceChange('light')}
+          onPress={() => onAppearanceChange?.('light')}
           disabled={disabled}
         />
         <CheckBox
@@ -44,7 +49,7 @@ const Appearance: React.FC<Props> = ({ appearance, disabled = false, onAppearanc
           checkedIcon="moon-o"
           uncheckedIcon="moon-o"
           textStyle={appearance === 'dark' ? generalStyles.text.doubleUnderline : undefined}
-          onPress={() => onAppearanceChange('dark')}
+          onPress={() => onAppearanceChange?.('dark')}
           disabled={disabled}
         />
       </View>
