@@ -6,7 +6,7 @@ import { forwardRef } from 'react';
 /**
  * A button that adds an item.
  *
- * @param props The component {@link Props}.
+ * @param props The {@link FixedIconButtonProps}.
  * @returns The {@link AddButton} component.
  */
 const AddButton: React.FC<FixedIconButtonProps> = forwardRef(({
