@@ -1,27 +1,27 @@
-import { AppProvider } from '@test/providers/app-provider/AppProvider';
-import { fireEvent, render } from '@testing-library/react-native';
-import AddButton from './AddButton';
+import AddButton from '@components/add-button/AddButton';
+import AppProvider from '@test/providers/app-provider/AppProvider';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 
 describe('<AddButton />', () => {
   it('calls onPress when the button is pressed', () => {
     const onPress = jest.fn();
-    const { getByRole } = render(
+    render(
       <AddButton onPress={onPress} />,
       { wrapper: AppProvider }
     );
 
-    fireEvent.press(getByRole('button'));
+    fireEvent.press(screen.getByRole('button'));
     expect(onPress).toHaveBeenCalled();
   });
 
   it('does not call onPress when disabled', () => {
     const onPress = jest.fn();
-    const { getByRole } = render(
+    render(
       <AddButton onPress={onPress} disabled />,
       { wrapper: AppProvider }
     );
 
-    fireEvent.press(getByRole('button'));
+    fireEvent.press(screen.getByRole('button'));
     expect(onPress).not.toHaveBeenCalled();
   });
 

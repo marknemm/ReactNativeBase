@@ -1,9 +1,9 @@
-import { ActivityIndicatorProps as NativeActivityIndicatorProps } from 'react-native';
+import type { ActivityIndicatorProps as NativeActivityIndicatorProps } from 'react-native';
 
 /**
  * The `ActivityIndicator` component props.
  */
-export default interface ActivityIndicatorProps extends NativeActivityIndicatorProps {
+export interface ActivityIndicatorProps extends NativeActivityIndicatorProps {
 
   /**
    * Whether the activity indicator is visible.

@@ -1,6 +1,6 @@
-import { AppProvider } from '@test/providers/app-provider/AppProvider';
+import ActivityIndicator from '@components/activity-indicator/ActivityIndicator';
+import AppProvider from '@test/providers/app-provider/AppProvider';
 import { render } from '@testing-library/react-native';
-import ActivityIndicator from './ActivityIndicator';
 
 describe('<ActivityIndicator />', () => {
   describe('snapshots', () => {

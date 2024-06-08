@@ -2,15 +2,21 @@ import BottomSheet from '@components/bottom-sheet/BottomSheet';
 import { CAMERA_ICON, PHOTOS_ICON } from '@constants/icons';
 import { Icon, ListItem } from '@rneui/themed';
 import delay from 'delay';
-import { Props } from './props';
+import type { CameraBottomSheetProps } from './CameraBottomSheet.interfaces';
 
 /**
  * A {@link BottomSheet} for choosing a photo from the camera or media library.
  *
- * @param props The component {@link Props}.
+ * @param props The {@link CameraBottomSheetProps}.
  * @returns The {@link CameraBottomSheet} component.
  */
-const CameraBottomSheet: React.FC<Props> = ({ isVisible, onClose, onPressChoosePhoto, onPressTakePhoto, title }) => (
+const CameraBottomSheet: React.FC<CameraBottomSheetProps> = ({
+  isVisible,
+  onClose,
+  onPressChoosePhoto,
+  onPressTakePhoto,
+  title,
+}) => (
   <BottomSheet
     isVisible={isVisible}
     onClose={onClose}
@@ -22,6 +28,7 @@ const CameraBottomSheet: React.FC<Props> = ({ isVisible, onClose, onPressChooseP
         await delay(200); // Prevent bottom sheet close from blocking camera opening
         onPressTakePhoto?.();
       }}
+      role="button"
       bottomDivider
     >
       <ListItem.Content>
@@ -35,6 +42,7 @@ const CameraBottomSheet: React.FC<Props> = ({ isVisible, onClose, onPressChooseP
         await delay(200); // Prevent bottom sheet close from blocking media library opening
         onPressChoosePhoto?.();
       }}
+      role="button"
       bottomDivider
     >
       <ListItem.Content>

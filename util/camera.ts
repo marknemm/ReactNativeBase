@@ -26,7 +26,7 @@ export async function launchCamera(options: ImagePickerOptions = {}) {
 /**
  * Opens the OS native image media library and returns the selected image media.
  *
- * @param options The image media picker {@link ImagePicker.ImagePickerOptions options}.
+ * @param options The image media picker {@link ImagePickerOptions options}.
  * @returns A promise that resolves to the selected {@link ImagePickerAsset asset}.
  * @throws If the user denies the permission to access the camera roll.
  */

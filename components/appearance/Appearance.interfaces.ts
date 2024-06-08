@@ -1,7 +1,7 @@
 /**
  * The `Appearance` component properties.
  */
-export default interface AppearanceProps {
+export interface AppearanceProps {
 
   /**
    * The appearance.

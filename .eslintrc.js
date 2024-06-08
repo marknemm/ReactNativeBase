@@ -39,6 +39,13 @@ module.exports = {
     'react-hooks',                            // Linting for React hooks
     'react-refresh',                          // Linting for validating React components can be updated with Fast Refresh
   ],
+  overrides: [
+    {
+			files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'], // Enable eslint-plugin-testing-library rules only for test files
+			extends: ['plugin:testing-library/react'],
+      rules: {}
+		},
+  ],
   ignorePatterns: [
     'node_modules/',                          // Ignore node_modules
     '.eslintrc.js',                           // Ignore the ESLint config file
@@ -83,6 +90,7 @@ module.exports = {
     'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports
     'import/no-duplicates': 'warn',                             // Enable the warning about duplicate imports
     'import/no-extraneous-dependencies': 'off',                 // Disable the rule that prevents extraneous dependencies and rely on checkJs instead
+    'import/no-mutable-exports': 'warn',                        // Enable the warning that prevents mutable exports
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
     'import/order': 'warn',                                     // Enable the warning about import order
     'import/prefer-default-export': 'off',                      // Disable the rule that prefers default exports

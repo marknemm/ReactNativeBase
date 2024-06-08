@@ -1,5 +1,5 @@
 import { ActivityIndicator as NativeActivityIndicator } from 'react-native';
-import type ActivityIndicatorProps from './ActivityIndicator.props';
+import type { ActivityIndicatorProps } from './ActivityIndicator.interfaces';
 
 /**
  * A component that displays an activity indicator or load spinner.

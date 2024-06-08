@@ -1,39 +1,39 @@
-import { fireEvent, render } from '@testing-library/react-native';
-import { AppProvider } from '@test/providers/app-provider/AppProvider';
-import Appearance from './Appearance';
+import Appearance from '@components/appearance/Appearance';
+import AppProvider from '@test/providers/app-provider/AppProvider';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 
 describe('<Appearance />', () => {
   it('calls onAppearanceChange when the appearance changes', () => {
     const onAppearanceChange = jest.fn();
-    const { getByText } = render(
+    render(
       <Appearance appearance="auto" onAppearanceChange={onAppearanceChange} />,
       { wrapper: AppProvider }
     );
 
-    fireEvent.press(getByText('Light'));
+    fireEvent.press(screen.getByText('Light'));
     expect(onAppearanceChange).toHaveBeenCalledWith('light');
 
-    fireEvent.press(getByText('Dark'));
+    fireEvent.press(screen.getByText('Dark'));
     expect(onAppearanceChange).toHaveBeenCalledWith('dark');
 
-    fireEvent.press(getByText('Auto'));
+    fireEvent.press(screen.getByText('Auto'));
     expect(onAppearanceChange).toHaveBeenCalledWith('auto');
   });
 
   it('does not call onAppearanceChange when disabled', () => {
     const onAppearanceChange = jest.fn();
-    const { getByText } = render(
+    render(
       <Appearance appearance="auto" onAppearanceChange={onAppearanceChange} disabled />,
       { wrapper: AppProvider }
     );
 
-    fireEvent.press(getByText('Light'));
+    fireEvent.press(screen.getByText('Light'));
     expect(onAppearanceChange).not.toHaveBeenCalled();
 
-    fireEvent.press(getByText('Dark'));
+    fireEvent.press(screen.getByText('Dark'));
     expect(onAppearanceChange).not.toHaveBeenCalled();
 
-    fireEvent.press(getByText('Auto'));
+    fireEvent.press(screen.getByText('Auto'));
     expect(onAppearanceChange).not.toHaveBeenCalled();
   });
 

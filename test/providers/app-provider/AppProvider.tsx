@@ -7,7 +7,7 @@ import { genTheme } from '@styles/theme';
 import { defaultUserDoc } from '@util/__mocks__/user';
 import User from '@util/user';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import type AppProviderProps from './AppProvider.props';
+import type { AppProviderProps } from './AppProvider.interface';
 
 jest.mock('@util/user');
 jest.mock('react-native-ble-plx');
@@ -18,7 +18,7 @@ jest.mock('react-native-ble-plx');
  * @param props The component {@link AppProviderProps}.
  * @returns The {@link AppProvider} component.
  */
-export const AppProvider: React.FC<AppProviderProps> = ({
+const AppProvider: React.FC<AppProviderProps> = ({
   children,
   colorScheme,
   initialMetrics,
@@ -44,3 +44,5 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     </SafeAreaProvider>
   );
 };
+
+export default AppProvider;

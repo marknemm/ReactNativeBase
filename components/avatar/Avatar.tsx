@@ -5,9 +5,9 @@ import { Avatar as RneAvatar } from '@rneui/themed';
 import { launchCamera, launchMediaLibrary } from '@util/camera';
 import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { IMAGE_PICKER_OPTIONS } from './constants';
-import { AvatarFC, Props } from './props';
-import { useStyles } from './styles';
+import { IMAGE_PICKER_OPTIONS } from './Avatar.constants';
+import type { AvatarFC } from './Avatar.interfaces';
+import useStyles from './Avatar.styles';
 
 /**
  * Component that displays an editable avatar image.

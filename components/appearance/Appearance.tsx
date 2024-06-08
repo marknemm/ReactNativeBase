@@ -2,7 +2,7 @@ import ScreenView from '@components/screen-view/ScreenView';
 import { useGeneralStyles } from '@hooks/styles-hooks';
 import { CheckBox, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import type AppearanceProps from './Appearance.props';
+import type { AppearanceProps } from './Appearance.interfaces';
 
 /**
  * Component that allows the user to select the appearance of the application.

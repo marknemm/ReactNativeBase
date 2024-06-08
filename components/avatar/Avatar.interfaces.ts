@@ -1,13 +1,13 @@
-import { FormFieldProps } from '@interfaces/form';
-import { AvatarProps as RneAvatarProps } from '@rneui/themed';
-import { ReactNode, RefAttributes } from 'react';
-import { FieldPath, FieldValues, Path } from 'react-hook-form';
-import { ColorValue } from 'react-native';
+import type { FormFieldProps } from '@interfaces/form';
+import type { AvatarProps as RneAvatarProps } from '@rneui/themed';
+import type { ReactNode, RefAttributes } from 'react';
+import type { FieldPath, FieldValues, Path } from 'react-hook-form';
+import type { ColorValue } from 'react-native';
 
 /**
  * The `Avatar` component properties.
  */
-export interface Props<
+export interface AvatarProps<
   TFieldValues extends FieldValues = any,
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
@@ -45,7 +45,7 @@ export interface Props<
 /**
  * The `Avatar` component style properties.
  */
-export type StyleProps = Pick<Props, 'backgroundColor' | 'containerStyle'>;
+export type AvatarStyleProps = Pick<AvatarProps, 'backgroundColor' | 'containerStyle'>;
 
 /**
  * The `Avatar` component functional component type.
@@ -59,5 +59,5 @@ export type AvatarFC = <
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 >(
-  props: Props<TFieldValues, TContext, TFieldName>,
+  props: AvatarProps<TFieldValues, TContext, TFieldName>,
 ) => ReactNode;

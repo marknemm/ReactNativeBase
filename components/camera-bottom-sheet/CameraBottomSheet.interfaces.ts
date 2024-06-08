@@ -1,7 +1,7 @@
 /**
  * The `CameraBottomSheet` component properties.
  */
-export interface Props {
+export interface CameraBottomSheetProps {
 
   /**
    * Whether the bottom sheet is visible.

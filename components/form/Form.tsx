@@ -1,14 +1,14 @@
 import { FormProvider } from 'react-hook-form';
 import { View } from 'react-native';
-import { Props } from './props';
+import { FormProps } from './Form.interface';
 
 /**
  * A component that wraps a form and provides form context to its children.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link FormProps}.
  * @returns The {@link Form} component.
  */
-const Form: React.FC<Props> = ({ children, form, style }) => (
+const Form: React.FC<FormProps> = ({ children, form, style }) => (
   <FormProvider {...form}>
     <View style={style}>
       {children}

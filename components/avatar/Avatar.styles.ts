@@ -1,7 +1,6 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import { AvatarStyleProps } from './Avatar.interfaces';
 
 /**
  * Gets the styles for the `Avatar` component.
@@ -9,7 +8,7 @@ import { StyleProps } from './props';
  * @param props The component style props.
  * @returns The styles for the `Avatar` component.
  */
-export function useStyles({ backgroundColor, containerStyle }: StyleProps) {
+export default function useStyles({ backgroundColor, containerStyle }: AvatarStyleProps) {
   return useThemedStyles(() => ({
     container: {
       backgroundColor,

@@ -1,17 +1,12 @@
 import { UserDoc } from '@interfaces/user';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { ScaledSize } from 'react-native';
 import { Metrics } from 'react-native-safe-area-context';
 
 /**
  * The {@link AppProvider} component props.
  */
-export default interface AppProviderProps {
-
-  /**
-   * The children components.
-   */
-  children?: ReactNode;
+export type AppProviderProps = PropsWithChildren<{
 
   /**
    * The color scheme to use.
@@ -33,4 +28,4 @@ export default interface AppProviderProps {
    */
   windowDimensions?: ScaledSize;
 
-}
+}>;
