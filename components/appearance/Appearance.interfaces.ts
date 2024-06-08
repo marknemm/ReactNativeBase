@@ -1,5 +1,7 @@
+import type Appearance from './Appearance';
+
 /**
- * The `Appearance` component properties.
+ * The {@link Appearance} component properties.
  */
 export interface AppearanceProps {
 

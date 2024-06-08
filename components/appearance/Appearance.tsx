@@ -57,3 +57,4 @@ const Appearance: React.FC<AppearanceProps> = ({
 };
 
 export default Appearance;
+export type * from './Appearance.interfaces';

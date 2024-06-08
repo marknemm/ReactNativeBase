@@ -1,4 +1,4 @@
-import { CameraType, ImagePickerOptions, MediaTypeOptions } from 'expo-image-picker';
+import { CameraType, MediaTypeOptions, type ImagePickerOptions } from 'expo-image-picker';
 
 /**
  * The `Avatar` component's image picker and camera {@link ImagePickerOptions options}.

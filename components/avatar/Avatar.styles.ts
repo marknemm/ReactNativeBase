@@ -1,12 +1,13 @@
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { AvatarStyleProps } from './Avatar.interfaces';
+import type Avatar from './Avatar';
+import type { AvatarStyleProps } from './Avatar.interfaces';
 
 /**
- * Gets the styles for the `Avatar` component.
+ * Gets the styles for the {@link Avatar} component.
  *
  * @param props The component style props.
- * @returns The styles for the `Avatar` component.
+ * @returns The styles for the {@link Avatar} component.
  */
 export default function useStyles({ backgroundColor, containerStyle }: AvatarStyleProps) {
   return useThemedStyles(() => ({

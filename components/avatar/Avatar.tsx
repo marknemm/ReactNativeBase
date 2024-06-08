@@ -94,3 +94,4 @@ const AvatarControlled: AvatarFC = forwardRef((props, ref) => {
 });
 
 export default Avatar;
+export type * from './Avatar.interfaces';

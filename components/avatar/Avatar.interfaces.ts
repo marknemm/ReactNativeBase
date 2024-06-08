@@ -3,9 +3,10 @@ import type { AvatarProps as RneAvatarProps } from '@rneui/themed';
 import type { ReactNode, RefAttributes } from 'react';
 import type { FieldPath, FieldValues, Path } from 'react-hook-form';
 import type { ColorValue } from 'react-native';
+import type Avatar from './Avatar';
 
 /**
- * The `Avatar` component properties.
+ * The {@link Avatar} component properties.
  */
 export interface AvatarProps<
   TFieldValues extends FieldValues = any,
@@ -14,41 +15,41 @@ export interface AvatarProps<
 > extends RneAvatarProps, FormFieldProps<TFieldValues, TContext, TFieldName>, RefAttributes<RneAvatarProps> {
 
   /**
-   * The background color of the `Avatar` if displaying an {@link icon} or {@link title}.
+   * The background color of the {@link Avatar} if displaying an {@link icon} or {@link title}.
    */
   backgroundColor?: ColorValue;
 
   /**
-   * The usage description of the `Avatar` (e.g. `Profile Picture`).
+   * The usage description of the {@link Avatar} (e.g. `Profile Picture`).
    */
   description?: string;
 
   /**
-   * Whether the `Avatar` is editable. Defaults to `false`.
+   * Whether the {@link Avatar} is editable. Defaults to `false`.
    */
   editable?: boolean;
 
   /**
-   * Callback for when the user changes the `Avatar` image.
+   * Callback for when the user changes the {@link Avatar} image.
    *
-   * @param uri The new `Avatar` image uri.
+   * @param uri The new {@link Avatar} image uri.
    */
   onChange?: (uri: string) => void;
 
   /**
-   * The uri value of the `Avatar` image.
+   * The uri value of the {@link Avatar} image.
    */
   value?: string;
 
 }
 
 /**
- * The `Avatar` component style properties.
+ * The {@link Avatar} component style properties.
  */
 export type AvatarStyleProps = Pick<AvatarProps, 'backgroundColor' | 'containerStyle'>;
 
 /**
- * The `Avatar` component functional component type.
+ * The {@link Avatar} component functional component type.
  *
  * @template TFieldValues The type of the form data.
  * @template TContext The type of the form context.

@@ -14,3 +14,4 @@ const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   isVisible && <NativeActivityIndicator {...activityIndicatorProps} />;
 
 export default ActivityIndicator;
+export type * from './ActivityIndicator.interfaces';

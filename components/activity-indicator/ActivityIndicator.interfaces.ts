@@ -1,7 +1,8 @@
 import type { ActivityIndicatorProps as NativeActivityIndicatorProps } from 'react-native';
+import type ActivityIndicator from './ActivityIndicator';
 
 /**
- * The `ActivityIndicator` component props.
+ * The {@link ActivityIndicator} component props.
  */
 export interface ActivityIndicatorProps extends NativeActivityIndicatorProps {
 
@@ -15,6 +16,6 @@ export interface ActivityIndicatorProps extends NativeActivityIndicatorProps {
 }
 
 /**
- * The `ActivityIndicator` component style props.
+ * The {@link ActivityIndicator} component style props.
  */
 export type ActivityIndicatorStyleProps = Pick<ActivityIndicatorProps, 'color' | 'size' | 'style'>;

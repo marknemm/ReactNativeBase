@@ -29,3 +29,4 @@ const AddButton: React.FC<FixedIconButtonProps> = forwardRef(({
 ));
 
 export default AddButton;
+export type { FixedIconButtonProps } from '@interfaces/button';
