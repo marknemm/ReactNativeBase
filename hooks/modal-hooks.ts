@@ -26,8 +26,7 @@ export function useModal<
       : destroyRef.current();
 
     return destroyRef.current;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVisible]);
+  }, [isVisible, renderModal]);
 
   return destroyRef.current;
 }

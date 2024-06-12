@@ -1,15 +1,15 @@
-import { BleManager as _BleManager, ConnectionOptions, Device, ScanOptions, State, Subscription } from 'react-native-ble-plx';
+import { BleManager as NativeBleManager, ConnectionOptions, Device, ScanOptions, State, Subscription } from 'react-native-ble-plx';
 import { logErr } from './log';
 import { getPairedDeviceIds, isDevicePaired, pushPairedDevice, removePairedDevice } from './paired-device-storage';
 
 export { Device, State };
 
 /**
- * A proxy for the {@link _BleManager BleManager} class.
+ * A proxy for the {@link NativeBleManager BleManager} class.
  */
-export class BleManager {
+export default class BleManager {
 
-  #bleManager = new _BleManager();
+  #bleManager = new NativeBleManager();
 
   #connectedDevices = new Map<string, Device>();
 
@@ -116,19 +116,19 @@ export class BleManager {
   }
 
   /**
-   * Stops {@link Device Device} scan if in progress.
+   * Stops {@link Device} scan if in progress.
    */
   stopDeviceScan() {
     this.#bleManager.stopDeviceScan();
   }
 
   /**
-   * Connects to {@link Device Device} with provided ID.
-   * Also, discovers all services and characteristics of the {@link Device Device}.
+   * Connects to {@link Device} with provided ID.
+   * Also, discovers all services and characteristics of the {@link Device}.
    *
-   * @param deviceIdentifier {@link Device Device} identifier.
+   * @param deviceIdentifier {@link Device} identifier.
    * @param options Platform specific options for connection establishment.
-   * @returns Promise that resolves to the connected {@link Device Device} object if successful.
+   * @returns Promise that resolves to the connected {@link Device} object if successful.
    */
   async connectToDevice(deviceIdentifier: string, options: ConnectionOptions = {}): Promise<Device> {
     const device = await this.#bleManager.connectToDevice(deviceIdentifier, options);
@@ -141,10 +141,10 @@ export class BleManager {
   }
 
   /**
-   * Disconnects from {@link Device Device} if it's connected or cancels pending connection.
+   * Disconnects from {@link Device} if it's connected or cancels pending connection.
    *
-   * @param deviceIdentifier {@link Device Device} identifier to be closed.
-   * @returns Promise that resolves to the closed {@link Device Device} when operation is successful.
+   * @param deviceIdentifier {@link Device} identifier to be closed.
+   * @returns Promise that resolves to the closed {@link Device} when operation is successful.
    */
   async disconnectFromDevice(deviceIdentifier: string): Promise<Device> {
     this.#connectedDevices.delete(deviceIdentifier);

@@ -1,15 +1,15 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import type BottomSheet from './BottomSheet';
+import type { BottomSheetStyleProps } from './BottomSheet.interfaces';
 
 /**
- * Gets the styles for the `BottomSheet` component.
+ * Gets the styles for the {@link BottomSheet} component.
  *
- * @param props The component style props.
- * @returns The styles for the `BottomSheet` component.
+ * @param props The {@link BottomSheetStyleProps}.
+ * @returns The styles for the {@link BottomSheet} component.
  */
-export function useStyles({ innerStyle }: StyleProps) {
+export function useStyles({ innerStyle }: BottomSheetStyleProps) {
   return useThemedStyles((theme) => ({
     backdrop: {
       backgroundColor: 'transparent', // Use custom backdrop and hide the one in the RNE BottomSheet to prevent awkward slide animation.

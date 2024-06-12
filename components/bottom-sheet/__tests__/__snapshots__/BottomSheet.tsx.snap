@@ -1,0 +1,357 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BottomSheet /> snapshots renders correctly when not visible 1`] = `null`;
+
+exports[`<BottomSheet /> snapshots renders correctly when visible 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "backgroundColor": "transparent",
+        },
+      ]
+    }
+    testID="RNE__Overlay__backdrop"
+  />
+  <RNCSafeAreaView
+    edges={
+      {
+        "bottom": "additive",
+        "left": "additive",
+        "right": "additive",
+        "top": "additive",
+      }
+    }
+    pointerEvents="box-none"
+    replaceTheme={[Function]}
+    style={
+      {
+        "backgroundColor": "transparent",
+        "flex": 1,
+        "flexDirection": "column-reverse",
+      }
+    }
+    theme={
+      {
+        "colors": {
+          "background": "#ffffff",
+          "black": "#242424",
+          "disabled": "hsl(208, 8%, 90%)",
+          "divider": "#bcbbc1",
+          "error": "#ff3b30",
+          "grey": "#7d7d7d",
+          "grey0": "#393e42",
+          "grey1": "#43484d",
+          "grey2": "#5e6977",
+          "grey3": "#86939e",
+          "grey4": "#bdc6cf",
+          "grey5": "#e1e8ee",
+          "greyOutline": "#bbb",
+          "placeholder": "#86939e",
+          "platform": {
+            "android": {
+              "error": "#f44336",
+              "grey": "rgba(0, 0, 0, 0.54)",
+              "primary": "#2196f3",
+              "searchBg": "#dcdce1",
+              "secondary": "#9C27B0",
+              "success": "#4caf50",
+              "warning": "#ffeb3b",
+            },
+            "default": {
+              "error": "#ff3b30",
+              "grey": "#7d7d7d",
+              "primary": "#007aff",
+              "searchBg": "#dcdce1",
+              "secondary": "#5856d6",
+              "success": "#4cd964",
+              "warning": "#ffcc00",
+            },
+            "ios": {
+              "error": "#ff3b30",
+              "grey": "#7d7d7d",
+              "primary": "#007aff",
+              "searchBg": "#dcdce1",
+              "secondary": "#5856d6",
+              "success": "#4cd964",
+              "warning": "#ffcc00",
+            },
+            "web": {
+              "error": "#ff190c",
+              "grey": "#393e42",
+              "primary": "#2089dc",
+              "searchBg": "#303337",
+              "secondary": "#ca71eb",
+              "success": "#52c41a",
+              "warning": "#faad14",
+            },
+          },
+          "primary": "#007aff",
+          "searchBg": "#dcdce1",
+          "secondary": "#5856d6",
+          "success": "#4cd964",
+          "warning": "#ffcc00",
+          "white": "#ffffff",
+        },
+        "font": {
+          "size": {
+            "large": 28.285714285714285,
+            "larger": 31.428571428571427,
+            "normal": 23.57142857142857,
+            "small": 18.857142857142858,
+          },
+          "weight": {
+            "bold": "bold",
+            "bolder": "700",
+            "boldest": "900",
+            "light": "300",
+            "lighter": "200",
+            "lightest": "100",
+            "normal": "normal",
+          },
+        },
+        "mode": "light",
+        "spacing": {
+          "lg": 18.857142857142858,
+          "md": 12.571428571428571,
+          "screenHorizontal": 18.857142857142858,
+          "screenVertical": 37.714285714285715,
+          "sm": 6.285714285714286,
+          "xl": 37.714285714285715,
+          "xs": 3.142857142857143,
+        },
+      }
+    }
+    updateTheme={[Function]}
+  >
+    <View>
+      <RCTScrollView>
+        <View>
+          <View
+            style={
+              {
+                "backgroundColor": "#ffffff",
+                "borderTopLeftRadius": 10,
+                "borderTopRightRadius": 10,
+                "opacity": 1,
+                "paddingBottom": 56.57142857142857,
+                "paddingTop": 18.857142857142858,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "flex": 1,
+                  "height": 40,
+                  "paddingHorizontal": 6.285714285714286,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <Text
+                accessibilityRole="text"
+                style={
+                  {
+                    "color": "#242424",
+                    "flexGrow": 1,
+                    "fontFamily": undefined,
+                    "fontSize": 28.285714285714285,
+                    "fontStyle": "normal",
+                    "fontWeight": "bold",
+                    "marginBottom": 0,
+                    "textAlign": "center",
+                    "textDecorationLine": "none",
+                    "textDecorationStyle": "solid",
+                  }
+                }
+              />
+              <View
+                style={
+                  {
+                    "position": "absolute",
+                    "right": 3.142857142857143,
+                    "top": -3.142857142857143,
+                  }
+                }
+              >
+                <View
+                  style={
+                    [
+                      {
+                        "overflow": "hidden",
+                      },
+                      {
+                        "borderRadius": 3.142857142857143,
+                      },
+                      undefined,
+                      false,
+                    ]
+                  }
+                  testID="RNE_BUTTON_WRAPPER"
+                >
+                  <View
+                    accessibilityLabel="Close"
+                    accessibilityRole="button"
+                    accessibilityState={
+                      {
+                        "busy": false,
+                        "checked": undefined,
+                        "disabled": false,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onClick={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "backgroundColor": "transparent",
+                          "borderColor": "#007aff",
+                          "borderRadius": 3.142857142857143,
+                          "borderWidth": 0,
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 6.285714285714286,
+                          "paddingHorizontal": 8.285714285714285,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          {
+                            "marginHorizontal": 5,
+                            "overflow": "hidden",
+                          }
+                        }
+                        testID="RNE__ICON__CONTAINER"
+                      >
+                        <View
+                          accessibilityRole="button"
+                          android_ripple={
+                            {
+                              "borderless": false,
+                              "color": "rgba(0, 0, 0, 0.3)",
+                              "radius": -5,
+                            }
+                          }
+                          disabled={false}
+                          testID="RNE__ICON__CONTAINER_ACTION"
+                        >
+                          <View
+                            style={
+                              {
+                                "alignItems": "center",
+                                "backgroundColor": "transparent",
+                                "justifyContent": "center",
+                              }
+                            }
+                            testID="RNE__ICON"
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              selectable={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#242424",
+                                    "fontSize": 24,
+                                  },
+                                  {
+                                    "backgroundColor": "transparent",
+                                  },
+                                  {
+                                    "fontFamily": "material",
+                                    "fontStyle": "normal",
+                                    "fontWeight": "normal",
+                                  },
+                                  {},
+                                ]
+                              }
+                              testID="RNE__ICON__Component"
+                            >
+                              
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+  </RNCSafeAreaView>
+</Modal>
+`;

@@ -1,16 +1,19 @@
 /**
- * Spies on a component.
+ * Stubs all methods of a class instance instance.
  *
- * @param module The path of the module containing the component to spy on.
- * @returns The spy component.
+ * @template T The class instance type.
+ * @param instance The class instance.
+ * @returns The class instance with all methods stubbed.
  */
-export function spyComponent(module: string) {
-  jest.mock(module, () => ({
-    __esModule: true,
-    default: jest.fn((props) => {
-      const ActualComponent = jest.requireActual(module).default;
-      console.log(props);
-      return <ActualComponent {...props} />;
-    }),
-  }));
+export function stubAllMethods<T = any>(instance: T): T {
+  const proto = Object.getPrototypeOf(instance);
+  const methodNames = Object.getOwnPropertyNames(proto).filter(
+    (prop) => typeof proto[prop] === 'function' && prop !== 'constructor'
+  );
+
+  methodNames.forEach((methodName) => {
+    jest.spyOn(instance, methodName as any).mockImplementation(() => undefined);
+  });
+
+  return instance;
 }

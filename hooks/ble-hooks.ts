@@ -1,5 +1,5 @@
 import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
-import { Device, State } from '@util/ble-manager';
+import { State, type Device } from '@util/ble-manager';
 import { log } from '@util/log';
 import { useContext, useEffect, useState } from 'react';
 

@@ -1,5 +1,5 @@
 import Appearance from '@components/appearance/Appearance';
-import AppProvider from '@test/providers/app-provider/AppProvider';
+import AppProvider from '@test/contexts/app/AppProvider';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 describe('<Appearance />', () => {

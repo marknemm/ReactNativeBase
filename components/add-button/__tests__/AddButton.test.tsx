@@ -1,5 +1,5 @@
 import AddButton from '@components/add-button/AddButton';
-import AppProvider from '@test/providers/app-provider/AppProvider';
+import AppProvider from '@test/contexts/app/AppProvider';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 describe('<AddButton />', () => {

@@ -5,26 +5,27 @@ import RefreshButton from '@components/refresh-button/RefreshButton';
 import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
 import { useBleDevices } from '@hooks/ble-hooks';
 import { Button, Text } from '@rneui/themed';
-import { Device } from '@util/ble-manager';
+import { type Device } from '@util/ble-manager';
 import { logErr } from '@util/log';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { BleDeviceListHeaderProps, BleDeviceListItemProps, Props } from './props';
-import { useStyles } from './styles';
+import type { BleDeviceListHeaderProps, BleDeviceListItemProps, BleDeviceListProps } from './BleDeviceList.interfaces';
+import { useStyles } from './BleDeviceList.styles';
 
 /**
  * A component for displaying a list of Bluetooth {@link Device Devices}.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link BleDeviceListProps}.
  * @returns The {@link BleDeviceList} component.
  */
-const BleDeviceList: React.FC<Props> = ({ title = 'Detected Devices' }) => {
+const BleDeviceList: React.FC<BleDeviceListProps> = ({ title = 'Detected Devices' }) => {
   const bleDevices = useBleDevices();
-  const availableBleDevices = bleDevices.filter(
-    (d) => d.localName || d.name
-  ).sort(
-    (a, b) => (a.localName ?? a.name).localeCompare(b.localName ?? b.name)
-  );
+  const availableBleDevices = bleDevices
+    .filter(
+      (d) => d.localName || d.name
+    ).sort(
+      (a, b) => (a.localName ?? a.name).localeCompare(b.localName ?? b.name)
+    );
 
   return (
     <View>
@@ -72,10 +73,17 @@ const BleDeviceListItem: React.FC<BleDeviceListItemProps> = ({ bleDevice }) => {
   const connectToggleLoading = bleDeviceConnected === null;
 
   useEffect(() => {
-    // eslint-disable-next-line no-floating-promise/no-floating-promise
-    (async () => {
-      setBleDeviceConnected(await bleDevice.isConnected());
-    })();
+    let isMounted = true;
+
+    bleDevice.isConnected().then((connected) => {
+      if (isMounted) {
+        setBleDeviceConnected(connected);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [bleDevice]);
 
   async function toggleBleDeviceConnection() {
@@ -112,3 +120,4 @@ const BleDeviceListItem: React.FC<BleDeviceListItemProps> = ({ bleDevice }) => {
 };
 
 export default BleDeviceList;
+export type { BleDeviceListProps } from './BleDeviceList.interfaces';

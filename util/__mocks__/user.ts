@@ -1,7 +1,7 @@
-import User from '@util/user';
-import { UserDoc } from '@interfaces/user';
+import type { UserDoc } from '@interfaces/user';
+import type User from '@util/user';
 import deepMerge from 'deepmerge';
-import { DeepReadonly } from 'utility-types';
+import type { DeepReadonly } from 'utility-types';
 
 const ActualUser: typeof User = jest.requireActual('@util/user').default;
 

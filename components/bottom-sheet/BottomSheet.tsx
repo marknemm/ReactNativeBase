@@ -3,23 +3,24 @@ import { CLOSE_ICON } from '@constants/icons';
 import { useModal } from '@hooks/modal-hooks';
 import { useCallbacks } from '@hooks/state-hooks';
 import { Button, BottomSheet as RneBottomSheet, Text } from '@rneui/themed';
+import { useCallback } from 'react';
 import { View } from 'react-native';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { BottomSheetProps } from './BottomSheet.interfaces';
+import { useStyles } from './BottomSheet.styles';
 
 /**
  * A component for displaying a bottom sheet.
  *
- * @param props The component {@link Props}.
+ * @param props The {@link BottomSheetProps}.
  * @returns The {@link BottomSheet} component.
  */
-const BottomSheet: React.FC<Props> = (props) => {
+const BottomSheet: React.FC<BottomSheetProps> = (props) => {
   const { backdropStyle, children, isVisible, onBackdropPress, onClose, title } = props;
   const styles = useStyles(props);
 
-  useModal(isVisible, () => // Show custom Backdrop to change animation from sliding up to fading in.
-    <Backdrop style={backdropStyle} />
-  );
+  useModal(isVisible, useCallback(() => // Show custom Backdrop to change animation from sliding up to fading in.
+    <Backdrop style={backdropStyle} />,
+  [backdropStyle]));
 
   return (
     <RneBottomSheet
@@ -35,10 +36,11 @@ const BottomSheet: React.FC<Props> = (props) => {
           </Text>
           <View style={styles.closeButtonContainer}>
             <Button
-              onPress={onClose}
+              accessibilityLabel="Close"
               icon={CLOSE_ICON}
-              type="clear"
+              onPress={onClose}
               size="sm"
+              type="clear"
             />
           </View>
         </View>
@@ -49,4 +51,5 @@ const BottomSheet: React.FC<Props> = (props) => {
   );
 };
 
+export type * from './BottomSheet.interfaces';
 export default BottomSheet;

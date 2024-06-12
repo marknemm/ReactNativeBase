@@ -20,6 +20,7 @@ const RefreshButton: React.FC<FixedIconButtonProps> = forwardRef(({
 
   return (
     <Button
+      accessibilityLabel="Refresh"
       color={color}
       icon={{
         ...REFRESH_ICON,

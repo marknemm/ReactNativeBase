@@ -1,7 +1,7 @@
 import Avatar from '@components/avatar/Avatar';
 import CameraBottomSheet from '@components/camera-bottom-sheet/CameraBottomSheet';
 import Form from '@components/form/Form';
-import AppProvider from '@test/providers/app-provider/AppProvider';
+import AppProvider from '@test/contexts/app/AppProvider';
 import { act, fireEvent, render, renderHook, screen } from '@testing-library/react-native';
 import { launchCamera, launchMediaLibrary } from '@util/camera';
 import { useForm } from 'react-hook-form';
@@ -10,12 +10,6 @@ jest.mock('@components/camera-bottom-sheet/CameraBottomSheet');
 jest.mock('@util/camera');
 
 describe('<Avatar />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-    (launchCamera as jest.Mock).mockResolvedValue([{ uri: 'camera.jpg' }]);
-    (launchMediaLibrary as jest.Mock).mockResolvedValue([{ uri: 'media.jpg' }]);
-  });
-
   describe('bottom sheet visibility', () => {
     it('Does not open the bottom sheet when not editable and pressed', () => {
       render(
@@ -84,7 +78,7 @@ describe('<Avatar />', () => {
     });
 
     it('calls does not call `onChange` callback when image selection is cancelled', async () => {
-      (launchMediaLibrary as jest.Mock).mockResolvedValue([]);
+      (launchMediaLibrary as jest.Mock).mockResolvedValueOnce([]);
       const onChange = jest.fn();
       render(
         <Avatar
@@ -119,7 +113,7 @@ describe('<Avatar />', () => {
     });
 
     it('calls does not call `onChange` callback when camera is cancelled', async () => {
-      (launchCamera as jest.Mock).mockResolvedValue([]);
+      (launchCamera as jest.Mock).mockResolvedValueOnce([]);
       const onChange = jest.fn();
       render(
         <Avatar
@@ -164,7 +158,7 @@ describe('<Avatar />', () => {
     });
 
     it('calls does not update form value or call `onChange` callback when image selection is cancelled', async () => {
-      (launchMediaLibrary as jest.Mock).mockResolvedValue([]);
+      (launchMediaLibrary as jest.Mock).mockResolvedValueOnce([]);
       const form = renderHook(() => useForm({
         defaultValues: { avatar: '' },
       })).result.current;
@@ -215,7 +209,7 @@ describe('<Avatar />', () => {
     });
 
     it('calls does not update form value or call `onChange` callback when camera is cancelled', async () => {
-      (launchCamera as jest.Mock).mockResolvedValue([]);
+      (launchCamera as jest.Mock).mockResolvedValueOnce([]);
       const form = renderHook(() => useForm({
         defaultValues: { avatar: '' },
       })).result.current;

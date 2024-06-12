@@ -4,7 +4,7 @@ import { useBleState } from '@hooks/ble-hooks';
 import { Text } from '@rneui/themed';
 import { State } from '@util/ble-manager';
 import { View } from 'react-native';
-import { useStyles } from './styles';
+import { useStyles } from './BleState.styles';
 
 /**
  * A component for displaying the BLE {@link State}.

@@ -1,5 +1,5 @@
 import Backdrop from '@components/backdrop/Backdrop';
-import AppProvider from '@test/providers/app-provider/AppProvider';
+import AppProvider from '@test/contexts/app/AppProvider';
 import { render } from '@testing-library/react-native';
 
 describe('<Backdrop />', () => {

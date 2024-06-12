@@ -5,16 +5,16 @@ import { excludePrivateFields } from '@util/json';
 import { useContext } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Device } from 'react-native-ble-plx';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { BleDeviceProps } from './BleDevice.interfaces';
+import { useStyles } from './BleDevice.styles';
 
 /**
  * A component for displaying info for a Bluetooth {@link Device}.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link BleDeviceProps}.
  * @returns The {@link BleDevice} component.
  */
-const BleDevice: React.FC<Props> = ({ bleDevice }) => {
+const BleDevice: React.FC<BleDeviceProps> = ({ bleDevice }) => {
   const styles = useStyles();
   const bleDeviceCtx = useContext(BleDeviceContext);
   bleDevice = bleDevice ?? bleDeviceCtx.bleDevice;
@@ -36,3 +36,4 @@ const BleDevice: React.FC<Props> = ({ bleDevice }) => {
 };
 
 export default BleDevice;
+export type * from './BleDevice.interfaces';

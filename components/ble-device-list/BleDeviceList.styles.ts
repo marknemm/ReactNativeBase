@@ -1,10 +1,10 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
+import type BleDeviceList from './BleDeviceList';
 
 /**
- * Gets the styles for the `BleDeviceList` component.
+ * Gets the styles for the {@link BleDeviceList} component.
  *
- * @returns The styles for the `BleDeviceList` component.
+ * @returns The styles for the {@link BleDeviceList} component.
  */
 export function useStyles() {
   return useThemedStyles((theme) => ({

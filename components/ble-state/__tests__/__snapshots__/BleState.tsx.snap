@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BleState /> snapshots renders correctly when powered off 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "columnGap": 5,
+      "flexDirection": "row",
+      "flexGrow": 1,
+    }
+  }
+>
+  <View
+    collapsable={false}
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "columnGap": 5,
+            "flexDirection": "row",
+            "flexGrow": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "backgroundColor": "red",
+              "borderRadius": 5,
+              "height": 10,
+              "width": 10,
+            }
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          BLE Status
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<BleState /> snapshots renders correctly when powered on 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "columnGap": 5,
+      "flexDirection": "row",
+      "flexGrow": 1,
+    }
+  }
+>
+  <View
+    collapsable={false}
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "columnGap": 5,
+            "flexDirection": "row",
+            "flexGrow": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "backgroundColor": "green",
+              "borderRadius": 5,
+              "height": 10,
+              "width": 10,
+            }
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          BLE Status
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

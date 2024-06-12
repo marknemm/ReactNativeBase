@@ -1,4 +1,4 @@
-import BleManagerProvider from '@contexts/ble-manager/BleManagerProvider';
+import BleManagerProvider from '@test/contexts/ble-manager/BleManagerProvider';
 import GeneralStylesProvider from '@contexts/general-styles/GeneralStylesProvider';
 import UserProvider from '@contexts/user/UserProvider';
 import { useThemeGenerator } from '@hooks/theme-hooks';
@@ -9,8 +9,8 @@ import User from '@util/user';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import type { AppProviderProps } from './AppProvider.interface';
 
+jest.mock('@util/log');
 jest.mock('@util/user');
-jest.mock('react-native-ble-plx');
 
 /**
  * Provides various app-wide contexts for unit tests.

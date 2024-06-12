@@ -820,6 +820,7 @@ exports[`<Avatar /> snapshots renders correctly when editable and pressed 1`] = 
                     testID="RNE_BUTTON_WRAPPER"
                   >
                     <View
+                      accessibilityLabel="Close"
                       accessibilityRole="button"
                       accessibilityState={
                         {

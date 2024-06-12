@@ -1,4 +1,4 @@
-import { BleManager } from '@util/ble-manager';
+import type BleManager from '@util/ble-manager';
 import { createContext } from 'react';
 
 /**

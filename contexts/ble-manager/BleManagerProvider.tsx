@@ -1,14 +1,14 @@
-import { BleManager } from '@util/ble-manager';
-import { useEffect, useMemo, useState } from 'react';
+import BleManager from '@util/ble-manager';
+import { useEffect, useMemo, useState, type PropsWithChildren } from 'react';
 import { BleManagerContext } from './BleManagerContext';
 
 /**
  * Provides the {@link BleManager} instance to the application.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link PropsWithChildren Props}.
  * @returns The {@link BleManagerProvider} component.
  */
-const BleManagerProvider: React.FC<Props> = ({ children }) => {
+const BleManagerProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [bleManager, setBleManager] = useState(() => new BleManager());
 
   // Destroy the BleManager instance when the component is unmounted.
@@ -29,17 +29,5 @@ const BleManagerProvider: React.FC<Props> = ({ children }) => {
     </BleManagerContext.Provider>
   );
 };
-
-/**
- * The {@link BleManagerProvider} component properties.
- */
-interface Props {
-
-  /**
-   * The children components.
-   */
-  children: React.ReactNode;
-
-}
 
 export default BleManagerProvider;

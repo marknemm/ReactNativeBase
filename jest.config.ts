@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
+import type { Config } from 'jest';
 
-export default {
+const config: Config = {
   preset: 'jest-expo',
+  clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
@@ -11,7 +13,8 @@ export default {
     '!**/ios/**/*',
     '!**/node_modules/**',
     '!**/babel.config.js',
-    '!**/jest.setup.js',
+    '!**/jest.config.ts',
+    '!**/jest.setup.ts',
     '!functions/**/*',
     '!test/**/*',
     '!**/__mocks__/**/*',
@@ -21,8 +24,13 @@ export default {
     'lcov',
     'text-summary',
   ],
+  fakeTimers: {
+    enableGlobally: true,
+  },
   setupFilesAfterEnv: ['./jest.setup.ts'],
   transformIgnorePatterns: [
     'node_modules/(?!(color-json|delay|(jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@rneui/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)'
   ],
 };
+
+export default config;
