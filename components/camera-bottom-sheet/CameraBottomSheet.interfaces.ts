@@ -1,5 +1,7 @@
+import type CameraBottomSheet from './CameraBottomSheet';
+
 /**
- * The `CameraBottomSheet` component properties.
+ * The {@link CameraBottomSheet} component properties.
  */
 export interface CameraBottomSheetProps {
 

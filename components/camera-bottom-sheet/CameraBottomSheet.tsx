@@ -53,4 +53,5 @@ const CameraBottomSheet: React.FC<CameraBottomSheetProps> = ({
   </BottomSheet>
 );
 
+export type * from './CameraBottomSheet.interfaces';
 export default CameraBottomSheet;
