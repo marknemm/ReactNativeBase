@@ -1,13 +1,14 @@
-import { Props as InputProps } from '@components/input/props';
-import { ReactNode } from 'react';
-import { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
+import type { Props as InputProps } from '@components/input/props';
+import type { ReactNode } from 'react';
+import type { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
+import type EmailInput from './EmailInput';
 
 /**
- * The `EmailInput` component properties.
+ * The {@link EmailInput} component properties.
  *
  * @extends InputProps The {@link InputProps} from the `@components/input/props` package.
  */
-export interface Props<
+export interface EmailInputProps<
   TFieldValues extends FieldValues = any,
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
@@ -33,7 +34,7 @@ export interface Props<
 }
 
 /**
- * The `EmailInput` component functional component type.
+ * The {@link EmailInput} component functional component type.
  *
  * @template TFieldValues The type of the form data.
  * @template TContext The type of the form context.
@@ -44,5 +45,5 @@ export type EmailInputFC = <
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 >(
-  props: Props<TFieldValues, TContext, TFieldName>,
+  props: EmailInputProps<TFieldValues, TContext, TFieldName>,
 ) => ReactNode;
