@@ -1,17 +1,18 @@
-import { FormFieldProps } from '@interfaces/form';
-import { ReactNode } from 'react';
-import { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
-import { StyleProp, TextStyle } from 'react-native';
-import { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
+import type { FormFieldProps } from '@interfaces/form';
+import type { ReactNode } from 'react';
+import type { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
+import type { StyleProp, TextStyle } from 'react-native';
+import type { DropdownProps as RneDropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model';
+import type Dropdown from './Dropdown';
 
 /**
- * The `Dropdown` component properties.
+ * The {@link Dropdown} component properties.
  *
  * @param T The type of the value.
  * @extends RneDropdownProps The {@link RneDropdownProps DropdownProps} from the `react-native-element-dropdown` package.
  * @extends FormFieldProps The {@link FormFieldProps} from the `@interfaces/form` package.
  */
-export interface Props<
+export interface DropdownProps<
   T extends FieldValues = FieldValues,
   TFieldValues extends FieldValues = any,
   TContext = any,
@@ -67,10 +68,10 @@ export interface Props<
 }
 
 /**
- * The `Dropdown` component style properties.
+ * The {@link Dropdown} component style properties.
  */
-export type StyleProps = Pick<
-  Props,
+export type DropdownStyleProps = Pick<
+  DropdownProps,
   'containerStyle' | 'itemContainerStyle' | 'itemTextStyle' |
   'labelStyle' | 'placeholderStyle' | 'selectedTextStyle' | 'style'
 >;
@@ -82,7 +83,7 @@ export type RawDropdownData<T extends FieldValues = FieldValues>
   = Array<string | number | boolean | { label: string, value: any } | T>;
 
 /**
- * The `Dropdown` component functional component type.
+ * The {@link Dropdown} component functional component type.
  *
  * @template T The type of the value.
  * @template TFieldValues The type of the form data.
@@ -95,5 +96,5 @@ export type DropdownFC = <
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 >(
-  props: Props<T, TFieldValues, TContext, TFieldName>,
+  props: DropdownProps<T, TFieldValues, TContext, TFieldName>,
 ) => ReactNode;

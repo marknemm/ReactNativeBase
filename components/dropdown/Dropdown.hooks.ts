@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { RawDropdownData } from './props';
+import type { RawDropdownData } from './Dropdown.interfaces';
 
 /**
  * Generate dropdown items from an array of {@link RawDropdownData}.

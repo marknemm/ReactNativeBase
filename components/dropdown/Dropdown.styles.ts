@@ -1,13 +1,14 @@
 /* eslint-disable jsdoc/require-returns-type */
 import { useGeneralStyles, useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import type Dropdown from './Dropdown';
+import type { DropdownStyleProps } from './Dropdown.interfaces';
 
 /**
- * Gets the styles for the `Dropdown` component.
+ * Gets the styles for the {@link Dropdown} component.
  *
  * @param props The component style props.
- * @returns The styles for the `Dropdown` component.
+ * @returns The styles for the {@link Dropdown} component.
  */
 export function useStyles({
   containerStyle,
@@ -17,7 +18,7 @@ export function useStyles({
   placeholderStyle,
   selectedTextStyle,
   style,
-}: StyleProps) {
+}: DropdownStyleProps) {
   const generalStyles = useGeneralStyles();
 
   return useThemedStyles((theme) => ({
