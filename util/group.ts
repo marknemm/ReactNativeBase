@@ -1,4 +1,4 @@
-import { GroupDoc, GroupFilters, Role } from '@interfaces/group';
+import type { GroupDoc, GroupFilters, Role } from '@interfaces/group';
 import { getBackgroundColor } from '@util/colors';
 import { DBQueryOptions, DBQueryResult, createDBDoc, getDBDoc, listDBDocs } from '@util/db';
 import { toInitials } from '@util/string';

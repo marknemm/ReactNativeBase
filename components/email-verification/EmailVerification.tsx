@@ -2,16 +2,20 @@ import ErrorText from '@components/error-text/ErrorText';
 import { useSubmitState } from '@hooks/form-hooks';
 import { Button, Icon, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { EmailVerificationProps } from './EmailVerification.interfaces';
+import { useStyles } from './EmailVerification.styles';
 
 /**
  * A component for displaying email verification status and resending verification emails.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link EmailVerificationProps}.
  * @returns The {@link EmailVerification} component.
  */
-const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVisible = false }) => {
+const EmailVerification: React.FC<EmailVerificationProps> = ({
+  containerStyle,
+  isVisibleWhenVerified = false,
+  user,
+}) => {
   const styles = useStyles({ containerStyle, user });
   const { handleSubmitState, submitError, submitSuccessful, submitting } = useSubmitState();
 
@@ -22,7 +26,7 @@ const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVi
     ? 'check-circle-outline'
     : 'error-outline';
 
-  return user && (isVerifiedVisible || !user.emailVerified) && (
+  return user && (isVisibleWhenVerified || !user.emailVerified) && (
     <View style={styles.container}>
       <View style={styles.statusContainer}>
         <Icon name={verifiedIcon} iconStyle={styles.icon} />
@@ -50,4 +54,5 @@ const EmailVerification: React.FC<Props> = ({ containerStyle, user, isVerifiedVi
   );
 };
 
+export type * from './EmailVerification.interfaces';
 export default EmailVerification;

@@ -5,8 +5,6 @@ import { render, renderHook } from '@testing-library/react-native';
 import { State } from '@util/ble-manager';
 import { useContext } from 'react';
 
-jest.mock('@util/log');
-
 describe('<BleState />', () => {
   describe('snapshots', () => {
     it('renders correctly when powered on', () => {

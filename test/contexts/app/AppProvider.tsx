@@ -1,16 +1,11 @@
-import BleManagerProvider from '@test/contexts/ble-manager/BleManagerProvider';
 import GeneralStylesProvider from '@contexts/general-styles/GeneralStylesProvider';
-import UserProvider from '@contexts/user/UserProvider';
 import { useThemeGenerator } from '@hooks/theme-hooks';
 import { ThemeProvider } from '@rneui/themed';
 import { genTheme } from '@styles/theme';
-import { defaultUserDoc } from '@util/__mocks__/user';
-import User from '@util/user';
+import BleManagerProvider from '@test/contexts/ble-manager/BleManagerProvider';
+import UserProvider from '@test/contexts/user/UserProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import type { AppProviderProps } from './AppProvider.interface';
-
-jest.mock('@util/log');
-jest.mock('@util/user');
 
 /**
  * Provides various app-wide contexts for unit tests.
@@ -22,20 +17,18 @@ const AppProvider: React.FC<AppProviderProps> = ({
   children,
   colorScheme,
   initialMetrics,
-  userDoc = defaultUserDoc,
   windowDimensions,
 }) => {
   const theme = useThemeGenerator((scheme, dimensions) =>
     genTheme(colorScheme ?? scheme, windowDimensions ?? dimensions)
   );
-  const user = new User(userDoc);
 
   return (
     <SafeAreaProvider initialMetrics={initialMetrics}>
       <ThemeProvider theme={theme}>
         <GeneralStylesProvider>
           <BleManagerProvider>
-            <UserProvider user={user}>
+            <UserProvider>
               {children}
             </UserProvider>
           </BleManagerProvider>
@@ -45,4 +38,5 @@ const AppProvider: React.FC<AppProviderProps> = ({
   );
 };
 
+export type * from './AppProvider.interface';
 export default AppProvider;

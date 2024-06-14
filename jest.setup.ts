@@ -12,3 +12,5 @@ jest.mock('react-native-safe-area-context', () => mockSafeAreaContext);
 jest.spyOn(View.prototype, 'measureInWindow').mockImplementation((cb) => {
   cb(0, 0, 360, 580);
 });
+
+jest.mock('@util/log');

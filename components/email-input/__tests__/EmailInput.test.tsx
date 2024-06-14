@@ -9,6 +9,7 @@ describe('<EmailInput />', () => {
         <EmailInput />,
         { wrapper: AppProvider }
       ).toJSON();
+
       expect(tree).toMatchSnapshot();
     });
   });

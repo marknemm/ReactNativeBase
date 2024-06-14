@@ -7,8 +7,6 @@ import { logErr } from '@util/log';
 
 // See @util/__mocks__/ble-manager.ts for the mock implementation data.
 
-jest.mock('@util/log');
-
 describe('<BleDeviceList />', () => {
   describe('device items', () => {
     it('filters and sorts devices', async () => {

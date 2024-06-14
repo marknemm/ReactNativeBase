@@ -1,6 +1,6 @@
 import SignInModal from '@components/sign-in-modal/SignInModal';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
-import { Address, UserDoc } from '@interfaces/user';
+import type { Address, UserDoc } from '@interfaces/user';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { getAuthUser, hasSignInProvider, reloadAuthUser, updatePassword } from '@util/auth';
 import { getBackgroundColor } from '@util/colors';
@@ -10,7 +10,7 @@ import { log, logErr } from '@util/log';
 import { showModalAsync } from '@util/modal';
 import { uploadFile } from '@util/remote-fs';
 import Toast from 'react-native-root-toast';
-import { DeepPartial, DeepReadonly } from 'utility-types';
+import type { DeepPartial, DeepReadonly } from 'utility-types';
 
 /**
  * Represents a {@link User}.
