@@ -1,14 +1,19 @@
 import { Text } from '@rneui/themed';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { ErrorTextProps } from './ErrorText.interfaces';
+import { useStyles } from './ErrorText.styles';
 
 /**
  * The {@link ErrorText} component.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link ErrorTextProps}.
  * @returns The {@link ErrorText} component.
  */
-const ErrorText: React.FC<Props> = ({ children, error, style, ...textProps }) => {
+const ErrorText: React.FC<ErrorTextProps> = ({
+  children,
+  error,
+  style,
+  ...textProps
+}) => {
   const styles = useStyles({ style });
 
   return (children || error) && (
@@ -25,4 +30,5 @@ const ErrorText: React.FC<Props> = ({ children, error, style, ...textProps }) =>
   );
 };
 
+export type * from './ErrorText.interfaces';
 export default ErrorText;
