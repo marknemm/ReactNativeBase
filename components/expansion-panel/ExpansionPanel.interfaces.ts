@@ -1,12 +1,13 @@
-import { ListItemAccordionProps } from '@rneui/themed';
-import { GestureResponderEvent } from 'react-native';
+import type { ListItemAccordionProps } from '@rneui/themed';
+import type { GestureResponderEvent } from 'react-native';
+import type ExpansionPanel from './ExpansionPanel';
 
 /**
- * The `ExpansionPanel` component properties.
+ * The {@link ExpansionPanel} component properties.
  *
  * @extends ListItemAccordionProps The {@link ListItemAccordionProps} from the '@rneui/themed' package.
  */
-export interface Props extends ListItemAccordionProps {
+export interface ExpansionPanelProps extends ListItemAccordionProps {
 
   /**
    * The initial expanded state. Default is `false`.

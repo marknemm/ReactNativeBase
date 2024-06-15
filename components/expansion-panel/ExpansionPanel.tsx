@@ -1,16 +1,16 @@
 import { useControlledToggleState } from '@hooks/state-hooks';
 import { ListItem } from '@rneui/themed';
-import { Props } from './props';
+import type { ExpansionPanelProps } from './ExpansionPanel.interfaces';
 
 /**
  * A component for a expandable panel with a title toggle button.
  *
  * The expanded state can be controlled internally or externally.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link ExpansionPanelProps}.
  * @returns The {@link ExpansionPanel} component.
  */
-const ExpansionPanel: React.FC<Props> = ({
+const ExpansionPanel: React.FC<ExpansionPanelProps> = ({
   children,
   initExpanded = false,
   isExpanded,
@@ -42,4 +42,5 @@ const ExpansionPanel: React.FC<Props> = ({
   );
 };
 
+export type * from './ExpansionPanel.interfaces';
 export default ExpansionPanel;
