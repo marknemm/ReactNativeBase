@@ -4,7 +4,7 @@ import ScreenView from '@components/screen-view/ScreenView';
 import { useQueryOptions } from '@hooks/query-hooks';
 import { GroupDoc } from '@interfaces/group';
 import { ScreenProps } from '@interfaces/screen';
-import { Group } from '@util/group';
+import Group from '@util/group';
 
 /**
  * A screen that lists {@link Group}s.

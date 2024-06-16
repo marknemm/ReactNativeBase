@@ -9,7 +9,7 @@ import { log, logErr } from './log';
 /**
  * Represents a {@link Group} of {@link User}s.
  */
-export class Group {
+export default class Group {
 
   /**
    * The raw {@link Group} document data.

@@ -1,5 +1,5 @@
 import TeaserCard from '@components/teaser-card/TeaserCard';
-import { Props } from './props';
+import type { GroupCardProps } from './GroupCard.interfaces';
 
 /**
  * A card that teases a {@link Group}.
@@ -8,7 +8,7 @@ import { Props } from './props';
  *
  * @returns The {@link GroupCard} component.
  */
-const GroupCard: React.FC<Props> = ({ group, ...restProps }) =>
+const GroupCard: React.FC<GroupCardProps> = ({ group, ...restProps }) =>
   group && (
     <TeaserCard
       photoPlaceholder={group.initials}
@@ -20,4 +20,5 @@ const GroupCard: React.FC<Props> = ({ group, ...restProps }) =>
     />
   );
 
+export type * from './GroupCard.interfaces';
 export default GroupCard;
