@@ -75,21 +75,21 @@ describe('<BottomSheet />', () => {
 
   describe('snapshots', () => {
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <BottomSheet />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when visible', () => {
-      const tree = render(
+      render(
         <BottomSheet isVisible />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

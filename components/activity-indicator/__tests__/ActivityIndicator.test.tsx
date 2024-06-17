@@ -1,23 +1,25 @@
 import ActivityIndicator from '@components/activity-indicator/ActivityIndicator';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
 describe('<ActivityIndicator />', () => {
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <ActivityIndicator />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <ActivityIndicator isVisible={false} />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

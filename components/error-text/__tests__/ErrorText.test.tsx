@@ -60,21 +60,21 @@ describe('<ErrorText />', () => {
 
   describe('snapshots', () => {
     it('renders correctly with no error or children', () => {
-      const tree = render(
+      render(
         <ErrorText />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with error message', () => {
-      const tree = render(
+      render(
         <ErrorText error="Test error message" />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

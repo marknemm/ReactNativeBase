@@ -113,13 +113,13 @@ describe('<BleDeviceList />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', async () => {
-      const tree = render(
+      render(
         <BleDeviceList />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
       await screen.findByText(/Device A/); // Wait for full render (async useEffect).
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

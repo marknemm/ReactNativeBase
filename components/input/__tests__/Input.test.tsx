@@ -1,6 +1,7 @@
-import Input from '@components/input/Input';
+import Input, { type InputRefType } from '@components/input/Input';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render, screen, userEvent } from '@testing-library/react-native';
+import { render, renderHook, screen, userEvent } from '@testing-library/react-native';
+import React, { useRef } from 'react';
 import { type NativeSyntheticEvent, type TextInputChangeEventData } from 'react-native';
 import { Masks } from 'react-native-mask-input';
 import type { DeepPartial } from 'utility-types';
@@ -9,6 +10,7 @@ describe('<Input />', () => {
   const label = 'Test Label';
   const placeholder = 'Test Placeholder';
   const typeStr = 'Test Typing';
+  const value = 'Test Value';
 
   describe('value changes', () => {
     it('calls the `onChange` callback when input is typed in', async () => {
@@ -49,24 +51,61 @@ describe('<Input />', () => {
       }
     });
 
-    it('updates the input value when `value` prop changes', async () => {
-      let value = 'Test value ';
-      const onChangeText = jest.fn().mockImplementation((text) => {
-        value = text;
-      });
-
+    it('updates the input value when `value` prop changes', () => {
+      const ref = renderHook(() => useRef<InputRefType>()).result.current;
       render(
-        <Input
-          onChangeText={onChangeText}
-          value={value}
-        />,
+        <Input ref={ref} />,
         { wrapper: AppProvider }
       );
 
-      await Promise.resolve(process.nextTick);
+      jest.spyOn(ref.current, 'setNativeProps');
+      screen.rerender(
+        <Input
+          ref={ref}
+          value={value}
+        />
+      );
+
+      expect(ref.current.setNativeProps).toHaveBeenCalledWith({ text: value });
+    });
+
+    it('does not update the input value when changed via UI', async () => {
+      const ref = renderHook(() => useRef<InputRefType>()).result.current;
+      render(
+        <Input ref={ref} />,
+        { wrapper: AppProvider }
+      );
+
       const textInput = screen.getByTestId('RNE__Input__text-input');
-      await userEvent.type(textInput, typeStr, {  });
-      expect(onChangeText).toHaveBeenNthCalledWith(typeStr.length, value);
+      await userEvent.type(textInput, typeStr);
+
+      jest.spyOn(ref.current, 'setNativeProps');
+      screen.rerender(
+        <Input ref={ref} />
+      );
+
+      expect(ref.current.setNativeProps).not.toHaveBeenCalled();
+    });
+
+    it('does not update the input value when value is set to current UI value', async () => {
+      const ref = renderHook(() => useRef<InputRefType>()).result.current;
+      render(
+        <Input ref={ref} />,
+        { wrapper: AppProvider }
+      );
+
+      const textInput = screen.getByTestId('RNE__Input__text-input');
+      await userEvent.type(textInput, typeStr);
+
+      jest.spyOn(ref.current, 'setNativeProps');
+      screen.rerender(
+        <Input
+          ref={ref}
+          value={typeStr}
+        />
+      );
+
+      expect(ref.current.setNativeProps).not.toHaveBeenCalled();
     });
   });
 
@@ -76,36 +115,36 @@ describe('<Input />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <Input />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with label and placeholder', () => {
-      const tree = render(
+      render(
         <Input
           label={label}
           placeholder={placeholder}
         />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with label and mask', () => {
-      const tree = render(
+      render(
         <Input
           label={label}
           mask={Masks.USA_PHONE}
         />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

@@ -66,25 +66,25 @@ describe('<InfoDialog />', () => {
 
   describe('snapshots', () => {
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <InfoDialog />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when visible', () => {
-      const tree = render(
+      render(
         <InfoDialog isVisible />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with title and children', () => {
-      const tree = render(
+      render(
         <InfoDialog
           isVisible
           title={title}
@@ -92,9 +92,9 @@ describe('<InfoDialog />', () => {
           <Text>{contentStr}</Text>
         </InfoDialog>,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

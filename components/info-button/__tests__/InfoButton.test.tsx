@@ -67,16 +67,16 @@ describe('<InfoButton />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <InfoButton />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with info dialog', async () => {
-      const { toJSON } = render(
+      render(
         <InfoButton>
           <Text>{infoDialogStr}</Text>
         </InfoButton>,
@@ -86,8 +86,7 @@ describe('<InfoButton />', () => {
       const infoButton = screen.getByRole('button', { name: 'Info' });
       await userEvent.press(infoButton);
 
-      const tree = toJSON();
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

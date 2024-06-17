@@ -237,29 +237,31 @@ describe('<Avatar />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <Avatar />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when editable', () => {
-      const tree = render(
+      render(
         <Avatar editable />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when editable and pressed', () => {
-      const { toJSON } = render(
+      render(
         <Avatar editable />,
         { wrapper: AppProvider }
       );
 
       fireEvent.press(screen.getByTestId('RNE__Avatar__Image'));
-      expect(toJSON()).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

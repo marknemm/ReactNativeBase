@@ -41,12 +41,12 @@ describe('<HeaderActionButton />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <HeaderActionButton title={title} />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

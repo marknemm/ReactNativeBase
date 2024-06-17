@@ -67,21 +67,21 @@ describe('<CameraBottomSheet />', () => {
 
   describe('snapshots', () => {
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <CameraBottomSheet />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when visible', () => {
-      const tree = render(
+      render(
         <CameraBottomSheet isVisible />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

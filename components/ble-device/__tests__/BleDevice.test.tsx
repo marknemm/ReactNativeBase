@@ -1,6 +1,6 @@
 import BleDevice from '@components/ble-device/BleDevice';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 import { genBleDeviceMock } from '@util/__mocks__/ble-manager';
 import { Device } from 'react-native-ble-plx';
 
@@ -18,11 +18,12 @@ describe('<BleDevice />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <BleDevice bleDevice={device} />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

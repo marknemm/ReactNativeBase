@@ -155,27 +155,27 @@ describe('<ExpansionPanel />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <ExpansionPanel title={title} />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with children', () => {
-      const tree = render(
+      render(
         <ExpansionPanel title={title}>
           <Text>Test children</Text>
         </ExpansionPanel>,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with children and expanded', () => {
-      const tree = render(
+      render(
         <ExpansionPanel
           initExpanded
           title={title}
@@ -183,9 +183,9 @@ describe('<ExpansionPanel />', () => {
           <Text>Test children</Text>
         </ExpansionPanel>,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

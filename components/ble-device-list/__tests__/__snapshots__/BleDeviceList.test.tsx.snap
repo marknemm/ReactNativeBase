@@ -605,7 +605,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               accessibilityRole="button"
               accessibilityState={
                 {
-                  "busy": true,
+                  "busy": false,
                   "checked": undefined,
                   "disabled": false,
                   "expanded": undefined,
@@ -651,15 +651,18 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
                   }
                 }
               >
-                <ActivityIndicator
-                  color="white"
-                  size="small"
+                <Text
                   style={
                     {
-                      "marginVertical": 2,
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
                     }
                   }
-                />
+                >
+                  Connect
+                </Text>
               </View>
             </View>
           </View>
@@ -857,7 +860,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               accessibilityRole="button"
               accessibilityState={
                 {
-                  "busy": true,
+                  "busy": false,
                   "checked": undefined,
                   "disabled": false,
                   "expanded": undefined,
@@ -903,15 +906,18 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
                   }
                 }
               >
-                <ActivityIndicator
-                  color="white"
-                  size="small"
+                <Text
                   style={
                     {
-                      "marginVertical": 2,
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
                     }
                   }
-                />
+                >
+                  Disconnect
+                </Text>
               </View>
             </View>
           </View>
@@ -1109,7 +1115,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               accessibilityRole="button"
               accessibilityState={
                 {
-                  "busy": true,
+                  "busy": false,
                   "checked": undefined,
                   "disabled": false,
                   "expanded": undefined,
@@ -1155,15 +1161,18 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
                   }
                 }
               >
-                <ActivityIndicator
-                  color="white"
-                  size="small"
+                <Text
                   style={
                     {
-                      "marginVertical": 2,
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
                     }
                   }
-                />
+                >
+                  Connect
+                </Text>
               </View>
             </View>
           </View>
@@ -1361,7 +1370,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               accessibilityRole="button"
               accessibilityState={
                 {
-                  "busy": true,
+                  "busy": false,
                   "checked": undefined,
                   "disabled": false,
                   "expanded": undefined,
@@ -1407,15 +1416,18 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
                   }
                 }
               >
-                <ActivityIndicator
-                  color="white"
-                  size="small"
+                <Text
                   style={
                     {
-                      "marginVertical": 2,
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
                     }
                   }
-                />
+                >
+                  Connect
+                </Text>
               </View>
             </View>
           </View>

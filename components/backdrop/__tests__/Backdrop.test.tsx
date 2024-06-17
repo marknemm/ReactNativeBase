@@ -1,23 +1,25 @@
 import Backdrop from '@components/backdrop/Backdrop';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
 describe('<Backdrop />', () => {
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <Backdrop />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <Backdrop isVisible={false} />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

@@ -27,19 +27,21 @@ describe('<AddButton />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <AddButton />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when disabled', () => {
-      const tree = render(
+      render(
         <AddButton disabled />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

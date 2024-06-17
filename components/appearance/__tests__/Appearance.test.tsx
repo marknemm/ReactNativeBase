@@ -39,35 +39,39 @@ describe('<Appearance />', () => {
 
   describe('snapshots', () => {
     it('renders correctly auto appearance', () => {
-      const tree = render(
+      render(
         <Appearance appearance="auto" />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly dark appearance', () => {
-      const tree = render(
+      render(
         <Appearance appearance="dark" />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly light appearance', () => {
-      const tree = render(
+      render(
         <Appearance appearance="light" />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly disabled', () => {
-      const tree = render(
+      render(
         <Appearance appearance="auto" disabled />,
         { wrapper: AppProvider }
-      ).toJSON();
-      expect(tree).toMatchSnapshot();
+      );
+
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

@@ -1,5 +1,5 @@
 import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
-import { useCallbacks, useMergedRefs } from '@hooks/state-hooks';
+import { useCallbacks } from '@hooks/state-hooks';
 import { Input as RneInput, useTheme } from '@rneui/themed';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
@@ -73,6 +73,7 @@ const InputControlled: InputFC = forwardRef(({
   const { theme } = useTheme();
   const [uiValue, setUiValue] = useState('');
   const inputRef = useRef<InputRefType>();
+  ref ??= inputRef;
 
   const maskedInputProps = useMaskedInputProps({ mask, onChangeText, value });
   if (mask) {
@@ -87,9 +88,10 @@ const InputControlled: InputFC = forwardRef(({
   useEffect(() => {
     // Sync value prop with input (UI) value. Done manually to prevent change on each keystroke and prevent lag.
     if (value !== undefined && value !== uiValue) {
-      inputRef.current?.setNativeProps({ text: value });
+      const textInput = (ref as React.MutableRefObject<InputRefType>).current;
+      textInput?.setNativeProps({ text: value });
     }
-  }, [value, uiValue]);
+  }, [ref, value, uiValue]);
 
   return (
     <RneInput
@@ -103,7 +105,7 @@ const InputControlled: InputFC = forwardRef(({
       labelStyle={styles.label}
       maxLength={maxLengthLimitTyping ? maxLengthNum : undefined}
       onChangeText={useCallbacks(onChangeText, setUiValue)}
-      ref={useMergedRefs(inputRef, ref)}
+      ref={ref}
       style={styles.style}
       value={undefined} // Do not update value prop directly to prevent input lag (see useEffect above).
     />

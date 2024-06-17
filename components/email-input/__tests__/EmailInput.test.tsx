@@ -1,16 +1,16 @@
 import EmailInput from '@components/email-input/EmailInput';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
 describe('<EmailInput />', () => {
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <EmailInput />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

@@ -91,41 +91,40 @@ describe('<Dropdown />', () => {
 
   describe('snapshots', () => {
     it('renders correctly', () => {
-      const tree = render(
+      render(
         <Dropdown data={mockData} />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly with label and placeholder', () => {
-      const tree = render(
+      render(
         <Dropdown
           data={mockData}
           label="Test Dropdown Label"
           placeholder="Test Dropdown Placeholder"
         />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when open', async () => {
-      const { toJSON } = render(
+      render(
         <Dropdown data={mockData} />,
         { wrapper: AppProvider }
       );
 
       await openDropdown();
-      const tree = toJSON();
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 
   it('renders correctly when open with alternate label and value fields', async () => {
-    const { toJSON } = render(
+    render(
       <Dropdown
         data={mockData}
         labelField="labelAlt"
@@ -135,8 +134,7 @@ describe('<Dropdown />', () => {
     );
 
     await openDropdown({ labelField: 'labelAlt' });
-    const tree = toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 
   async function openDropdown({

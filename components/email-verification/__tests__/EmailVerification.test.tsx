@@ -94,35 +94,35 @@ describe('<EmailVerification />', () => {
 
   describe('snapshots', () => {
     it('renders correctly when not visible', () => {
-      const tree = render(
+      render(
         <EmailVerification user={mockUser} />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when verified and visible', () => {
-      const tree = render(
+      render(
         <EmailVerification
           isVisibleWhenVerified
           user={mockUser}
         />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
 
     it('renders correctly when not verified', () => {
       jest.spyOn(mockUser, 'emailVerified', 'get').mockReturnValue(false);
 
-      const tree = render(
+      render(
         <EmailVerification user={mockUser} />,
         { wrapper: AppProvider }
-      ).toJSON();
+      );
 
-      expect(tree).toMatchSnapshot();
+      expect(screen.toJSON()).toMatchSnapshot();
     });
   });
 });

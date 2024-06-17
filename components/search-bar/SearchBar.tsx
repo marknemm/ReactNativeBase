@@ -3,10 +3,9 @@ import Input from '@components/input/Input';
 import ClearButton from '@components/input/clear-button/ClearButton';
 import { SEARCH_ICON } from '@constants/icons';
 import { useFormFieldValue } from '@hooks/form-hooks';
-import { useMergedRefs } from '@hooks/state-hooks';
 import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useColors } from '@hooks/theme-hooks';
-import { forwardRef, useMemo, useRef } from 'react';
+import { RefObject, forwardRef, useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import type { InputRefType, SearchBarFC, SearchBarProps } from './SearchBar.interfaces';
 import { useStyles } from './SearchBar.styles';
@@ -23,10 +22,11 @@ const SearchBar: SearchBarFC = forwardRef(({
   ...inputProps
 }, ref) => {
   const value = useFormFieldValue(inputProps);
-  const inputRef = useRef<InputRefType>();
   const colors = useColors();
   const generalStyles = useGeneralStyles();
   const styles = useStyles(inputProps);
+  const inputRef = useRef<InputRefType>();
+  ref ??= inputRef;
 
   const searchIcon = useMemo(() => ({
     ...SEARCH_ICON,
@@ -42,11 +42,11 @@ const SearchBar: SearchBarFC = forwardRef(({
       />
 
       <ClearButton
-        inputRef={inputRef}
+        inputRef={ref as RefObject<InputRefType>}
         isVisible={!!value}
       />
     </View>
-  ), [generalStyles, showLoading, styles, value]);
+  ), [generalStyles, ref, showLoading, styles, value]);
 
   return (
     <Input
@@ -54,7 +54,7 @@ const SearchBar: SearchBarFC = forwardRef(({
       placeholder="Search..."
       rightIcon={rightIcon}
       {...inputProps}
-      ref={useMergedRefs(inputRef, ref)}
+      ref={ref}
     />
   );
 });
