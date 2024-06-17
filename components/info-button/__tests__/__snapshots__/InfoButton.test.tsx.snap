@@ -1,0 +1,462 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InfoButton /> snapshots renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      {
+        "borderRadius": 3.142857142857143,
+      },
+      undefined,
+      false,
+    ]
+  }
+  testID="RNE_BUTTON_WRAPPER"
+>
+  <View
+    accessibilityLabel="Info"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": false,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderColor": "#007aff",
+          "borderRadius": 3.142857142857143,
+          "borderWidth": 0,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "padding": 12.571428571428571,
+          "paddingHorizontal": 14.571428571428571,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "marginHorizontal": 5,
+            "overflow": "hidden",
+          }
+        }
+        testID="RNE__ICON__CONTAINER"
+      >
+        <View
+          accessibilityRole="button"
+          android_ripple={
+            {
+              "borderless": false,
+              "color": "rgba(0, 0, 0, 0.3)",
+              "radius": -5,
+            }
+          }
+          disabled={false}
+          testID="RNE__ICON__CONTAINER_ACTION"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "justifyContent": "center",
+              }
+            }
+            testID="RNE__ICON"
+          >
+            <Text
+              allowFontScaling={false}
+              selectable={false}
+              style={
+                [
+                  {
+                    "color": "#242424",
+                    "fontSize": 24,
+                  },
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "fontFamily": "material",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  {},
+                ]
+              }
+              testID="RNE__ICON__Component"
+            >
+              
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<InfoButton /> snapshots renders correctly with info dialog 1`] = `
+[
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 3.142857142857143,
+        },
+        undefined,
+        false,
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityLabel="Info"
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 0.67744,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderColor": "#007aff",
+            "borderRadius": 3.142857142857143,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 12.571428571428571,
+            "paddingHorizontal": 14.571428571428571,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "marginHorizontal": 5,
+              "overflow": "hidden",
+            }
+          }
+          testID="RNE__ICON__CONTAINER"
+        >
+          <View
+            accessibilityRole="button"
+            android_ripple={
+              {
+                "borderless": false,
+                "color": "rgba(0, 0, 0, 0.3)",
+                "radius": -5,
+              }
+            }
+            disabled={false}
+            testID="RNE__ICON__CONTAINER_ACTION"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "justifyContent": "center",
+                }
+              }
+              testID="RNE__ICON"
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "#242424",
+                      "fontSize": 24,
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "fontFamily": "material",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+                testID="RNE__ICON__Component"
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <Modal
+    hardwareAccelerated={false}
+    onRequestClose={[Function]}
+    replaceTheme={[Function]}
+    testID="Internal__Overlay"
+    transparent={true}
+    updateTheme={[Function]}
+    visible={true}
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "rgba(0, 0, 0, .4)",
+          "height": "100%",
+          "justifyContent": "center",
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+      testID="RNE__Overlay__backdrop"
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+      testID="RNE__Overlay__Container"
+    >
+      <View
+        style={
+          {
+            "backgroundColor": "rgb(255, 255, 255)",
+            "borderRadius": 3,
+            "padding": 20,
+            "shadowColor": "rgba(0, 0, 0, .3)",
+            "shadowOffset": {
+              "height": 1,
+              "width": 0,
+            },
+            "shadowRadius": 4,
+            "width": "75%",
+          }
+        }
+        testID="RNE__Overlay"
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Info Dialog Test
+        </Text>
+        <View
+          style={
+            {
+              "flexDirection": "row-reverse",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginTop": 10,
+            }
+          }
+          testID="Button__View"
+        >
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                {
+                  "width": "auto",
+                },
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "marginLeft": 5,
+                  "opacity": 1,
+                }
+              }
+              testID="Dialog__Button"
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "transparent",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "color": "#007aff",
+                      "fontSize": 15,
+                      "fontWeight": "500",
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Close
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </Modal>,
+]
+`;

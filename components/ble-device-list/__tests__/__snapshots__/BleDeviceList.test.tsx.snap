@@ -474,6 +474,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               testID="RNE_BUTTON_WRAPPER"
             >
               <View
+                accessibilityLabel="Info"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -725,6 +726,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               testID="RNE_BUTTON_WRAPPER"
             >
               <View
+                accessibilityLabel="Info"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -976,6 +978,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               testID="RNE_BUTTON_WRAPPER"
             >
               <View
+                accessibilityLabel="Info"
                 accessibilityRole="button"
                 accessibilityState={
                   {
@@ -1227,6 +1230,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
               testID="RNE_BUTTON_WRAPPER"
             >
               <View
+                accessibilityLabel="Info"
                 accessibilityRole="button"
                 accessibilityState={
                   {

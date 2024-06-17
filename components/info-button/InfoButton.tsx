@@ -2,18 +2,18 @@ import InfoDialog from '@components/info-dialog/InfoDialog';
 import { INFO_ICON } from '@constants/icons';
 import { Button, useTheme } from '@rneui/themed';
 import { forwardRef, useState } from 'react';
-import { Props } from './props';
+import type { InfoButtonProps } from './InfoButton.interfaces';
 
 /**
  * A standard info icon button.
  *
  * Can also display an {@link InfoDialog} on press.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link InfoButtonProps}.
  * @param ref The component reference.
  * @returns The {@link InfoButton} component.
  */
-const InfoButton: React.FC<Props> = forwardRef(({
+const InfoButton: React.FC<InfoButtonProps> = forwardRef(({
   color = 'transparent',
   iconColor,
   iconSize = 24,
@@ -25,19 +25,10 @@ const InfoButton: React.FC<Props> = forwardRef(({
   const { theme } = useTheme();
   const [infoDialogVisible, setInfoDialogVisible] = useState(false);
 
-  const infoDialog = children && (
-    <InfoDialog
-      isVisible={infoDialogVisible}
-      onClose={() => setInfoDialogVisible(false)}
-      title={dialogTitle}
-    >
-      { children }
-    </InfoDialog>
-  );
-
   return (
     <>
       <Button
+        accessibilityLabel="Info"
         color={color}
         icon={{
           ...INFO_ICON,
@@ -45,7 +36,7 @@ const InfoButton: React.FC<Props> = forwardRef(({
           size: iconSize,
         }}
         onPress={(event) => {
-          if (infoDialog) {
+          if (children) {
             setInfoDialogVisible(true);
           }
           onPress?.(event);
@@ -54,9 +45,18 @@ const InfoButton: React.FC<Props> = forwardRef(({
         ref={ref}
       />
 
-      { infoDialog }
+      {children && (
+        <InfoDialog
+          isVisible={infoDialogVisible}
+          onClose={() => setInfoDialogVisible(false)}
+          title={dialogTitle}
+        >
+          { children }
+        </InfoDialog>
+      )}
     </>
   );
 });
 
+export type * from './InfoButton.interfaces';
 export default InfoButton;
