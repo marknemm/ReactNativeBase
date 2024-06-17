@@ -1,11 +1,11 @@
 import { Button, ButtonProps } from '@rneui/themed';
 import { forwardRef } from 'react';
-import { useStyles } from './styles';
+import { useStyles } from './HeaderActionButton.styles';
 
 /**
  * The {@link HeaderActionButton} component.
  *
- * @param props The component properties.
+ * @param props The component {@link ButtonProps}.
  * @param ref The component reference.
  * @returns The {@link HeaderActionButton} component.
  */
