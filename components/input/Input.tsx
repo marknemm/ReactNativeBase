@@ -4,13 +4,13 @@ import { Input as RneInput, useTheme } from '@rneui/themed';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useMaskedInputProps } from 'react-native-mask-input';
-import { InputFC, InputRefType, Props } from './props';
-import { useStyles } from './styles';
+import type { InputFC, InputProps, InputRefType } from './Input.interfaces';
+import { useStyles } from './Input.styles';
 
 /**
  * Component for generic user text input.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link InputProps}.
  * @param ref The component reference.
  * @returns The {@link Input} component.
  */
@@ -52,7 +52,7 @@ const Input: InputFC = forwardRef((props, ref) => {
 /**
  * Controlled {@link Input} component.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link InputProps}.
  * @param ref The component reference.
  * @returns The {@link InputControlled} component.
  */
@@ -110,4 +110,5 @@ const InputControlled: InputFC = forwardRef(({
   );
 });
 
+export type * from './Input.interfaces';
 export default Input;

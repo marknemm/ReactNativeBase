@@ -1,9 +1,9 @@
 import Dropdown from '@components/dropdown/Dropdown';
+import { useDropdownItems } from '@components/dropdown/Dropdown.hooks';
 import Form from '@components/form/Form';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { userEvent, render, renderHook, screen, waitFor } from '@testing-library/react-native';
+import { render, renderHook, screen, userEvent } from '@testing-library/react-native';
 import { useForm } from 'react-hook-form';
-import { useDropdownItems } from '../Dropdown.hooks';
 
 jest.mock('@components/dropdown/Dropdown.hooks');
 

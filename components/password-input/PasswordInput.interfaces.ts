@@ -1,13 +1,14 @@
-import { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
-import { Props as InputProps } from '@components/input/props';
-import { ReactNode } from 'react';
+import type { InputProps } from '@components/input/Input.interfaces';
+import type { ReactNode } from 'react';
+import type { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
+import type PasswordInput from './PasswordInput';
 
 /**
- * The `PasswordInput` component properties.
+ * The {@link PasswordInput} component properties.
  *
- * @extends InputProps The {@link InputProps} from the `@components/input/props` package.
+ * @extends InputProps The {@link InputProps} from the `@components/input/Input.interfaces` module.
  */
-export interface Props<
+export interface PasswordInputProps<
   TFieldValues extends FieldValues = any,
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
@@ -45,7 +46,7 @@ export interface Props<
 }
 
 /**
- * The `PasswordInput` component functional component type.
+ * The {@link PasswordInput} component functional component type.
  *
  * @template TFieldValues The type of the form data.
  * @template TContext The type of the form context.
@@ -56,5 +57,5 @@ export type PasswordInputFC = <
   TContext = any,
   TFieldName extends FieldPath<TFieldValues> = Path<TFieldValues>
 >(
-  props: Props<TFieldValues, TContext, TFieldName>,
+  props: PasswordInputProps<TFieldValues, TContext, TFieldName>,
 ) => ReactNode;

@@ -1,7 +1,6 @@
 import ActivityIndicator from '@components/activity-indicator/ActivityIndicator';
 import Input from '@components/input/Input';
 import ClearButton from '@components/input/clear-button/ClearButton';
-import { InputRefType } from '@components/input/props';
 import { SEARCH_ICON } from '@constants/icons';
 import { useFormFieldValue } from '@hooks/form-hooks';
 import { useMergedRefs } from '@hooks/state-hooks';
@@ -9,13 +8,13 @@ import { useGeneralStyles } from '@hooks/styles-hooks';
 import { useColors } from '@hooks/theme-hooks';
 import { forwardRef, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { SearchBarFC } from './props';
-import { useStyles } from './styles';
+import type { InputRefType, SearchBarFC, SearchBarProps } from './SearchBar.interfaces';
+import { useStyles } from './SearchBar.styles';
 
 /**
  * An {@link Input} field that is specialized for search queries.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link SearchBarProps}.
  * @param ref The component reference.
  * @returns The {@link SearchBar} component.
  */
@@ -60,4 +59,5 @@ const SearchBar: SearchBarFC = forwardRef(({
   );
 });
 
+export type * from './SearchBar.interfaces';
 export default SearchBar;

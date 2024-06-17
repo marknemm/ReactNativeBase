@@ -1,7 +1,7 @@
-// import { StyleProps } from '@components/input/props';
+// import type { StyleProps } from '@components/input/Input.interfaces';
 // import { useFormControl, useFormErrorMessage, useValidationRules } from '@hooks/form-hooks';
 // import { useGeneralStyles, useThemedStyles } from '@hooks/styles-hooks';
-// import { FormFieldProps } from '@interfaces/form';
+// import type { FormFieldProps } from '@interfaces/form';
 // import { SearchBar as RneSearchBar, SearchBarProps, useTheme } from '@rneui/themed';
 // import { useCallback, useEffect, useRef, useState } from 'react';
 // import { Controller, FieldPath, FieldValues, Path } from 'react-hook-form';

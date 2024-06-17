@@ -1,14 +1,15 @@
 import { useGeneralStyles, useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import type Input from './Input';
+import type { InputStyleProps } from './Input.interfaces';
 
 /**
- * Gets the styles for the `Input` component.
+ * Gets the styles for the {@link Input} component.
  *
- * @param props The component {@link StyleProps}.
- * @returns The styles for the `Input` component.
+ * @param props The component {@link InputStyleProps}.
+ * @returns The styles for the {@link Input} component.
  */
-export function useStyles({ containerStyle, inputContainerStyle, inputStyle, labelStyle, style }: StyleProps) {
+export function useStyles({ containerStyle, inputContainerStyle, inputStyle, labelStyle, style }: InputStyleProps) {
   const generalStyles = useGeneralStyles();
 
   return useThemedStyles(() => ({

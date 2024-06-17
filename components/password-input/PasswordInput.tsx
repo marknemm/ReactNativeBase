@@ -1,12 +1,12 @@
 import Input from '@components/input/Input';
 import { PASSWORD_MIN_LENGTH_RULE } from '@constants/validation';
 import { forwardRef, useMemo, useState } from 'react';
-import { PasswordInputFC, Props } from './props';
+import type { PasswordInputFC, PasswordInputProps } from './PasswordInput.interfaces';
 
 /**
  * An {@link Input} field for entering a password.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link PasswordInputProps}.
  * @param ref The component reference.
  * @returns The {@link PasswordInput} component.
  */
@@ -54,4 +54,5 @@ const PasswordInput: PasswordInputFC = forwardRef((props, ref) => {
   );
 });
 
+export type * from './PasswordInput.interfaces';
 export default PasswordInput;

@@ -1,4 +1,4 @@
-import type { Props as InputProps } from '@components/input/props';
+import type { InputProps } from '@components/input/Input.interfaces';
 import type { ReactNode } from 'react';
 import type { FieldPath, FieldValues, Path, ValidationRule } from 'react-hook-form';
 import type EmailInput from './EmailInput';
@@ -6,7 +6,7 @@ import type EmailInput from './EmailInput';
 /**
  * The {@link EmailInput} component properties.
  *
- * @extends InputProps The {@link InputProps} from the `@components/input/props` package.
+ * @extends InputProps The {@link InputProps} from the `@components/input/Input.interfaces` module.
  */
 export interface EmailInputProps<
   TFieldValues extends FieldValues = any,
