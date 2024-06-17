@@ -83,7 +83,7 @@ const InputControlled: InputFC = forwardRef(({
 
   const maxLengthNum = (typeof maxLength === 'number')
     ? maxLength
-    : maxLength?.value;
+    : maxLength?.value ?? undefined;
 
   useEffect(() => {
     // Sync value prop with input (UI) value. Done manually to prevent change on each keystroke and prevent lag.

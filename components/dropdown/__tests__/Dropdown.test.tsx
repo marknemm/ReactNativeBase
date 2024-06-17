@@ -1,9 +1,9 @@
 import Dropdown from '@components/dropdown/Dropdown';
 import { useDropdownItems } from '@components/dropdown/Dropdown.hooks';
 import Form from '@components/form/Form';
+import { genMockForm } from '@hooks/__mocks__/form-hooks';
 import AppProvider from '@test/contexts/app/AppProvider';
-import { render, renderHook, screen, userEvent } from '@testing-library/react-native';
-import { useForm } from 'react-hook-form';
+import { render, screen, userEvent } from '@testing-library/react-native';
 
 jest.mock('@components/dropdown/Dropdown.hooks');
 
@@ -64,9 +64,9 @@ describe('<Dropdown />', () => {
 
   describe('form control', () => {
     it('Updates the form value and calls the `onChange` callback when dropdown item is selected', async () => {
-      const form = renderHook(() => useForm({
-        defaultValues: { dropdown: '' },
-      })).result.current;
+      const form = genMockForm({
+        dropdown: '',
+      });
       const onChange = jest.fn();
 
       render(
