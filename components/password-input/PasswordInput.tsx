@@ -1,5 +1,6 @@
 import Input from '@components/input/Input';
 import { PASSWORD_MIN_LENGTH_RULE } from '@constants/validation';
+import type { IconNode } from '@rneui/base';
 import { forwardRef, useMemo, useState } from 'react';
 import type { PasswordInputFC, PasswordInputProps } from './PasswordInput.interfaces';
 
@@ -27,12 +28,13 @@ const PasswordInput: PasswordInputFC = forwardRef((props, ref) => {
   const passwordVisibleIcon = useMemo(
     () => (isVisibilityToggleEnabled
       ? {
+        accessibilityLabel: 'Toggle password visibility',
         color: passwordVisible ? 'green' : 'gray',
         name: passwordVisible ? 'eye' : 'eye-off',
         type: 'feather',
         style: { padding: 7 },
         onPress: () => setPasswordVisible(!passwordVisible),
-      }
+      } as IconNode
       : undefined
     ),
     [isVisibilityToggleEnabled, passwordVisible]
