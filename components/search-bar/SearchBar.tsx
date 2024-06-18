@@ -39,6 +39,7 @@ const SearchBar: SearchBarFC = forwardRef(({
       <ActivityIndicator
         isVisible={showLoading}
         style={styles.loading}
+        testID="rnb-search-bar-loading"
       />
 
       <ClearButton
@@ -50,6 +51,7 @@ const SearchBar: SearchBarFC = forwardRef(({
 
   return (
     <Input
+      accessibilityRole="search"
       leftIcon={searchIcon}
       placeholder="Search..."
       rightIcon={rightIcon}

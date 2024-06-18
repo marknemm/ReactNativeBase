@@ -41,7 +41,7 @@ export type FirestoreCompositeFilterFn = (
  */
 export interface DBQueryOptions<
   TData = any,
-  TFilters extends DBFilterOptions = DBFilterOptions<TData>
+  TFilters extends DBFilterOptions = DBFilters<TData>
 > {
 
   /**
@@ -74,7 +74,7 @@ export interface DBQueryOptions<
  */
 export interface DBQueryOptionsState<
   TData = any,
-  TFilters extends DBFilterOptions = DBFilterOptions<TData>
+  TFilters extends DBFilterOptions = DBFilters<TData>
 > extends DBQueryOptions<TData, TFilters> {
 
   /**

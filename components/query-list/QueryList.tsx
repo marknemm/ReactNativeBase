@@ -6,12 +6,12 @@ import { DBFilter } from '@interfaces/db';
 import { toTitleCase } from '@util/string';
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
-import { Props, QueryListFC } from './props';
+import type { QueryListFC, QueryListProps } from './QueryList.interfaces';
 
 /**
  * A list of dynamically queried items.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link QueryListProps}.
  * @returns The {@link QueryList} component.
  */
 const QueryList: QueryListFC = ({
@@ -64,6 +64,7 @@ const QueryList: QueryListFC = ({
       <ActivityIndicator
         isVisible={queryState.loadingInitial}
         size="large"
+        testID="rnb-query-list-loading-initial"
       />
 
       <ErrorText
@@ -85,9 +86,11 @@ const QueryList: QueryListFC = ({
       <ActivityIndicator
         isVisible={queryState.loadingMore}
         size="large"
+        testID="rnb-query-list-loading-more"
       />
     </>
   );
 };
 
+export type * from './QueryList.interfaces';
 export default QueryList;

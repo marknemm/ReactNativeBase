@@ -1,15 +1,16 @@
-import { DBFilterOp, DBFilterOptions, DBFilters, DBQueryOptionsState, UseQueryOptions } from '@interfaces/db';
-import { ReactElement } from 'react';
-import { FlatListProps } from 'react-native';
+import type { DBFilterOp, DBFilterOptions, DBFilters, DBQueryOptionsState, UseQueryOptions } from '@interfaces/db';
+import type { ReactElement } from 'react';
+import type { FlatListProps } from 'react-native';
+import type QueryList from './QueryList';
 
 /**
- * The `QueryList` component props.
+ * The {@link QueryList} component props.
  *
  * @template TData The type of the raw query data.
  * @template TMap The type of the mapped query data.
  * @template TFilters The type of the filters to apply to the query.
  */
-export interface Props<
+export interface QueryListProps<
   TData = any,
   TMap = TData,
   TFilters extends DBFilterOptions = DBFilters<TData>
@@ -52,16 +53,16 @@ export interface Props<
 }
 
 /**
- * The `QueryList` component style props.
+ * The {@link QueryList} component style props.
  */
-export type StyleProps = Pick<
-  Props,
+export type QueryListStyleProps = Pick<
+  QueryListProps,
   'indicatorStyle' | 'columnWrapperStyle' | 'contentContainerStyle'
   | 'ListFooterComponentStyle' | 'ListHeaderComponentStyle' | 'style'
 >;
 
 /**
- * The `QueryList` functional component type.
+ * The {@link QueryList} functional component type.
  *
  * @template TData The type of the raw query data.
  * @template TMap The type of the mapped query data.
@@ -71,4 +72,4 @@ export type QueryListFC = <
   TData = any,
   TMap = TData,
   TFilters extends DBFilterOptions = DBFilters<TData>
-> (props: Props<TData, TMap, TFilters>) => ReactElement;
+> (props: QueryListProps<TData, TMap, TFilters>) => ReactElement;

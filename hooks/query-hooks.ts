@@ -1,6 +1,6 @@
 import { useDebounce } from '@hooks/debounce-hooks';
 import { useIncrementState } from '@hooks/state-hooks';
-import { DBDocData, DBFilterOptions, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, logQueryOptions, mergeQueryOptions } from '@util/db';
+import { DBDocData, DBFilterOptions, DBFilters, DBQueryOptions, DBQueryOptionsState, DBQueryResult, DBQueryState, UseFormQueryOptions, UseQueryOptions, listDBDocs, logQueryOptions, mergeQueryOptions } from '@util/db';
 import { log, logErr } from '@util/log';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -15,7 +15,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
  */
 export function useQueryOptions<
   TData = any,
-  TFilters extends DBFilterOptions = DBFilterOptions<TData>,
+  TFilters extends DBFilterOptions = DBFilters<TData>,
 >({
   filters: initFilters,
   limit: initLimit,
@@ -93,7 +93,7 @@ export function useFormQueryOptions<
 export function useQuery<
   TData extends DBDocData = DBDocData,
   TMap = TData,
-  TFilters extends DBFilterOptions = DBFilterOptions<TData>,
+  TFilters extends DBFilters = DBFilters<TData>,
 >(
   collectionPath: string,
   queryOptionsState: Partial<DBQueryOptionsState<TData, TFilters>> = {},

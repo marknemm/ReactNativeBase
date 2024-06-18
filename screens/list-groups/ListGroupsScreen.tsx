@@ -38,4 +38,5 @@ const ListGroupsScreen: React.FC<ScreenProps> = ({ navigation }) => {
   );
 };
 
+export type * from './ListGroupsScreen';
 export default ListGroupsScreen;
