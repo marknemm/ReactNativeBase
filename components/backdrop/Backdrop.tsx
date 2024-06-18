@@ -14,10 +14,12 @@ const Backdrop: React.FC<BackdropProps> = (props) => {
 
   return isVisible && (
     <Animated.View
+      accessibilityRole={onPress ? 'button' : undefined}
       entering={FadeIn}
       exiting={FadeOut}
       onTouchEnd={onPress}
       style={styles.backdrop}
+      testID="rnb-backdrop"
     />
   );
 };

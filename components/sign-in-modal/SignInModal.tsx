@@ -6,16 +6,16 @@ import SignInScreen from '@screens/sign-in/SignInScreen';
 import { useState } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { SignInModalProps } from './SignInModal.interfaces';
+import { useStyles } from './SignInModal.styles';
 
 /**
  * A modal dialog for signing in or resetting a password.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link SignInModalProps}.
  * @returns The {@link SignInModal} component.
  */
-const SignInModal: React.FC<Props> = ({
+const SignInModal: React.FC<SignInModalProps> = ({
   isPasswordOnly,
   onClose,
   prompt,
@@ -77,4 +77,5 @@ const SignInModal: React.FC<Props> = ({
   );
 };
 
+export type * from './SignInModal.interfaces';
 export default SignInModal;

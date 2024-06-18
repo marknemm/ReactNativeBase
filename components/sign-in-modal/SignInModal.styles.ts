@@ -1,15 +1,15 @@
-/* eslint-disable jsdoc/require-returns-type */
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import type SignInModal from './SignInModal';
+import type { SignInModalStyleProps } from './SignInModal.interfaces';
 
 /**
- * Gets the styles for the `SignInModal` component.
+ * Gets the styles for the {@link SignInModal} component.
  *
- * @param props The component style props.
- * @returns The styles for the `SignInModal` component.
+ * @param props The component {@link SignInModalStyleProps}.
+ * @returns The styles for the {@link SignInModal} component.
  */
-export function useStyles({ promptStyle, style }: StyleProps) {
+export function useStyles({ promptStyle, style }: SignInModalStyleProps) {
   return useThemedStyles((theme) => ({
     modal: {
       height: 'auto',

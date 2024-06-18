@@ -2,8 +2,8 @@ import Backdrop from '@components/backdrop/Backdrop';
 import { Dialog } from '@rneui/themed';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { ModalProps } from './Modal.interfaces';
+import { useStyles } from './Modal.styles';
 
 /**
  * Component for a blocking modal dialog.
@@ -11,10 +11,10 @@ import { useStyles } from './styles';
  * Unlike the standard {@link Dialog} component, the {@link Modal} component is blocking and is meant
  * to be launched imperatively from anywhere within the app via {@link import('@util/modal').showModal showModal}.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link ModalProps}.
  * @returns The {@link Modal} component.
  */
-const Modal: React.FC<Props> = ({
+const Modal: React.FC<ModalProps> = ({
   backdropStyle,
   children,
   entering = FadeIn,
@@ -33,12 +33,17 @@ const Modal: React.FC<Props> = ({
       />
 
       <Animated.View
+        accessibilityViewIsModal
         entering={entering}
         exiting={exiting}
         pointerEvents="box-none"
         style={styles.modalContainer}
+        testID="rnb-modal-container"
       >
-        <View style={styles.modal}>
+        <View
+          style={styles.modal}
+          testID="rnb-modal"
+        >
           {children}
         </View>
       </Animated.View>
@@ -46,4 +51,5 @@ const Modal: React.FC<Props> = ({
   );
 };
 
+export type * from './Modal.interfaces';
 export default Modal;

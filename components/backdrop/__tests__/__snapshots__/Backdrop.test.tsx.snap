@@ -20,6 +20,7 @@ exports[`<Backdrop /> snapshots renders correctly 1`] = `
       "top": 0,
     }
   }
+  testID="rnb-backdrop"
 />
 `;
 

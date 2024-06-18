@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> snapshots renders correctly when isVisible is false 1`] = `null`;
+
+exports[`<Modal /> snapshots renders correctly when isVisible is true (default) 1`] = `
+[
+  <View
+    collapsable={false}
+    entering={[Function]}
+    exiting={[Function]}
+    jestAnimatedStyle={
+      {
+        "value": {},
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#393e4233",
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    testID="rnb-backdrop"
+  />,
+  <View
+    accessibilityViewIsModal={true}
+    collapsable={false}
+    entering={[Function]}
+    exiting={[Function]}
+    jestAnimatedStyle={
+      {
+        "value": {},
+      }
+    }
+    pointerEvents="box-none"
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "bottom": 0,
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    testID="rnb-modal-container"
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#ffffff",
+          "borderRadius": 7,
+          "height": 1020.1176470588235,
+          "marginHorizontal": 34.285714285714285,
+          "marginVertical": 156.94117647058823,
+          "position": "absolute",
+          "width": 681.4285714285714,
+        }
+      }
+      testID="rnb-modal"
+    />
+  </View>,
+]
+`;
