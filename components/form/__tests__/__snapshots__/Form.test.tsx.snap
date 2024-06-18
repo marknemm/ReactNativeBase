@@ -2,13 +2,13 @@
 
 exports[`<Form /> snapshots renders correctly 1`] = `
 <View
-  testID="form-view"
+  testID="rnb-form-view"
 />
 `;
 
 exports[`<Form /> snapshots renders correctly with children 1`] = `
 <View
-  testID="form-view"
+  testID="rnb-form-view"
 >
   <View
     style={

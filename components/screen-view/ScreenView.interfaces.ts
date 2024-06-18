@@ -1,10 +1,13 @@
-import { UseFormReturn } from 'react-hook-form';
-import { StyleProp, ViewProps, ViewStyle } from 'react-native';
+import type { UseFormReturn } from 'react-hook-form';
+import type { StyleProp, ViewProps, ViewStyle } from 'react-native';
+import type ScreenView from './ScreenView';
 
 /**
- * The `ScreenView` component properties.
+ * The {@link ScreenView} component properties.
+ *
+ * @extends ViewProps The {@link ViewProps} from the `react-native` module.
  */
-export interface Props extends ViewProps {
+export interface ScreenViewProps extends ViewProps {
 
   /**
    * The {@link ViewStyle} to apply to the container View.
@@ -39,6 +42,9 @@ export interface Props extends ViewProps {
 }
 
 /**
- * The `ScreenView` component style properties.
+ * The {@link ScreenView} component style properties.
  */
-export type StyleProps = Pick<Props, 'containerStyle' | 'fullScreen' | 'noFooter' | 'noHeader' | 'style'>;
+export type ScreenViewStyleProps = Pick<
+  ScreenViewProps,
+  'containerStyle' | 'fullScreen' | 'noFooter' | 'noHeader' | 'style'
+>;

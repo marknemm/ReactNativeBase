@@ -8,11 +8,12 @@ import type { FormProps } from './Form.interface';
  * @param props The component {@link FormProps}.
  * @returns The {@link Form} component.
  */
-const Form: React.FC<FormProps> = ({ children, form, style }) => (
+const Form: React.FC<FormProps> = ({ children, form, style, ...restViewProps }) => (
   <FormProvider {...form}>
     <View
       style={style}
-      testID="form-view"
+      testID="rnb-form-view"
+      {...restViewProps}
     >
       {children}
     </View>

@@ -26,7 +26,7 @@ describe('<Form />', () => {
         { wrapper: AppProvider }
       );
 
-      const formView = screen.getByTestId('form-view');
+      const formView = screen.getByTestId('rnb-form-view');
       expect(formView).toHaveStyle(style);
     });
   });

@@ -1,25 +1,17 @@
 import type { UseFormReturn } from 'react-hook-form';
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { ViewProps } from 'react-native';
 import type Form from './Form';
 
 /**
  * The {@link Form} component properties.
+ *
+ * @extends ViewProps The {@link View} component properties from the `react-native` module.
  */
-export interface FormProps {
-
-  /**
-   * The children components.
-   */
-  children?: React.ReactNode;
+export interface FormProps extends ViewProps {
 
   /**
    * The {@link UseFormReturn Form} instance.
    */
   form: UseFormReturn<any>;
-
-  /**
-   * The {@link ViewStyle style} to apply to the {@link View}.
-   */
-  style?: StyleProp<ViewStyle>;
 
 }

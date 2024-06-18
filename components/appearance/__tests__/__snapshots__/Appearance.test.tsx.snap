@@ -8,6 +8,7 @@ exports[`<Appearance /> snapshots renders correctly auto appearance 1`] = `
       "width": "100%",
     }
   }
+  testID="rnb-screen-scroll-container-view"
 >
   <View>
     <View
@@ -23,6 +24,7 @@ exports[`<Appearance /> snapshots renders correctly auto appearance 1`] = `
           "width": "100%",
         }
       }
+      testID="rnb-screen-view"
     >
       <Text
         accessibilityRole="text"
@@ -351,6 +353,7 @@ exports[`<Appearance /> snapshots renders correctly dark appearance 1`] = `
       "width": "100%",
     }
   }
+  testID="rnb-screen-scroll-container-view"
 >
   <View>
     <View
@@ -366,6 +369,7 @@ exports[`<Appearance /> snapshots renders correctly dark appearance 1`] = `
           "width": "100%",
         }
       }
+      testID="rnb-screen-view"
     >
       <Text
         accessibilityRole="text"
@@ -694,6 +698,7 @@ exports[`<Appearance /> snapshots renders correctly disabled 1`] = `
       "width": "100%",
     }
   }
+  testID="rnb-screen-scroll-container-view"
 >
   <View>
     <View
@@ -709,6 +714,7 @@ exports[`<Appearance /> snapshots renders correctly disabled 1`] = `
           "width": "100%",
         }
       }
+      testID="rnb-screen-view"
     >
       <Text
         accessibilityRole="text"
@@ -1037,6 +1043,7 @@ exports[`<Appearance /> snapshots renders correctly light appearance 1`] = `
       "width": "100%",
     }
   }
+  testID="rnb-screen-scroll-container-view"
 >
   <View>
     <View
@@ -1052,6 +1059,7 @@ exports[`<Appearance /> snapshots renders correctly light appearance 1`] = `
           "width": "100%",
         }
       }
+      testID="rnb-screen-view"
     >
       <Text
         accessibilityRole="text"

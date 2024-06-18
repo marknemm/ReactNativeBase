@@ -1,15 +1,15 @@
 import Form from '@components/form/Form';
 import { ScrollView, View } from 'react-native';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { ScreenViewProps } from './ScreenView.interfaces';
+import { useStyles } from './ScreenView.styles';
 
 /**
  * A root {@link View} for a screen.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link ScreenViewProps}.
  * @returns The {@link ScreenView} component.
  */
-const ScreenView: React.FC<Props> = ({
+const ScreenView: React.FC<ScreenViewProps> = ({
   children,
   containerStyle,
   form,
@@ -27,6 +27,7 @@ const ScreenView: React.FC<Props> = ({
       <Form
         form={form}
         style={styles.inner}
+        testID="rnb-screen-form-view"
       >
         { children }
       </Form>
@@ -35,6 +36,7 @@ const ScreenView: React.FC<Props> = ({
       <View
         {...screenProps}
         style={styles.inner}
+        testID="rnb-screen-view"
       >
         { children }
       </View>
@@ -42,15 +44,22 @@ const ScreenView: React.FC<Props> = ({
 
   return noScroll
     ? (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        testID="rnb-screen-container-view"
+      >
         { inner }
       </View>
     )
     : (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        testID="rnb-screen-scroll-container-view"
+      >
         { inner }
       </ScrollView>
     );
 };
 
+export type * from './ScreenView.interfaces';
 export default ScreenView;

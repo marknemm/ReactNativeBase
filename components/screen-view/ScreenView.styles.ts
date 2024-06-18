@@ -1,15 +1,16 @@
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { StyleProps } from './props';
+import type ScreenView from './ScreenView';
+import type { ScreenViewStyleProps } from './ScreenView.interfaces';
 
 /**
- * Gets the styles for the `ScreenView` component.
+ * Gets the styles for the {@link ScreenView} component.
  *
- * @param props The component style properties.
- * @returns The `ScreenView` component styles.
+ * @param props The component {@link ScreenViewStyleProps}.
+ * @returns The {@link ScreenView} component styles.
  */
-export function useStyles({ containerStyle, fullScreen, noFooter, noHeader, style }: StyleProps) {
+export function useStyles({ containerStyle, fullScreen, noFooter, noHeader, style }: ScreenViewStyleProps) {
   const safeAreaInsets = useSafeAreaInsets();
 
   return useThemedStyles((theme) => ({

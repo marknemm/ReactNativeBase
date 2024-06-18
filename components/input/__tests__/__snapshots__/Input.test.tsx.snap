@@ -61,7 +61,7 @@ exports[`<Input /> snapshots renders correctly 1`] = `
 
 exports[`<Input /> snapshots renders correctly with error 1`] = `
 <View
-  testID="form-view"
+  testID="rnb-form-view"
 >
   <View
     style={
