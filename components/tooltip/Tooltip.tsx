@@ -1,17 +1,17 @@
 import { useControlledState } from '@hooks/state-hooks';
 import { Tooltip as RneuiTooltip } from '@rneui/themed';
 import { useCallback } from 'react';
-import { Props } from './props';
+import type { TooltipProps } from './Tooltip.interfaces';
 
 /**
  * A tooltip component.
  *
  * The visibility state can be controlled internally or externally.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link TooltipProps}.
  * @returns The {@link Tooltip} component.
  */
-const Tooltip: React.FC<Props> = ({
+const Tooltip: React.FC<TooltipProps> = ({
   backgroundColor = 'gray',
   children,
   onClose,
@@ -44,4 +44,5 @@ const Tooltip: React.FC<Props> = ({
   );
 };
 
+export type * from './Tooltip.interfaces';
 export default Tooltip;
