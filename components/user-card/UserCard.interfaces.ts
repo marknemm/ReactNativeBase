@@ -1,14 +1,14 @@
 import type { TeaserCardStyleProps } from '@components/teaser-card/TeaserCard.interfaces';
-import type Group from '@util/group';
+import type User from '@util/user';
 import type { GestureResponderEvent } from 'react-native';
-import type GroupCard from './GroupCard';
+import type UserCard from './UserCard';
 
 /**
- * The {@link GroupCard} component props.
+ * The {@link UserCard} component properties.
  *
  * @extends TeaserCardStyleProps The {@link TeaserCardStyleProps} from the `@components/teaser-card` module.
  */
-export interface GroupCardProps extends TeaserCardStyleProps {
+export interface UserCardProps extends TeaserCardStyleProps {
 
   /**
    * The function to call when the card is pressed.
@@ -18,8 +18,8 @@ export interface GroupCardProps extends TeaserCardStyleProps {
   onPress?: (event: GestureResponderEvent) => void;
 
   /**
-   * The {@link Group} to display.
+   * The {@link User} profile instance.
    */
-  group: Group;
+  user: User;
 
 }

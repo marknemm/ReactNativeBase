@@ -2,7 +2,7 @@ import GroupCard from '@components/group-card/GroupCard';
 import AppProvider from '@test/contexts/app/AppProvider';
 import { render, screen } from '@testing-library/react-native';
 import { genMockGroup } from '@util/__mocks__/group';
-import Group from '@util/group';
+import type Group from '@util/group';
 
 describe('<GroupCard />', () => {
   let mockGroup: Group;
