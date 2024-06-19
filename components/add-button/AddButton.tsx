@@ -16,6 +16,7 @@ const AddButton: React.FC<FixedIconButtonProps> = forwardRef(({
   ...buttonProps
 }, ref) => (
   <Button
+    accessibilityLabel="Add"
     color={color}
     icon={{
       ...ADD_ICON,

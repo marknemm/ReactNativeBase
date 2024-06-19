@@ -1,13 +1,14 @@
+import type Input from '@components/input/Input';
 import { CLEAR_ICON } from '@constants/icons';
 import { useColors } from '@hooks/theme-hooks';
 import { Button } from '@rneui/themed';
 import { forwardRef } from 'react';
-import { Props } from './props';
+import type { ClearButtonProps } from './ClearButton.interfaces';
 
 /**
- * A button that clears a text `Input` field.
+ * A button that clears a text {@link Input} field.
  */
-const ClearButton: React.FC<Props> = forwardRef(({
+const ClearButton: React.FC<ClearButtonProps> = forwardRef(({
   inputRef,
   isVisible,
   onPress,
@@ -17,6 +18,7 @@ const ClearButton: React.FC<Props> = forwardRef(({
 
   return isVisible && (
     <Button
+      accessibilityLabel="Clear"
       icon={{
         ...CLEAR_ICON,
         color: colors.placeholder,
@@ -24,7 +26,7 @@ const ClearButton: React.FC<Props> = forwardRef(({
       }}
       onPress={(event) => {
         onPress?.(event);
-        if (!event.defaultPrevented) {
+        if (!event?.isDefaultPrevented() && !event?.defaultPrevented) {
           inputRef.current?.clear();
           inputRef.current?.props.onChangeText?.('');
         }
@@ -37,4 +39,5 @@ const ClearButton: React.FC<Props> = forwardRef(({
   );
 });
 
+export type * from './ClearButton.interfaces';
 export default ClearButton;

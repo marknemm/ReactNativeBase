@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AddButton /> snapshots renders correctly 1`] = `
+exports[`<ClearButton /> snapshots renders correctly when not visible 1`] = `null`;
+
+exports[`<ClearButton /> snapshots renders correctly when visible 1`] = `
 <View
   style={
     [
@@ -8,7 +10,7 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 24,
+        "borderRadius": 3.142857142857143,
       },
       undefined,
       false,
@@ -17,7 +19,7 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
   testID="RNE_BUTTON_WRAPPER"
 >
   <View
-    accessibilityLabel="Add"
+    accessibilityLabel="Clear"
     accessibilityRole="button"
     accessibilityState={
       {
@@ -58,12 +60,12 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
           "alignItems": "center",
           "backgroundColor": "transparent",
           "borderColor": "#007aff",
-          "borderRadius": 24,
+          "borderRadius": 3.142857142857143,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
-          "padding": 12.571428571428571,
-          "paddingHorizontal": 14.571428571428571,
+          "padding": 6.285714285714286,
+          "paddingHorizontal": 8.285714285714285,
         }
       }
     >
@@ -104,8 +106,8 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
               style={
                 [
                   {
-                    "color": "#242424",
-                    "fontSize": 24,
+                    "color": "#86939e",
+                    "fontSize": 18,
                   },
                   {
                     "backgroundColor": "transparent",
@@ -120,7 +122,7 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
               }
               testID="RNE__ICON__Component"
             >
-              
+              
             </Text>
           </View>
         </View>
@@ -130,7 +132,7 @@ exports[`<AddButton /> snapshots renders correctly 1`] = `
 </View>
 `;
 
-exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
+exports[`<ClearButton /> snapshots renders correctly when visible and disabled 1`] = `
 <View
   style={
     [
@@ -138,7 +140,7 @@ exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
         "overflow": "hidden",
       },
       {
-        "borderRadius": 24,
+        "borderRadius": 3.142857142857143,
       },
       undefined,
       false,
@@ -147,7 +149,7 @@ exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
   testID="RNE_BUTTON_WRAPPER"
 >
   <View
-    accessibilityLabel="Add"
+    accessibilityLabel="Clear"
     accessibilityRole="button"
     accessibilityState={
       {
@@ -186,14 +188,14 @@ exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
       style={
         {
           "alignItems": "center",
-          "backgroundColor": "hsl(208, 8%, 90%)",
+          "backgroundColor": "transparent",
           "borderColor": "#007aff",
-          "borderRadius": 24,
+          "borderRadius": 3.142857142857143,
           "borderWidth": 0,
           "flexDirection": "row",
           "justifyContent": "center",
-          "padding": 12.571428571428571,
-          "paddingHorizontal": 14.571428571428571,
+          "padding": 6.285714285714286,
+          "paddingHorizontal": 8.285714285714285,
         }
       }
     >
@@ -234,8 +236,8 @@ exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
               style={
                 [
                   {
-                    "color": "#242424",
-                    "fontSize": 24,
+                    "color": "#86939e",
+                    "fontSize": 18,
                   },
                   {
                     "backgroundColor": "transparent",
@@ -250,7 +252,7 @@ exports[`<AddButton /> snapshots renders correctly when disabled 1`] = `
               }
               testID="RNE__ICON__Component"
             >
-              
+              
             </Text>
           </View>
         </View>
