@@ -6,15 +6,14 @@ import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { useGeneralStyles } from '@hooks/styles-hooks';
-import { ScreenProps } from '@interfaces/screen';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { Button, useThemeMode } from '@rneui/themed';
 import { signInWithApple, signInWithEmailAndPassword, signInWithGoogle } from '@util/auth';
 import { AppleAuthenticationButton, AppleAuthenticationButtonStyle, AppleAuthenticationButtonType } from 'expo-apple-authentication';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { useStyles } from './styles';
+import type { SignInScreenProps } from './SignInScreen.interfaces';
+import { useStyles } from './SignInScreen.styles';
 
 /**
  * Screen for signing in.
@@ -22,7 +21,7 @@ import { useStyles } from './styles';
  * @param props The {@link Props}.
  * @returns The {@link SignInScreen} component.
  */
-const SignInScreen: React.FC<Props> = ({
+const SignInScreen: React.FC<SignInScreenProps> = ({
   isModal,
   isPasswordOnly = false,
   navigation,
@@ -127,38 +126,5 @@ const SignInScreen: React.FC<Props> = ({
   );
 };
 
-/**
- * The {@link SignInScreen} component properties.
- */
-interface Props extends ScreenProps {
-
-  /**
-   * Whether the screen is a modal.
-   */
-  isModal?: boolean;
-
-  /**
-   * Whether to show only the (email) password sign-in.
-   */
-  isPasswordOnly?: boolean;
-
-  /**
-   * The function to call when the user clicks the forgot password button.
-   */
-  onForgotPassword?: () => void;
-
-  /**
-   * The function to call after signing in.
-   *
-   * @param authUser The authenticated {@link FirebaseAuthTypes.User}.
-   */
-  onSignIn?: (authUser: FirebaseAuthTypes.User) => void;
-
-  /**
-   * The email address that must be used for sign in.
-   */
-  readOnlyEmail?: string;
-
-}
-
+export type * from './SignInScreen.interfaces';
 export default SignInScreen;

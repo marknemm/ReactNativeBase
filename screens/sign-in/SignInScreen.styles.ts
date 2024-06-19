@@ -1,9 +1,10 @@
 import { useThemedStyles } from '@hooks/styles-hooks';
+import type SignInScreen from './SignInScreen';
 
 /**
- * Gets the styles for the `SignInScreen` component.
+ * Gets the styles for the {@link SignInScreen} component.
  *
- * @returns The styles for the `SignInScreen` component.
+ * @returns The styles for the {@link SignInScreen} component.
  */
 export function useStyles() {
   return useThemedStyles((theme) => ({

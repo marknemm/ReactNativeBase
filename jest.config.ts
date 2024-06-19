@@ -27,7 +27,10 @@ const config: Config = {
   fakeTimers: {
     enableGlobally: true,
   },
-  setupFilesAfterEnv: ['./jest.setup.ts'],
+  setupFilesAfterEnv: [
+    './jest.setup.ts',
+    './node_modules/@react-native-google-signin/google-signin/jest/build/setup.js',
+  ],
   transformIgnorePatterns: [
     'node_modules/(?!(color-json|delay|(jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@rneui/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)'
   ],
