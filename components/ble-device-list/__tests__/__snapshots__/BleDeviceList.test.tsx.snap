@@ -261,6 +261,7 @@ exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
                         "width": 10,
                       }
                     }
+                    testID="rnb-status-dot"
                   />
                   <Text
                     accessibilityRole="text"

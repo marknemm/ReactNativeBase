@@ -64,6 +64,7 @@ exports[`<BleState /> snapshots renders correctly when powered off 1`] = `
               "width": 10,
             }
           }
+          testID="rnb-status-dot"
         />
         <Text
           accessibilityRole="text"
@@ -153,6 +154,7 @@ exports[`<BleState /> snapshots renders correctly when powered on 1`] = `
               "width": 10,
             }
           }
+          testID="rnb-status-dot"
         />
         <Text
           accessibilityRole="text"
