@@ -16,14 +16,14 @@ export function useDropdownItems<T = any>(
   labelField: keyof T,
   valueField: keyof T,
   includeEmptyOption = false
-): any[] {
+): T[] {
   return useMemo(() => {
     const dropdownItems = data
       ? data.map((datum) => {
         if (typeof datum === 'string' || typeof datum === 'number' || typeof datum === 'boolean' || !datum) {
           const dropdownDatum = {} as any;
           dropdownDatum[labelField] = `${datum}`;
-          dropdownDatum[valueField] = `${datum}`;
+          dropdownDatum[valueField] = datum;
           return dropdownDatum;
         }
         return datum;
