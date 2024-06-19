@@ -441,7 +441,711 @@ exports[`<SignInModal /> snapshots renders correctly 1`] = `
                             }
                             testID="RNE__ICON"
                           >
-                            <Text />
+                            <Text
+                              allowFontScaling={false}
+                              selectable={false}
+                              style={
+                                [
+                                  {
+                                    "color": "gray",
+                                    "fontSize": 24,
+                                  },
+                                  {
+                                    "backgroundColor": "transparent",
+                                  },
+                                  {
+                                    "fontFamily": "feather",
+                                    "fontStyle": "normal",
+                                    "fontWeight": "normal",
+                                  },
+                                  {},
+                                ]
+                              }
+                              testID="RNE__ICON__Component"
+                            >
+                              
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                  <Text
+                    style={
+                      {
+                        "color": "#ff3b30",
+                        "fontSize": 12,
+                        "margin": 5,
+                      }
+                    }
+                  />
+                </View>
+                <View
+                  style={
+                    [
+                      {
+                        "overflow": "hidden",
+                      },
+                      {
+                        "borderRadius": 3.142857142857143,
+                      },
+                      {
+                        "marginBottom": 18.857142857142858,
+                        "width": "auto",
+                      },
+                      false,
+                    ]
+                  }
+                  testID="RNE_BUTTON_WRAPPER"
+                >
+                  <View
+                    accessibilityRole="button"
+                    accessibilityState={
+                      {
+                        "busy": false,
+                        "checked": undefined,
+                        "disabled": false,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onClick={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "backgroundColor": "#007aff",
+                          "borderColor": "#007aff",
+                          "borderRadius": 3.142857142857143,
+                          "borderWidth": 0,
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 12.571428571428571,
+                          "paddingHorizontal": 14.571428571428571,
+                        }
+                      }
+                    >
+                      <Text
+                        style={
+                          {
+                            "color": "white",
+                            "fontSize": 18,
+                            "paddingVertical": 1,
+                            "textAlign": "center",
+                          }
+                        }
+                      >
+                        Sign In
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={
+                    [
+                      {
+                        "overflow": "hidden",
+                      },
+                      {
+                        "borderRadius": 3.142857142857143,
+                      },
+                      undefined,
+                      false,
+                    ]
+                  }
+                  testID="RNE_BUTTON_WRAPPER"
+                >
+                  <View
+                    accessibilityRole="button"
+                    accessibilityState={
+                      {
+                        "busy": false,
+                        "checked": undefined,
+                        "disabled": false,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onClick={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      {
+                        "opacity": 1,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "backgroundColor": "transparent",
+                          "borderColor": "#007aff",
+                          "borderRadius": 3.142857142857143,
+                          "borderWidth": 0,
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 12.571428571428571,
+                          "paddingHorizontal": 14.571428571428571,
+                        }
+                      }
+                    >
+                      <Text
+                        style={
+                          {
+                            "color": "#007aff",
+                            "fontSize": 18,
+                            "paddingVertical": 1,
+                            "textAlign": "center",
+                          }
+                        }
+                      >
+                        Forgot password?
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </RCTScrollView>
+        </View>
+      </View>
+    </View>
+  </View>,
+]
+`;
+
+exports[`<SignInModal /> snapshots renders correctly with prompt 1`] = `
+[
+  <View
+    collapsable={false}
+    entering={[Function]}
+    exiting={[Function]}
+    jestAnimatedStyle={
+      {
+        "value": {},
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#393e4233",
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    testID="rnb-backdrop"
+  />,
+  <View
+    accessibilityViewIsModal={true}
+    collapsable={false}
+    entering={[Function]}
+    exiting={[Function]}
+    jestAnimatedStyle={
+      {
+        "value": {},
+      }
+    }
+    pointerEvents="box-none"
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "bottom": 0,
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    testID="rnb-modal-container"
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "#ffffff",
+          "borderRadius": 7,
+          "height": "auto",
+          "marginHorizontal": 34.285714285714285,
+          "marginVertical": 156.94117647058823,
+          "maxHeight": "90%",
+          "paddingBottom": 18.857142857142858,
+          "position": "absolute",
+          "width": 681.4285714285714,
+        }
+      }
+      testID="rnb-modal"
+    >
+      <View
+        style={
+          {
+            "borderBottomColor": "#e1e8ee",
+            "borderBottomWidth": 1,
+          }
+        }
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#43484d",
+              "fontFamily": undefined,
+              "fontSize": 28.285714285714285,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "paddingVertical": 18.857142857142858,
+              "textAlign": "center",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Test sign in modal
+        </Text>
+      </View>
+      <View
+        collapsable={false}
+        jestAnimatedStyle={
+          {
+            "value": {},
+          }
+        }
+        style={
+          {
+            "height": 500,
+          }
+        }
+      >
+        <View
+          collapsable={false}
+          entering={
+            FadeIn {
+              "build": [Function],
+              "callbackV": undefined,
+              "dampingRatioV": undefined,
+              "dampingV": undefined,
+              "delayV": undefined,
+              "durationV": 150,
+              "easingV": undefined,
+              "initialValues": undefined,
+              "massV": undefined,
+              "overshootClampingV": undefined,
+              "randomizeDelay": false,
+              "reduceMotionV": "system",
+              "restDisplacementThresholdV": undefined,
+              "restSpeedThresholdV": undefined,
+              "rotateV": undefined,
+              "stiffnessV": undefined,
+              "type": undefined,
+            }
+          }
+          exiting={
+            FadeOut {
+              "build": [Function],
+              "callbackV": undefined,
+              "dampingRatioV": undefined,
+              "dampingV": undefined,
+              "delayV": undefined,
+              "durationV": 150,
+              "easingV": undefined,
+              "initialValues": undefined,
+              "massV": undefined,
+              "overshootClampingV": undefined,
+              "randomizeDelay": false,
+              "reduceMotionV": "system",
+              "restDisplacementThresholdV": undefined,
+              "restSpeedThresholdV": undefined,
+              "rotateV": undefined,
+              "stiffnessV": undefined,
+              "type": undefined,
+            }
+          }
+          jestAnimatedStyle={
+            {
+              "value": {},
+            }
+          }
+        >
+          <RCTScrollView
+            style={
+              {
+                "height": "100%",
+                "width": "100%",
+              }
+            }
+            testID="rnb-screen-scroll-container-view"
+          >
+            <View>
+              <View
+                style={
+                  {
+                    "flex": 1,
+                    "marginHorizontal": "auto",
+                    "maxWidth": 1200,
+                    "paddingBottom": 37.714285714285715,
+                    "paddingLeft": 18.857142857142858,
+                    "paddingRight": 18.857142857142858,
+                    "paddingTop": 37.714285714285715,
+                    "width": "100%",
+                  }
+                }
+                testID="rnb-screen-form-view"
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "marginBottom": 28.285714285714285,
+                      "marginHorizontal": 6.285714285714286,
+                    }
+                  }
+                >
+                  <View
+                    accessibilityState={
+                      {
+                        "busy": undefined,
+                        "checked": undefined,
+                        "disabled": undefined,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    color={0}
+                    focusable={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    size={1}
+                    style={
+                      {
+                        "height": 50,
+                        "marginBottom": 3.142857142857143,
+                        "width": 320,
+                      }
+                    }
+                  >
+                    <Text>
+                      Mock Sign in with Google
+                    </Text>
+                  </View>
+                  <ViewManagerAdapter_ExpoAppleAuthentication
+                    buttonStyle={2}
+                    buttonType={0}
+                    cornerRadius={2}
+                    onButtonPress={[Function]}
+                    style={
+                      {
+                        "height": 40,
+                        "marginBottom": 6.285714285714286,
+                        "paddingVertical": 18.857142857142858,
+                        "width": 312,
+                      }
+                    }
+                  />
+                </View>
+                <View
+                  style={
+                    {
+                      "marginBottom": 6.285714285714286,
+                      "paddingHorizontal": 0,
+                      "width": "100%",
+                    }
+                  }
+                  testID="RNE__Input__view-wrapper"
+                >
+                  <Text
+                    style={
+                      {
+                        "color": "#86939e",
+                        "fontSize": 23.57142857142857,
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Email
+                  </Text>
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "alignItems": "center",
+                        "borderBottomColor": "#bbb",
+                        "borderBottomWidth": 1,
+                        "borderColor": "#86939e",
+                        "flexDirection": "row",
+                        "height": 98.9730612244898,
+                        "transform": [
+                          {
+                            "translateX": 0,
+                          },
+                        ],
+                      }
+                    }
+                  >
+                    <TextInput
+                      autoCapitalize="none"
+                      autoComplete="email"
+                      autoCorrect={false}
+                      editable={true}
+                      keyboardAppearance="light"
+                      keyboardType="email-address"
+                      name="email"
+                      onBlur={[Function]}
+                      onChangeText={[Function]}
+                      pattern={
+                        {
+                          "message": "Invalid email address",
+                          "value": /\\^\\[\\^\\\\s@\\]\\+@\\[\\^\\\\s@\\]\\+\\\\\\.\\[\\^\\\\s@\\]\\+\\$/,
+                        }
+                      }
+                      placeholderTextColor="#86939e"
+                      readOnly={false}
+                      required={true}
+                      style={
+                        {
+                          "color": "#242424",
+                          "flex": 1,
+                          "fontSize": 23.57142857142857,
+                          "height": 98.9730612244898,
+                          "minHeight": 40,
+                        }
+                      }
+                      testID="RNE__Input__text-input"
+                      textContentType="username"
+                      underlineColorAndroid="transparent"
+                    />
+                  </View>
+                  <Text
+                    style={
+                      {
+                        "color": "#ff3b30",
+                        "fontSize": 12,
+                        "margin": 5,
+                      }
+                    }
+                  />
+                </View>
+                <View
+                  style={
+                    {
+                      "marginBottom": 6.285714285714286,
+                      "paddingHorizontal": 0,
+                      "width": "100%",
+                    }
+                  }
+                  testID="RNE__Input__view-wrapper"
+                >
+                  <Text
+                    style={
+                      {
+                        "color": "#86939e",
+                        "fontSize": 23.57142857142857,
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Password
+                  </Text>
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "alignItems": "center",
+                        "borderBottomColor": "#bbb",
+                        "borderBottomWidth": 1,
+                        "borderColor": "#86939e",
+                        "flexDirection": "row",
+                        "height": 98.9730612244898,
+                        "transform": [
+                          {
+                            "translateX": 0,
+                          },
+                        ],
+                      }
+                    }
+                  >
+                    <TextInput
+                      autoCapitalize="none"
+                      autoComplete="new-password"
+                      autoCorrect={false}
+                      editable={true}
+                      keyboardAppearance="light"
+                      keyboardType="visible-password"
+                      minLength={
+                        {
+                          "message": "Password must be at least 6 characters",
+                          "value": 6,
+                        }
+                      }
+                      name="password"
+                      onBlur={[Function]}
+                      onChangeText={[Function]}
+                      placeholderTextColor="#86939e"
+                      required={true}
+                      secureTextEntry={true}
+                      style={
+                        {
+                          "color": "#242424",
+                          "flex": 1,
+                          "fontSize": 23.57142857142857,
+                          "height": 98.9730612244898,
+                          "minHeight": 40,
+                        }
+                      }
+                      testID="RNE__Input__text-input"
+                      textContentType="newPassword"
+                      underlineColorAndroid="transparent"
+                    />
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "height": 40,
+                          "justifyContent": "center",
+                          "marginVertical": 4,
+                          "paddingRight": 4,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          {
+                            "overflow": "hidden",
+                          }
+                        }
+                        testID="RNE__ICON__CONTAINER"
+                      >
+                        <View
+                          accessibilityLabel="Toggle password visibility"
+                          accessibilityRole="button"
+                          accessibilityState={
+                            {
+                              "busy": undefined,
+                              "checked": undefined,
+                              "disabled": false,
+                              "expanded": undefined,
+                              "selected": undefined,
+                            }
+                          }
+                          accessibilityValue={
+                            {
+                              "max": undefined,
+                              "min": undefined,
+                              "now": undefined,
+                              "text": undefined,
+                            }
+                          }
+                          accessible={true}
+                          collapsable={false}
+                          focusable={true}
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onResponderGrant={[Function]}
+                          onResponderMove={[Function]}
+                          onResponderRelease={[Function]}
+                          onResponderTerminate={[Function]}
+                          onResponderTerminationRequest={[Function]}
+                          onStartShouldSetResponder={[Function]}
+                          style={
+                            {
+                              "padding": 7,
+                            }
+                          }
+                          testID="RNE__ICON__CONTAINER_ACTION"
+                        >
+                          <View
+                            style={
+                              {
+                                "alignItems": "center",
+                                "backgroundColor": "transparent",
+                                "justifyContent": "center",
+                              }
+                            }
+                            testID="RNE__ICON"
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              selectable={false}
+                              style={
+                                [
+                                  {
+                                    "color": "gray",
+                                    "fontSize": 24,
+                                  },
+                                  {
+                                    "backgroundColor": "transparent",
+                                  },
+                                  {
+                                    "fontFamily": "feather",
+                                    "fontStyle": "normal",
+                                    "fontWeight": "normal",
+                                  },
+                                  {},
+                                ]
+                              }
+                              testID="RNE__ICON__Component"
+                            >
+                              
+                            </Text>
                           </View>
                         </View>
                       </View>

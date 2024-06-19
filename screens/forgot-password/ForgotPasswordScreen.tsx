@@ -5,20 +5,25 @@ import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
 import { useSubmitState } from '@hooks/form-hooks';
 import { useLSState } from '@hooks/local-storage-hooks';
 import { useGeneralStyles } from '@hooks/styles-hooks';
-import { ScreenProps } from '@interfaces/screen';
 import { Button, Text } from '@rneui/themed';
 import { sendPasswordResetEmail } from '@util/auth';
 import { useForm } from 'react-hook-form';
-import { useStyles } from './styles';
+import type { ForgotPasswordScreenProps } from './ForgotPasswordScreen.interfaces';
+import { useStyles } from './ForgotPasswordScreen.styles';
 
 /**
  * A screen that allows the user to reset their forgotten password.
  * This screen can also be displayed inside a modal dialog.
  *
- * @param props The {@link Props}.
+ * @param props The {@link ForgotPasswordScreenProps}.
  * @returns The {@link ForgotPasswordScreen} component.
  */
-const ForgotPasswordScreen: React.FC<Props> = ({ isModal, navigation, onSignIn, readOnlyEmail }) => {
+const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({
+  isModal,
+  navigation,
+  onSignIn,
+  readOnlyEmail,
+}) => {
   const styles = useStyles();
   const generalStyles = useGeneralStyles();
   const [lastSignInEmail] = useLSState(AUTH_SIGN_IN_LAST_EMAIL_KEY, { defaultValue: '' });
@@ -74,26 +79,5 @@ const ForgotPasswordScreen: React.FC<Props> = ({ isModal, navigation, onSignIn, 
   );
 };
 
-/**
- * The {@link ForgotPasswordScreen} component properties.
- */
-interface Props extends ScreenProps {
-
-  /**
-   * Whether the screen is a modal.
-   */
-  isModal?: boolean;
-
-  /**
-   * The function to call when the user presses the sign in button.
-   */
-  onSignIn?: () => void;
-
-  /**
-   * The email address that must be used for the forgot password.
-   */
-  readOnlyEmail?: string;
-
-}
-
+export type * from './ForgotPasswordScreen.interfaces';
 export default ForgotPasswordScreen;
