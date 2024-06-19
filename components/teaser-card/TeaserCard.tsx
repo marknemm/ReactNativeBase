@@ -1,16 +1,16 @@
 import Avatar from '@components/avatar/Avatar';
 import { Button, Card, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { Props } from './props';
-import { useStyles } from './styles';
+import type { TeaserCardProps } from './TeaserCard.interfaces';
+import { useStyles } from './TeaserCard.styles';
 
 /**
  * A card with a surrounding link, avatar image, title, and subtitle.
  *
- * @param props The component {@link Props}.
+ * @param props The component {@link TeaserCardProps}.
  * @returns The {@link TeaserCard} component.
  */
-const TeaserCard: React.FC<Props> = ({
+const TeaserCard: React.FC<TeaserCardProps> = ({
   children,
   icon,
   onPress,
@@ -38,26 +38,30 @@ const TeaserCard: React.FC<Props> = ({
         containerStyle={styles.cardContainer}
         wrapperStyle={styles.cardInner}
       >
-        <Avatar
-          avatarStyle={styles.photo}
-          backgroundColor={photoPlaceholderBg}
-          icon={icon}
-          iconStyle={styles.icon}
-          rounded={photoRounded}
-          size={photoSize}
-          title={photoPlaceholder}
-          titleStyle={styles.photoPlaceholder}
-          value={photoURL}
-        />
+        {(icon || photoURL || photoPlaceholder || photoPlaceholderBg) && (
+          <Avatar
+            avatarStyle={styles.photo}
+            backgroundColor={photoPlaceholderBg}
+            icon={icon}
+            iconStyle={styles.icon}
+            rounded={photoRounded}
+            size={photoSize}
+            title={photoPlaceholder}
+            titleStyle={styles.photoPlaceholder}
+            value={photoURL}
+          />
+        )}
 
         <View style={styles.textContent}>
-          <Card.Title
-            ellipsizeMode="tail"
-            numberOfLines={titleNumberOfLines}
-            style={styles.title}
-          >
-            {title}
-          </Card.Title>
+          {title && (
+            <Card.Title
+              ellipsizeMode="tail"
+              numberOfLines={titleNumberOfLines}
+              style={styles.title}
+            >
+              {title}
+            </Card.Title>
+          )}
           {subtitle && (
             <Text
               ellipsizeMode="tail"
@@ -74,4 +78,5 @@ const TeaserCard: React.FC<Props> = ({
   );
 };
 
+export type * from './TeaserCard.interfaces';
 export default TeaserCard;

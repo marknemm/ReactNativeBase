@@ -1,16 +1,13 @@
-import { IconObject } from '@rneui/base';
-import { CardProps } from '@rneui/themed';
-import { ColorValue, GestureResponderEvent, ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type { IconObject } from '@rneui/base';
+import type { CardProps } from '@rneui/themed';
+import { PropsWithChildren } from 'react';
+import type { ColorValue, GestureResponderEvent, ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import type TeaserCard from './TeaserCard';
 
 /**
- * The `TeaserCard` component properties.
+ * The {@link TeaserCard} component properties.
  */
-export interface Props extends CardProps {
-
-  /**
-   * The children elements.
-   */
-  children?: React.ReactNode;
+export interface TeaserCardProps extends PropsWithChildren<CardProps> {
 
   /**
    * The {@link ViewStyle style} for the card container.
@@ -126,10 +123,10 @@ export interface Props extends CardProps {
 }
 
 /**
- * The `TeaserCard` component style properties.
+ * The {@link TeaserCard} component style properties.
  */
-export type StyleProps = Pick<
-  Props,
+export type TeaserCardStyleProps = Pick<
+  TeaserCardProps,
   'containerStyle' | 'iconStyle' | 'layout' | 'innerStyle'
   | 'photoPlaceholderStyle' | 'photoRounded' | 'photoStyle' | 'subtitleStyle' | 'titleStyle'
 >;

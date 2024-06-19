@@ -1,12 +1,13 @@
 import { useThemedStyles } from '@hooks/styles-hooks';
 import { StyleSheet } from 'react-native';
-import { StyleProps } from './props';
+import type TeaserCard from './TeaserCard';
+import type { TeaserCardStyleProps } from './TeaserCard.interfaces';
 
 /**
- * Gets the styles for the `TeaserCard` component.
+ * Gets the styles for the {@link TeaserCard} component.
  *
  * @param props The component style props.
- * @returns The styles for the `TeaserCard` component.
+ * @returns The styles for the {@link TeaserCard} component.
  */
 export function useStyles({
   containerStyle,
@@ -17,7 +18,7 @@ export function useStyles({
   photoStyle,
   subtitleStyle,
   titleStyle,
-}: StyleProps) {
+}: TeaserCardStyleProps) {
   return useThemedStyles(() => ({
     cardContainer: {
       width: '100%',
