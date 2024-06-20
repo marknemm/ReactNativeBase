@@ -10,11 +10,11 @@ const connectedDevices: Map<string, Device> = new Map<string, Device>();
  */
 export function genDefaultDevices(): Map<string, Device> {
   return new Map<string, Device>([
-    ['device-3', genBleDeviceMock({ id: 'device-3', name: 'Device 3', connected: true })],
-    ['device-2', genBleDeviceMock({ id: 'device-2', name: 'Device 2' })],
-    ['device-0', genBleDeviceMock({ id: 'device-0', name: 'Device 0', localName: 'Device A' })],
-    ['device-1', genBleDeviceMock({ id: 'device-1', name: 'Device 1', localName: 'Device B' })],
-    ['device-4', genBleDeviceMock({ id: 'device-4' })],
+    ['device-3', genMockBleDevice({ id: 'device-3', name: 'Device 3', connected: true })],
+    ['device-2', genMockBleDevice({ id: 'device-2', name: 'Device 2' })],
+    ['device-0', genMockBleDevice({ id: 'device-0', name: 'Device 0', localName: 'Device A' })],
+    ['device-1', genMockBleDevice({ id: 'device-1', name: 'Device 1', localName: 'Device B' })],
+    ['device-4', genMockBleDevice({ id: 'device-4' })],
   ]);
 }
 
@@ -51,12 +51,12 @@ const BleManagerMock = jest.fn().mockImplementation(() => {
     }),
     stopDeviceScan: jest.fn(),
     connectToDevice: jest.fn().mockImplementation((deviceIdentifier: string) => {
-      const device = connectedDevices.get(deviceIdentifier) ?? genBleDeviceMock(deviceIdentifier);
+      const device = connectedDevices.get(deviceIdentifier) ?? genMockBleDevice(deviceIdentifier);
       (device.isConnected as jest.Mock).mockResolvedValue(true);
       return Promise.resolve(device);
     }),
     disconnectFromDevice: jest.fn().mockImplementation((deviceIdentifier: string) => {
-      const device = connectedDevices.get(deviceIdentifier) ?? genBleDeviceMock(deviceIdentifier);
+      const device = connectedDevices.get(deviceIdentifier) ?? genMockBleDevice(deviceIdentifier);
       (device.isConnected as jest.Mock).mockResolvedValue(false);
       return Promise.resolve(device);
     }),
@@ -72,7 +72,9 @@ const BleManagerMock = jest.fn().mockImplementation(() => {
  * @param data The {@link NativeDevice} data to populate the mock {@link Device}.
  * @returns A mock {@link Device} object.
  */
-export function genBleDeviceMock(data: (Partial<NativeDevice> & { connected?: boolean }) | string | number): Device {
+export function genMockBleDevice(
+  data: (Partial<NativeDevice> & { connected?: boolean }) | string | number = 0
+): Device {
   const device = new Device(null, null);
 
   if (typeof data === 'number') {
