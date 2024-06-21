@@ -2,7 +2,7 @@ import { useBleDeviceScan } from '@hooks/ble-hooks';
 import { Device } from '@util/ble-manager';
 import { useMemo, useState } from 'react';
 import { BleDeviceContext } from './BleDeviceContext';
-import type { BleDeviceProviderProps } from './BleDeviceProvider.interfaces';
+import type { BleDeviceProviderProps } from './BleDeviceContext.interfaces';
 
 /**
  * Provides the Bluetooth {@link Device} instance to the application or a subtree within the application.
@@ -45,5 +45,5 @@ const BleDeviceProvider: React.FC<BleDeviceProviderProps> = ({
   );
 };
 
-export type * from './BleDeviceProvider.interfaces';
+export type * from './BleDeviceContext.interfaces';
 export default BleDeviceProvider;

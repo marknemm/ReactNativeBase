@@ -30,4 +30,5 @@ const BleManagerProvider: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
+export type * from './BleManagerContext.interfaces';
 export default BleManagerProvider;
