@@ -1,4 +1,8 @@
+import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
+import AppProvider from '@test/contexts/app/AppProvider';
 import { stubAllMethods } from '@test/util/spy';
+import { renderHook } from '@testing-library/react-native';
+import { useContext } from 'react';
 import { Device, State, type NativeDevice } from 'react-native-ble-plx';
 
 const connectedDevices: Map<string, Device> = new Map<string, Device>();
@@ -16,6 +20,18 @@ export function genDefaultDevices(): Map<string, Device> {
     ['device-1', genMockBleDevice({ id: 'device-1', name: 'Device 1', localName: 'Device B' })],
     ['device-4', genMockBleDevice({ id: 'device-4' })],
   ]);
+}
+
+/**
+ * Gets the singleton {@link BleManager} instance from the test {@link BleManagerContext}.
+ *
+ * @returns The singleton {@link BleManager} instance.
+ */
+export function getMockBleManager() {
+  return renderHook(
+    () => useContext(BleManagerContext),
+    { wrapper: AppProvider }
+  ).result.current.bleManager;
 }
 
 /**

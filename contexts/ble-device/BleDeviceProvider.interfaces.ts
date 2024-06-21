@@ -15,8 +15,10 @@ export interface TBleDeviceContext {
 
   /**
    * Resets the Bluetooth {@link Device} instance.
+   *
+   * @returns A promise that resolves when the device is reset.
    */
-  resetBleDevice: () => void;
+  resetBleDevice: () => Promise<void>;
 
 }
 

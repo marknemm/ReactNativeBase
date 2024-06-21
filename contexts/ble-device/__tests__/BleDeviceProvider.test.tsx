@@ -2,7 +2,7 @@ import { BleDeviceContext } from '@contexts/ble-device/BleDeviceContext';
 import BleDeviceProvider, { type BleDeviceProviderProps } from '@contexts/ble-device/BleDeviceProvider';
 import AppProvider from '@test/contexts/app/AppProvider';
 import { renderHook } from '@testing-library/react-native';
-import { genDefaultDevices, genMockBleDevice } from '@util/__mocks__/ble-manager';
+import { genDefaultDevices, genMockBleDevice, getMockBleManager } from '@util/__mocks__/ble-manager';
 import { type Device } from '@util/ble-manager';
 import { useContext, type PropsWithChildren } from 'react';
 
@@ -31,16 +31,6 @@ describe('<BleDeviceProvider />', () => {
       </AppProvider>
     );
   }
-
-  const Wrapper = ({ children, device }: PropsWithChildren<any>) => (
-    <AppProvider>
-      <BleDeviceProvider
-        device={device}
-      >
-        { children }
-      </BleDeviceProvider>
-    </AppProvider>
-  );
 
   beforeEach(() => {
     foundDevices = genDefaultDevices();
@@ -83,19 +73,78 @@ describe('<BleDeviceProvider />', () => {
   });
 
   describe('update bleDevice', () => {
-    it('updates to a new BleDevice passed down from parent', () => {
+    it('updates to a new BleDevice based on deviceMatchCb update', () => {
+      const mockBleManager = getMockBleManager();
+
+      const oldMockBleDevice = genMockBleDevice({ id: 'device-old' });
+      (mockBleManager.startDeviceScan as jest.Mock).mockImplementationOnce(
+        (listenerCb) => { listenerCb(oldMockBleDevice); }
+      );
+      const deviceMatchCb = jest.fn((device) => device.id === oldMockBleDevice.id);
+
       const { rerender, result } = renderHook(
         () => useContext(BleDeviceContext),
-        { wrapper: Wrapper, initialProps: { device: mockBleDevice } }
+        { wrapper: genWrapper({ deviceMatchCb }) }
       );
-      const bleDeviceCtx = result.current;
+      let bleDeviceCtx = result.current;
 
-      expect(bleDeviceCtx.bleDevice).toBe(mockBleDevice);
+      expect(bleDeviceCtx.bleDevice).toBe(oldMockBleDevice);
 
-      const newMockBleDevice = genMockBleDevice(1);
-      rerender({ device: newMockBleDevice });
+      /// Transition to new device ///
+
+      const newMockBleDevice = genMockBleDevice({ id: 'device-new' });
+      (mockBleManager.startDeviceScan as jest.Mock).mockImplementationOnce(
+        (listenerCb) => { listenerCb(newMockBleDevice); }
+      );
+      deviceMatchCb.mockImplementation((device) => device.id === newMockBleDevice.id);
+
+      rerender({});
+      bleDeviceCtx = result.current;
 
       expect(bleDeviceCtx.bleDevice).toBe(newMockBleDevice);
+      expect(oldMockBleDevice.cancelConnection).toHaveBeenCalled();
+    });
+
+    it('updates to no BleDevice when deviceMatchCb returns null', () => {
+      const mockBleManager = getMockBleManager();
+
+      const oldMockBleDevice = genMockBleDevice({ id: 'device-old' });
+      (mockBleManager.startDeviceScan as jest.Mock).mockImplementationOnce(
+        (listenerCb) => { listenerCb(oldMockBleDevice); }
+      );
+      const deviceMatchCb = jest.fn((device) => device.id === oldMockBleDevice.id);
+
+      const { rerender, result } = renderHook(
+        () => useContext(BleDeviceContext),
+        { wrapper: genWrapper({ deviceMatchCb }) }
+      );
+      let bleDeviceCtx = result.current;
+
+      expect(bleDeviceCtx.bleDevice).toBe(oldMockBleDevice);
+
+      /// Transition to no device ///
+
+      deviceMatchCb.mockImplementation(() => null);
+
+      rerender({});
+      bleDeviceCtx = result.current;
+
+      expect(bleDeviceCtx.bleDevice).toBeFalsy();
+      expect(oldMockBleDevice.cancelConnection).toHaveBeenCalled();
+    });
+  });
+
+  describe('reset bleDevice', () => {
+    it('resets the BleDevice', async () => {
+      const bleDeviceCtx = renderHook(
+        () => useContext(BleDeviceContext),
+        { wrapper: genWrapper({ device: mockBleDevice }) }
+      ).result.current;
+
+      await bleDeviceCtx.resetBleDevice();
+
+      expect(mockBleDevice.cancelConnection).toHaveBeenCalled();
+      expect(mockBleDevice.connect).toHaveBeenCalled();
     });
   });
 });

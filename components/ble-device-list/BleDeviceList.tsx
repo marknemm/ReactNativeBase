@@ -3,7 +3,7 @@ import BleState from '@components/ble-state/BleState';
 import InfoButton from '@components/info-button/InfoButton';
 import RefreshButton from '@components/refresh-button/RefreshButton';
 import { BleManagerContext } from '@contexts/ble-manager/BleManagerContext';
-import { useBleDevices } from '@hooks/ble-hooks';
+import { useBleDevicesScan } from '@hooks/ble-hooks';
 import { Button, Text } from '@rneui/themed';
 import { type Device } from '@util/ble-manager';
 import { logErr } from '@util/log';
@@ -19,7 +19,7 @@ import { useStyles } from './BleDeviceList.styles';
  * @returns The {@link BleDeviceList} component.
  */
 const BleDeviceList: React.FC<BleDeviceListProps> = ({ title = 'Detected Devices' }) => {
-  const bleDevices = useBleDevices();
+  const bleDevices = useBleDevicesScan();
   const availableBleDevices = bleDevices
     .filter(
       (d) => d.localName || d.name
