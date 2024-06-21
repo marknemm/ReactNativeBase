@@ -1,4 +1,4 @@
-import { GeneralStyles } from '@interfaces/styles';
+import type { GeneralStyles } from '@interfaces/styles';
 import { createContext } from 'react';
 
 /**
