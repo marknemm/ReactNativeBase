@@ -1,7 +1,7 @@
-import { AnimationFn } from '@interfaces/animation';
-import { Predicate, resolvePredicate } from '@util/predicate';
+import type { AnimationFn } from '@interfaces/animation';
+import { resolvePredicate, type Predicate } from '@util/predicate';
 import { useEffect } from 'react';
-import { AnimationCallback, SharedValue, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useSharedValue, withTiming, type AnimationCallback, type SharedValue } from 'react-native-reanimated';
 
 /**
  * Custom hook that animates a numeric value based on a given {@link predicate}.
@@ -23,12 +23,12 @@ export function useValueAnimation(
   config: any = null,
   callback?: AnimationCallback
 ): SharedValue<number> {
-  const height = useSharedValue(resolvePredicate(predicate) ? trueValue : falseValue);
+  const resolvedPredicate = resolvePredicate(predicate);
+  const animated = useSharedValue(resolvedPredicate ? trueValue : falseValue);
 
   useEffect(() => {
-    height.value = animationFn(resolvePredicate(predicate) ? trueValue : falseValue, config, callback);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animationFn, predicate, trueValue, falseValue]);
+    animated.value = animationFn(resolvedPredicate ? trueValue : falseValue, config, callback);
+  }, [animated, animationFn, callback, config, falseValue, resolvedPredicate, trueValue]);
 
-  return height;
+  return animated;
 }
