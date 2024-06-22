@@ -11,9 +11,10 @@ const ActualGroup: typeof Group = jest.requireActual('@util/group').default;
  * Generates a {@link GroupDoc} object that can be used as mock data.
  *
  * @param seed The seed number to use for group data generation.
+ * @param groupData Custom group data to merge with the default mock group.
  * @returns A {@link GroupDoc} object.
  */
-export const genGroupDoc = (seed = 0): GroupDoc => ({
+export const genGroupDoc = (seed = 0, groupData: Partial<GroupDoc> = {}): GroupDoc => ({
   createdAt: 1718466583000 + (seed * 10),
   createdBy: `uid-${seed}`,
   description: `Group (${seed}) for testing purposes.`,
@@ -28,6 +29,7 @@ export const genGroupDoc = (seed = 0): GroupDoc => ({
   owner: `uid-${seed}`,
   photoURL: `https://www.example.com/group${seed}.jpg`,
   visibility: 'public',
+  ...groupData,
 });
 
 /**

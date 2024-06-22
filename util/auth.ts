@@ -106,6 +106,16 @@ export async function linkWithGoogle(): Promise<FirebaseAuthTypes.User> {
 }
 
 /**
+ * Adds a listener to observe all changes to the current authenticated {@link FirebaseAuthTypes.User}.
+ *
+ * @param listener The listener callback that is called when the user changes.
+ * @returns An unsubscribe function that removes the listener.
+ */
+export function onAuthUserChanged(listener: FirebaseAuthTypes.AuthListenerCallback): () => void {
+  return auth().onUserChanged(listener);
+}
+
+/**
  * Reloads the current authenticated {@link FirebaseAuthTypes.User}.
  *
  * @returns A promise that resolves when the user is reloaded.

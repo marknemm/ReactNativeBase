@@ -1,5 +1,6 @@
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { DeepPartial, UseFormReturn } from 'react-hook-form';
+import type { Callback } from '@interfaces/callbacks';
+import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import type { DeepPartial, UseFormReturn } from 'react-hook-form';
 
 /**
  * A DB document.
@@ -413,7 +414,7 @@ export interface UseQueryOptions<TData = any, TMap = TData> {
    *
    * @param result The {@link DBQueryResult}.
    */
-  onLoadError?: (error: Error) => void;
+  onLoadError?: Callback<Error>;
 
   /**
    * A callback function to invoke after the query is loaded successfully.

@@ -1,7 +1,9 @@
-import { FormFieldProps, FormFieldPropsWithValue, SubmitState, UseHandleSubmitState, ValidateFn, ValidationRules } from '@interfaces/form';
-import { StateSetter } from '@interfaces/state';
+import type { Callback } from '@interfaces/callbacks';
+import type { FormFieldProps, FormFieldPropsWithValue, SubmitState, UseHandleSubmitState, ValidateFn, ValidationRules } from '@interfaces/form';
+import type { StateSetter } from '@interfaces/state';
 import { useCallback, useMemo, useState } from 'react';
-import { Control, FieldPath, FieldValues, Message, Path, UseFormReturn, ValidationValue, ValidationValueMessage, useForm, useFormContext, useWatch } from 'react-hook-form';
+import type { Control, FieldPath, FieldValues, Message, Path, UseFormReturn, ValidationValue, ValidationValueMessage } from 'react-hook-form';
+import { useForm, useFormContext, useWatch } from 'react-hook-form';
 
 /**
  * Custom hook to derive the form {@link Control}.
@@ -157,7 +159,7 @@ export function useSubmitState<
     setSubmitting
   );
 
-  const handleSubmit = useCallback((onValid: (formValue: TFieldValues) => any, onInvalid: (error: any) => void) =>
+  const handleSubmit = useCallback((onValid: (formValue: TFieldValues) => any, onInvalid: Callback) =>
     form?.handleSubmit(handleSubmitState(onValid), onInvalid),
   [form, handleSubmitState]);
 

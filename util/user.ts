@@ -1,10 +1,11 @@
 import SignInModal from '@components/sign-in-modal/SignInModal';
 import { AUTH_SIGN_IN_LAST_EMAIL_KEY } from '@constants/storage-keys';
+import type { Callback } from '@interfaces/callbacks';
 import type { Address, UserDoc } from '@interfaces/user';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { getAuthUser, hasSignInProvider, reloadAuthUser, updatePassword } from '@util/auth';
 import { getBackgroundColor } from '@util/colors';
-import { setDBDoc } from '@util/db';
+import { getDBDoc, listenDBDoc, setDBDoc } from '@util/db';
 import { setLSItem } from '@util/local-storage';
 import { log, logErr } from '@util/log';
 import { showModalAsync } from '@util/modal';
@@ -297,4 +298,27 @@ export default class User {
     }
   }
 
+}
+
+/**
+ * Listens to a {@link User} document in the remote database.
+ *
+ * @param id The {@link User} unique identifier.
+ * @param onSuccess The success callback function that receives an updated {@link User} object on document change.
+ * @param onError The error callback function.
+ * @returns An unsubscribe function to stop listening to the {@link User} document.
+ */
+export function listenUser(id: string, onSuccess: Callback<User | null>, onError?: Callback): () => void {
+  const onSuccessUser = (userDoc: UserDoc) => onSuccess(userDoc ? new User(userDoc) : null);
+  return listenDBDoc<UserDoc>('users', id, onSuccessUser, onError);
+}
+
+/**
+ * Loads a {@link User} from the remote database.
+ *
+ * @param id The {@link User} unique identifier.
+ * @returns A promise that resolves to the {@link User}.
+ */
+export async function loadUser(id: string): Promise<User | null> {
+  return getDBDoc('users', id, (userDoc) => (userDoc ? new User(userDoc) : null));
 }
