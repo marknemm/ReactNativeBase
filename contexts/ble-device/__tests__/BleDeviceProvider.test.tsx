@@ -2,7 +2,7 @@ import { BleDeviceContext } from '@contexts/ble-device/BleDeviceContext';
 import BleDeviceProvider, { type BleDeviceProviderProps } from '@contexts/ble-device/BleDeviceProvider';
 import AppProvider from '@test/contexts/app/AppProvider';
 import { renderHook } from '@testing-library/react-native';
-import { genDefaultDevices, genMockBleDevice, getMockBleManager } from '@util/__mocks__/ble-manager';
+import { genMockBleDevices, genMockBleDevice, getMockBleManager } from '@util/__mocks__/ble-manager';
 import { type Device } from '@util/ble-manager';
 import { useContext, type PropsWithChildren } from 'react';
 
@@ -33,7 +33,7 @@ describe('<BleDeviceProvider />', () => {
   }
 
   beforeEach(() => {
-    foundDevices = genDefaultDevices();
+    foundDevices = genMockBleDevices();
     mockBleDevice = genMockBleDevice();
   });
 

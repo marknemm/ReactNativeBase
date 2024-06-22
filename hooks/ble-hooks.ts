@@ -6,29 +6,6 @@ import { log } from '@util/log';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 /**
- * Custom hook that gets the current Bluetooth {@link State}.
- *
- * @returns The current Bluetooth {@link State}.
- */
-export function useBleState(): State {
-  const [bleState, setBleState] = useState(State.Unknown);
-  const { bleManager } = useContext(BleManagerContext);
-
-  useEffect(() => {
-    setBleState(State.Unknown);
-
-    const subscription = bleManager?.onStateChange((state) => {
-      log('Bluetooth state changed:', state);
-      setBleState(state);
-    });
-
-    return () => subscription?.remove();
-  }, [bleManager]);
-
-  return bleState;
-}
-
-/**
  * Custom hook that gets the current Bluetooth {@link Device} object from the {@link BleDeviceContext}.
  *
  * @returns The current Bluetooth {@link Device} object.
@@ -101,4 +78,27 @@ export function useBleDevicesScan(scanUntil: (devices: Device[]) => boolean = ()
   }, [bleManager, canScan]);
 
   return bleDevices;
+}
+
+/**
+ * Custom hook that gets the current Bluetooth {@link State}.
+ *
+ * @returns The current Bluetooth {@link State}.
+ */
+export function useBleState(): State {
+  const [bleState, setBleState] = useState(State.Unknown);
+  const { bleManager } = useContext(BleManagerContext);
+
+  useEffect(() => {
+    setBleState(State.Unknown);
+
+    const subscription = bleManager?.onStateChange((state) => {
+      log('Bluetooth state changed:', state);
+      setBleState(state);
+    });
+
+    return () => subscription?.remove();
+  }, [bleManager]);
+
+  return bleState;
 }

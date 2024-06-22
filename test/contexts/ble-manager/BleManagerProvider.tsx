@@ -22,7 +22,9 @@ const BleManagerProvider: React.FC<PropsWithChildren> = ({ children }) => {
       mockBleManager.destroy();
     },
   }), []);
-  (bleManagerCtx.bleManager as any).resetDevices();
+
+  // Make sure mock devices are reset so changes in one test doesn't affect another with singleton mock BleManager.
+  (bleManagerCtx.bleManager as any).resetMockDevices();
 
   return (
     <BleManagerContext.Provider value={bleManagerCtx}>
