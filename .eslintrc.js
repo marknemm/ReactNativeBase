@@ -1,41 +1,68 @@
-/* eslint-disable quote-props */
-
 module.exports = {
-  parser: '@babel/eslint-parser', // Specify the ESLint parser - babel enables latest/experimental ECMAScript features
+  parser: '@typescript-eslint/parser',  // Specify the ESLint parser for TypeScript
   parserOptions: {
-    ecmaVersion: 2021,    // Use the latest ECMAScript syntax
-    sourceType: 'module', // Allow the use of imports
+    ecmaVersion: 2021,                  // Use the latest ECMAScript syntax
+    sourceType: 'module',               // Allow the use of imports
     ecmaFeatures: {
-      jsx: true,          // Enable JSX parsing
+      jsx: true,                        // Enable JSX parsing
     },
+    project: './tsconfig.json',         // Specify the path to the TypeScript config file
   },
   env: {
-    browser: true,  // Enable browser global variables
-    es2021: true,   // Enable ES2021 global variables
-    node: true,     // Enable Node.js global variables and Node.js scoping
+    browser: true,                      // Enable browser global variables
+    es2021: true,                       // Enable ES2021 global variables
+    jest: true,                         // Enable Jest global variables
+    node: true,                         // Enable Node.js global variables and Node.js scoping
   },
   globals: {
-    'React': 'readonly',    // Define the React as a read-only global for cleaner typedef in jsdoc
-    'Types': 'readonly',    // Define the Types as a read-only global for cleaner typedef in jsdoc
-    '__DEV__': 'readonly',  // Define the __DEV__ global for conditional development code
+    'NodeJS': 'readonly',               // Define the NodeJS as a read-only global for Node.js
+    'React': 'readonly',                // Define the React as a read-only global for cleaner typedef in jsdoc
+    'ReactNavigation': 'readonly',      // Define the RootParamList as a read-only global for cleaner typedef in jsdoc
+    'Types': 'readonly',                // Define the Types as a read-only global for cleaner typedef in jsdoc
+    '__DEV__': 'readonly',              // Define the __DEV__ global for conditional development code
   },
   extends: [
-    'eslint:recommended',             // Use ESLint's recommended rules
-    'plugin:react/recommended',       // Use ESLint plugin for React's recommended rules
-    'plugin:react-hooks/recommended', // Use ESLint plugin for React hooks
-    'airbnb',                         // Use the AirBnB style guide
+    'eslint:recommended',                     // Use ESLint's recommended rules
+    'plugin:@typescript-eslint/recommended',  // Use ESLint plugin for TypeScript's recommended rules
+    'plugin:react/recommended',               // Use ESLint plugin for React's recommended rules
+    'plugin:react-hooks/recommended',         // Use ESLint plugin for React hooks
+    'airbnb',                                 // Use the AirBnB style guide
   ],
   plugins: [
-    'import',                         // Linting for ES2015+ (ES6+) import/export syntax and resolution
-    'jsdoc',                          // Linting for JSDoc comments
-    'jsx-a11y',                       // Static AST checker for accessibility rules on JSX elements
-    'no-floating-promise',            // Linting for floating promises
-    'prefer-arrow-functions',         // Linting for arrow function expressions
-    'react',                          // Linting for React
-    'react-hooks',                    // Linting for React hooks
-    'react-refresh',                  // Linting for validating React components can be updated with Fast Refresh
+    '@typescript-eslint',                     // Linting for TypeScript
+    'import',                                 // Linting for ES2015+ (ES6+) import/export syntax and resolution
+    'jsdoc',                                  // Linting for JSDoc comments
+    'jsx-a11y',                               // Static AST checker for accessibility rules on JSX elements
+    'no-floating-promise',                    // Linting for floating promises
+    'prefer-arrow-functions',                 // Linting for arrow function expressions
+    'react',                                  // Linting for React
+    'react-hooks',                            // Linting for React hooks
+    'react-refresh',                          // Linting for validating React components can be updated with Fast Refresh
+  ],
+  overrides: [
+    {
+			files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'], // Enable eslint-plugin-testing-library rules only for test files
+			extends: ['plugin:testing-library/react'],
+      rules: {}
+		},
+  ],
+  ignorePatterns: [
+    'node_modules/',                          // Ignore node_modules
+    '.eslintrc.js',                           // Ignore the ESLint config file
+    'babel.config.js',                        // Ignore the Babel config file
   ],
   rules: {                                                      // Add specific rules for your React project
+    '@typescript-eslint/no-explicit-any': 'off',                // Disable the rule that disallows explicit any types
+    '@typescript-eslint/no-unused-vars': ['warn', {             // Enable the warning about unused variables
+      args: 'none',                                             // Do not check for unused function arguments
+      caughtErrors: 'none',                                     // Do not check for unused caught errors
+      varsIgnorePattern: '^[A-Z]|^_',                           // Ignore variables (type / class imports) that start with an uppercase letter or an underscore
+    }],
+    '@typescript-eslint/no-use-before-define': ['off', {       // Enable the warning about using variables before they are defined
+      functions: false,                                         // Allow functions to be used before they are defined
+      classes: false,                                           // Allow classes to be used before they are defined
+      variables: false,                                         // Allow variables to be used before they are defined
+    }],
     'arrow-body-style': 'warn',                                 // Enable the warning about using arrow functions
     'array-bracket-spacing': ['warn', 'never'],                 // Enable the warning about array bracket spacing
     'arrow-parens': 'warn',                                     // Enable the warning about arrow function parens
@@ -52,22 +79,26 @@ module.exports = {
     'comma-spacing': 'warn',                                    // Enable the warning about comma spacing
     'comma-style': 'warn',                                      // Enable the warning about comma style
     'consistent-return': 'warn',                                // Enable the warning about consistent return statements
+    'default-param-last': 'off',                                // Disable the rule that enforces default parameters to be at the end of the parameter list
     'eol-last': 'warn',                                         // Enable the warning about end of line characters
     'eqeqeq': 'warn',                                           // Enable the warning about using strict equality
     'function-call-argument-newline': 'off',                    // Disable the rule about function call argument newlines
     'function-paren-newline': 'off',                            // Disabled the rule about function paren newlines
-    'indent': 'warn',                                           // Enable the warning about indentation
+    'indent': ['warn', 2],                                      // Enable the warning about indentation
     'implicit-arrow-linebreak': 'off',                          // Disable the rule that enforces a specific line break style for arrow functions
-    'import/extensions': 'warn',                                // Enable the warning about import extensions
+    'import/extensions': 'off',                                 // Disable the warning about import extensions
     'import/newline-after-import': 'warn',                      // Enable the warning about newlines after imports
     'import/no-duplicates': 'warn',                             // Enable the warning about duplicate imports
     'import/no-extraneous-dependencies': 'off',                 // Disable the rule that prevents extraneous dependencies and rely on checkJs instead
+    'import/no-mutable-exports': 'warn',                        // Enable the warning that prevents mutable exports
     'import/no-unresolved': 'off',                              // Disable the rule that prevents unresolved imports and rely on checkJs instead
     'import/order': 'warn',                                     // Enable the warning about import order
     'import/prefer-default-export': 'off',                      // Disable the rule that prefers default exports
     'jsdoc/check-indentation': 'warn',                          // Enable the warning about JSDoc indentation
     'jsdoc/check-syntax': 'warn',                               // Enable the warning about JSDoc syntax
-    'jsdoc/check-param-names': 'warn',                          // Enable the warning about JSDoc param names
+    'jsdoc/check-param-names': ['warn', {                       // Enable the warning about JSDoc param names
+      checkDestructured: false,                                 // Do not check destructured parameters
+    }],
     'jsdoc/no-blank-blocks': 'warn',                            // Enable the warning about blank JSDoc blocks
     'jsdoc/no-undefined-types': 'off',                          // Enable the warning about undefined JSDoc types
     'jsdoc/require-asterisk-prefix': 'warn',                    // Enable the warning about JSDoc asterisk prefixes
@@ -95,13 +126,13 @@ module.exports = {
     }],
     'jsdoc/require-param-description': 'warn',                  // Enable the warning about requiring JSDoc param descriptions,
     'jsdoc/require-param-name': 'warn',                         // Enable the warning about requiring JSDoc param names
-    'jsdoc/require-param-type': 'warn',                         // Enable the warning about requiring JSDoc param types
+    'jsdoc/require-param-type': 'off',                          // Disable the warning about requiring JSDoc param types
     'jsdoc/require-returns': ['warn', {                         // Enable the warning about requiring JSDoc return tags
       checkGetters: false,                                      // Do not check getters
     }],
     'jsdoc/require-returns-check': 'warn',                      // Enable the warning about requiring JSDoc return checks
     'jsdoc/require-returns-description': 'warn',                // Enable the warning about requiring JSDoc return descriptions
-    'jsdoc/require-returns-type': 'warn',                       // Enable the warning about requiring JSDoc return types
+    'jsdoc/require-returns-type': 'off',                        // Disable the warning about requiring JSDoc return types
     'jsdoc/require-throws': 'warn',                             // Enable the warning about requiring JSDoc throw tags
     'jsdoc/sort-tags': 'warn',                                  // Enable the warning about sorting JSDoc tags
     'jsdoc/tag-lines': ['warn', 'never', {                      // Enable the warning about JSDoc tag lines
@@ -109,6 +140,7 @@ module.exports = {
     }],
     'jsx-a11y/anchor-is-valid': 'off',                          // Disable the rule that enforces valid <a> tag usage
     'jsx-quotes': ['warn', 'prefer-double'],                    // Enable the warning about using double quotes in JSX
+    'key-spacing': 'warn',                                      // Enable the warning about key spacing
     'keyword-spacing': 'warn',                                  // Enable the warning about keyword spacing
     'lines-between-class-members': ['warn', 'always', {         // Enable the warning about lines between class members
       exceptAfterSingleLine: true,                              // Allow single-line class members to be grouped together
@@ -136,33 +168,30 @@ module.exports = {
     }],
     'no-extra-semi': 'warn',                                    // Enable the warning about extra semicolons
     'no-floating-promise/no-floating-promise': 'warn',          // Enable the warning about floating promises
+    'no-minusminus': 'off',                                     // Disable the rule that disallows unary operators
     'no-multi-spaces': 'off',                                   // Disable the rule that disallows multiple spaces
     'no-multiple-empty-lines': 'warn',                          // Enable the warning about multiple empty lines
     'no-nested-ternary': 'off',                                 // Disable the rule that disallows nested ternary expressions
     'no-param-reassign': 'off',                                 // Disable the rule that disallows reassigning function parameters
+    'no-plusplus': 'off',                                       // Disable the rule that disallows unary operators
     'no-promise-executor-return': 'warn',                       // Enable the warning about returning values from promise executors
     'no-restricted-syntax': 'off',                              // Disable the rule that disallows specific syntax
     'no-trailing-spaces': 'warn',                               // Enable the warning about trailing spaces
     'no-underscore-dangle': 'off',                              // Disable the rule that disallows dangling underscores
     'no-unneeded-ternary': 'warn',                              // Enable the warning about unneeded ternary expressions
+    'no-unreachable': 'warn',                                   // Enable the warning about unreachable code
     'no-unused-expressions': ['warn', {                         // Enable the warning about unused expressions
       allowTernary: true,                                       // Allow ternary expressions
     }],
-    'no-unused-vars': ['warn', {                                // Enable the warning about unused variables
-      args: 'after-used',                                       // Check for unused arguments after the last used argument
-      caughtErrors: 'none',                                     // Do not check for unused caught errors
-      varsIgnorePattern: '^[A-Z]|^_',                           // Ignore variables (type / class imports) that start with an uppercase letter or an underscore
-    }],
+    'no-unused-vars': 'off',                                    // Disable the rule that disallows unused variables (use TypeScript instead)
     'no-useless-constructor': 'off',                            // Enable the warning about useless constructors
     'no-useless-return': 'warn',                                // Enable the warning about useless return statements
-    'no-use-before-define': ['warn', {                          // Enable the warning about using variables before they are defined
-      functions: false,                                         // Allow functions to be used before they are defined
-      classes: false,                                           // Allow classes to be used before they are defined
-    }],
+    'no-use-before-define': 'off',                              // Disable the rule that disallows using variables before they are defined (use TypeScript instead)
     'object-curly-newline': ['warn', {                          // Enable the warning about object curly newlines
       consistent: true,                                         // Require consistent newlines in object literals
     }],
     'object-curly-spacing': ['warn', 'always'],                 // Enable the warning about object curly spacing
+    'object-property-newline': 'warn',                          // Enable the warning about object property newlines
     'object-shorthand': 'warn',                                 // Enable the warning about object shorthand
     'one-var': ['warn', {                                       // Enable the warning about variable declarations
       initialized: 'never',                                     // Do not require variables to be initialized
@@ -189,14 +218,22 @@ module.exports = {
     'prefer-template': 'warn',                                  // Enable the warning about using template literals
     'quotes': ['warn', 'single'],                               // Enable the warning about using single quotes
     'radix': 'warn',                                            // Enable the warning about using radix
-    'react-hooks/exhaustive-deps': 'warn',                      // Enable the warning about exhaustive dependencies
+    'react-hooks/exhaustive-deps': ['warn', {                   // Enable the warning about exhaustive dependencies
+      additionalHooks: 'useThemedStyles',                       // Include additional custom hooks to check for dependencies
+    }],
     'react/destructuring-assignment': 'warn',                   // Enable the warning about using destructuring assignment
-    'react/forbid-prop-types': 'off',                           // Disable the rule that forbids specific prop types
+    'react/function-component-definition': ['warn', {           // Enable the warning about function component definitions
+      namedComponents: 'arrow-function',                        // Require function components to be arrow functions
+      unnamedComponents: 'arrow-function',                      // Require function components to be arrow functions
+    }],
     'react/jsx-boolean-value': 'warn',                          // Enable the warning about boolean values in JSX
     'react/jsx-closing-bracket-location': 'warn',               // Enable the warning about the location of closing brackets in JSX
     'react/jsx-closing-tag-location': 'warn',                   // Enable the warning about the location of closing tags in JSX
     'react/jsx-curly-newline': 'warn',                          // Enable the warning about curly newlines in JSX
     'react/jsx-curly-spacing': 'warn',                          // Enable the warning about curly spacing in JSX
+    'react/jsx-filename-extension': ['warn', {                  // Enable the warning about JSX filename extensions
+      extensions: ['.jsx', '.tsx'],                             // Specify the extensions to check for
+    }],
     'react/jsx-first-prop-new-line': 'warn',                    // Enable the warning about the first prop new line in JSX
     'react/jsx-indent': 'warn',                                 // Enable the warning about indentation in JSX
     'react/jsx-indent-props': 'warn',                           // Enable the warning about prop indentation in JSX
@@ -210,16 +247,7 @@ module.exports = {
     'react/no-unstable-nested-components': ['warn', {           // Enable the warning about using unstable nested components
       allowAsProps: true,                                       // Allow using unstable nested components as props
     }],
-    'react/prop-types': ['warn', {                              // Enable the warning about using prop types
-      ignore: [                                                 // Ignore the following props
-        'children',
-        'className',
-        'forwardRef',
-        'navigation',
-        'routes',
-        'style',
-      ],
-    }],
+    'react/prop-types': 'off',                                  // Disable the rule that requires prop types
     'react/react-in-jsx-scope': 'off',                          // Disable the requirement to import React when using JSX
     'react/require-default-props': 'off',                       // Disable the rule that requires default props
     'react/self-closing-comp': 'warn',                          // Enable the warning about self-closing components
