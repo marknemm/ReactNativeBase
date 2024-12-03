@@ -1,0 +1,772 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExpansionPanel /> snapshots renders correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  replaceTheme={[Function]}
+  updateTheme={[Function]}
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "borderColor": "#bcbbc1",
+        "flexDirection": "row",
+        "padding": 14,
+      }
+    }
+    testID="RNE__LISTITEM__padView"
+  >
+    <View
+      replaceTheme={[Function]}
+      style={
+        [
+          {
+            "alignItems": "flex-start",
+            "flex": 1,
+            "justifyContent": "center",
+          },
+          undefined,
+        ]
+      }
+      theme={
+        {
+          "colors": {
+            "background": "#ffffff",
+            "black": "#242424",
+            "disabled": "hsl(208, 8%, 90%)",
+            "divider": "#bcbbc1",
+            "error": "#ff3b30",
+            "grey": "#7d7d7d",
+            "grey0": "#393e42",
+            "grey1": "#43484d",
+            "grey2": "#5e6977",
+            "grey3": "#86939e",
+            "grey4": "#bdc6cf",
+            "grey5": "#e1e8ee",
+            "greyOutline": "#bbb",
+            "placeholder": "#86939e",
+            "platform": {
+              "android": {
+                "error": "#f44336",
+                "grey": "rgba(0, 0, 0, 0.54)",
+                "primary": "#2196f3",
+                "searchBg": "#dcdce1",
+                "secondary": "#9C27B0",
+                "success": "#4caf50",
+                "warning": "#ffeb3b",
+              },
+              "default": {
+                "error": "#ff3b30",
+                "grey": "#7d7d7d",
+                "primary": "#007aff",
+                "searchBg": "#dcdce1",
+                "secondary": "#5856d6",
+                "success": "#4cd964",
+                "warning": "#ffcc00",
+              },
+              "ios": {
+                "error": "#ff3b30",
+                "grey": "#7d7d7d",
+                "primary": "#007aff",
+                "searchBg": "#dcdce1",
+                "secondary": "#5856d6",
+                "success": "#4cd964",
+                "warning": "#ffcc00",
+              },
+              "web": {
+                "error": "#ff190c",
+                "grey": "#393e42",
+                "primary": "#2089dc",
+                "searchBg": "#303337",
+                "secondary": "#ca71eb",
+                "success": "#52c41a",
+                "warning": "#faad14",
+              },
+            },
+            "primary": "#007aff",
+            "searchBg": "#dcdce1",
+            "secondary": "#5856d6",
+            "success": "#4cd964",
+            "warning": "#ffcc00",
+            "white": "#ffffff",
+          },
+          "font": {
+            "size": {
+              "large": 28.285714285714285,
+              "larger": 31.428571428571427,
+              "normal": 23.57142857142857,
+              "small": 18.857142857142858,
+            },
+            "weight": {
+              "bold": "bold",
+              "bolder": "700",
+              "boldest": "900",
+              "light": "300",
+              "lighter": "200",
+              "lightest": "100",
+              "normal": "normal",
+            },
+          },
+          "mode": "light",
+          "spacing": {
+            "lg": 18.857142857142858,
+            "md": 12.571428571428571,
+            "screenHorizontal": 18.857142857142858,
+            "screenVertical": 37.714285714285715,
+            "sm": 6.285714285714286,
+            "xl": 37.714285714285715,
+            "xs": 3.142857142857143,
+          },
+        }
+      }
+      updateTheme={[Function]}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "backgroundColor": "transparent",
+            "color": "#242424",
+            "fontSize": 17,
+          }
+        }
+        testID="listItemTitle"
+      >
+        Test Expansion Panel
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "paddingLeft": 16,
+        }
+      }
+    />
+    <View
+      collapsable={false}
+      style={
+        {
+          "transform": [
+            {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+      testID="RNE__ListItem__Accordion__Icon"
+    >
+      <View
+        style={
+          {
+            "overflow": "hidden",
+          }
+        }
+        testID="RNE__ICON__CONTAINER"
+      >
+        <View
+          accessibilityRole="button"
+          android_ripple={
+            {
+              "borderless": false,
+              "color": "rgba(0, 0, 0, 0.3)",
+              "radius": -5,
+            }
+          }
+          disabled={false}
+          testID="RNE__ICON__CONTAINER_ACTION"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "justifyContent": "center",
+              }
+            }
+            testID="RNE__ICON"
+          >
+            <Text
+              allowFontScaling={false}
+              selectable={false}
+              style={
+                [
+                  {
+                    "color": "#242424",
+                    "fontSize": 24,
+                  },
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  {},
+                ]
+              }
+              testID="RNE__ICON__Component"
+            >
+              󰅀
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<ExpansionPanel /> snapshots renders correctly with children 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  replaceTheme={[Function]}
+  updateTheme={[Function]}
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "borderColor": "#bcbbc1",
+        "flexDirection": "row",
+        "padding": 14,
+      }
+    }
+    testID="RNE__LISTITEM__padView"
+  >
+    <View
+      replaceTheme={[Function]}
+      style={
+        [
+          {
+            "alignItems": "flex-start",
+            "flex": 1,
+            "justifyContent": "center",
+          },
+          undefined,
+        ]
+      }
+      theme={
+        {
+          "colors": {
+            "background": "#ffffff",
+            "black": "#242424",
+            "disabled": "hsl(208, 8%, 90%)",
+            "divider": "#bcbbc1",
+            "error": "#ff3b30",
+            "grey": "#7d7d7d",
+            "grey0": "#393e42",
+            "grey1": "#43484d",
+            "grey2": "#5e6977",
+            "grey3": "#86939e",
+            "grey4": "#bdc6cf",
+            "grey5": "#e1e8ee",
+            "greyOutline": "#bbb",
+            "placeholder": "#86939e",
+            "platform": {
+              "android": {
+                "error": "#f44336",
+                "grey": "rgba(0, 0, 0, 0.54)",
+                "primary": "#2196f3",
+                "searchBg": "#dcdce1",
+                "secondary": "#9C27B0",
+                "success": "#4caf50",
+                "warning": "#ffeb3b",
+              },
+              "default": {
+                "error": "#ff3b30",
+                "grey": "#7d7d7d",
+                "primary": "#007aff",
+                "searchBg": "#dcdce1",
+                "secondary": "#5856d6",
+                "success": "#4cd964",
+                "warning": "#ffcc00",
+              },
+              "ios": {
+                "error": "#ff3b30",
+                "grey": "#7d7d7d",
+                "primary": "#007aff",
+                "searchBg": "#dcdce1",
+                "secondary": "#5856d6",
+                "success": "#4cd964",
+                "warning": "#ffcc00",
+              },
+              "web": {
+                "error": "#ff190c",
+                "grey": "#393e42",
+                "primary": "#2089dc",
+                "searchBg": "#303337",
+                "secondary": "#ca71eb",
+                "success": "#52c41a",
+                "warning": "#faad14",
+              },
+            },
+            "primary": "#007aff",
+            "searchBg": "#dcdce1",
+            "secondary": "#5856d6",
+            "success": "#4cd964",
+            "warning": "#ffcc00",
+            "white": "#ffffff",
+          },
+          "font": {
+            "size": {
+              "large": 28.285714285714285,
+              "larger": 31.428571428571427,
+              "normal": 23.57142857142857,
+              "small": 18.857142857142858,
+            },
+            "weight": {
+              "bold": "bold",
+              "bolder": "700",
+              "boldest": "900",
+              "light": "300",
+              "lighter": "200",
+              "lightest": "100",
+              "normal": "normal",
+            },
+          },
+          "mode": "light",
+          "spacing": {
+            "lg": 18.857142857142858,
+            "md": 12.571428571428571,
+            "screenHorizontal": 18.857142857142858,
+            "screenVertical": 37.714285714285715,
+            "sm": 6.285714285714286,
+            "xl": 37.714285714285715,
+            "xs": 3.142857142857143,
+          },
+        }
+      }
+      updateTheme={[Function]}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "backgroundColor": "transparent",
+            "color": "#242424",
+            "fontSize": 17,
+          }
+        }
+        testID="listItemTitle"
+      >
+        Test Expansion Panel
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "paddingLeft": 16,
+        }
+      }
+    />
+    <View
+      collapsable={false}
+      style={
+        {
+          "transform": [
+            {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+      testID="RNE__ListItem__Accordion__Icon"
+    >
+      <View
+        style={
+          {
+            "overflow": "hidden",
+          }
+        }
+        testID="RNE__ICON__CONTAINER"
+      >
+        <View
+          accessibilityRole="button"
+          android_ripple={
+            {
+              "borderless": false,
+              "color": "rgba(0, 0, 0, 0.3)",
+              "radius": -5,
+            }
+          }
+          disabled={false}
+          testID="RNE__ICON__CONTAINER_ACTION"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "justifyContent": "center",
+              }
+            }
+            testID="RNE__ICON"
+          >
+            <Text
+              allowFontScaling={false}
+              selectable={false}
+              style={
+                [
+                  {
+                    "color": "#242424",
+                    "fontSize": 24,
+                  },
+                  {
+                    "backgroundColor": "transparent",
+                  },
+                  {
+                    "fontFamily": "material-community",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  {},
+                ]
+              }
+              testID="RNE__ICON__Component"
+            >
+              󰅀
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<ExpansionPanel /> snapshots renders correctly with children and expanded 1`] = `
+[
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    replaceTheme={[Function]}
+    updateTheme={[Function]}
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#ffffff",
+          "borderColor": "#bcbbc1",
+          "flexDirection": "row",
+          "padding": 14,
+        }
+      }
+      testID="RNE__LISTITEM__padView"
+    >
+      <View
+        replaceTheme={[Function]}
+        style={
+          [
+            {
+              "alignItems": "flex-start",
+              "flex": 1,
+              "justifyContent": "center",
+            },
+            undefined,
+          ]
+        }
+        theme={
+          {
+            "colors": {
+              "background": "#ffffff",
+              "black": "#242424",
+              "disabled": "hsl(208, 8%, 90%)",
+              "divider": "#bcbbc1",
+              "error": "#ff3b30",
+              "grey": "#7d7d7d",
+              "grey0": "#393e42",
+              "grey1": "#43484d",
+              "grey2": "#5e6977",
+              "grey3": "#86939e",
+              "grey4": "#bdc6cf",
+              "grey5": "#e1e8ee",
+              "greyOutline": "#bbb",
+              "placeholder": "#86939e",
+              "platform": {
+                "android": {
+                  "error": "#f44336",
+                  "grey": "rgba(0, 0, 0, 0.54)",
+                  "primary": "#2196f3",
+                  "searchBg": "#dcdce1",
+                  "secondary": "#9C27B0",
+                  "success": "#4caf50",
+                  "warning": "#ffeb3b",
+                },
+                "default": {
+                  "error": "#ff3b30",
+                  "grey": "#7d7d7d",
+                  "primary": "#007aff",
+                  "searchBg": "#dcdce1",
+                  "secondary": "#5856d6",
+                  "success": "#4cd964",
+                  "warning": "#ffcc00",
+                },
+                "ios": {
+                  "error": "#ff3b30",
+                  "grey": "#7d7d7d",
+                  "primary": "#007aff",
+                  "searchBg": "#dcdce1",
+                  "secondary": "#5856d6",
+                  "success": "#4cd964",
+                  "warning": "#ffcc00",
+                },
+                "web": {
+                  "error": "#ff190c",
+                  "grey": "#393e42",
+                  "primary": "#2089dc",
+                  "searchBg": "#303337",
+                  "secondary": "#ca71eb",
+                  "success": "#52c41a",
+                  "warning": "#faad14",
+                },
+              },
+              "primary": "#007aff",
+              "searchBg": "#dcdce1",
+              "secondary": "#5856d6",
+              "success": "#4cd964",
+              "warning": "#ffcc00",
+              "white": "#ffffff",
+            },
+            "font": {
+              "size": {
+                "large": 28.285714285714285,
+                "larger": 31.428571428571427,
+                "normal": 23.57142857142857,
+                "small": 18.857142857142858,
+              },
+              "weight": {
+                "bold": "bold",
+                "bolder": "700",
+                "boldest": "900",
+                "light": "300",
+                "lighter": "200",
+                "lightest": "100",
+                "normal": "normal",
+              },
+            },
+            "mode": "light",
+            "spacing": {
+              "lg": 18.857142857142858,
+              "md": 12.571428571428571,
+              "screenHorizontal": 18.857142857142858,
+              "screenVertical": 37.714285714285715,
+              "sm": 6.285714285714286,
+              "xl": 37.714285714285715,
+              "xs": 3.142857142857143,
+            },
+          }
+        }
+        updateTheme={[Function]}
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "backgroundColor": "transparent",
+              "color": "#242424",
+              "fontSize": 17,
+            }
+          }
+          testID="listItemTitle"
+        >
+          Test Expansion Panel
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "paddingLeft": 16,
+          }
+        }
+      />
+      <View
+        collapsable={false}
+        style={
+          {
+            "transform": [
+              {
+                "rotate": "0deg",
+              },
+            ],
+          }
+        }
+        testID="RNE__ListItem__Accordion__Icon"
+      >
+        <View
+          style={
+            {
+              "overflow": "hidden",
+            }
+          }
+          testID="RNE__ICON__CONTAINER"
+        >
+          <View
+            accessibilityRole="button"
+            android_ripple={
+              {
+                "borderless": false,
+                "color": "rgba(0, 0, 0, 0.3)",
+                "radius": -5,
+              }
+            }
+            disabled={false}
+            testID="RNE__ICON__CONTAINER_ACTION"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "justifyContent": "center",
+                }
+              }
+              testID="RNE__ICON"
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "#242424",
+                      "fontSize": 24,
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "fontFamily": "material-community",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+                testID="RNE__ICON__Component"
+              >
+                󰅀
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>,
+  <View
+    collapsable={false}
+    style={
+      {
+        "opacity": 0,
+      }
+    }
+    testID="RNE__ListItem__Accordion__Children"
+  >
+    <Text
+      accessibilityRole="text"
+      style={
+        {
+          "color": "#242424",
+          "fontFamily": undefined,
+          "fontSize": 23.57142857142857,
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+          "marginBottom": 0,
+          "textAlign": "left",
+          "textDecorationLine": "none",
+          "textDecorationStyle": "solid",
+        }
+      }
+    >
+      Test children
+    </Text>
+  </View>,
+]
+`;

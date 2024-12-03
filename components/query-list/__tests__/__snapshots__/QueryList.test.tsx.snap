@@ -1,0 +1,502 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<QueryList /> snapshots renders correctly 1`] = `
+<RCTScrollView
+  data={
+    [
+      {
+        "description": "Test description 0",
+        "id": 0,
+        "name": "Test Item 0",
+        "public": true,
+      },
+      {
+        "description": "Test description 1",
+        "id": 1,
+        "name": "Test Item 1",
+        "public": false,
+      },
+      {
+        "description": "Test description 2",
+        "id": 2,
+        "name": "Test Item 2",
+        "public": true,
+      },
+      {
+        "description": "Test description 3",
+        "id": 3,
+        "name": "Test Item 3",
+        "public": false,
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  keyExtractor={[Function]}
+  onContentSizeChange={[Function]}
+  onEndReached={[MockFunction]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onRefresh={[MockFunction]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[MockFunction]}
+      refreshing={false}
+    />
+  }
+  refreshing={false}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={0.0001}
+  stickyHeaderIndices={[]}
+  viewabilityConfigCallbackPairs={[]}
+>
+  <RCTRefreshControl />
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "color": "#242424",
+            "fontFamily": undefined,
+            "fontSize": 23.57142857142857,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+            "marginBottom": 0,
+            "textAlign": "left",
+            "textDecorationLine": "none",
+            "textDecorationStyle": "solid",
+          }
+        }
+      >
+        Test Item 0
+      </Text>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "color": "#242424",
+            "fontFamily": undefined,
+            "fontSize": 23.57142857142857,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+            "marginBottom": 0,
+            "textAlign": "left",
+            "textDecorationLine": "none",
+            "textDecorationStyle": "solid",
+          }
+        }
+      >
+        Test Item 1
+      </Text>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "color": "#242424",
+            "fontFamily": undefined,
+            "fontSize": 23.57142857142857,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+            "marginBottom": 0,
+            "textAlign": "left",
+            "textDecorationLine": "none",
+            "textDecorationStyle": "solid",
+          }
+        }
+      >
+        Test Item 2
+      </Text>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      onLayout={[Function]}
+      style={null}
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "color": "#242424",
+            "fontFamily": undefined,
+            "fontSize": 23.57142857142857,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+            "marginBottom": 0,
+            "textAlign": "left",
+            "textDecorationLine": "none",
+            "textDecorationStyle": "solid",
+          }
+        }
+      >
+        Test Item 3
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`<QueryList /> snapshots renders correctly on initial loading 1`] = `
+[
+  <ActivityIndicator
+    size="large"
+    testID="rnb-query-list-loading-initial"
+  />,
+  <RCTScrollView
+    data={[]}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onEndReached={[MockFunction]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onRefresh={[MockFunction]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+    refreshing={false}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={0.0001}
+    stickyHeaderIndices={[]}
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <RCTRefreshControl />
+    <View />
+  </RCTScrollView>,
+]
+`;
+
+exports[`<QueryList /> snapshots renders correctly with search bar 1`] = `
+[
+  <View
+    style={
+      {
+        "marginBottom": 6.285714285714286,
+        "paddingHorizontal": 0,
+        "width": "100%",
+      }
+    }
+    testID="RNE__Input__view-wrapper"
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "alignItems": "center",
+          "borderBottomColor": "#bbb",
+          "borderBottomWidth": 1,
+          "borderColor": "#86939e",
+          "flexDirection": "row",
+          "height": 98.9730612244898,
+          "transform": [
+            {
+              "translateX": 0,
+            },
+          ],
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "height": 40,
+            "justifyContent": "center",
+            "marginVertical": 4,
+            "paddingRight": 4,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "overflow": "hidden",
+            }
+          }
+          testID="RNE__ICON__CONTAINER"
+        >
+          <View
+            accessibilityRole="button"
+            android_ripple={
+              {
+                "borderless": false,
+                "color": "rgba(0, 0, 0, 0.3)",
+                "radius": -5,
+              }
+            }
+            disabled={false}
+            testID="RNE__ICON__CONTAINER_ACTION"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "justifyContent": "center",
+                }
+              }
+              testID="RNE__ICON"
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "#86939e",
+                      "fontSize": 18,
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "fontFamily": "material",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+                testID="RNE__ICON__Component"
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <TextInput
+        accessibilityRole="search"
+        editable={true}
+        keyboardAppearance="light"
+        onChangeText={[Function]}
+        placeholder="Search Test Collection..."
+        placeholderTextColor="#86939e"
+        style={
+          {
+            "color": "#242424",
+            "flex": 1,
+            "fontSize": 23.57142857142857,
+            "height": 98.9730612244898,
+            "minHeight": 40,
+          }
+        }
+        testID="RNE__Input__text-input"
+        underlineColorAndroid="transparent"
+      />
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "height": 40,
+            "justifyContent": "center",
+            "marginVertical": 4,
+            "paddingRight": 4,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+        />
+      </View>
+    </View>
+    <Text
+      style={
+        {
+          "color": "#ff3b30",
+          "fontSize": 12,
+          "margin": 5,
+        }
+      }
+    />
+  </View>,
+  <RCTScrollView
+    data={
+      [
+        {
+          "description": "Test description 0",
+          "id": 0,
+          "name": "Test Item 0",
+          "public": true,
+        },
+        {
+          "description": "Test description 1",
+          "id": 1,
+          "name": "Test Item 1",
+          "public": false,
+        },
+        {
+          "description": "Test description 2",
+          "id": 2,
+          "name": "Test Item 2",
+          "public": true,
+        },
+        {
+          "description": "Test description 3",
+          "id": 3,
+          "name": "Test Item 3",
+          "public": false,
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onEndReached={[MockFunction]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onRefresh={[MockFunction]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+    refreshing={false}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={0.0001}
+    stickyHeaderIndices={[]}
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Test Item 0
+        </Text>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Test Item 1
+        </Text>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Test Item 2
+        </Text>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            {
+              "color": "#242424",
+              "fontFamily": undefined,
+              "fontSize": 23.57142857142857,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+              "marginBottom": 0,
+              "textAlign": "left",
+              "textDecorationLine": "none",
+              "textDecorationStyle": "solid",
+            }
+          }
+        >
+          Test Item 3
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>,
+]
+`;

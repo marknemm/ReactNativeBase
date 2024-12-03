@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ScreenView /> snapshots renders correctly 1`] = `
+<RCTScrollView
+  style={
+    {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+  testID="rnb-screen-scroll-container-view"
+>
+  <View>
+    <View
+      style={
+        {
+          "flex": 1,
+          "marginHorizontal": "auto",
+          "maxWidth": 1200,
+          "paddingBottom": 37.714285714285715,
+          "paddingLeft": 18.857142857142858,
+          "paddingRight": 18.857142857142858,
+          "paddingTop": 37.714285714285715,
+          "width": "100%",
+        }
+      }
+      testID="rnb-screen-view"
+    />
+  </View>
+</RCTScrollView>
+`;
+
+exports[`<ScreenView /> snapshots renders correctly with children, form, and no scroll 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+  testID="rnb-screen-container-view"
+>
+  <View
+    style={
+      {
+        "flex": 1,
+        "marginHorizontal": "auto",
+        "maxWidth": 1200,
+        "paddingBottom": 37.714285714285715,
+        "paddingLeft": 18.857142857142858,
+        "paddingRight": 18.857142857142858,
+        "paddingTop": 37.714285714285715,
+        "width": "100%",
+      }
+    }
+    testID="rnb-screen-form-view"
+  >
+    <Text
+      accessibilityRole="text"
+      style={
+        {
+          "color": "#242424",
+          "fontFamily": undefined,
+          "fontSize": 23.57142857142857,
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+          "marginBottom": 0,
+          "textAlign": "left",
+          "textDecorationLine": "none",
+          "textDecorationStyle": "solid",
+        }
+      }
+    >
+      Test
+    </Text>
+  </View>
+</View>
+`;

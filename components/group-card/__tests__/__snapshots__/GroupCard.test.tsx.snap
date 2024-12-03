@@ -1,0 +1,351 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupCard /> snapshots renders correctly when given a group 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      {
+        "borderRadius": 3.142857142857143,
+      },
+      undefined,
+      false,
+    ]
+  }
+  testID="RNE_BUTTON_WRAPPER"
+>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": false,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderColor": "#007aff",
+          "borderRadius": 3.142857142857143,
+          "borderWidth": 0,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "padding": 18.857142857142858,
+          "paddingHorizontal": 20.857142857142858,
+        }
+      }
+    >
+      <View
+        replaceTheme={[Function]}
+        style={
+          {
+            "backgroundColor": "#ffffff",
+            "borderColor": "#e1e8ee",
+            "borderWidth": 1,
+            "margin": 15,
+            "marginBottom": 0,
+            "padding": 15,
+            "shadowColor": "rgba(0,0,0, .2)",
+            "shadowOffset": {
+              "height": 0,
+              "width": 0,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 1,
+            "width": "100%",
+          }
+        }
+        updateTheme={[Function]}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "flexDirection": "row",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          <View
+            backgroundColor="#f44336"
+            replaceTheme={[Function]}
+            style={
+              {
+                "backgroundColor": "#f44336",
+                "borderRadius": 25,
+                "height": 50,
+                "width": 50,
+              }
+            }
+            theme={
+              {
+                "colors": {
+                  "background": "#ffffff",
+                  "black": "#242424",
+                  "disabled": "hsl(208, 8%, 90%)",
+                  "divider": "#bcbbc1",
+                  "error": "#ff3b30",
+                  "grey": "#7d7d7d",
+                  "grey0": "#393e42",
+                  "grey1": "#43484d",
+                  "grey2": "#5e6977",
+                  "grey3": "#86939e",
+                  "grey4": "#bdc6cf",
+                  "grey5": "#e1e8ee",
+                  "greyOutline": "#bbb",
+                  "placeholder": "#86939e",
+                  "platform": {
+                    "android": {
+                      "error": "#f44336",
+                      "grey": "rgba(0, 0, 0, 0.54)",
+                      "primary": "#2196f3",
+                      "searchBg": "#dcdce1",
+                      "secondary": "#9C27B0",
+                      "success": "#4caf50",
+                      "warning": "#ffeb3b",
+                    },
+                    "default": {
+                      "error": "#ff3b30",
+                      "grey": "#7d7d7d",
+                      "primary": "#007aff",
+                      "searchBg": "#dcdce1",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                    "ios": {
+                      "error": "#ff3b30",
+                      "grey": "#7d7d7d",
+                      "primary": "#007aff",
+                      "searchBg": "#dcdce1",
+                      "secondary": "#5856d6",
+                      "success": "#4cd964",
+                      "warning": "#ffcc00",
+                    },
+                    "web": {
+                      "error": "#ff190c",
+                      "grey": "#393e42",
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#ca71eb",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  },
+                  "primary": "#007aff",
+                  "searchBg": "#dcdce1",
+                  "secondary": "#5856d6",
+                  "success": "#4cd964",
+                  "warning": "#ffcc00",
+                  "white": "#ffffff",
+                },
+                "font": {
+                  "size": {
+                    "large": 28.285714285714285,
+                    "larger": 31.428571428571427,
+                    "normal": 23.57142857142857,
+                    "small": 18.857142857142858,
+                  },
+                  "weight": {
+                    "bold": "bold",
+                    "bolder": "700",
+                    "boldest": "900",
+                    "light": "300",
+                    "lighter": "200",
+                    "lightest": "100",
+                    "normal": "normal",
+                  },
+                },
+                "mode": "light",
+                "spacing": {
+                  "lg": 18.857142857142858,
+                  "md": 12.571428571428571,
+                  "screenHorizontal": 18.857142857142858,
+                  "screenVertical": 37.714285714285715,
+                  "sm": 6.285714285714286,
+                  "xl": 37.714285714285715,
+                  "xs": 3.142857142857143,
+                },
+              }
+            }
+            updateTheme={[Function]}
+            value="https://www.example.com/group0.jpg"
+          >
+            <View
+              accessibilityIgnoresInvertColors={true}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderRadius": 25,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <Image
+                borderRadius={25}
+                onLoad={[Function]}
+                source={
+                  {
+                    "uri": "https://www.example.com/group0.jpg",
+                  }
+                }
+                style={
+                  {
+                    "bottom": 0,
+                    "flex": 1,
+                    "height": undefined,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": undefined,
+                  }
+                }
+                testID="RNE__Avatar__Image"
+                transitionDuration={360}
+              />
+              <View
+                accessibilityElementsHidden={true}
+                collapsable={false}
+                importantForAccessibility="no-hide-descendants"
+                pointerEvents="none"
+                style={
+                  {
+                    "bottom": 0,
+                    "left": 0,
+                    "opacity": 1,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#bdbdbd",
+                      "flex": 1,
+                      "height": undefined,
+                      "justifyContent": "center",
+                      "width": undefined,
+                    }
+                  }
+                  testID="RNE__Image__placeholder"
+                >
+                  <Text
+                    style={
+                      {
+                        "backgroundColor": "transparent",
+                        "color": "white",
+                        "fontSize": 25,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    TG(
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  {
+                    "flex": 1,
+                    "height": undefined,
+                    "width": undefined,
+                  }
+                }
+                testID="RNE__Image__children__container"
+              />
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "alignContent": "center",
+                "justifyContent": "center",
+                "paddingLeft": 10,
+              }
+            }
+          >
+            <Text
+              accessibilityRole="text"
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                {
+                  "color": "#43484d",
+                  "fontSize": 22,
+                  "fontWeight": "bold",
+                  "marginBottom": 5,
+                  "textAlign": "left",
+                }
+              }
+              testID="cardTitle"
+            >
+              Test Group (0)
+            </Text>
+            <Text
+              accessibilityRole="text"
+              ellipsizeMode="tail"
+              numberOfLines={1}
+              style={
+                {
+                  "color": "gray",
+                  "fontFamily": undefined,
+                  "fontSize": 23.57142857142857,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                  "marginBottom": 0,
+                  "textAlign": "left",
+                  "textDecorationLine": "none",
+                  "textDecorationStyle": "solid",
+                }
+              }
+            >
+              Group (0) for testing purposes.
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<GroupCard /> snapshots renders correctly when not given a group 1`] = `null`;

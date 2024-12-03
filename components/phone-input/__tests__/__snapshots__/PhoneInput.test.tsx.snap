@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PhoneInput /> snapshots renders correctly 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 6.285714285714286,
+      "paddingHorizontal": 0,
+      "width": "100%",
+    }
+  }
+  testID="RNE__Input__view-wrapper"
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#bbb",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "height": 98.9730612244898,
+        "transform": [
+          {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <TextInput
+      autoCapitalize="none"
+      autoComplete="tel"
+      autoCorrect={false}
+      editable={true}
+      keyboardAppearance="light"
+      keyboardType="phone-pad"
+      onChangeText={[Function]}
+      pattern={
+        {
+          "message": "Invalid phone number",
+          "value": /\\^\\\\\\+\\?1\\?\\[-\\.\\\\s\\]\\?\\\\\\(\\?\\(\\\\d\\{3\\}\\)\\\\\\)\\?\\[-\\.\\\\s\\]\\?\\(\\\\d\\{3\\}\\)\\[-\\.\\\\s\\]\\?\\(\\\\d\\{4\\}\\)\\$/,
+        }
+      }
+      placeholder="(___) ___-____"
+      placeholderTextColor="#86939e"
+      style={
+        {
+          "color": "#242424",
+          "flex": 1,
+          "fontSize": 23.57142857142857,
+          "height": 98.9730612244898,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      textContentType="telephoneNumber"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <Text
+    style={
+      {
+        "color": "#ff3b30",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  />
+</View>
+`;

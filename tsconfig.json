@@ -1,0 +1,68 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true,
+    "module": "CommonJS",
+    "paths": {
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ],
+      "@contexts/*": [
+        "./contexts/*"
+      ],
+      "@env": [
+        "./util/env"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@interfaces/*": [
+        "./interfaces/*"
+      ],
+      "@mocks/*": [
+        "./test/mocks/*"
+      ],
+      "@navigation/*": [
+        "./navigation/*"
+      ],
+      "@screens/*": [
+        "./screens/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ],
+      "@util/*": [
+        "./util/*"
+      ]
+    },
+    "strict": true,
+    "strictNullChecks": false,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  },
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "functions/lib",
+  ]
+}

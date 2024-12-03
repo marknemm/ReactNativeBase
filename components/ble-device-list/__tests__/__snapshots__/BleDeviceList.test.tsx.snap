@@ -1,0 +1,1440 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BleDeviceList /> snapshots renders correctly 1`] = `
+<View>
+  <RCTScrollView
+    ListEmptyComponent={
+      <ForwardRef(Themed.Text)>
+        No devices found
+      </ForwardRef(Themed.Text)>
+    }
+    ListHeaderComponent={
+      <BleDeviceListHeader
+        title="Detected Devices"
+      />
+    }
+    data={
+      [
+        Device {
+          "_manager": null,
+          "cancelConnection": [MockFunction],
+          "characteristicsForService": [MockFunction],
+          "connect": [MockFunction],
+          "descriptorsForService": [MockFunction],
+          "discoverAllServicesAndCharacteristics": [MockFunction],
+          "id": "device-2",
+          "isConnected": [MockFunction] {
+            "calls": [
+              [],
+            ],
+            "results": [
+              {
+                "type": "return",
+                "value": Promise {},
+              },
+            ],
+          },
+          "monitorCharacteristicForService": [MockFunction],
+          "name": "Device 2",
+          "onDisconnected": [MockFunction],
+          "readCharacteristicForService": [MockFunction],
+          "readDescriptorForService": [MockFunction],
+          "readRSSI": [MockFunction],
+          "requestConnectionPriority": [MockFunction],
+          "requestMTU": [MockFunction],
+          "services": [MockFunction],
+          "writeCharacteristicWithResponseForService": [MockFunction],
+          "writeCharacteristicWithoutResponseForService": [MockFunction],
+          "writeDescriptorForService": [MockFunction],
+        },
+        Device {
+          "_manager": null,
+          "cancelConnection": [MockFunction],
+          "characteristicsForService": [MockFunction],
+          "connect": [MockFunction],
+          "connected": true,
+          "descriptorsForService": [MockFunction],
+          "discoverAllServicesAndCharacteristics": [MockFunction],
+          "id": "device-3",
+          "isConnected": [MockFunction] {
+            "calls": [
+              [],
+            ],
+            "results": [
+              {
+                "type": "return",
+                "value": Promise {},
+              },
+            ],
+          },
+          "monitorCharacteristicForService": [MockFunction],
+          "name": "Device 3",
+          "onDisconnected": [MockFunction],
+          "readCharacteristicForService": [MockFunction],
+          "readDescriptorForService": [MockFunction],
+          "readRSSI": [MockFunction],
+          "requestConnectionPriority": [MockFunction],
+          "requestMTU": [MockFunction],
+          "services": [MockFunction],
+          "writeCharacteristicWithResponseForService": [MockFunction],
+          "writeCharacteristicWithoutResponseForService": [MockFunction],
+          "writeDescriptorForService": [MockFunction],
+        },
+        Device {
+          "_manager": null,
+          "cancelConnection": [MockFunction],
+          "characteristicsForService": [MockFunction],
+          "connect": [MockFunction],
+          "descriptorsForService": [MockFunction],
+          "discoverAllServicesAndCharacteristics": [MockFunction],
+          "id": "device-0",
+          "isConnected": [MockFunction] {
+            "calls": [
+              [],
+            ],
+            "results": [
+              {
+                "type": "return",
+                "value": Promise {},
+              },
+            ],
+          },
+          "localName": "Device A",
+          "monitorCharacteristicForService": [MockFunction],
+          "name": "Device 0",
+          "onDisconnected": [MockFunction],
+          "readCharacteristicForService": [MockFunction],
+          "readDescriptorForService": [MockFunction],
+          "readRSSI": [MockFunction],
+          "requestConnectionPriority": [MockFunction],
+          "requestMTU": [MockFunction],
+          "services": [MockFunction],
+          "writeCharacteristicWithResponseForService": [MockFunction],
+          "writeCharacteristicWithoutResponseForService": [MockFunction],
+          "writeDescriptorForService": [MockFunction],
+        },
+        Device {
+          "_manager": null,
+          "cancelConnection": [MockFunction],
+          "characteristicsForService": [MockFunction],
+          "connect": [MockFunction],
+          "descriptorsForService": [MockFunction],
+          "discoverAllServicesAndCharacteristics": [MockFunction],
+          "id": "device-1",
+          "isConnected": [MockFunction] {
+            "calls": [
+              [],
+            ],
+            "results": [
+              {
+                "type": "return",
+                "value": Promise {},
+              },
+            ],
+          },
+          "localName": "Device B",
+          "monitorCharacteristicForService": [MockFunction],
+          "name": "Device 1",
+          "onDisconnected": [MockFunction],
+          "readCharacteristicForService": [MockFunction],
+          "readDescriptorForService": [MockFunction],
+          "readRSSI": [MockFunction],
+          "requestConnectionPriority": [MockFunction],
+          "requestMTU": [MockFunction],
+          "services": [MockFunction],
+          "writeCharacteristicWithResponseForService": [MockFunction],
+          "writeCharacteristicWithoutResponseForService": [MockFunction],
+          "writeDescriptorForService": [MockFunction],
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={0.0001}
+    stickyHeaderIndices={[]}
+    viewabilityConfigCallbackPairs={[]}
+  >
+    <View>
+      <View
+        collapsable={false}
+        onLayout={[Function]}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "columnGap": 12.571428571428571,
+              "flexDirection": "row",
+              "marginBottom": 6.285714285714286,
+              "paddingStart": 18.857142857142858,
+            }
+          }
+        >
+          <Text
+            accessibilityRole="text"
+            style={
+              {
+                "color": "#242424",
+                "fontFamily": undefined,
+                "fontSize": 31.428571428571427,
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+                "marginBottom": 0,
+                "textAlign": "left",
+                "textDecorationLine": "underline",
+                "textDecorationStyle": "solid",
+              }
+            }
+          >
+            Detected Devices
+          </Text>
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "columnGap": 5,
+                "flexDirection": "row",
+                "flexGrow": 1,
+              }
+            }
+          >
+            <View
+              collapsable={false}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "columnGap": 5,
+                      "flexDirection": "row",
+                      "flexGrow": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "backgroundColor": "green",
+                        "borderRadius": 5,
+                        "height": 10,
+                        "width": 10,
+                      }
+                    }
+                    testID="rnb-status-dot"
+                  />
+                  <Text
+                    accessibilityRole="text"
+                    style={
+                      {
+                        "color": "#242424",
+                        "fontFamily": undefined,
+                        "fontSize": 23.57142857142857,
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                        "marginBottom": 0,
+                        "textAlign": "left",
+                        "textDecorationLine": "none",
+                        "textDecorationStyle": "solid",
+                      }
+                    }
+                  >
+                    BLE Status
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityLabel="Refresh"
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "transparent",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "marginHorizontal": 5,
+                      "overflow": "hidden",
+                    }
+                  }
+                  testID="RNE__ICON__CONTAINER"
+                >
+                  <View
+                    accessibilityRole="button"
+                    android_ripple={
+                      {
+                        "borderless": false,
+                        "color": "rgba(0, 0, 0, 0.3)",
+                        "radius": -5,
+                      }
+                    }
+                    disabled={false}
+                    testID="RNE__ICON__CONTAINER_ACTION"
+                  >
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "backgroundColor": "transparent",
+                          "justifyContent": "center",
+                        }
+                      }
+                      testID="RNE__ICON"
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        selectable={false}
+                        style={
+                          [
+                            {
+                              "color": "#242424",
+                              "fontSize": 24,
+                            },
+                            {
+                              "backgroundColor": "transparent",
+                            },
+                            {
+                              "fontFamily": "material",
+                              "fontStyle": "normal",
+                              "fontWeight": "normal",
+                            },
+                            {},
+                          ]
+                        }
+                        testID="RNE__ICON__Component"
+                      >
+                        
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomColor": "lightgray",
+              "borderBottomWidth": 1,
+              "columnGap": 6.285714285714286,
+              "flexDirection": "row",
+              "paddingHorizontal": 18.857142857142858,
+              "paddingVertical": 6.285714285714286,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "flexGrow": 1,
+              }
+            }
+          >
+            <Text
+              accessibilityRole="text"
+              style={
+                {
+                  "color": "#242424",
+                  "fontFamily": undefined,
+                  "fontSize": 23.57142857142857,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                  "marginBottom": 0,
+                  "textAlign": "left",
+                  "textDecorationLine": "none",
+                  "textDecorationStyle": "solid",
+                }
+              }
+            >
+              Device 2
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "overflow": "hidden",
+                  },
+                  {
+                    "borderRadius": 3.142857142857143,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+              testID="RNE_BUTTON_WRAPPER"
+            >
+              <View
+                accessibilityLabel="Info"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": false,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#007aff",
+                      "borderRadius": 3.142857142857143,
+                      "borderWidth": 0,
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 12.571428571428571,
+                      "paddingHorizontal": 14.571428571428571,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "marginHorizontal": 5,
+                        "overflow": "hidden",
+                      }
+                    }
+                    testID="RNE__ICON__CONTAINER"
+                  >
+                    <View
+                      accessibilityRole="button"
+                      android_ripple={
+                        {
+                          "borderless": false,
+                          "color": "rgba(0, 0, 0, 0.3)",
+                          "radius": -5,
+                        }
+                      }
+                      disabled={false}
+                      testID="RNE__ICON__CONTAINER_ACTION"
+                    >
+                      <View
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="RNE__ICON"
+                      >
+                        <Text
+                          allowFontScaling={false}
+                          selectable={false}
+                          style={
+                            [
+                              {
+                                "color": "#242424",
+                                "fontSize": 24,
+                              },
+                              {
+                                "backgroundColor": "transparent",
+                              },
+                              {
+                                "fontFamily": "material",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              {},
+                            ]
+                          }
+                          testID="RNE__ICON__Component"
+                        >
+                          
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#007aff",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Connect
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomColor": "lightgray",
+              "borderBottomWidth": 1,
+              "columnGap": 6.285714285714286,
+              "flexDirection": "row",
+              "paddingHorizontal": 18.857142857142858,
+              "paddingVertical": 6.285714285714286,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "flexGrow": 1,
+              }
+            }
+          >
+            <Text
+              accessibilityRole="text"
+              style={
+                {
+                  "color": "#242424",
+                  "fontFamily": undefined,
+                  "fontSize": 23.57142857142857,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                  "marginBottom": 0,
+                  "textAlign": "left",
+                  "textDecorationLine": "none",
+                  "textDecorationStyle": "solid",
+                }
+              }
+            >
+              Device 3
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "overflow": "hidden",
+                  },
+                  {
+                    "borderRadius": 3.142857142857143,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+              testID="RNE_BUTTON_WRAPPER"
+            >
+              <View
+                accessibilityLabel="Info"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": false,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#007aff",
+                      "borderRadius": 3.142857142857143,
+                      "borderWidth": 0,
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 12.571428571428571,
+                      "paddingHorizontal": 14.571428571428571,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "marginHorizontal": 5,
+                        "overflow": "hidden",
+                      }
+                    }
+                    testID="RNE__ICON__CONTAINER"
+                  >
+                    <View
+                      accessibilityRole="button"
+                      android_ripple={
+                        {
+                          "borderless": false,
+                          "color": "rgba(0, 0, 0, 0.3)",
+                          "radius": -5,
+                        }
+                      }
+                      disabled={false}
+                      testID="RNE__ICON__CONTAINER_ACTION"
+                    >
+                      <View
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="RNE__ICON"
+                      >
+                        <Text
+                          allowFontScaling={false}
+                          selectable={false}
+                          style={
+                            [
+                              {
+                                "color": "#242424",
+                                "fontSize": 24,
+                              },
+                              {
+                                "backgroundColor": "transparent",
+                              },
+                              {
+                                "fontFamily": "material",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              {},
+                            ]
+                          }
+                          testID="RNE__ICON__Component"
+                        >
+                          
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#007aff",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Disconnect
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomColor": "lightgray",
+              "borderBottomWidth": 1,
+              "columnGap": 6.285714285714286,
+              "flexDirection": "row",
+              "paddingHorizontal": 18.857142857142858,
+              "paddingVertical": 6.285714285714286,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "flexGrow": 1,
+              }
+            }
+          >
+            <Text
+              accessibilityRole="text"
+              style={
+                {
+                  "color": "#242424",
+                  "fontFamily": undefined,
+                  "fontSize": 23.57142857142857,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                  "marginBottom": 0,
+                  "textAlign": "left",
+                  "textDecorationLine": "none",
+                  "textDecorationStyle": "solid",
+                }
+              }
+            >
+              Device A
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "overflow": "hidden",
+                  },
+                  {
+                    "borderRadius": 3.142857142857143,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+              testID="RNE_BUTTON_WRAPPER"
+            >
+              <View
+                accessibilityLabel="Info"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": false,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#007aff",
+                      "borderRadius": 3.142857142857143,
+                      "borderWidth": 0,
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 12.571428571428571,
+                      "paddingHorizontal": 14.571428571428571,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "marginHorizontal": 5,
+                        "overflow": "hidden",
+                      }
+                    }
+                    testID="RNE__ICON__CONTAINER"
+                  >
+                    <View
+                      accessibilityRole="button"
+                      android_ripple={
+                        {
+                          "borderless": false,
+                          "color": "rgba(0, 0, 0, 0.3)",
+                          "radius": -5,
+                        }
+                      }
+                      disabled={false}
+                      testID="RNE__ICON__CONTAINER_ACTION"
+                    >
+                      <View
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="RNE__ICON"
+                      >
+                        <Text
+                          allowFontScaling={false}
+                          selectable={false}
+                          style={
+                            [
+                              {
+                                "color": "#242424",
+                                "fontSize": 24,
+                              },
+                              {
+                                "backgroundColor": "transparent",
+                              },
+                              {
+                                "fontFamily": "material",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              {},
+                            ]
+                          }
+                          testID="RNE__ICON__Component"
+                        >
+                          
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#007aff",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Connect
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "borderBottomColor": "lightgray",
+              "borderBottomWidth": 1,
+              "columnGap": 6.285714285714286,
+              "flexDirection": "row",
+              "paddingHorizontal": 18.857142857142858,
+              "paddingVertical": 6.285714285714286,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "flexGrow": 1,
+              }
+            }
+          >
+            <Text
+              accessibilityRole="text"
+              style={
+                {
+                  "color": "#242424",
+                  "fontFamily": undefined,
+                  "fontSize": 23.57142857142857,
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                  "marginBottom": 0,
+                  "textAlign": "left",
+                  "textDecorationLine": "none",
+                  "textDecorationStyle": "solid",
+                }
+              }
+            >
+              Device B
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "overflow": "hidden",
+                  },
+                  {
+                    "borderRadius": 3.142857142857143,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+              testID="RNE_BUTTON_WRAPPER"
+            >
+              <View
+                accessibilityLabel="Info"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": false,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#007aff",
+                      "borderRadius": 3.142857142857143,
+                      "borderWidth": 0,
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 12.571428571428571,
+                      "paddingHorizontal": 14.571428571428571,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "marginHorizontal": 5,
+                        "overflow": "hidden",
+                      }
+                    }
+                    testID="RNE__ICON__CONTAINER"
+                  >
+                    <View
+                      accessibilityRole="button"
+                      android_ripple={
+                        {
+                          "borderless": false,
+                          "color": "rgba(0, 0, 0, 0.3)",
+                          "radius": -5,
+                        }
+                      }
+                      disabled={false}
+                      testID="RNE__ICON__CONTAINER_ACTION"
+                    >
+                      <View
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="RNE__ICON"
+                      >
+                        <Text
+                          allowFontScaling={false}
+                          selectable={false}
+                          style={
+                            [
+                              {
+                                "color": "#242424",
+                                "fontSize": 24,
+                              },
+                              {
+                                "backgroundColor": "transparent",
+                              },
+                              {
+                                "fontFamily": "material",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              {},
+                            ]
+                          }
+                          testID="RNE__ICON__Component"
+                        >
+                          
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "overflow": "hidden",
+                },
+                {
+                  "borderRadius": 3.142857142857143,
+                },
+                undefined,
+                false,
+              ]
+            }
+            testID="RNE_BUTTON_WRAPPER"
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                {
+                  "busy": false,
+                  "checked": undefined,
+                  "disabled": false,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#007aff",
+                    "borderColor": "#007aff",
+                    "borderRadius": 3.142857142857143,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 12.571428571428571,
+                    "paddingHorizontal": 14.571428571428571,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Connect
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

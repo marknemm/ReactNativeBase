@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorText /> snapshots renders correctly with error message 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    {
+      "color": "#ff3b30",
+      "fontFamily": undefined,
+      "fontSize": 23.57142857142857,
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "marginBottom": 0,
+      "paddingHorizontal": 6.285714285714286,
+      "textAlign": "left",
+      "textDecorationLine": "none",
+      "textDecorationStyle": "solid",
+    }
+  }
+>
+  Test error message
+</Text>
+`;
+
+exports[`<ErrorText /> snapshots renders correctly with no error or children 1`] = `null`;

@@ -1,0 +1,401 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InfoDialog /> snapshots renders correctly when not visible 1`] = `null`;
+
+exports[`<InfoDialog /> snapshots renders correctly when visible 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  replaceTheme={[Function]}
+  testID="Internal__Overlay"
+  transparent={true}
+  updateTheme={[Function]}
+  visible={true}
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 0, 0, .4)",
+        "height": "100%",
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    testID="RNE__Overlay__backdrop"
+  />
+  <View
+    pointerEvents="box-none"
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+    testID="RNE__Overlay__Container"
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": 3,
+          "padding": 20,
+          "shadowColor": "rgba(0, 0, 0, .3)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowRadius": 4,
+          "width": "75%",
+        }
+      }
+      testID="RNE__Overlay"
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row-reverse",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "marginTop": 10,
+          }
+        }
+        testID="Button__View"
+      >
+        <View
+          style={
+            [
+              {
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 3.142857142857143,
+              },
+              {
+                "width": "auto",
+              },
+              false,
+            ]
+          }
+          testID="RNE_BUTTON_WRAPPER"
+        >
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": false,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "marginLeft": 5,
+                "opacity": 1,
+              }
+            }
+            testID="Dialog__Button"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "borderColor": "#007aff",
+                  "borderRadius": 3.142857142857143,
+                  "borderWidth": 0,
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 12.571428571428571,
+                  "paddingHorizontal": 14.571428571428571,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "#007aff",
+                    "fontSize": 15,
+                    "fontWeight": "500",
+                    "paddingVertical": 1,
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Close
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`<InfoDialog /> snapshots renders correctly with title and children 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  replaceTheme={[Function]}
+  testID="Internal__Overlay"
+  transparent={true}
+  updateTheme={[Function]}
+  visible={true}
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 0, 0, .4)",
+        "height": "100%",
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    testID="RNE__Overlay__backdrop"
+  />
+  <View
+    pointerEvents="box-none"
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+    testID="RNE__Overlay__Container"
+  >
+    <View
+      style={
+        {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": 3,
+          "padding": 20,
+          "shadowColor": "rgba(0, 0, 0, .3)",
+          "shadowOffset": {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowRadius": 4,
+          "width": "75%",
+        }
+      }
+      testID="RNE__Overlay"
+    >
+      <Text
+        style={
+          {
+            "fontSize": 18,
+            "fontWeight": "600",
+            "marginBottom": 10,
+          }
+        }
+        testID="Dialog__Title"
+      >
+        Test Title
+      </Text>
+      <Text
+        accessibilityRole="text"
+        style={
+          {
+            "color": "#242424",
+            "fontFamily": undefined,
+            "fontSize": 23.57142857142857,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+            "marginBottom": 0,
+            "textAlign": "left",
+            "textDecorationLine": "none",
+            "textDecorationStyle": "solid",
+          }
+        }
+      >
+        Test Content
+      </Text>
+      <View
+        style={
+          {
+            "flexDirection": "row-reverse",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "marginTop": 10,
+          }
+        }
+        testID="Button__View"
+      >
+        <View
+          style={
+            [
+              {
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 3.142857142857143,
+              },
+              {
+                "width": "auto",
+              },
+              false,
+            ]
+          }
+          testID="RNE_BUTTON_WRAPPER"
+        >
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": false,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "marginLeft": 5,
+                "opacity": 1,
+              }
+            }
+            testID="Dialog__Button"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "borderColor": "#007aff",
+                  "borderRadius": 3.142857142857143,
+                  "borderWidth": 0,
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 12.571428571428571,
+                  "paddingHorizontal": 14.571428571428571,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "#007aff",
+                    "fontSize": 15,
+                    "fontWeight": "500",
+                    "paddingVertical": 1,
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Close
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> snapshots renders correctly 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 6.285714285714286,
+      "paddingHorizontal": 0,
+      "width": "100%",
+    }
+  }
+  testID="RNE__Input__view-wrapper"
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#bbb",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "height": 98.9730612244898,
+        "transform": [
+          {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <TextInput
+      editable={true}
+      keyboardAppearance="light"
+      onChangeText={[Function]}
+      placeholderTextColor="#86939e"
+      style={
+        {
+          "color": "#242424",
+          "flex": 1,
+          "fontSize": 23.57142857142857,
+          "height": 98.9730612244898,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <Text
+    style={
+      {
+        "color": "#ff3b30",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Input /> snapshots renders correctly with error 1`] = `
+<View
+  testID="rnb-form-view"
+>
+  <View
+    style={
+      {
+        "marginBottom": 6.285714285714286,
+        "paddingHorizontal": 0,
+        "width": "100%",
+      }
+    }
+    testID="RNE__Input__view-wrapper"
+  >
+    <Text
+      style={
+        {
+          "color": "#86939e",
+          "fontSize": 23.57142857142857,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Test Label
+    </Text>
+    <View
+      collapsable={false}
+      style={
+        {
+          "alignItems": "center",
+          "borderBottomColor": "#bbb",
+          "borderBottomWidth": 1,
+          "borderColor": "#86939e",
+          "flexDirection": "row",
+          "height": 98.9730612244898,
+          "transform": [
+            {
+              "translateX": 0,
+            },
+          ],
+        }
+      }
+    >
+      <TextInput
+        editable={true}
+        keyboardAppearance="light"
+        name="input"
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        placeholderTextColor="#86939e"
+        required={true}
+        style={
+          {
+            "color": "#242424",
+            "flex": 1,
+            "fontSize": 23.57142857142857,
+            "height": 98.9730612244898,
+            "minHeight": 40,
+          }
+        }
+        testID="RNE__Input__text-input"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+    <Text
+      style={
+        {
+          "color": "#ff3b30",
+          "fontSize": 12,
+          "margin": 5,
+        }
+      }
+    >
+      Test Label is required
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<Input /> snapshots renders correctly with label and mask 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 6.285714285714286,
+      "paddingHorizontal": 0,
+      "width": "100%",
+    }
+  }
+  testID="RNE__Input__view-wrapper"
+>
+  <Text
+    style={
+      {
+        "color": "#86939e",
+        "fontSize": 23.57142857142857,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Test Label
+  </Text>
+  <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#bbb",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "height": 98.9730612244898,
+        "transform": [
+          {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <TextInput
+      editable={true}
+      keyboardAppearance="light"
+      onChangeText={[Function]}
+      placeholder="(___) ___-____"
+      placeholderTextColor="#86939e"
+      style={
+        {
+          "color": "#242424",
+          "flex": 1,
+          "fontSize": 23.57142857142857,
+          "height": 98.9730612244898,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <Text
+    style={
+      {
+        "color": "#ff3b30",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Input /> snapshots renders correctly with label and placeholder 1`] = `
+<View
+  style={
+    {
+      "marginBottom": 6.285714285714286,
+      "paddingHorizontal": 0,
+      "width": "100%",
+    }
+  }
+  testID="RNE__Input__view-wrapper"
+>
+  <Text
+    style={
+      {
+        "color": "#86939e",
+        "fontSize": 23.57142857142857,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Test Label
+  </Text>
+  <View
+    collapsable={false}
+    style={
+      {
+        "alignItems": "center",
+        "borderBottomColor": "#bbb",
+        "borderBottomWidth": 1,
+        "borderColor": "#86939e",
+        "flexDirection": "row",
+        "height": 98.9730612244898,
+        "transform": [
+          {
+            "translateX": 0,
+          },
+        ],
+      }
+    }
+  >
+    <TextInput
+      editable={true}
+      keyboardAppearance="light"
+      onChangeText={[Function]}
+      placeholder="Test Placeholder"
+      placeholderTextColor="#86939e"
+      style={
+        {
+          "color": "#242424",
+          "flex": 1,
+          "fontSize": 23.57142857142857,
+          "height": 98.9730612244898,
+          "minHeight": 40,
+        }
+      }
+      testID="RNE__Input__text-input"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+  <Text
+    style={
+      {
+        "color": "#ff3b30",
+        "fontSize": 12,
+        "margin": 5,
+      }
+    }
+  />
+</View>
+`;
